@@ -25,6 +25,7 @@
 //----------------------------------------------------------
 extern void system_init(void);
 extern void board_init(void);
+extern void user_demo(void);
 extern void __ChipInitHandler(void);
 //---------------------------------------------------------- 
  
@@ -40,10 +41,12 @@ int main()
 	
 	my_printf("hello apt32f171!\r\n");
 	
+	user_demo();							//demo
+	
 	
 	while(1)
 	{
-		mdelay(100);						//delay 500ms
+		mdelay(100);						//delay 100ms
 		csi_pin_toggle(PC01);				//PC01 toggle
 	}
 	
