@@ -1,0 +1,35 @@
+name: minilibc
+version: v1.0.0
+description: minilibc.
+tag: 核心模块
+keywords:
+  - base
+license: Apache license v2.0
+hidden: true
+type: common
+yoc_version:
+  - v7.2
+  - v7.3
+depends: ~
+build_config:
+  include:
+    - include
+  internal_include: ~
+  cflag: -Os
+  cxxflag: -Os
+  asmflag: ""
+  define: ~
+  libs: ~
+  libpath: ~
+source_file:
+  - src/*.c
+install:
+  - dest: include/
+    source:
+      - include/*.h
+author: ""
+defconfig: ~
+link_config:
+  path: ~
+  library: ~
+field: ~

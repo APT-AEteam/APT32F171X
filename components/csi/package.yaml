@@ -1,0 +1,49 @@
+name: apt_csi
+version: v1.0.0
+description: chip system interface.
+tag: 核心模块
+keywords:
+  - base
+license: Apache license v2.0
+# hidden: true
+type: common
+yoc_version:
+  - v7.2
+  - v7.3
+build_config:
+  include:
+    - include
+    - include/core
+    - include/drv
+  internal_include: 
+  cflag: -Os
+  cxxflag: -Os
+  asmflag: ""
+  define:
+    - include
+  libs: 
+  libpath: 
+source_file:
+  - src/*.c
+install:
+  - dest: include/
+    source:
+      - include/*.h
+  - dest: include/core
+    source:
+      - include/core/*.h
+  - dest: include/drv
+    source:
+      - include/drv/*.h
+author: ""
+depends: 
+defconfig: 
+link_config:
+  path: 
+  library: 
+field: 
+suitableChip: 
+hidden: 
+homepage: 
+soc_config: 
+depends_forward: 

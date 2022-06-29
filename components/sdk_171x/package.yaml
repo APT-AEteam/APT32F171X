@@ -1,0 +1,35 @@
+name: sdk_171x
+version: v1.0.0
+description: sdk for apt32f171x
+tag: ""
+keywords: ~
+author:
+  name: ""
+license: ""
+homepage: ~
+type: sdk
+depends:
+  - apt32f171x_chip: v1.0.0
+  - apt32f171x_evb: v1.0.0
+  - apt_console: v1.0.0
+  - apt_csi: v1.0.0
+hw_info:
+  cpu_id: ""
+  cpu_name: ""
+  vendor_name: ""
+  chip_name: ""
+  board_name: ""
+  ld_script: ""
+  flash_program: ""
+build_config:
+  include: ~
+  internal_include: ~
+  cflag: ""
+  cxxflag: ""
+  asmflag: ""
+  define: ~
+  libs: ~
+  libpath: ~
+source_file: ~
+def_config: ~
+install: ~
