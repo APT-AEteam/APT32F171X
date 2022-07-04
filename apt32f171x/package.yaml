@@ -25,7 +25,6 @@ license: ""
 type: solution
 depends:
   - apt32f171x_demo: v1.0.0
-  - mm: v1.0.0
   - sdk_171x: v1.0.0
 build_config:
   include:
@@ -44,5 +43,4 @@ install:
 homepage: 
 depends_forward:
   - apt32f171x_demo: v1.0.0
-  - mm: v1.0.0
   - sdk_171x: v1.0.0
