@@ -88,7 +88,7 @@ csi_error_t csi_tc1_capture_init(csp_tc1_t *ptTc1Base, csi_tc1_capture_config_t 
 	
 	csp_tc1_clk_sel(ptTc1Base,FIN_PCLK);
 	csi_tc1_clk_enable(ptTc1Base, ENABLE);
-	csp_tc1_cap_src_sel_en(ptTc1Base,CAPT_TCAP);
+	csp_tc1_cap_src_sel_en(ptTc1Base,ptTc1CapCfg->byCapSrc);
 	csp_tc1_debug_en(ptTc1Base);
 	//csp_tc1_update_req(ptTc1Base);
 	csp_tc1_cap_fall_en(ptTc1Base);
