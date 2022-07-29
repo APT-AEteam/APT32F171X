@@ -435,6 +435,29 @@ void csi_cmp_set_sync(csp_cmp_t *ptCmpBase,csi_ostmd_e eOstMode, bool bEnableRea
 	csp_cmp1_inpcr_arearm(ptCmpBase,bEnableArearm);
 }
 
+/** \brief cmp tc trgcr
+ * 
+ *  \param[in] ptCmpBase:pointer of cmp register structure
+ *  \param[in] eTcTgr: sel cmp trg tc1
+ *  \return none
+ */
+void  csi_cmp_trgcr_tc_tgr(csp_cmp_t *ptCmpBase ,csi_tc_tgr_e eTcTgr)
+{
+	csp_cmp_trgcr_tc_tgr(ptCmpBase ,eTcTgr);
+}
+
+/** \brief cmp tc cinx trgcr enable 
+ * 
+ *  \param[in] ptCmpBase:pointer of cmp register structure
+ *  \param[in] eTcCinx: tc cinx trg sel
+ *  \param[in] bEnable: tc cinx enable or disable
+ *  \return none
+ */
+void  csi_cmp_trgcr_tc_cinx_enable(csp_cmp_t *ptCmpBase ,csi_tc_cinx_e eTcCinx,bool bEnable)
+{
+	csp_cmp_trgcr_tc_cinx_enable(ptCmpBase,eTcCinx,bEnable);
+}
+
 /** \brief cmp ad trgcr enable 
  * 
  *  \param[in] ptCmpBase:pointer of cmp register structure

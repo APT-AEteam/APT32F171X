@@ -376,6 +376,23 @@ void csi_cmp_sync_step(csp_cmp_t *ptCmpBase ,uint16_t hwNselMax,uint8_t byStepDi
  */
 void csi_cmp_set_sync(csp_cmp_t *ptCmpBase,csi_ostmd_e eOstMode, bool bEnableRearm,bool bEnableArearm);
 
+/** \brief cmp tc trgcr
+ * 
+ *  \param[in] ptCmpBase:pointer of cmp register structure
+ *  \param[in] eTcTgr: sel cmp trg tc1
+ *  \return none
+ */
+void  csi_cmp_trgcr_tc_tgr(csp_cmp_t *ptCmpBase ,csi_tc_tgr_e eTcTgr);
+
+/** \brief cmp tc cinx trgcr enable 
+ * 
+ *  \param[in] ptCmpBase:pointer of cmp register structure
+ *  \param[in] eTcCinx: tc cinx trg sel
+ *  \param[in] bEnable: tc cinx enable or disable
+ *  \return none
+ */
+void  csi_cmp_trgcr_tc_cinx_enable(csp_cmp_t *ptCmpBase ,csi_tc_cinx_e eTcCinx,bool bEnable);
+
 /** \brief cmp ad trgcr enable 
  * 
  *  \param[in] ptCmpBase:pointer of cmp register structure
