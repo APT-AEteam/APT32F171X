@@ -436,11 +436,11 @@ csi_error_t csi_adc_set_sync(csp_adc_t *ptAdcBase, csi_adc_trgin_e eTrgIn, csi_a
 	//set sync delay
     if(eTrgIn < ADC_TRG_SYNCEN3)		
 	{
-		ptAdcBase->TDL0 = (ptAdcBase->TDL0 & ~(0xFFul << (eTrgIn * 8))) | byDelay;
+		ptAdcBase->TDL0 = (ptAdcBase->TDL0 & ~(0xFFul << (eTrgIn * 8))) | ( byDelay << (eTrgIn * 8) );
 	}
 	else if(eTrgIn <= ADC_TRG_SYNCEN5)
 	{
-		ptAdcBase->TDL1 = (ptAdcBase->TDL1 & ~(0xFFul << ((eTrgIn - 3)  * 8))) | byDelay;
+		ptAdcBase->TDL1 = (ptAdcBase->TDL1 & ~(0xFFul << ((eTrgIn - 3)  * 8))) | ( byDelay << ((eTrgIn - 3)  * 8) );
 	}
 	else
 		return CSI_ERROR;
