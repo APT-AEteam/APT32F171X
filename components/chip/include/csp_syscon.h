@@ -643,7 +643,7 @@ static inline void csp_iwdt_disable(csp_syscon_t *ptSysconBase)
 static inline void csp_iwdt_clr(csp_syscon_t *ptSysconBase)
 {
 	ptSysconBase -> IWDCNT = (ptSysconBase -> IWDCNT & (~IWDT_CLR_MSK)) | IWDT_CLR << IWDT_CLR_POS;
-	while((ptSysconBase->IWDCNT & IWDT_CLR_BUSY) == IWDT_CLR_BUSY);
+	while((ptSysconBase->IWDCNT & IWDT_CLR_BUSY) == 1);
 }
 
 static inline uint32_t csp_iwdt_get_cnt(csp_syscon_t *ptSysconBase)
