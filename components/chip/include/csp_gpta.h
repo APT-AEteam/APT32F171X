@@ -150,8 +150,12 @@ typedef enum{
 #define GPTA_CAPLD_POS	(8)
 #define GPTA_CAPLD_MSK	(0x1 << GPTA_CAPLD_POS)
 
-#define GPTA_BURST      (1ul << 9)
-#define GPTA_FLT_INIT   (1ul << 10)
+#define GPTA_BURST_POS      (9)
+#define GPTA_BURST_MSK      (1ul << GPTA_BURST_POS)
+
+#define GPTA_FLT_INIT       (1ul << 10)
+#define GPTA_FLT_INIT_POS      (10)
+#define GPTA_FLT_INIT_MSK      (1ul << GPTA_FLT_INIT_POS)
 
 #define GPTA_CGSRC_POS	(11)
 #define GPTA_CGSRC_MSK	(0x3 << GPTA_CGSRC_POS)
@@ -631,14 +635,29 @@ static inline void csp_gpta_set_stopwrap(csp_gpta_t *ptGptaBase, uint8_t byTime)
 	ptGptaBase -> CR = (ptGptaBase -> CR & ~(GPTA_STOPWRAP_MSK)) | (byTime << GPTA_STOPWRAP_POS);
 }
 
+static inline void csp_gpta_set_burst(csp_gpta_t *ptGptaBase,csp_gpta_cgsrc_e eCgsrc, bool bEnable)
+{
+	ptGptaBase -> CR = (ptGptaBase -> CR & ~(GPTA_BURST_MSK)) | (bEnable << GPTA_BURST_POS);
+	if(bEnable == ENABLE)
+	{
+		ptGptaBase -> CR =(ptGptaBase -> CR & ~(GPTA_CGSRC_MSK))|(eCgsrc<<GPTA_CGSRC_POS);
+	}
+}
+
+static inline void csp_gpta_flt_init(csp_gpta_t *ptGptaBase, csp_gpta_cnflt_e eCgflt,bool bEnable)
+{
+	ptGptaBase -> CR = (ptGptaBase -> CR & ~(GPTA_FLT_INIT_MSK)) | (bEnable << GPTA_FLT_INIT_POS);
+	if(bEnable == ENABLE)
+	{
+		ptGptaBase -> CR=(ptGptaBase -> CR & ~(GPTA_CGFLT_MSK))|(eCgflt<<GPTA_CGFLT_POS);
+	}
+}
+
 static inline void csp_gpta_set_prdr(csp_gpta_t *ptGptaBase, uint32_t bwVal)
 {
 	ptGptaBase -> PRDR = bwVal;
 }
-static inline void csp_gpta_set_phsen(csp_gpta_t *ptGptaBase, uint8_t byTime)
-{
-	ptGptaBase -> CR = (ptGptaBase -> CR & ~(GPTA_PHSEN_MSK)) | ((byTime&0x01) << GPTA_PHSEN_POS);
-}
+
 static inline void csp_gpta_set_start_src(csp_gpta_t *ptGptaBase, csp_gpta_startsrc_e eVal)
 {
 	ptGptaBase -> CR = (ptGptaBase->CR & (~GPTA_STARTSRC_MSK))| (eVal <<GPTA_STARTSRC_POS);
@@ -690,7 +709,7 @@ static inline uint16_t csp_gpta_get_prd(csp_gpta_t *ptGptaBase)
 {
 	return (ptGptaBase -> PRDR);
 }
-static inline void csp_gpta_set_phsr(csp_gpta_t *ptGptaBase, uint32_t bwVal)
+static inline void csp_gpta_set_phsr(csp_gpta_t *ptGptaBase, uint16_t bwVal)
 {
 	ptGptaBase -> PHSR = bwVal;
 }
