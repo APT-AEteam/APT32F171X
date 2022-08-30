@@ -70,13 +70,9 @@ int ept_capture_demo(void)
 		tPwmCfg.byCaptureLddret  =0;                              	
 	    tPwmCfg.wInt 		     =EPT_INTSRC_CAPLD3;               //interrupt
 		
-		tPwmCfg.byBurst   = false ;                                   //使能群脉冲模式
-		tPwmCfg.byCgsrc   = EPT_CGSRC_TIOB;                           //CHB作为CG的输入源
-		tPwmCfg.byCgflt   = EPT_CGFLT_BP;                             //门控输入数字滤波控制
-		
-		if(tPwmCfg.byCgsrc==EPT_CGSRC_TIN){
-		   tPwmCfg.byTinsel=EPT_TIN_BT0;
-		}
+		//if(tPwmCfg.byCgsrc==EPT_CGSRC_TIN){
+		//   tPwmCfg.byTinsel=EPT_TIN_BT0;
+		//}
 		
 	csi_ept_capture_init(EPT0, &tPwmCfg);
 //------------------------------------------------------------------------------------------------------------------------	

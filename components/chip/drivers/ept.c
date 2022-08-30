@@ -203,13 +203,6 @@ csi_error_t csi_ept_config_init(csp_ept_t *ptEptBase, csi_ept_config_t *pteptPwm
 		if(pteptPwmCfg->byCaptureRearm)  wCrVal|=EPT_CAPREARM;
 		
 		wPrdrLoad=0xFFFF;
-		
-		if(pteptPwmCfg->byBurst==1)
-		{   wCrVal|=EPT_BURST;	
-			wCrVal|=EPT_FLT_INIT;
-			wCrVal=(wCrVal & ~(EPT_CGSRC_MSK))|((pteptPwmCfg->byCgsrc&0x03)<<EPT_CGSRC_POS);
-			wCrVal=(wCrVal & ~(EPT_CGFLT_MSK))|((pteptPwmCfg->byCgflt&0x07)<<EPT_CGFLT_POS);
-		}
 	}
 	
 	
@@ -274,13 +267,7 @@ csi_error_t csi_ept_capture_init(csp_ept_t *ptEptBase, csi_ept_captureconfig_t *
 	wCrVal|=EPT_CAPLD_EN;
 	wCrVal|=EPT_CAPREARM;
 	wPrdrLoad=0xFFFF;
-	
-	if(pteptPwmCfg->byBurst==1)
-	{   wCrVal|=EPT_BURST;	
-	    wCrVal|=EPT_FLT_INIT;
-		wCrVal=(wCrVal & ~(EPT_CGSRC_MSK))|((pteptPwmCfg->byCgsrc&0x03)<<EPT_CGSRC_POS);
-		wCrVal=(wCrVal & ~(EPT_CGFLT_MSK))|((pteptPwmCfg->byCgflt&0x07)<<EPT_CGFLT_POS);
-	}
+
     csp_ept_clken(ptEptBase);                                           // clkEN
 	csp_ept_set_cr(ptEptBase, wCrVal);									// set bt work mode
 	csp_ept_set_pscr(ptEptBase, (uint16_t)wClkDiv);					    // clk div
@@ -360,13 +347,28 @@ csi_error_t  csi_ept_wave_init(csp_ept_t *ptEptBase, csi_ept_pwmconfig_t *pteptP
 	
 	return CSI_OK;	
 }
+
+/** \brief enable/disable ept burst 
+ * 
+ *  \param[in] ptEptBase: pointer of ept register structure
+ *  \param[in] byCgsrc:cgr src 
+ *  \param[in] byCgflt:cfg flt
+ *  \param[in] bEnable: ENABLE/DISABLE
+ *  \return error code \ref csi_error_t
+ */
+csi_error_t csi_ept_burst_enable(csp_ept_t *ptEptBase,uint8_t byCgsrc,uint8_t byCgflt, bool bEnable)
+{
+	csp_ept_set_burst(ptEptBase,byCgsrc,bEnable);	
+	csp_ept_flt_init(ptEptBase,byCgflt,bEnable);
+	return CSI_OK;
+}
 /** \brief Channel configuration
  *  \param[in] ptEptBase: pointer of ept register structure
  *  \param[in] tPwmCfg: refer to csi_ept_pwmchannel_config_t
  *  \param[in] eChannel: Channel label
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_ept_channel_config(csp_ept_t *ptEptBase, csi_ept_pwmchannel_config_t *tPwmCfg, csi_ept_channel_e channel)
+csi_error_t csi_ept_channel_config(csp_ept_t *ptEptBase, csi_ept_pwmchannel_config_t *tPwmCfg, csi_ept_channel_e eChannel)
 {
     uint32_t w_AQCRx_Val;
 	
@@ -383,7 +385,7 @@ csi_error_t csi_ept_channel_config(csp_ept_t *ptEptBase, csi_ept_pwmchannel_conf
 				  | ( tPwmCfg -> byChoiceC1sel  << EPT_C1SEL_POS  )
 				  | ( tPwmCfg -> byChoiceC2sel  << EPT_C2SEL_POS  );
 				  
-	switch (channel)
+	switch (eChannel)
 	{	
 		case (EPT_CHANNEL_1):csp_ept_set_aqcr1(ptEptBase,w_AQCRx_Val);
 			break;
@@ -406,9 +408,9 @@ csi_error_t csi_ept_channel_config(csp_ept_t *ptEptBase, csi_ept_pwmchannel_conf
  *  \param[in] eChannel: refer to csi_ept_channel_e
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_ept_channel_cmpload_config(csp_ept_t *ptEptBase, csp_ept_cmpdata_ldmd_e tld, csp_ept_ldamd_e tldamd ,csi_ept_camp_e channel)
+csi_error_t csi_ept_channel_cmpload_config(csp_ept_t *ptEptBase, csp_ept_cmpdata_ldmd_e tld, csp_ept_ldamd_e tldamd ,csi_ept_camp_e eChannel)
 {			  
-	switch (channel)
+	switch (eChannel)
 	{	
 		case (EPT_CAMPA):ptEptBase -> CMPLDR = (ptEptBase -> CMPLDR &~(EPT_CMPA_LD_MSK) )    |  (tld    << EPT_CMPA_LD_POS);
 		                     ptEptBase -> CMPLDR = (ptEptBase -> CMPLDR &~(EPT_CMPA_LDTIME_MSK) )|  (tldamd <<EPT_CMPA_LDTIME_POS);
@@ -435,9 +437,9 @@ csi_error_t csi_ept_channel_cmpload_config(csp_ept_t *ptEptBase, csp_ept_cmpdata
  *  \param[in] eChannel: refer to csi_ept_channel_e
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_ept_channel_aqload_config(csp_ept_t *ptEptBase, csp_ept_ld_e tld, csp_ept_ldamd_e tldamd ,csi_ept_channel_e channel)
+csi_error_t csi_ept_channel_aqload_config(csp_ept_t *ptEptBase, csp_ept_ld_e tld, csp_ept_ldamd_e tldamd ,csi_ept_channel_e eChannel)
 {			  
-	switch (channel)
+	switch (eChannel)
 	{	
 		case (EPT_CHANNEL_1):ptEptBase -> AQLDR = (ptEptBase -> AQLDR &~(EPT_AQCR1_SHDWEN_MSK) )|  (tld << EPT_AQCR1_SHDWEN_POS);
 		                     ptEptBase -> AQLDR = (ptEptBase -> AQLDR &~(EPT_LDAMD_MSK) )|  (tldamd << EPT_LDAMD_POS);
@@ -520,10 +522,10 @@ csi_error_t csi_ept_dz_config(csp_ept_t *ptEptBase, csi_ept_deadzone_config_t *t
  *  \param[in] eChannel: refer to csi_ept_channel_e
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_ept_channelmode_config(csp_ept_t *ptEptBase,csi_ept_deadzone_config_t *tCfg,csi_ept_channel_e byCh)
+csi_error_t csi_ept_channelmode_config(csp_ept_t *ptEptBase,csi_ept_deadzone_config_t *tCfg,csi_ept_channel_e eChannel)
 {    uint32_t w_Val;
      w_Val=csp_ept_get_dbcr(ptEptBase);	
-	 switch (byCh)
+	 switch (eChannel)
 	{	
 		case (EPT_CHANNEL_1): w_Val=(w_Val&~(DB_CHA_OUTSEL_MSK)) |(tCfg-> byChxOuselS1S0   <<DB_CHA_OUTSEL_POS);
 		                      w_Val=(w_Val&~(DB_CHA_POL_MSK))    |(tCfg-> byChxPolarityS3S2<<DB_CHA_POL_POS);
@@ -553,18 +555,15 @@ csi_error_t csi_ept_channelmode_config(csp_ept_t *ptEptBase,csi_ept_deadzone_con
  *  \param[in] tCfg: refer to csi_ept_Chopper_config_t
  *  \return none
  */
-csi_error_t csi_ept_chopper_config(csp_ept_t *ptEptBase, csi_ept_Chopper_config_t *tCfg)
-{ uint32_t w_Val;
+void csi_ept_chopper_config(csp_ept_t *ptEptBase, csi_ept_Chopper_config_t *tCfg)
+{ 
+	uint32_t w_Val;
     w_Val=csp_ept_get_cpcr(ptEptBase);
  	w_Val= ( w_Val &~ EPT_OSPWTH_MSK )     |( (tCfg -> byChopperOutOspwth&0x1f)  << EPT_OSPWTH_POS);	
 	w_Val= ( w_Val &~ EPT_CDIV_MSK )       |( (tCfg -> byChopperOutCdiv  &0xf)   << EPT_CDIV_POS);
 	w_Val= ( w_Val &~ EPT_CDUTY_MSK )      |( (tCfg -> byChopperOutCduty &0x7)   << EPT_CDUTY_POS);
 	w_Val= ( w_Val &~ EPT_CP_SRCSEL_MSK )  |( (tCfg -> byChopperOutCasel &0x01)  << EPT_CP_SRCSEL_POS);
-	csp_ept_set_cpcr(ptEptBase,w_Val) ;
-    
-	if(tCfg->byChopperOutCasel ==1){csp_ept_set_tinsel(ptEptBase, tCfg->byChopperOutTinsel);
-	}
-	return CSI_OK;	   
+	csp_ept_set_cpcr(ptEptBase,w_Val) ;  		   
 }
 
 /** \brief Carrier output
@@ -575,7 +574,8 @@ csi_error_t csi_ept_chopper_config(csp_ept_t *ptEptBase, csi_ept_Chopper_config_
  *  \return  CSI_OK;
  */
 csi_error_t csi_ept_chopper_enable(csp_ept_t *ptEptBase, csi_ept_chx_e byCh, bool bEn)
-{   uint32_t w_Val;
+{   
+	uint32_t w_Val;
 	w_Val=csp_ept_get_cpcr(ptEptBase);
 	switch (byCh)
 	{	
@@ -603,42 +603,6 @@ csi_error_t csi_ept_chopper_enable(csp_ept_t *ptEptBase, csi_ept_chx_e byCh, boo
  *  \param[in] tCfg: refer to csi_ept_emergency_config_t
  *  \return error code \ref csi_error_t
  */
-//csi_error_t csi_ept_emergency_config(csp_ept_t *ptEptBase, csi_ept_emergency_config_t *tCfg)
-//{ uint32_t wEmsrc;
-//  uint32_t wEmsrc2;
-//  uint32_t wEmpol;
-//  uint32_t wEmecr;
-//
-//    wEmsrc2=csp_ept_get_src2(ptEptBase);
-//	wEmsrc2=(wEmsrc2 & (~EPT_EPPACE0_MSK) & (~EPT_EPPACE1_MSK) ) | (tCfg -> byFltpace1 << EPT_EPPACE1_POS) | (tCfg ->byFltpace0  << EPT_EPPACE0_POS);
-//	wEmsrc2=(wEmsrc2 &~0xff0000) |  tCfg ->byOrl1 <<16;
-//	wEmsrc2=(wEmsrc2 &~0xff)     |  tCfg ->byOrl0 ;
-//	csp_ept_set_src2(ptEptBase,wEmsrc2);
-//		
-//	wEmsrc = csp_ept_get_src(ptEptBase);
-//    wEmsrc=(  wEmsrc &~ EPT_SEL_MSK_EP(tCfg -> byEpx) )|( tCfg -> byEpxInt  << EPT_SEL_POS_EP(tCfg -> byEpx));
-//    csp_ept_set_src(ptEptBase,wEmsrc);
-//	
-//    wEmpol=csp_ept_get_empol(ptEptBase);	
-//	 switch (tCfg ->byEpxInt)
-//	 {    case (EBI0): wEmpol=( wEmpol  &~ POL_MSK_EBI(0)) | (tCfg -> byPolEbix <<POL_POS_EBI(0) );break;
-//		  case (EBI1): wEmpol=( wEmpol  &~ POL_MSK_EBI(1)) | (tCfg -> byPolEbix <<POL_POS_EBI(1) );break;
-//		  case (EBI2): wEmpol=( wEmpol  &~ POL_MSK_EBI(2)) | (tCfg -> byPolEbix <<POL_POS_EBI(2) );break;
-//		  case (EBI3): wEmpol=( wEmpol  &~ POL_MSK_EBI(3)) | (tCfg -> byPolEbix <<POL_POS_EBI(3) );break;
-//		  case (CMP_0): wEmpol=( wEmpol  &~ POL_MSK_EBI(4)) | (tCfg -> byPolEbix <<POL_POS_EBI(4) );break;
-//		  case (CMP_1): wEmpol=( wEmpol  &~ POL_MSK_EBI(5)) | (tCfg -> byPolEbix <<POL_POS_EBI(5) );break;
-//		  default:return CSI_ERROR;break;
-//	 }
-//	csp_ept_set_empol(ptEptBase,wEmpol);
-//
-//    wEmecr =  csp_ept_get_emecr(ptEptBase);	
-//	wEmecr =(wEmecr & (~EPT_LCKMD_MSK_EP(tCfg ->byEpx))) | (   tCfg ->byEpxLckmd <<  EPT_LCKMD_POS_EP(tCfg ->byEpx));
-//	wEmecr =(wEmecr & (~EPT_EMSOR_SHDWEN_MSK          )) | (  (tCfg ->byOsrshdw&0x01) <<  EPT_EMOSR_SHDWEN_POS     );		
-//	csp_ept_set_emecr(ptEptBase,wEmecr);
-//			
-//	return CSI_OK;
-//}
-
 csi_error_t csi_ept_emergency_config(csp_ept_t *ptEptBase, csi_ept_emergency_config_t *tCfg)
 { uint32_t wEmsrc;
   uint32_t wEmsrc2;
@@ -711,7 +675,8 @@ csi_error_t csi_ept_emergency_config(csp_ept_t *ptEptBase, csi_ept_emergency_con
  *  \return error code \ref csi_error_t
  */
 csi_error_t csi_ept_emergency_pinout(csp_ept_t *ptEptBase,csi_ept_osrchx_e  byCh ,csp_ept_emout_e byCh2)
-{ uint32_t wEmosr;
+{ 
+	uint32_t wEmosr;
     wEmosr=csp_ept_get_emosr(ptEptBase);	
 	 switch (byCh)
 	 {    case (EMCOAX): wEmosr=( wEmosr &~(EPT_EMCHAX_O_MSK) )|( byCh2 <<EPT_EMCHAX_O_POS);break;
@@ -732,7 +697,7 @@ csi_error_t csi_ept_emergency_pinout(csp_ept_t *ptEptBase,csi_ept_osrchx_e  byCh
  *  \param[in] Global: refer to csi_ept_Global_load_control_config_t
  *  \return none
  */
-csi_error_t csi_ept_gload_config(csp_ept_t *ptEptBase,csi_ept_Global_load_control_config_t *Global)
+void csi_ept_gload_config(csp_ept_t *ptEptBase,csi_ept_Global_load_control_config_t *Global)
 {   uint32_t w_GLDCR;	
 	w_GLDCR = 0;
     w_GLDCR = (w_GLDCR &~EPT_GLDEN_MSK)       | ((Global->bGlden & 0x01)<<EPT_GLDEN_POS);
@@ -741,7 +706,6 @@ csi_error_t csi_ept_gload_config(csp_ept_t *ptEptBase,csi_ept_Global_load_contro
 	w_GLDCR = (w_GLDCR &~EPT_GLDPRD_MSK)      | ((Global->bGldprd & 0x07)<<EPT_GLDPRD_POS);
 	w_GLDCR = (w_GLDCR &~EPT_GLDCNT_MSK)      | ((Global->bGldprd & 0x07)<<EPT_GLDCNT_POS);
 	csp_ept_set_gldcr(ptEptBase,w_GLDCR);	
-	return CSI_OK;
 }
 
 
@@ -784,7 +748,7 @@ csi_error_t csi_ept_gldcfg(csp_ept_t *ptEptBase ,csi_ept_Global_load_gldcfg_e Gl
 			 break;
 		case (byemosr):ptEptBase -> GLDCFG  = (ptEptBase -> GLDCFG & ~(EPT_LD_EMOSR_MSK)) |(bENABLE << EPT_LD_EMOSR_POS );
 			 break;	 
-		default: return (1);
+		default: return CSI_ERROR;
 			break;
 	}   
 	return CSI_OK;
@@ -795,30 +759,27 @@ csi_error_t csi_ept_gldcfg(csp_ept_t *ptEptBase ,csi_ept_Global_load_gldcfg_e Gl
  *  \param[in] ptEptBase： pointer of ept register structure
  *  \return none
  */
-csi_error_t csi_ept_gload_sw(csp_ept_t *ptEptBase)
+void csi_ept_gload_sw(csp_ept_t *ptEptBase)
 {
 	csp_ept_set_gldcr2(ptEptBase,0x02);
-	return CSI_OK;
 }
 /** \brief rearm  loading
  * 
  *  \param[in] ptEptBase： pointer of ept register structure
  *  \return none
  */
-csi_error_t csi_ept_gload_rearm(csp_ept_t *ptEptBase)
+void csi_ept_gload_rearm(csp_ept_t *ptEptBase)
 {
 	csp_ept_set_gldcr2(ptEptBase,0x01);
-	return CSI_OK;
 }
 /** \brief start ept
  * 
  *  \param[in] ptEptBase： pointer of ept register structure
  *  \return none
  */ 
-csi_error_t csi_ept_start(csp_ept_t *ptEptBase)
+void csi_ept_start(csp_ept_t *ptEptBase)
 {   csp_ept_wr_key(ptEptBase); 
 	csp_ept_start(ptEptBase);
-	return CSI_OK;
 }
 /** \brief SW stop EPT counter
  * 
@@ -827,8 +788,8 @@ csi_error_t csi_ept_start(csp_ept_t *ptEptBase)
  */
 void csi_ept_stop(csp_ept_t *ptEptBase)
 {
-  csp_ept_wr_key(ptEptBase);
-  csp_ept_stop(ptEptBase);
+	csp_ept_wr_key(ptEptBase);
+	csp_ept_stop(ptEptBase);
 }
 /** \brief set EPT start mode. 
  * 
@@ -880,7 +841,8 @@ uint16_t csi_ept_get_prdr(csp_ept_t *ptEptBase)
  *  \return error code \ref csi_error_t
  */
 csi_error_t csi_ept_change_ch_duty(csp_ept_t *ptEptBase, csi_ept_camp_e eCh, uint32_t wActiveTime)
-{ uint16_t  wCmpLoad;
+{ 
+	uint16_t  wCmpLoad;
 
 	if(wActiveTime>=100){wCmpLoad=0;}
 	else if(wActiveTime==0){wCmpLoad=gEptPrd+1;}
@@ -896,10 +858,10 @@ csi_error_t csi_ept_change_ch_duty(csp_ept_t *ptEptBase, csi_ept_camp_e eCh, uin
 		    break;
 		case (EPT_CAMPD):csp_ept_set_cmpd(ptEptBase, (uint16_t)wCmpLoad);
 		    break;
-		default: return (1);
+		default: return CSI_ERROR;
 			break;
 	}
-    return (0);
+    return CSI_OK;
 }
 
 /** \brief software force lock
@@ -923,11 +885,12 @@ uint8_t csi_ept_get_hdlck_st(csp_ept_t *ptEptBase)
 	return (csp_ept_get_emHdlck(ptEptBase));
 }
 
-/**
- \brief clear harklock status
- \param ptEptBase   pointer of ept register structure
- \return  eEbi 	 external emergency input: csp_ept_ep_e                 
-*/
+/** \brief clear harklock status
+ * 
+ *  \param[in] ptEptBase: pointer of ept register structure
+ *  \param[in] eEbi: external emergency input: csp_ept_ep_e  
+ *  \return none               
+ */
 void csi_ept_clr_hdlck(csp_ept_t *ptEptBase, csp_ept_ep_e eEbi)
 {
 	csp_ept_clr_emHdlck(ptEptBase, eEbi);
@@ -971,9 +934,9 @@ void csi_ept_debug_enable(csp_ept_t *ptEptBase, bool bEnable)
  *  \param[in] eEbi: refer to csp_ept_emint_e
  *  \return none
  */
-void csi_ept_emergency_int_enable(csp_ept_t *ptEptBase, csp_ept_emint_e eEbi)
+void csi_ept_emergency_int_enable(csp_ept_t *ptEptBase, csp_ept_emint_e eEm)
 {   csi_irq_enable((uint32_t *)ptEptBase);		//enable  irq
-    csp_ept_Emergency_emimcr(ptEptBase,eEbi);
+    csp_ept_Emergency_emimcr(ptEptBase,eEm);
 }
 
 /** \brief enable/disable ept out trigger 
@@ -1060,11 +1023,10 @@ csi_error_t csi_ept_continuous_software_output(csp_ept_t *ptEptBase, csi_ept_cha
  *  \param[in] bEnable: ENABLE/DISABLE
  *  \return none;
  */
-csi_error_t csi_ept_int_enable(csp_ept_t *ptEptBase, csp_ept_int_e eInt, bool bEnable)
+void csi_ept_int_enable(csp_ept_t *ptEptBase, csp_ept_int_e eInt, bool bEnable)
 {  
 	csp_ept_int_enable(ptEptBase,eInt,bEnable);
 	csi_irq_enable((uint32_t *)ptEptBase);							//enable  irq
-	return CSI_OK;
 }
 
 /** \brief ept sync input evtrg config  

@@ -176,9 +176,13 @@ typedef enum{
 #define EPT_INIT_DFLT		(0x1 << 7)
 
 #define EPT_CAPLD_EN   (1ul << 8)
-#define EPT_BURST      (1ul << 9)
-#define EPT_FLT_INIT   (1ul << 10)
-#define EPT_FLT_POS    ( 10)
+
+#define EPT_BURST_POS      (9)
+#define EPT_BURST_MSK      (1ul << EPT_BURST_POS)
+
+#define EPT_FLT_INIT       (1ul << 10)
+#define EPT_FLT_INIT_POS      (10)
+#define EPT_FLT_INIT_MSK      (1ul << EPT_FLT_INIT_POS)
 
 #define EPT_CGSRC_POS	(11)
 #define EPT_CGSRC_MSK	(0x3 << EPT_CGSRC_POS)
@@ -1047,6 +1051,24 @@ static inline void csp_ept_set_start_src(csp_ept_t *ptEptBase, csp_ept_startsrc_
 	ptEptBase -> CR = (ptEptBase->CR & (~EPT_STARTSRC_MSK))| (eVal <<EPT_STARTSRC_POS);
 }
 
+static inline void csp_ept_set_burst(csp_ept_t *ptEptBase,csp_ept_cgsrc_e eCgsrc, bool bEnable)
+{
+	ptEptBase -> CR = (ptEptBase -> CR & ~(EPT_BURST_MSK)) | (bEnable << EPT_BURST_POS);
+	if(bEnable == ENABLE)
+	{
+		ptEptBase -> CR =(ptEptBase -> CR & ~(EPT_CGSRC_MSK))|(eCgsrc<<EPT_CGSRC_POS);
+	}
+}
+
+static inline void csp_ept_flt_init(csp_ept_t *ptEptBase, csp_ept_cnflt_e eCgflt,bool bEnable)
+{
+	ptEptBase -> CR = (ptEptBase -> CR & ~(EPT_FLT_INIT_MSK)) | (bEnable << EPT_FLT_INIT_POS);
+	if(bEnable == ENABLE)
+	{
+		ptEptBase -> CR=(ptEptBase -> CR & ~(EPT_CGFLT_MSK))|(eCgflt<<EPT_CGFLT_POS);
+	}
+}
+
 static inline void csp_ept_set_cr(csp_ept_t *ptEptBase, uint32_t wCr)
 {
 	ptEptBase->CR = wCr;
@@ -1331,9 +1353,9 @@ static inline void csp_ept_clr_int(csp_ept_t *ptEptBase, csp_ept_int_e eInt)
 	ptEptBase -> ICR = eInt;
 }
 
-static inline void csp_ept_Emergency_emimcr(csp_ept_t *ptEptBase, csp_ept_emint_e bwVal)
+static inline void csp_ept_Emergency_emimcr(csp_ept_t *ptEptBase, csp_ept_emint_e eInt)
 {
-	ptEptBase -> EMIMCR  =  bwVal;
+	ptEptBase -> EMIMCR  =  eInt;
 }
 
 static inline void csp_ept_set_trgsrc01(csp_ept_t *ptEptBase, uint8_t byCh, csp_ept_trgsrc01_e eSrc)

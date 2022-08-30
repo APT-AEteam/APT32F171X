@@ -45,9 +45,6 @@ struct csi_ept_config {
 	uint8_t     byCaptureLdbret;
 	uint8_t     byCaptureLdcret;
 	uint8_t     byCaptureLddret;
-	uint8_t     byBurst;
-    uint8_t     byCgsrc;
-	uint8_t     byCgflt;
 	uint32_t	wFreq;				 //TIMER PWM OUTPUT frequency 
 	uint32_t    wInt;
 };
@@ -62,9 +59,6 @@ struct csi_ept_pwmconfig {
 	uint8_t		byDutyCycle;		 //TIMER PWM OUTPUT duty cycle	
 	uint32_t	wFreq;				 //TIMER PWM OUTPUT frequency 
 	uint32_t    wInt;
-	uint8_t     byBurst;
-    uint8_t     byCgsrc;
-	uint8_t     byCgflt;
 };
 
 typedef struct csi_ept_captureconfig  csi_ept_captureconfig_t;
@@ -84,11 +78,6 @@ struct csi_ept_captureconfig {
 	uint8_t     byCaptureLdcret;
 	uint8_t     byCaptureLddret;
 	uint32_t    wInt;
-	uint8_t     byBurst;
-    uint8_t     byCgsrc;
-	uint8_t     byCgflt;
-	uint8_t     byTinsel;
-	
 };
 
 typedef struct csi_ept_pwmchannel_config      csi_ept_pwmchannel_config_t;
@@ -135,7 +124,6 @@ struct csi_ept_Chopper_config
 	uint8_t       byChopperOutCdiv;
 	uint8_t       byChopperOutCduty;
 	uint8_t       byChopperOutCasel;
-	uint8_t       byChopperOutTinsel;
 	bool          byChopperOutCHAxEN;
 	bool          byChopperOutCHAyEN;
 	bool          byChopperOutCHBxEN;
@@ -648,7 +636,7 @@ csi_error_t csi_ept_channelmode_config(csp_ept_t *ptEptBase,csi_ept_deadzone_con
  *  \param[in] tCfg: refer to csi_ept_Chopper_config_t
  *  \return none
  */
-csi_error_t csi_ept_chopper_config(csp_ept_t *ptEptBase, csi_ept_Chopper_config_t *tCfg);
+void csi_ept_chopper_config(csp_ept_t *ptEptBase, csi_ept_Chopper_config_t *tCfg);
 
 
 /** \brief Carrier output
@@ -683,7 +671,7 @@ csi_error_t csi_ept_emergency_pinout(csp_ept_t *ptEptBase,csi_ept_osrchx_e  byCh
  *  \param[in] Global: refer to csi_ept_Global_load_control_config_t
  *  \return none
  */
-csi_error_t csi_ept_gload_config(csp_ept_t *ptEptBase,csi_ept_Global_load_control_config_t *Global);
+void csi_ept_gload_config(csp_ept_t *ptEptBase,csi_ept_Global_load_control_config_t *Global);
 
 
 /** \brief CLDCFG loading
@@ -700,21 +688,21 @@ csi_error_t csi_ept_gldcfg(csp_ept_t *ptEptBase ,csi_ept_Global_load_gldcfg_e Gl
  *  \param[in] ptEptBase： pointer of ept register structure
  *  \return none
  */
-csi_error_t csi_ept_gload_sw(csp_ept_t *ptEptBase);
+void csi_ept_gload_sw(csp_ept_t *ptEptBase);
 
 /** \brief rearm  loading
  * 
  *  \param[in] ptEptBase： pointer of ept register structure
  *  \return none
  */
-csi_error_t csi_ept_gload_rearm(csp_ept_t *ptEptBase);
+void csi_ept_gload_rearm(csp_ept_t *ptEptBase);
 
 /** \brief start ept
  * 
  *  \param[in] ptEptBase： pointer of ept register structure
  *  \return none
  */ 
-csi_error_t csi_ept_start(csp_ept_t *ptEptBase);
+void csi_ept_start(csp_ept_t *ptEptBase);
 
 /** \brief SW stop EPT counter
  * 
@@ -864,7 +852,7 @@ csi_error_t csi_ept_continuous_software_output(csp_ept_t *ptEptBase, csi_ept_cha
  *  \param[in] bEnable: ENABLE/DISABLE
  *  \return none;
  */
-csi_error_t csi_ept_int_enable(csp_ept_t *ptEptBase, csp_ept_int_e eInt, bool bEnable);
+void csi_ept_int_enable(csp_ept_t *ptEptBase, csp_ept_int_e eInt, bool bEnable);
 
 /** \brief ept sync input evtrg config  
  * 
