@@ -518,7 +518,8 @@ static inline void csp_usart_set_smart_card(csp_usart_t *ptUsartBase, usart_smar
 }
 static inline void csp_usart_set_brdiv(csp_usart_t *ptUsartBase,uint32_t wBaud, uint32_t wUsFreq)
 {
-	ptUsartBase->BRGR = US_BAUD_CD(wUsFreq/wBaud) | US_BAUD_FRAC(((wUsFreq << 4)/115200) - ((wUsFreq/wBaud) << 4));
+	//ptUsartBase->BRGR = US_BAUD_CD(wUsFreq/wBaud) | US_BAUD_FRAC(((wUsFreq << 4)/115200) - ((wUsFreq/wBaud) << 4));
+	ptUsartBase->BRGR = wUsFreq/wBaud;
 }
 
 static inline void csp_usart_set_rtor(csp_usart_t *ptUsartBase, uint16_t hwTimer)
