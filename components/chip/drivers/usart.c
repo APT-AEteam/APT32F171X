@@ -157,10 +157,16 @@ csi_error_t csi_usart_init(csp_usart_t *ptUsartBase, csi_usart_config_t *ptUsart
 		else 
 			byClkDiv = 1;
 
+//		if(csp_usart_get_mode(ptUsartBase) == US_ASYNC)
+//			csp_usart_set_brdiv(ptUsartBase, ptUsartCfg->wBaudRate, (csi_get_pclk_freq() >> 4)/byClkDiv);
+//		else 
+//			csp_usart_set_brdiv(ptUsartBase, ptUsartCfg->wBaudRate, csi_get_pclk_freq()/byClkDiv);
+
 		if(csp_usart_get_mode(ptUsartBase) == US_ASYNC)
-			csp_usart_set_brdiv(ptUsartBase, ptUsartCfg->wBaudRate, (csi_get_pclk_freq() >> 4)/byClkDiv);
-		else 
 			csp_usart_set_brdiv(ptUsartBase, ptUsartCfg->wBaudRate, csi_get_pclk_freq()/byClkDiv);
+		else 
+			csp_usart_set_brdiv(ptUsartBase, ptUsartCfg->wBaudRate, (csi_get_pclk_freq() << 4) /byClkDiv);
+	
 	}
 	
 	if(ptUsartCfg->bClkOutEn == ENABLE)
