@@ -45,11 +45,7 @@ int ept_capture_demo(void)
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体	
 	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
 	tEtbConfig.bySrcIp   = ETB_EXI_TRGOUT1 ;  	//...作为触发源
-	tEtbConfig.bySrcIp1  = 0xff;      
-	tEtbConfig.bySrcIp2  = 0xff;
 	tEtbConfig.byDstIp   = ETB_EPT0_SYNCIN2;   	//EPT0 同步输入2作为目标事件
-	tEtbConfig.byDstIp1  = 0xff;
-	tEtbConfig.byDstIp2  = 0xff;
 	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
 	csi_etb_init();
 	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功
