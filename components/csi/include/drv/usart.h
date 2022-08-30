@@ -73,7 +73,7 @@ typedef enum {
  */
 typedef enum {
     USART_STOP_BITS_1	= 0,    //1 Stop bit (default)
-	USART_STOP_BITS_1_5,        //1.5 Stop bits for async mode, reserved for sync mode
+	//USART_STOP_BITS_1_5,        //1.5 Stop bits for async mode, reserved for sync mode
     USART_STOP_BITS_2,          //2 Stop bits
     
 } csi_usart_stop_bits_e;

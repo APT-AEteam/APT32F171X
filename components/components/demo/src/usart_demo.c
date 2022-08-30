@@ -128,11 +128,11 @@ int usart_send_int_demo(void)
 	csi_pin_pull_mode(PC00,GPIO_PULLUP);				//RX管脚上拉使能, 建议配置
 	
 	tUsartCfg.byClkSrc 		= USART_CLKSRC_DIV1;		//clk = PCLK
-	tUsartCfg.byMode		= USART_MODE_SYNC;			//异步模式
+	tUsartCfg.byMode		= USART_MODE_ASYNC;			//异步模式
 	tUsartCfg.byDatabit 	= USART_DATA_BITS_8;		//字节长度，8bit
 	tUsartCfg.byStopbit 	= USART_STOP_BITS_1;		//停止位，1个
 	tUsartCfg.byParity		= USART_PARITY_ODD;			//奇校验
-	tUsartCfg.bClkOutEn		= ENABLE;					//禁止USARTCLK输出；同步模式时，USARTCLK可以给另外设备上的USART提供clk，作为同步输入时钟使用
+	tUsartCfg.bClkOutEn		= DISABLE;					//禁止USARTCLK输出；同步模式时，USARTCLK可以给另外设备上的USART提供clk，作为同步输入时钟使用
 	tUsartCfg.wBaudRate 	= 115200;					//波特率：115200
 	tUsartCfg.wInt			= USART_INTSRC_TXRIS;		//使用TXFIFO中断（默认推荐）
 	tUsartCfg.byTxMode		= USART_TX_MODE_INT;		//发送模式：轮询/中断模式
