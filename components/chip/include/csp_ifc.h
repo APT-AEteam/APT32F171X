@@ -56,14 +56,17 @@ typedef volatile struct {
 
 typedef enum{
 	PROGRAM = 1,
-	PAGE_ERASE,
+	PAGE_ERASE = 2,
+	PAGE_ERASE_HIDM1 = PAGE_ERASE | HIDM1,
 	CHIP_ERASE = 4,
-	USEROPTION_ERASE,
-	PRE_PGM,
-	PAGE_LAT_CLR,
-	SWDREMAP_ERASE = 0xd,
-	SWDREMAP_ENABLE,
-	USEROPTION_PGM
+	USEROPTION_ERASE = 5|HIDM1,
+	PRE_PGM = 6,
+	PRE_PGM_HIDM1 = PRE_PGM | HIDM1,
+	PAGE_LAT_CLR = 7,
+	PAGE_LAT_CLR_HIDM1 = PAGE_LAT_CLR | HIDM1,
+	SWDREMAP_ERASE = 0xd|HIDM1,
+	SWDREMAP_ENABLE = 0xe|HIDM1,
+	USEROPTION_PGM = 0xf|HIDM1
 }ifc_cmd_e;
 
 ///CR: to start IFC operation
@@ -71,12 +74,19 @@ typedef enum{
 
 
 ///MR: IFC operation mode
+#define  PF_WAIT_POS (0)
+#define  PF_WAIT_MSK (0x7ul << PF_WAIT_POS)
 #define  PF_WAIT0 (0x0ul) 
 #define  PF_WAIT1 (0x1ul) 
 #define  PF_WAIT2 (0x2ul) 
 #define  PF_WAIT3 (0x3ul) 
+
 #define  DFLASH_PMODE_POS 8
-#define  DFLASH_PMODE (0x1 <<8)
+#define  DFLASH_PMODE_MSK (0x1 <<DFLASH_PMODE_POS)
+#define  DFLASH_PMODE (0x1 <<DFLASH_PMODE_POS)
+
+#define  PF_SPEED_POS (16)
+#define  PF_SPEED_MSK (0x1<<PF_SPEED_POS)
 #define  HIGH_SPEED ((0x1ul)<<16) 
 #define  LOW_SPEED ((0x0ul)<<16) 
 

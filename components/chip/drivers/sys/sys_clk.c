@@ -31,7 +31,7 @@ static uint32_t apt_get_hclk(void)
 	return (tRslt);
 }
 
-/** \brief system clock (HCLK) configuration
+/** \brief sysctem clock (HCLK) configuration
  * 
  *  To set CPU frequence according to tClkConfig
  * 
@@ -41,18 +41,19 @@ static uint32_t apt_get_hclk(void)
 csi_error_t csi_sysclk_config(void)
 {	csi_error_t ret = CSI_OK;
 	uint8_t byFreqIdx = 0;
-	uint32_t wFreq,wTargetSclk,wIfcMr;
+	uint32_t wFreq,wTargetSclk;
 	cclk_src_e eSrc;
 	uint8_t byFlashLp = 0;
 	wFreq = tClkConfig.wFreq;
-	wTargetSclk = wFreq/tClkConfig.eSdiv;
+	
+	wTargetSclk = wFreq/g_wHclkDiv[tClkConfig.eSdiv];
 	eSrc = tClkConfig.eClkSrc;
 	
 	switch (eSrc)
 	{
 		case (SRC_ISOSC): 	
-			ret = csi_isosc_enable();//设置ISOSC期望的频率，使能，并等待其稳定
-			byFlashLp = 1;//低频时，使能flash的低功耗模式
+			csi_isosc_enable();
+			byFlashLp = 1;
 			break;
 		case (SRC_IMOSC):	
 			switch (wFreq) 	
@@ -68,16 +69,17 @@ csi_error_t csi_sysclk_config(void)
 				default: ret = CSI_ERROR;	
 					break;
 			}
-			ret = csi_imosc_enable(byFreqIdx);//设置IMOSC期望的频率，使能，并等待其稳定
+			csi_imosc_enable(byFreqIdx);
+		
 			if (wFreq == IM_131K)
-				byFlashLp = 1;//低频时，使能flash的低功耗模式
+				byFlashLp = 1;
 			break;
 		case (SRC_EMOSC):	
-			//csi_pin_set_mux(PC02, PC02_OSC_XI);
-			//csi_pin_set_mux(PA011, PA011_OSC_XO);
+//			csi_pin_set_mux(PA03, PA03_OSC_XI);
+//			csi_pin_set_mux(PA04, PA04_OSC_XO);
 			if (wFreq == EMOSC_32K_VALUE)
-				csp_set_em_lfmd(SYSCON, 1);//当外部晶振为32.768k时，需要设置成低速模式，默认是普通模式
-			ret = csi_emosc_enable(wFreq); //设osc_xi,osc_xo复用功能，增益设置，稳定计数器设置，使能，等待EMOSC时钟稳定
+				csp_set_em_lfmd(SYSCON, 1);
+			csi_emosc_enable(wFreq);
 			break;
 		case (SRC_HFOSC):	
 			switch (wFreq) 	
@@ -90,53 +92,36 @@ csi_error_t csi_sysclk_config(void)
 					break;
 				case (HFOSC_6M_VALUE):  byFreqIdx = 3;
 					break;
-				default: ret = CSI_ERROR;	
+				default: ret = CSI_ERROR;
+					return ret;
 					break;
 			}
-			
+			csi_hfosc_enable(byFreqIdx);
 			break;
 		default: 
 			break;
 	}
-		
-	if (wTargetSclk >= 6000000) {
-		
-		if (wTargetSclk >= 16000000) {
-			
-			if (wTargetSclk >= 24000000)
-				wIfcMr = HIGH_SPEED | PF_WAIT2;
-			else
-				wIfcMr = HIGH_SPEED | PF_WAIT1;
-		}
+	
+	if (wTargetSclk >= 16000000) {
+		IFC->CEDR = IFC_CLKEN;
+		if (wTargetSclk >= 24000000)
+			IFC->MR = (IFC->MR & (~PF_SPEED_MSK) & (~PF_WAIT_MSK)) | HIGH_SPEED | PF_WAIT2;
 		else 
-			wIfcMr = LOW_SPEED | PF_WAIT1;
+			IFC->MR = (IFC->MR & (~PF_SPEED_MSK) & (~PF_WAIT_MSK) )| HIGH_SPEED | PF_WAIT1;
+		csp_set_sdiv(SYSCON, tClkConfig.eSdiv);
+		csp_set_clksrc(SYSCON, eSrc);
 	}
 	else {
-		wIfcMr = LOW_SPEED | PF_WAIT0;
-	}
-	
-	IFC->CEDR = IFC_CLKEN;
-	if(wTargetSclk > tClkConfig.wSclk) {
-		csp_set_sdiv(SYSCON, tClkConfig.eSdiv);//设置sclk的分频系数
-		IFC->MR = wIfcMr;
-		csp_eflash_lpmd_enable(SYSCON, (bool)byFlashLp);//使能flash的低功耗模式
-		if (eSrc == SRC_HFOSC)
-			csi_hfosc_enable(byFreqIdx);//设置hfosc期望的频率，使能，并等待其稳定
-		csp_set_clksrc(SYSCON, eSrc);//为系统选择时钟源，并等待sysclk最终稳定
-		
-	}
-	else {
-		
-		csp_set_sdiv(SYSCON, tClkConfig.eSdiv);//设置sclk的分频系数
-		if (eSrc == SRC_HFOSC)
-			csi_hfosc_enable(byFreqIdx);//设置hfosc期望的频率，使能，并等待其稳定
-		csp_set_clksrc(SYSCON, eSrc);//为系统选择时钟源，并等待sysclk最终稳定
-		IFC->MR = wIfcMr;
-		csp_eflash_lpmd_enable(SYSCON, (bool)byFlashLp);//使能flash的低功耗模式
+		csp_set_sdiv(SYSCON, tClkConfig.eSdiv);
+		csp_set_clksrc(SYSCON, eSrc);
+		IFC->CEDR = IFC_CLKEN;
+		IFC->MR = ((IFC->MR & (~PF_SPEED_MSK)) & (~PF_WAIT_MSK)) |LOW_SPEED | PF_WAIT0;
 	}
 	
 	
-	csp_set_pdiv(SYSCON, tClkConfig.ePdiv);//设置pclk的分频系数，基于hclk
+	csp_eflash_lpmd_enable(SYSCON, (bool)byFlashLp);
+	
+	csp_set_pdiv(SYSCON, tClkConfig.ePdiv);
 	
 	//update wSclk and wPclk in tClkConfig
 	tClkConfig.wSclk = wTargetSclk;
