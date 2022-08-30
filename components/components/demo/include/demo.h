@@ -47,8 +47,13 @@ extern int iwdt_normal_demo(void);
 extern int iwdt_irq_demo(void);
 
 //ifc demo
+
 void ifc_read(void);
 void ifc_program(void);
+void ifc_pflash_page_program(void);
+void ifc_dflash_page_program(void);
+void ifc_flash_page_erase(void);
+
 
 //adc demo
 //normal mode(no interrupt)

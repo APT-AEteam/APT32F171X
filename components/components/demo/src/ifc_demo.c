@@ -54,3 +54,53 @@ void ifc_program(void)
 	else
 		my_printf("program pass!\n");
 }
+
+/** \brief pflash page 写操作示例代码
+ *   		- 只支持PFLASH编程
+ *     		- 不支持跨页
+ * 			- 使用注意事项：1、起始地址必须word对齐
+ * 							2、数据类型为word
+ *  \param[in] none
+ *  \return error code
+ */
+void ifc_pflash_page_program(void)
+{	csi_error_t tRet;
+	tRet = csi_ifc_program(IFC, 0xfef8, wWriteData, 3);     //从0xfe78地址（PFLASH)开始，写wWriteData[0]~[2] 3个word
+	if (tRet == CSI_ERROR)									//函数带校验功能，如果校验错误返回 CSI_ERROR
+		my_printf("program fail!\n");
+	else
+		my_printf("pflash PGM done successfully!\n");
+}
+
+
+/** \brief dflash page 写操作示例代码
+ *   		- 只支持DFLASH编程
+ *     		- 不支持跨页
+ * 			- 使用注意事项：1、起始地址必须word对齐
+ * 							2、数据类型为word
+ *  \param[in] none
+ *  \return error code
+ */
+void ifc_dflash_page_program(void)
+{	csi_error_t tRet;
+	tRet = csi_ifc_program(IFC, 0x10000078, wWriteData, 5); //从0x10000078地址（DFLASH)开始，写wWriteData[0]~[4] 5个word
+	if (tRet == CSI_ERROR)									//函数带校验功能，如果校验错误返回 CSI_ERROR
+		my_printf("program fail!\n");
+	else
+		my_printf("dflash PGM done successfully! \n");
+}
+
+
+/** \brief flash page 擦除操作示例代码
+ *   		- 支持DFLASH,PFLASH 页擦除
+ *     		- 不支持跨页
+ * 			- 使用注意事项：1、起始地址必须word对齐
+ * 							2、如果为了实现编程，不需要额外执行擦除操作！！！否则会影响flash寿命
+ *  \param[in] none
+ *  \return error code
+ */
+void ifc_flash_page_erase(void)
+{	csi_ifc_page_erase(IFC, 0x10000078); 	//擦除0x10000078地址所在的一个page
+	csi_ifc_page_erase(IFC, 0xfef0); 			//擦除0xfef0地址所在的一个page
+	my_printf("erase done! \n");
+}
