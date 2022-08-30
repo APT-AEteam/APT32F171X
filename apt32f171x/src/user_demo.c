@@ -57,6 +57,9 @@ void user_demo(void)
 /// ***************************************************	
 //	ifc_read();
 //	ifc_program();
+//  ifc_pflash_page_program();
+//  ifc_dflash_page_program();
+//  ifc_flash_page_erase();
 
 /// ***************************************************
 ///  低功耗相关的示例代码
