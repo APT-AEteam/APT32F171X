@@ -42,12 +42,8 @@ int gpta_capture_demo(void)
 	volatile uint8_t ch;		
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体	
 	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
-	tEtbConfig.bySrcIp   = ETB_EXI_TRGOUT1 ;    //...作为触发源
-	tEtbConfig.bySrcIp1  = 0xff;      
-	tEtbConfig.bySrcIp2  = 0xff;
-	tEtbConfig.byDstIp   = ETB_GPTA0_SYNCIN2;   //作为目标事件
-	tEtbConfig.byDstIp1  = 0xff;
-	tEtbConfig.byDstIp2  = 0xff;
+	tEtbConfig.bySrcIp   = ETB_EXI_TRGOUT1 ;  	//...作为触发源
+	tEtbConfig.byDstIp   =  ETB_GPTA0_SYNCIN2;  //GPTB0 同步输入2作为目标事件
 	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
 	csi_etb_init();
 	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功
@@ -66,9 +62,6 @@ int gpta_capture_demo(void)
 		tPwmCfg.byCaptureLdbret  =1;                                                         	
 	    tPwmCfg.wInt 		 =GPTA_INTSRC_CAPLD1;                   //interrupt//
 		
-//		tPwmCfg.byBurst   = true;//false ;                            //使能群脉冲模式
-//		tPwmCfg.byCgsrc   = GPTA_CGSRC_EPT_TIOD;                      //CG的输入源由EPT输入，请配置EPT
-//		tPwmCfg.byCgflt   = GPTA_CGFLT_2;                             //门控输入数字滤波控制
 	csi_gpta_capture_init(GPTA0, &tPwmCfg);
 
 //------------------------------------------------------------------------------------------------------------------------
@@ -148,10 +141,6 @@ int gpta_pwm_demo(void)
 	tPwmCfg.byDutyCycle 	 = 25;								 //pwm ouput duty cycle//PWM初始值(X%)			
 	tPwmCfg.wFreq 			 = 20000;							 //pwm ouput frequency	
 	tPwmCfg.wInt 		 	 = GPTA_INTSRC_CBU;                     //interrupt
-	
-//	tPwmCfg.byBurst   =false ;                                    //使能群脉冲模式
-//	tPwmCfg.byCgsrc   = GPTA_CGSRC_EPT_TIOA;                      //CG的输入源由EPT输入，请配置EPT
-//	tPwmCfg.byCgflt   = GPTA_CGFLT_2;                             //门控输入数字滤波控制
 	csi_gpta_wave_init(GPTA0, &tPwmCfg);
 	
 //	csp_gpta_dbg_enable(GPTA0,ENABLE);
