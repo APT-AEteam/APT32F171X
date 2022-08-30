@@ -399,7 +399,7 @@ csi_error_t csi_bt_set_sync(csp_bt_t *ptBtBase,csi_bt_trgin_e eTrgin, csi_bt_trg
 				(eTrgMode << BT_OSTMD_POS(eTrgin));
 		
 		ptBtBase->CR |= BT_EXTCKM_MSK;		//selecet count clk source
-		ptBtBase->RSSR |= BT_START;			//start bt	
+		//ptBtBase->RSSR |= BT_START;			//start bt	
 	}
 	else
 		return CSI_ERROR;
