@@ -575,6 +575,16 @@ csi_error_t csi_gpta_continuous_software_waveform(csp_gpta_t *ptGptaBase, csi_gp
 	return CSI_OK;
 }
 
+/** \brief gpta soft trg
+ *  \param[in] ptGptaBase:pointer of gpta register structure
+ *  \param[in] eCh: 0/1
+ *  \return none
+ */
+void csi_gpta_swf_trg(csp_gpta_t *ptGptaBase, csi_gpta_trgout_e byCh)
+{
+	csp_gpta_swf_trg(ptGptaBase, byCh);
+}
+
 /** \brief gpta  input  config  
  *  \param[in] ptGptaBase:pointer of gpta register structure
  *  \param[in] eInt:     refer to to csp_gpta_int_e

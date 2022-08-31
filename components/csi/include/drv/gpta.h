@@ -480,6 +480,12 @@ void csi_gpta_aqcsfload_config(csp_gpta_t *ptGptaBase, csp_gpta_aqosf_e bEnable)
  */
 csi_error_t csi_gpta_continuous_software_waveform(csp_gpta_t *ptGptaBase, csi_gpta_channel_e byCh, csp_gpta_aqcsf_e bEnable);
 
+/** \brief gpta soft trg
+ *  \param[in] ptGptaBase:pointer of gpta register structure
+ *  \param[in] eCh: 0/1
+ *  \return none
+ */
+void csi_gpta_swf_trg(csp_gpta_t *ptGptaBase, csi_gpta_trgout_e byCh);
 
 /** \brief gpta  input  config  
  *  \param[in] ptGptaBase:pointer of gpta register structure

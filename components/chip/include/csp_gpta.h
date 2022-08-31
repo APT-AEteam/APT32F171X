@@ -31,18 +31,16 @@
    __IOM uint32_t	PHSR;     	//0x0028	Phase control reg
    __IOM uint32_t	CMPA;  		//0x002C	Compare Value A
    __IOM uint32_t	CMPB;   	//0x0030	Compare Value B
-   __IOM uint32_t	CMPC;     	//0x0034	Compare Value C 
-   __IOM uint32_t	CMPD;  		//0x0038	Compare Value D
+   __IOM uint32_t	RSVD1[2];
    __IOM uint32_t	CMPLDR;	    //0x003C	Cmp reg load control
    __IOM uint32_t	CNT;      	//0x0040	Counter reg
    __IOM uint32_t	AQLDR; 		//0x0044	AQ reg load control
    __IOM uint32_t	AQCRA;      //0x0048	Action qualify of ch-A
    __IOM uint32_t	AQCRB;    	//0x004C	Action qualify of ch-B
-
-   __IM uint32_t	RSVD1[3];
+   __IM uint32_t	RSVD2[3];
    __IOM uint32_t	AQOSF; 		//0x005C	AQ output one-shot software forcing
    __IOM uint32_t	AQCSF;      //0x0060	AQ output conti-software forcing
-   __IM uint32_t	RSVD2[21];
+   __IM uint32_t	RSVD3[21];
    __IOM uint32_t   TRGFTCR;    //0x00B8    Trigger Filter control reg
    __IOM uint32_t   TRGFTWR;    //0x00BC    Trigger filter window
    __IOM uint32_t   EVTRG;      //0x00C0    Event trigger setting
@@ -53,8 +51,9 @@
    __IM uint32_t  	MISR;       //0x00D4    Interrupt MISR
    __IOM uint32_t   IMCR;       //0x00D8    Interrupt IMCR
    __OM uint32_t   	ICR;        //0x00DC    Interrupt clear
-   __IOM uint32_t   REGLK;           //0x00e0                                             
-   __IOM uint32_t   REGLK2;          //0x00e4                                             
+   __IM uint32_t	RSVD4[2];
+//   __IOM uint32_t   REGLK;           //0x00e0                                             
+//   __IOM uint32_t   REGLK2;          //0x00e4                                             
    __IOM uint32_t   REGPROT;         //0x00e8 
 } csp_gpta_t;
 
@@ -807,6 +806,11 @@ static inline void csp_gpta_trg_cntxinit(csp_gpta_t *ptGptaBase, uint8_t byCh, u
 	ptGptaBase -> EVCNTINIT = (ptGptaBase -> EVCNTINIT & ~GPTA_CNT_INIT_MSK_EV(byCh)) | GPTA_CNT_INIT(byVal,byCh);
 }
 
+static inline void csp_gpta_swf_trg(csp_gpta_t *ptGptaBase, uint8_t byCh)
+{
+	ptGptaBase -> EVSWF |= 0x1 << byCh; 
+}
+
 static inline void csp_gpta_int_enable(csp_gpta_t *ptGptaBase, csp_gpta_int_e byInt, bool bEnable)
 {
 	ptGptaBase -> IMCR = ptGptaBase -> IMCR & ( ~byInt);
@@ -829,15 +833,15 @@ static inline void csp_gpta_clr_int(csp_gpta_t *ptGptaBase, csp_gpta_int_e byInt
 	ptGptaBase -> ICR = byInt;
 }
 
-static inline void csp_gpta_set_feglk(csp_gpta_t *ptGptaBase, uint32_t byCh)
-{
-	ptGptaBase -> REGLK = byCh;
-}
-
-static inline void csp_gpta_set_feglk2(csp_gpta_t *ptGptaBase, uint32_t byCh)
-{
-	ptGptaBase -> REGLK2 = byCh;
-}
+//static inline void csp_gpta_set_feglk(csp_gpta_t *ptGptaBase, uint32_t byCh)
+//{
+//	ptGptaBase -> REGLK = byCh;
+//}
+//
+//static inline void csp_gpta_set_feglk2(csp_gpta_t *ptGptaBase, uint32_t byCh)
+//{
+//	ptGptaBase -> REGLK2 = byCh;
+//}
 
 ///function declaratioN
 
