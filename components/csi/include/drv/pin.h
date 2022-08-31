@@ -152,9 +152,9 @@ csi_error_t csi_pin_irq_mode(pin_name_e ePinName, csi_exi_grp_e eExiGrp, csi_gpi
   \brief       pinirq enable
   \param[in]   ePinName		pin mask,0x0001~0xffff
   \param[in]   bEnable		true or false
-  \return      error code \ref csi_error_t
+  \return      none
  */ 
-csi_error_t csi_pin_irq_enable(pin_name_e ePinName, csi_exi_grp_e eExiGrp, bool bEnable);
+void csi_pin_irq_enable(pin_name_e ePinName, bool bEnable);
 
 /** 
   \brief  	   gpio toggle
