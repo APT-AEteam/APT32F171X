@@ -157,6 +157,14 @@ csi_error_t csi_pin_irq_mode(pin_name_e ePinName, csi_exi_grp_e eExiGrp, csi_gpi
 void csi_pin_irq_enable(pin_name_e ePinName, bool bEnable);
 
 /** 
+  \brief pin vic irq enable
+  \param[in] eExiGrp: exi group(exi line); EXI_GRP0 ~EXI_GRP19
+  \param[in] bEnable: ENABLE OR DISABLE
+  \return error code \ref csi_error_t
+ */ 
+csi_error_t csi_pin_vic_irq_enable(csi_exi_grp_e eExiGrp, bool bEnable);
+
+/** 
   \brief  	   gpio toggle
   \param[in]   pin_name		gpio pin name
   \return      none
