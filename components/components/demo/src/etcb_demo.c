@@ -35,7 +35,8 @@ int etcb_one_trg_one_demo0(void)
 	
 	csi_pin_set_mux(PA01,PA01_INPUT);		
 	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
-	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断	
+	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断
+	csi_pin_irq_enable(PA01, ENABLE);							//PA01 中断使能	
 	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI1, 1);             //IO边沿翻转一次 触发
 	
 	csi_bt_start_sync(BT0, 10);
@@ -279,6 +280,7 @@ int etcb_mix_demo(void)
 	csi_pin_set_mux(PA01,PA01_INPUT);		
 	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
 	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断	
+	csi_pin_irq_enable(PA01, ENABLE);							//PA01 中断使能	
 	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI1, 1);
 	
 	csi_bt_start_sync(BT0, 200);
