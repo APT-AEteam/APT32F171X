@@ -103,6 +103,8 @@ extern int ept_pwm_dz_em_demo();
 //gpta demo
 extern int gpta_capture_demo();
 extern int gpta_pwm_demo();
+extern int gpta_soft_trgout_demo();
+extern int gpta_pwm_syncin4_demo();
 
 //cmp demo
 extern int cmp_base_demo(void);

@@ -84,6 +84,8 @@ void user_demo(void)
 /// ***************************************************
 //	gpta_capture_demo();
 //	gpta_pwm_demo();
+//	gpta_soft_trgout_demo();
+//	gpta_pwm_syncin4_demo();
 
 /// ***************************************************
 ///  EPT相关的示例代码
