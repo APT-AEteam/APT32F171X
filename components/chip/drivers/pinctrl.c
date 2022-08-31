@@ -534,7 +534,6 @@ uint32_t csi_pin_read(pin_name_e ePinName)
 csi_error_t csi_pin_irq_mode(pin_name_e ePinName, csi_exi_grp_e eExiGrp, csi_gpio_irq_mode_e eTrgEdge)
 {
 	csi_error_t ret = CSI_OK;
-	uint32_t byIrqNum = EXI0_IRQ_NUM;
 	csp_gpio_t *ptGpioBase = NULL;
 	unsigned int *ptPinInfo = NULL;
 	
@@ -550,7 +549,22 @@ csi_error_t csi_pin_irq_mode(pin_name_e ePinName, csi_exi_grp_e eExiGrp, csi_gpi
 		ret = CSI_ERROR;
 	else
 		exi_trg_edge_set(SYSCON,eExiGrp, eTrgEdge);					//interrupt edge
-		
+	
+	csp_exi_set_port_irq(SYSCON,(0x01ul << eExiGrp), ENABLE);		//EXI INT enable
+	csp_exi_clr_port_irq(SYSCON,(0x01ul << eExiGrp));				//clear interrput status before enable irq 
+	
+	return CSI_OK;
+}
+/** \brief pin vic irq enable
+ * 
+ *  \param[in] eExiGrp: exi group(exi line); EXI_GRP0 ~EXI_GRP19
+ *  \param[in] bEnable: ENABLE OR DISABLE
+ *  \return error code \ref csi_error_t
+ */ 
+csi_error_t csi_pin_vic_irq_enable(csi_exi_grp_e eExiGrp, bool bEnable)
+{
+	uint32_t byIrqNum = EXI0_IRQ_NUM;
+	
 	switch(eExiGrp)
 	{
 		case EXI_GRP0:
@@ -577,12 +591,12 @@ csi_error_t csi_pin_irq_mode(pin_name_e ePinName, csi_exi_grp_e eExiGrp, csi_gpi
 				
 			break;
 	}
-	
-	csp_exi_set_port_irq(SYSCON,(0x01ul << eExiGrp), ENABLE);		//EXI INT enable
-	csp_exi_clr_port_irq(SYSCON,(0x01ul << eExiGrp));				//clear interrput status before enable irq 
-	csi_vic_enable_irq(byIrqNum);
-	
-	return ret;
+	if(bEnable)
+		csi_vic_enable_irq(byIrqNum);
+	else
+		csi_vic_disable_irq(byIrqNum);
+		
+	return CSI_OK;
 }
 /** \brief pin irq enable
  * 
