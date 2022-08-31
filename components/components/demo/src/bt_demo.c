@@ -83,8 +83,8 @@ int bt_sync_trg_start_demo(void)
 
 	csi_pin_set_mux(PA07, PA07_INPUT);									//PA07 配置为输入
 	csi_pin_pull_mode(PA07, GPIO_PULLUP);								//PA07 上拉
-	csi_pin_irq_mode(PA07, EXI_GRP7, GPIO_IRQ_FALLING_EDGE);			//PA07 下降沿产生中断
-	csi_pin_irq_enable(PA07, EXI_GRP7, ENABLE);							//PA07 中断使能，选择中断组7	
+	csi_pin_irq_mode(PA07, EXI_GRP7, GPIO_IRQ_FALLING_EDGE);			//PA07 下降沿产生中断，选择中断组7
+	csi_pin_irq_enable(PA07, ENABLE);									//PA07 中断使能	
 	
 	csi_exi_set_evtrg(EXI_TRGOUT3, TRGSRC_EXI7, 3);						//EXI7 触发EXI_TRGOUT3
 	
@@ -119,8 +119,8 @@ int bt_sync_trg_stop_demo(void)
 
 	csi_pin_set_mux(PB01, PB01_INPUT);									//PB01 配置为输入
 	csi_pin_pull_mode(PB01, GPIO_PULLUP);								//PB01 上拉
-	csi_pin_irq_mode(PB01, EXI_GRP17, GPIO_IRQ_FALLING_EDGE);			//PB01 下降沿产生中断
-	csi_pin_irq_enable(PB01, EXI_GRP17, ENABLE);						//PB01 中断使能，选择中断组17	
+	csi_pin_irq_mode(PB01, EXI_GRP17, GPIO_IRQ_FALLING_EDGE);			//PB01 下降沿产生中断，选择中断组17	
+	csi_pin_irq_enable(PB01, ENABLE);									//PB01 中断使能
 	
 	csi_exi_set_evtrg(EXI_TRGOUT5, TRGSRC_EXI17, 0);					//EXI17(PB01) 触发EXI_TRGOUT5(PB01用EXI17触发输出)
 	
@@ -155,8 +155,8 @@ int bt_sync_trg_count_demo(void)
 
 	csi_pin_set_mux(PB01, PB01_INPUT);									//PB01 配置为输入
 	csi_pin_pull_mode(PB01, GPIO_PULLUP);								//PB01 上拉
-	csi_pin_irq_mode(PB01, EXI_GRP18, GPIO_IRQ_FALLING_EDGE);			//PB01 下降沿产生中断
-	csi_pin_irq_enable(PB01, EXI_GRP18, ENABLE);						//PB01 中断使能，选择中断组18	
+	csi_pin_irq_mode(PB01, EXI_GRP18, GPIO_IRQ_FALLING_EDGE);			//PB01 下降沿产生中断，选择中断组18
+	csi_pin_irq_enable(PB01, ENABLE);									//PB01 中断使能	
 	
 	csi_exi_set_evtrg(EXI_TRGOUT4, TRGSRC_EXI18, 0);					//EXI18(PB01) 触发EXI_TRGOUT4(PB01用EXI18触发输出)
 	
@@ -228,8 +228,8 @@ int bt_sync1_arearm_sync0_demo(void)
 
 	csi_pin_set_mux(PA07, PA07_INPUT);									//PA07 配置为输入
 	csi_pin_pull_mode(PA07, GPIO_PULLUP);								//PA07 上拉
-	csi_pin_irq_mode(PA07, EXI_GRP7, GPIO_IRQ_FALLING_EDGE);			//PA07 下降沿产生中断
-	csi_pin_irq_enable(PA07, EXI_GRP7, ENABLE);							//PA07 中断使能，选择中断组7	
+	csi_pin_irq_mode(PA07, EXI_GRP7, GPIO_IRQ_FALLING_EDGE);			//PA07 下降沿产生中断，选择中断组7	
+	csi_pin_irq_enable(PA07, ENABLE);									//PA07 中断使能
 	
 	csi_exi_set_evtrg(EXI_TRGOUT3, TRGSRC_EXI7, 0);						//EXI7 触发EXI_TRGOUT3
 	
@@ -251,8 +251,8 @@ int bt_sync1_arearm_sync0_demo(void)
 	
 	csi_pin_set_mux(PB01, PB01_INPUT);									//PB01 配置为输入
 	csi_pin_pull_mode(PB01, GPIO_PULLUP);								//PB01 上拉
-	csi_pin_irq_mode(PB01, EXI_GRP17, GPIO_IRQ_FALLING_EDGE);			//PB01 下降沿产生中断
-	csi_pin_irq_enable(PB01, EXI_GRP17, ENABLE);						//PB01 中断使能，选择中断组17	
+	csi_pin_irq_mode(PB01, EXI_GRP17, GPIO_IRQ_FALLING_EDGE);			//PB01 下降沿产生中断，选择中断组17	
+	csi_pin_irq_enable(PB01, ENABLE);									//PB01 中断使能
 	
 	csi_exi_set_evtrg(EXI_TRGOUT5, TRGSRC_EXI17, 0);					//EXI17(PB01) 触发EXI_TRGOUT5(PB01用EXI17触发输出)
 	csi_bt_set_sync(BT0, BT_TRG_SYNCIN1, BT_TRG_ONCE, BT_AREARM_PEND);	//外部触发停止BT(SYNCIN1)，PEND事件 自动REARM
@@ -285,8 +285,8 @@ int bt_sync0_arearm_sync1_demo(void)
 
 	csi_pin_set_mux(PB01, PB01_INPUT);									//PB01 配置为输入
 	csi_pin_pull_mode(PB01, GPIO_PULLUP);								//PB01 上拉
-	csi_pin_irq_mode(PB01, EXI_GRP17, GPIO_IRQ_FALLING_EDGE);			//PB01 下降沿产生中断
-	csi_pin_irq_enable(PB01, EXI_GRP17, ENABLE);						//PB01 中断使能，选择中断组17	
+	csi_pin_irq_mode(PB01, EXI_GRP17, GPIO_IRQ_FALLING_EDGE);			//PB01 下降沿产生中断，选择中断组17
+	csi_pin_irq_enable(PB01, ENABLE);									//PB01 中断使能	
 	
 	csi_exi_set_evtrg(EXI_TRGOUT5, TRGSRC_EXI17, 0);					//EXI17(PB01) 触发EXI_TRGOUT5(PB01用EXI17触发输出)
 	
@@ -308,8 +308,8 @@ int bt_sync0_arearm_sync1_demo(void)
 	
 	csi_pin_set_mux(PA07, PA07_INPUT);									//PA07 配置为输入
 	csi_pin_pull_mode(PA07, GPIO_PULLUP);								//PA07 上拉
-	csi_pin_irq_mode(PA07, EXI_GRP7, GPIO_IRQ_FALLING_EDGE);			//PA07 下降沿产生中断
-	csi_pin_irq_enable(PA07, EXI_GRP7, ENABLE);							//PA07 中断使能，选择中断组7	
+	csi_pin_irq_mode(PA07, EXI_GRP7, GPIO_IRQ_FALLING_EDGE);			//PA07 下降沿产生中断，选择中断组7	
+	csi_pin_irq_enable(PA07, ENABLE);									//PA07 中断使能
 	
 	csi_exi_set_evtrg(EXI_TRGOUT3, TRGSRC_EXI7, 3);						//EXI7 触发EXI_TRGOUT3
 	csi_bt_set_sync(BT0, BT_TRG_SYNCIN0, BT_TRG_ONCE, BT_AREARM_PEND);	//外部触发bt启动(SYNCIN0),计数器周期结束时，自动REARM

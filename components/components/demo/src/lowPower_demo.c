@@ -65,8 +65,8 @@ void lp_exi_wakeup_demo(void)
 	
 	csi_pin_set_mux(PA05,PA05_INPUT);							
 	csi_pin_pull_mode(PA05, GPIO_PULLUP);						//PA05 上拉
-	csi_pin_irq_mode(PA05,EXI_GRP5, GPIO_IRQ_FALLING_EDGE);		//PA05 下降沿产生中断
-	csi_pin_irq_enable(PA05, EXI_GRP5, ENABLE);					//PA05 中断使能，选择中断组5	
+	csi_pin_irq_mode(PA05,EXI_GRP5, GPIO_IRQ_FALLING_EDGE);		//PA05 下降沿产生中断，选择中断组5	
+	csi_pin_irq_enable(PA05, ENABLE);							//PA05 中断使能
 	
 	switch(_LOW_POWER_MODE_)
 	{
