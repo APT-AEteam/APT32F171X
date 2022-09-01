@@ -376,8 +376,8 @@ typedef enum{
 #define GPTA_LDBMD_POS		(5)
 #define GPTA_LDBMD_MSK		(0x7 << GPTA_LDBMD_POS)
 typedef enum{
-	GPTA_LD_IMM = 0,
-	GPTA_LD_SHDW 
+	GPTA_LD_SHDW = 0,
+	GPTA_LD_IMM 
 	
 }csp_gpta_ld_e;
 

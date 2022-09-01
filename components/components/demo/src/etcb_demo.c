@@ -254,7 +254,7 @@ int etcb_one_trg_more_demo(void)
 	tEtbConfig.bySrcIp  = ETB_ETP0_TRGOUT0 ;  	//EPT0 触发输出作为触发源
 	tEtbConfig.byDstIp =  ETB_ADC_SYNCIN0;   	//ADC_SYNCIN0 同步输入作为目标事件1
 	tEtbConfig.byDstIp1 = ETB_ADC_SYNCIN1;      //ADC_SYNCIN1 同步输入作为目标事件2
-	tEtbConfig.byDstIp2 = ETB_DST_NOT_USE;      //无同步输入目标事件2
+	tEtbConfig.byDstIp2 = ETB_DST_NOT_USE;      //无同步输入目标事件
 	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
    
 	csi_etb_init();
