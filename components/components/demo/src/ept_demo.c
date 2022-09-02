@@ -36,8 +36,9 @@ int ept_capture_demo(void)
 	
 	csi_pin_set_mux(PA01,PA01_INPUT);		
 	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
-	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);	//PA01 下降沿产生中断	
-	csi_exi_set_evtrg(1, TRGSRC_EXI1, 1);
+	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_BOTH_EDGE);		//PA01 下降沿产生中断
+	csi_pin_irq_enable(PA01, ENABLE);							//PA01 中断使能	
+	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI1, 1);             //IO边沿翻转一次 触发	
 //------------------------------------------------------------------------------------------------------------------------	
     csi_pin_set_mux(PA07, PA07_EPT_CHBX);						//PIN11
 //------------------------------------------------------------------------------------------------------------------------	
@@ -53,23 +54,23 @@ int ept_capture_demo(void)
 	iRet = csi_etb_ch_config(ch, &tEtbConfig);		
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_ept_captureconfig_t tPwmCfg;								  
-		tPwmCfg.byWorkmod       = EPT_CAPTURE;                     //WAVE or CAPTURE    //计数或捕获	
-		tPwmCfg.byCountingMode  = EPT_UPCNT;                       //CNYMD  //计数方向
-		tPwmCfg.byOneshotMode   = EPT_OP_CONT;                     //OPM    //单次或连续(工作方式)
-		tPwmCfg.byStartSrc      = EPT_SYNC_START;				   //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
-	    tPwmCfg.byPscld         = EPT_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值	
-		tPwmCfg.byCaptureCapmd  = EPT_CAPMD_CONT;                  //0:连续捕捉模式    1h：一次性捕捉模式
-		tPwmCfg.byCaptureStopWrap=4-1;                             //Capture模式下，捕获事件计数器周期设置值
-		tPwmCfg.byCaptureLdaret  =0;                               //CMPA捕捉载入后，计数器值计数状态控制位(1h：CMPA触发后，计数器值进行重置;0h：CMPA触发后，计数器值不进行重置)
-		tPwmCfg.byCaptureLdbret  =0;                              
-		tPwmCfg.byCaptureLdcret  =0;                              
-		tPwmCfg.byCaptureLddret  =0;                              	
-	    tPwmCfg.wInt 		     =EPT_INTSRC_CAPLD3;               //interrupt
-		
-		//if(tPwmCfg.byCgsrc==EPT_CGSRC_TIN){
-		//   tPwmCfg.byTinsel=EPT_TIN_BT0;
-		//}
-		
+	tPwmCfg.byWorkmod       = EPT_CAPTURE;                     //WAVE or CAPTURE    //计数或捕获	
+	tPwmCfg.byCountingMode  = EPT_UPCNT;                       //CNYMD  //计数方向
+	tPwmCfg.byOneshotMode   = EPT_OP_CONT;                     //OPM    //单次或连续(工作方式)
+	tPwmCfg.byStartSrc      = EPT_SYNC_START;				   //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
+	tPwmCfg.byPscld         = EPT_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值	
+	tPwmCfg.byCaptureCapmd  = EPT_CAPMD_CONT;                  //0:连续捕捉模式    1h：一次性捕捉模式
+	tPwmCfg.byCaptureStopWrap=4-1;                             //Capture模式下，捕获事件计数器周期设置值
+	tPwmCfg.byCaptureLdaret  =0;                               //CMPA捕捉载入后，计数器值计数状态控制位(1h：CMPA触发后，计数器值进行重置;0h：CMPA触发后，计数器值不进行重置)
+	tPwmCfg.byCaptureLdbret  =0;                              
+	tPwmCfg.byCaptureLdcret  =0;                              
+	tPwmCfg.byCaptureLddret  =0;                              	
+	tPwmCfg.wInt 		     =EPT_INTSRC_CAPLD3;               //interrupt
+	
+	//if(tPwmCfg.byCgsrc==EPT_CGSRC_TIN){
+	//   tPwmCfg.byTinsel=EPT_TIN_BT0;
+	//}
+	
 	csi_ept_capture_init(EPT0, &tPwmCfg);
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_ept_set_sync (EPT0, EPT_TRG_SYNCEN2, EPT_TRG_CONTINU,EPT_AUTO_REARM_ZRO);	

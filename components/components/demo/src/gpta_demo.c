@@ -33,13 +33,12 @@ int gpta_capture_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------	
-
-//------------------------------------------------------------------------------------------------------------------------
-    csi_pin_set_mux(PA01,PA01_INPUT);		                    //pin23
+	csi_pin_set_mux(PA01,PA01_INPUT);		
 	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
-	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_BOTH_EDGE);		//PA01 边沿产生中断	
-	csi_exi_set_evtrg(1, TRGSRC_EXI1, 1);
-	
+	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_BOTH_EDGE);		//PA01 下降沿产生中断
+	csi_pin_irq_enable(PA01, ENABLE);							//PA01 中断使能	
+	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI1, 1);             //IO边沿翻转一次 触发	
+		
 	volatile uint8_t ch;		
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体	
 	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
@@ -52,16 +51,16 @@ int gpta_capture_demo(void)
 	iRet=csi_etb_ch_config(ch, &tEtbConfig);	
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gpta_captureconfig_t tPwmCfg;								  
-		tPwmCfg.byWorkmod       = GPTA_CAPTURE;                     //WAVE or CAPTURE    //计数或捕获	
-		tPwmCfg.byCountingMode  = GPTA_UPCNT;                       //CNYMD  //计数方向
-        tPwmCfg.byOneshotMode    = GPTA_OP_CONT; 
-		tPwmCfg.byStartSrc      = GPTA_SYNC_START;				    //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
-	    tPwmCfg.byPscld         = GPTA_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值	
-		tPwmCfg.byCaptureCapmd   = 0;                               //0:连续捕捉模式    1h：一次性捕捉模式
-		tPwmCfg.byCaptureStopWrap=2-1;                              //Capture模式下，捕获事件计数器周期设置值
-		tPwmCfg.byCaptureLdaret  =1;                                //CMPA捕捉载入后，计数器值计数状态控制位(1h：CMPA触发后，计数器值进行重置;0h：CMPA触发后，计数器值不进行重置)
-		tPwmCfg.byCaptureLdbret  =1;                                                         	
-	    tPwmCfg.wInt 		 =GPTA_INTSRC_CAPLD1;                   //interrupt//
+	tPwmCfg.byWorkmod       = GPTA_CAPTURE;                     //WAVE or CAPTURE    //计数或捕获	
+	tPwmCfg.byCountingMode  = GPTA_UPCNT;                       //CNYMD  //计数方向
+	tPwmCfg.byOneshotMode    = GPTA_OP_CONT; 
+	tPwmCfg.byStartSrc      = GPTA_SYNC_START;				    //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
+	tPwmCfg.byPscld         = GPTA_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值	
+	tPwmCfg.byCaptureCapmd   = 0;                               //0:连续捕捉模式    1h：一次性捕捉模式
+	tPwmCfg.byCaptureStopWrap=2-1;                              //Capture模式下，捕获事件计数器周期设置值
+	tPwmCfg.byCaptureLdaret  =1;                                //CMPA捕捉载入后，计数器值计数状态控制位(1h：CMPA触发后，计数器值进行重置;0h：CMPA触发后，计数器值不进行重置)
+	tPwmCfg.byCaptureLdbret  =1;                                                         	
+	tPwmCfg.wInt 		 =GPTA_INTSRC_CAPLD1;                   //interrupt//
 		
 	csi_gpta_capture_init(GPTA0, &tPwmCfg);
 
