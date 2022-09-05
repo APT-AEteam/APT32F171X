@@ -310,6 +310,21 @@ csi_error_t csi_gpta_capture_init(csp_gpta_t *ptGptaBase, csi_gpta_captureconfig
  */
 csi_error_t  csi_gpta_wave_init(csp_gpta_t *ptGptaBase, csi_gpta_pwmconfig_t *ptGptaPwmCfg);
 
+/** \brief initialize gpta data structure
+ * 
+ *  \param[in] ptGptaBase: pointer of gpta register structure
+ *  \param[in] wTimeOut: the timeout for gpta, unit: us, 20us < wTimeOut < 3S
+ *  \return error code \ref csi_error_t
+ */ 
+csi_error_t csi_gpta_timer_init(csp_gpta_t *ptGptaBase, uint32_t wTimeOut);
+
+/** \brief set gpta count mode
+ * 
+ *  \param[in] ptGptaBase: pointer of gpta register structure
+ *  \param[in] eCntMode: gpta count mode, one pulse/continuous
+ *  \return none
+ */ 
+void csi_gpta_count_mode(csp_gpta_t *ptGptaBase, csi_gpta_opmd_e eCntMode);
 
 /** \brief enable/disable gpta burst 
  * 
