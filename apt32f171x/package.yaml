@@ -15,7 +15,7 @@ def_config:
   CONFIG_XIP: 1
   DBG_PRINT2PC: 1
 name: apt32f171x
-version: v1.0.0
+version: v0.0.0
 description: 我的第一个方案工程
 tag: ""
 keywords: 
@@ -24,8 +24,8 @@ author:
 license: ""
 type: solution
 depends:
-  - apt32f171x_demo: v1.0.0
-  - sdk_171x: v1.0.0
+  - apt32f171x_demo: v0.0.0
+  - sdk_171x: v0.0.0
 build_config:
   include:
     - include
@@ -42,5 +42,5 @@ source_file:
 install: 
 homepage: 
 depends_forward:
-  - apt32f171x_demo: v1.0.0
-  - sdk_171x: v1.0.0
+  - apt32f171x_demo: v0.0.0
+  - sdk_171x: v0.0.0

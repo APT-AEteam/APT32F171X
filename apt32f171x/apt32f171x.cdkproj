@@ -39,6 +39,7 @@
     <debugLayout/>
     <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
   </DebugSessions>
+  <PackPathes>$(ProjectPath)/../apt32f171x|$(ProjectPath)/../board|$(ProjectPath)/../components|</PackPathes>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
       <Target>
@@ -246,5 +247,4 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
-  <PackPathes>$(ProjectPath)/../apt32f171x|$(ProjectPath)/../board|$(ProjectPath)/../components|</PackPathes>
 </Project>

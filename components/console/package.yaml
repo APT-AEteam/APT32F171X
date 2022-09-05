@@ -1,5 +1,5 @@
 name: apt_console
-version: v1.0.0
+version: v0.0.0
 description: mini console.
 tag: 核心模块
 keywords:
@@ -11,17 +11,17 @@ yoc_version:
   - v7.2
   - v7.3
 depends:
-  - apt_csi: v1.0.0
+  - apt_csi: v0.0.0
 build_config:
   include:
     - include
-  internal_include: ~
+  internal_include: 
   cflag: -Os
   cxxflag: -Os
   asmflag: ""
-  define: ~
-  libs: ~
-  libpath: ~
+  define: 
+  libs: 
+  libpath: 
 source_file:
   - src/*.c
   - include/sys_console.h
@@ -30,11 +30,13 @@ install:
     source:
       - console/*.h
 author: ""
-defconfig: ~
+defconfig: 
 link_config:
-  path: ~
-  library: ~
-field: ~
-suitableChip: ~
-homepage: ~
-soc_config: ~
+  path: 
+  library: 
+field: 
+suitableChip: 
+homepage: 
+soc_config: 
+depends_forward:
+  - apt_csi: v0.0.0
