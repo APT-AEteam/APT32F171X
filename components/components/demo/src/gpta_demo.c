@@ -86,15 +86,6 @@ int gpta_capture_demo(void)
 	csi_gpta_set_evtrg(GPTA0, GPTA_TRGOUT0, GPTA_TRG01_SYNC);                         //TRGSEL0	
 	csi_gpta_int_enable(GPTA0, GPTA_INTSRC_TRGEV0,true);
 //------------------------------------------------------------------------------------------------------------------------	
-//	csi_gpta_filter_config_t  tpFiltercfg;
-//	tpFiltercfg.byFiltSrc        =GPTA_FILT_SYNCIN2;
-//	tpFiltercfg.byWinInv         =1;                              //0h：窗口不反转，窗口有效区间禁止滤波输入;  1h：窗口反转，  窗口有效区间使能滤波输入
-//	tpFiltercfg.byWinAlign       =GPTA_ALIGN_ZRO;                  //窗口对齐模式选择															  
-//	tpFiltercfg.byWinCross       =1;                              //滤波窗跨越窗口对齐点:  0h：禁止跨窗口对齐点;  1h：允许跨窗口对齐点
-//	tpFiltercfg.byWinOffset      =0xffff/2;
-//	tpFiltercfg.byWinWidth       =0xffff/2;
-//    csi_gpta_set_sync_filter(GPTA0, &tpFiltercfg);
-//------------------------------------------------------------------------------------------------------------------------	
 	csi_gpta_start(GPTA0);//start  timer
     while(1){		
 		  		      
@@ -115,26 +106,6 @@ int gpta_capture_demo(void)
 int gpta_pwm_demo(void)
 {
 	int iRet = 0;	
-//------------------------------------------------------------------------------------------------------------------------	
-//    csi_pin_set_mux(PA01,PA01_INPUT);		                    //pin23
-//	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
-//	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_BOTH_EDGE);		//PA01 边沿产生中断	
-//	csi_exi_set_evtrg(1, TRGSRC_EXI1, 1);
-//	
-//	volatile uint8_t ch;		
-//	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体	
-//	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
-//	tEtbConfig.bySrcIp   = ETB_ETP0_TRGOUT0;//ETB_EXI_TRGOUT1 ;    //...作为触发源
-//	tEtbConfig.bySrcIp1  = 0xff;      
-//	tEtbConfig.bySrcIp2  = 0xff;
-//	tEtbConfig.byDstIp   = ETB_GPTA0_SYNCIN0;   //作为目标事件
-//	tEtbConfig.byDstIp1  = 0xff;
-//	tEtbConfig.byDstIp2  = 0xff;
-//	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
-//	csi_etb_init();
-//	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功
-////	if(ch < 0)return -1;						//ch < 0,则获取通道号失败		
-//	iRet=csi_etb_ch_config(ch, &tEtbConfig);	
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_pin_set_mux(PB00,   PB00_GPT_CHA);//20
 	csi_pin_set_mux(PB01,   PB01_GPT_CHB);//21
@@ -398,6 +369,90 @@ int gpta_pwm_syncin4_demo(void)
 	}		
     return iRet;
 	
+}
+
+/** \brief GPTA sync0同步功能，
+ *   		BT0触发GPTA pwm 输出，触发在窗口内生效
+ *     		
+ * 			-
+ *  \param[in] none
+ *  \return error code
+ */
+int gpta_pwm_syncin0_demo(void)
+{
+	int iRet = 0;	
+	volatile uint8_t ch;
+//------------------------------------------------------------------------------------------------------------------------	
+	csi_pin_set_mux(PB00,   PB00_GPT_CHA);//20
+	csi_pin_set_mux(PB01,   PB01_GPT_CHB);//21
+	
+	csi_bt_timer_init(BT0, 800);		//初始化BT0, 定时10000us； BT定时，默认采用PEND中断
+	
+	csi_bt_start(BT0);					//启动定时器
+	csi_bt_set_evtrg(BT0, 0, BT_TRGSRC_PEND);
+	
+//------------------------------------------------------------------------------------------------------------------------		
+	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体	
+	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
+	tEtbConfig.bySrcIp   = ETB_BT0_TRGOUT ;  	//...作为触发源
+	tEtbConfig.byDstIp   =  ETB_GPTA0_SYNCIN0;  //GPTB0 同步输入1作为目标事件
+	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
+	csi_etb_init();
+	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功						//ch < 0,则获取通道号失败		
+	iRet = csi_etb_ch_config(ch, &tEtbConfig);
+			
+	csi_gpta_pwmconfig_t tPwmCfg;								  
+	tPwmCfg.byWorkmod        = GPTA_WAVE;                        //WAVE  波形模式
+	tPwmCfg.byCountingMode   = GPTA_UPCNT;                       //CNYMD  //计数方向
+	tPwmCfg.byOneshotMode    = GPTA_OP_CONT;                     //OPM    //单次或连续(工作方式)
+	tPwmCfg.byStartSrc       = GPTA_SYNC_START;					 //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
+	tPwmCfg.byPscld          = GPTA_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值		
+	tPwmCfg.byDutyCycle 	 = 10;								 //pwm ouput duty cycle//PWM初始值(X%)	100us		
+	tPwmCfg.wFreq 			 = 1000;							 //pwm ouput frequency	1000us
+	tPwmCfg.wInt 		 	 = GPTA_INT_CBU;                     //interrupt
+	csi_gpta_wave_init(GPTA0, &tPwmCfg);
+	
+	
+	csi_gpta_pwmchannel_config_t  tEptchannelCfg;
+	tEptchannelCfg.byActionZro    =   GPTA_LO;
+	tEptchannelCfg.byActionPrd    =   GPTA_NA;
+	tEptchannelCfg.byActionC1u    =   GPTA_HI;
+	tEptchannelCfg.byActionC1d    =   GPTA_LO;
+	tEptchannelCfg.byActionC2u    =   GPTA_HI;
+	tEptchannelCfg.byActionC2d    =   GPTA_LO;
+	tEptchannelCfg.byActionT1u    =   GPTA_LO;
+	tEptchannelCfg.byActionT1d    =   GPTA_LO;
+	tEptchannelCfg.byActionT2u    =   GPTA_NA;
+	tEptchannelCfg.byActionT2d    =   GPTA_NA;
+	tEptchannelCfg.byChoiceC1sel  =   GPTA_CMPA;
+	tEptchannelCfg.byChoiceC2sel  =   GPTA_CMPA;	
+	csi_gpta_channel_config(GPTA0, &tEptchannelCfg,  GPTA_CHANNEL_1);//channel
+	tEptchannelCfg.byChoiceC1sel  =   GPTA_CMPB;
+	tEptchannelCfg.byChoiceC2sel  =   GPTA_CMPB;
+	csi_gpta_channel_config(GPTA0, &tEptchannelCfg,  GPTA_CHANNEL_2);
+	
+//------------------------------------------------------------------------------------------------------------------------
+	csi_gpta_set_sync(GPTA0, GPTA_TRG_SYNCEN0, GPTA_TRG_CONTINU, GPTA_AUTO_REARM_ZRO);//使能SYNCIN2外部触发
+	
+    //触发在窗口内才能生效，如果没有窗口功能，BT会一直触发GPTA，导致GPTA输出一直为低电平(电平还没来得及翻转，又来了新的BT触发)，
+	//如果添加了窗口功能，在窗口内，BT触发才会生效，在窗口外的，BT触发不会生效，这样可以看到GPTA输出有电平翻转。
+	csi_gpta_filter_config_t  tpFiltercfg;
+	tpFiltercfg.byFiltSrc        =GPTA_FILT_SYNCIN0;
+	tpFiltercfg.byWinInv         =1;                              //0h：窗口不反转，窗口有效区间禁止滤波输入;  1h：窗口反转，  窗口有效区间使能滤波输入
+	tpFiltercfg.byWinAlign       =GPTA_ALIGN_ZRO;                  //窗口对齐模式选择															  
+	tpFiltercfg.byWinCross       =1;                              //滤波窗跨越窗口对齐点:  0h：禁止跨窗口对齐点;  1h：允许跨窗口对齐点
+	tpFiltercfg.byWinOffset      =0xFFFF/2;
+	tpFiltercfg.byWinWidth       =0xFFFF/2;
+    csi_gpta_set_sync_filter(GPTA0, &tpFiltercfg);	
+	
+	csi_gpta_start(GPTA0);
+    while(1){		
+		  		      
+		    mdelay(200);                        
+		    	
+		    mdelay(200);
+	}	
+    return iRet;
 }
 
 

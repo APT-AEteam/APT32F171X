@@ -106,6 +106,7 @@ extern int gpta_capture_demo();
 extern int gpta_pwm_demo();
 extern int gpta_soft_trgout_demo();
 extern int gpta_pwm_syncin4_demo();
+extern int gpta_pwm_syncin0_demo();
 
 //cmp demo
 extern int cmp_base_demo(void);
