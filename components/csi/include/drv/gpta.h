@@ -68,8 +68,8 @@ struct csi_gpta_captureconfig {
 	uint8_t     byCaptureStopWrap;
 	uint8_t     byCaptureLdaret;
 	uint8_t     byCaptureLdbret;
-//	uint8_t     byCaptureLdcret;
-//	uint8_t     byCaptureLddret;
+	uint8_t     byCaptureLdaaret;
+	uint8_t     byCaptureLdbaret;
 	uint32_t    wInt;
 };
 
@@ -273,8 +273,8 @@ typedef enum{
 	GPTA_INTSRC_TRGEV3 = 0x8,
 	GPTA_INTSRC_CAPLD0 = 0x1 << 4,
 	GPTA_INTSRC_CAPLD1 = 0x1 << 5,
-//	GPTA_INTSRC_CAPLD2 = 0x1 << 6,
-//	GPTA_INTSRC_CAPLD3 = 0x1 << 7,
+	GPTA_INTSRC_CAPLD2 = 0x1 << 6,
+	GPTA_INTSRC_CAPLD3 = 0x1 << 7,
 	GPTA_INTSRC_CAU = 0x1 << 8,
 	GPTA_INTSRC_CAD = 0x1 << 9,
 	GPTA_INTSRC_CBU = 0x1 << 10,

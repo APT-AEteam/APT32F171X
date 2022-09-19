@@ -18,7 +18,7 @@ extern void load1(void);
 uint32_t gTick;
 uint32_t gGpta0Prd;
 uint32_t gGpta1Prd;
-uint32_t val_buff_t[2];
+uint32_t wGpta_Cmp_Buff[4] = {0};
 
 /** \brief gpta interrupt handle weak function
  *   		- 
@@ -61,17 +61,31 @@ __attribute__((weak)) void gpta0_irqhandler(csp_gpta_t *ptGptaBase)
 	}
     if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CAPLD0))==GPTA_INT_CAPLD0)
 	{		
-	 val_buff_t[0]=csp_gpta_get_cmpa(ptGptaBase);
+	 wGpta_Cmp_Buff[0]=csp_gpta_get_cmpa(ptGptaBase);
 	 csp_gpta_clr_int(ptGptaBase, GPTA_INT_CAPLD0);			
 	}
 	if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CAPLD1))==GPTA_INT_CAPLD1)
-	{	
-     csi_pin_set_high(PB04);	
-     	val_buff_t[0]=csp_gpta_get_cmpa(ptGptaBase);
-		val_buff_t[1]=csp_gpta_get_cmpb(ptGptaBase);
-	 csp_gpta_clr_int(ptGptaBase, GPTA_INT_CAPLD1);
-     csi_pin_set_low(PB04);			
+	{		
+     	wGpta_Cmp_Buff[0]=csp_gpta_get_cmpa(ptGptaBase);
+		wGpta_Cmp_Buff[1]=csp_gpta_get_cmpb(ptGptaBase);
+		csp_gpta_clr_int(ptGptaBase, GPTA_INT_CAPLD1);			
 	}
+    if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CAPLD2))==GPTA_INT_CAPLD2)
+	{		
+     	wGpta_Cmp_Buff[0]=csp_gpta_get_cmpa(ptGptaBase);
+		wGpta_Cmp_Buff[1]=csp_gpta_get_cmpb(ptGptaBase);
+		wGpta_Cmp_Buff[2]=csp_gpta_get_cmpaa(ptGptaBase);
+		csp_gpta_clr_int(ptGptaBase, GPTA_INT_CAPLD2);			
+	}
+	if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CAPLD3))==GPTA_INT_CAPLD3)
+	{		
+     	wGpta_Cmp_Buff[0]=csp_gpta_get_cmpa(ptGptaBase);
+		wGpta_Cmp_Buff[1]=csp_gpta_get_cmpb(ptGptaBase);
+		wGpta_Cmp_Buff[2]=csp_gpta_get_cmpaa(ptGptaBase);
+		wGpta_Cmp_Buff[3]=csp_gpta_get_cmpba(ptGptaBase);
+		csp_gpta_clr_int(ptGptaBase, GPTA_INT_CAPLD3);			
+	}	
+	
     if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CBU))==GPTA_INT_CBU)
 	{	
 //		csi_pin_set_high(PB04);
@@ -154,8 +168,8 @@ csi_error_t csi_gpta_capture_init(csp_gpta_t *ptGptaBase, csi_gpta_captureconfig
 	wCrVal=(wCrVal & ~(GPTA_STOPWRAP_MSK))|((ptGptaPwmCfg->byCaptureStopWrap&0x03)<<GPTA_STOPWRAP_POS);
 	wCrVal=(wCrVal & ~(GPTA_CMPA_RST_MSK))|((ptGptaPwmCfg->byCaptureLdaret&0x01)  <<GPTA_CMPA_RST_POS);
 	wCrVal=(wCrVal & ~(GPTA_CMPB_RST_MSK))|((ptGptaPwmCfg->byCaptureLdbret&0x01)  <<GPTA_CMPB_RST_POS);
-//	wCrVal=(wCrVal & ~(GPTA_CMPC_RST_MSK))|((ptGptaPwmCfg->byCaptureLdcret&0x01)  <<GPTA_CMPC_RST_POS);
-//	wCrVal=(wCrVal & ~(GPTA_CMPD_RST_MSK))|((ptGptaPwmCfg->byCaptureLddret&0x01)  <<GPTA_CMPD_RST_POS);
+	wCrVal=(wCrVal & ~(GPTA_CMPAA_RST_MSK))|((ptGptaPwmCfg->byCaptureLdaaret&0x01)  <<GPTA_CMPAA_RST_POS);
+	wCrVal=(wCrVal & ~(GPTA_CMPBA_RST_MSK))|((ptGptaPwmCfg->byCaptureLdbaret&0x01)  <<GPTA_CMPBA_RST_POS);
 	
 	wCrVal|=GPTA_CAPLD_EN;
 	wCrVal|=GPTA_CAPREARM;
