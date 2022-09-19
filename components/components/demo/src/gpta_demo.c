@@ -48,14 +48,15 @@ int gpta_timer_demo(void)
 int gpta_capture_demo(void)
 {
 	int iRet = 0;	
-//------------------------------------------------------------------------------------------------------------------------	
+    volatile uint8_t ch;
+
 	csi_pin_set_mux(PA01,PA01_INPUT);		
 	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
-	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_BOTH_EDGE);		//PA01 下降沿产生中断
-	csi_pin_irq_enable(PA01, ENABLE);							//PA01 中断使能	
-	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI1, 1);             //IO边沿翻转一次 触发	
-		
-	volatile uint8_t ch;		
+	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断
+	csi_pin_irq_enable(PA01, ENABLE);							//使能GPIO中断	
+	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI1, 1);	
+	
+//------------------------------------------------------------------------------------------------------------------------		
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体	
 	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
 	tEtbConfig.bySrcIp   = ETB_EXI_TRGOUT1 ;  	//...作为触发源
@@ -73,18 +74,29 @@ int gpta_capture_demo(void)
 	tPwmCfg.byStartSrc      = GPTA_SYNC_START;				    //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
 	tPwmCfg.byPscld         = GPTA_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值	
 	tPwmCfg.byCaptureCapmd   = 0;                               //0:连续捕捉模式    1h：一次性捕捉模式
-	tPwmCfg.byCaptureStopWrap=2-1;                              //Capture模式下，捕获事件计数器周期设置值
-	tPwmCfg.byCaptureLdaret  =1;                                //CMPA捕捉载入后，计数器值计数状态控制位(1h：CMPA触发后，计数器值进行重置;0h：CMPA触发后，计数器值不进行重置)
-	tPwmCfg.byCaptureLdbret  =1;                                                         	
-	tPwmCfg.wInt 		 =GPTA_INTSRC_CAPLD1;                   //interrupt//
+	tPwmCfg.byCaptureStopWrap=4-1;                              //Capture模式下，捕获事件计数器周期设置值
+	tPwmCfg.byCaptureLdaret   =0;                                //CMPA捕捉载入后，计数器值计数状态控制位(1h：CMPA触发后，计数器值进行重置;0h：CMPA触发后，计数器值不进行重置)
+	tPwmCfg.byCaptureLdbret   =0; 
+	tPwmCfg.byCaptureLdaaret  =0;  
+	tPwmCfg.byCaptureLdbaret  =1;                                                          	
+	tPwmCfg.wInt 		 =GPTA_INTSRC_CAPLD3;                   //interrupt//
 		
 	csi_gpta_capture_init(GPTA0, &tPwmCfg);
 
 //------------------------------------------------------------------------------------------------------------------------
     csi_gpta_set_sync(GPTA0, GPTA_TRG_SYNCEN2, GPTA_TRG_CONTINU, GPTA_AUTO_REARM_ZRO);//使能SYNCIN2外部触发
-	csi_gpta_set_extsync_chnl(GPTA0, GPTA_TRG_SYNCEN2,GPTA_TRGOUT0);                  //SYNCIN2--TRGSEL0
-	csi_gpta_set_evtrg(GPTA0, GPTA_TRGOUT0, GPTA_TRG01_SYNC);                         //TRGSEL0	
-	csi_gpta_int_enable(GPTA0, GPTA_INTSRC_TRGEV0,true);
+//	csi_gpta_set_extsync_chnl(GPTA0, GPTA_TRG_SYNCEN2,0);                             //SYNCIN2--TRGSEL0
+//	csi_gpta_set_evtrg(GPTA0, GPTA_TRG_OUT0, GPTA_TRG01_SYNC);                          //TRGSEL0	
+//	csi_gpta_int_enable(GPTA0, GPTA_INTSRC_TRGEV0,true);
+//------------------------------------------------------------------------------------------------------------------------	
+//	csi_gpta_filter_config_t  tpFiltercfg;
+//	tpFiltercfg.byFiltSrc        =GPTA_FILT_SYNCIN2;
+//	tpFiltercfg.byWinInv         =1;                              //0h：窗口不反转，窗口有效区间禁止滤波输入;  1h：窗口反转，  窗口有效区间使能滤波输入
+//	tpFiltercfg.byWinAlign       =GPTA_ALIGN_ZRO;                  //窗口对齐模式选择															  
+//	tpFiltercfg.byWinCross       =1;                              //滤波窗跨越窗口对齐点:  0h：禁止跨窗口对齐点;  1h：允许跨窗口对齐点
+//	tpFiltercfg.byWinOffset      =0xffff/2;
+//	tpFiltercfg.byWinWidth       =0xffff/2;
+//    csi_gpta_set_sync_filter(GPTA0, &tpFiltercfg);
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gpta_start(GPTA0);//start  timer
     while(1){		
