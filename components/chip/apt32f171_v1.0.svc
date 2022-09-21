@@ -2321,7 +2321,7 @@
       </Register>
     </Peripheral>
     <Peripheral Name="GPTA0">
-      <Register Name="GPTA_CEDR" Authority="RW" Address="0x40065000" Width="32" Description="ID &amp; Clock Enable/Disable Register">
+      <Register Name="GPTA_CEDR" Authority="RW" Address="0x40065000" Width="32" Description="ID和时钟控制寄存器">
         <Bit Name="IDCODE" Authority="RO" Bits="31-16" Description="当前GPTA模块的版本信息。" />
         <Bit Name="FLTCKPRS" Authority="RW" Bits="15-8" Description="数字滤波器的时钟分频控制。&#xD;&#xA;数字滤波器的时钟频率为PCLK/( FLTCKPRS+1)" />
         <Bit Name="SHDWSTP" Authority="RW" Bits="6" Description="START控制位的Shadow功能使能控制。START置位不受此位控制，清除时受此位控制。当选择Shadow模式时，START控制位在周期结束时清除。&#xD;&#xA;0h：Shadow模式&#xD;&#xA;1h：Immediate模式" />
@@ -2329,15 +2329,15 @@
         <Bit Name="DBGEN" Authority="RW" Bits="2-1" Description="调试使能控制。调试使能时，在CPU被调试器挂起时，时基计数器的计数时钟同时也被挂起。&#xD;&#xA;0h：调试禁止&#xD;&#xA;1h：调试使能，PWM输出高阻&#xD;&#xA;其他：调试使能，PWM输出保持" />
         <Bit Name="CLKEN" Authority="RW" Bits="0" Description="时基计数器的时钟使能控制。&#xD;&#xA;0h：计数器计数时钟禁止。&#xD;&#xA;1h：计数器计数时钟使能。" />
       </Register>
-      <Register Name="GPTA_RSSR" Authority="RW" Address="0x40065004" Width="32" Description="RESET/START/STOP Register">
+      <Register Name="GPTA_RSSR" Authority="RW" Address="0x40065004" Width="32" Description="启停控制寄存器">
         <Bit Name="SRR" Authority="RW" Bits="15-12" Description="软件复位控制位。&#xD;&#xA;当对当前控制位写入‘0x5’时，TIMER模块会被复位。复位后，所有寄存器都恢复为RESET状态。" />
         <Bit Name="CNTDIR" Authority="RO" Bits="3" Description="当前计数器计数方向状态。&#xD;&#xA;0h：当前计数器方向为递减&#xD;&#xA;1h：当前计数器方向为递增" />
         <Bit Name="START" Authority="RW" Bits="0" Description="计数器启动控制位。&#xD;&#xA;0h：当写‘0’时，停止计数器&#xD;&#xA;1h：当写‘1’时，启动计数器&#xD;&#xA;当对START位进行读取时，返回当前计数器工作状态&#xD;&#xA;0h：计数器处于IDLE状态&#xD;&#xA;1h：计数器正在工作&#xD;&#xA;&#xD;&#xA;当GPTA_CR[SWSYNEN]控制位为低时，START控制位用于控制GPTA的启动，当GPTA启动后，再次写入START将被忽略；&#xD;&#xA;当GPTA_CR[SWSYNEN]控制位为高时，START控制位用于软件触发同步事件，每次对START的写入，会产生一次外部Sync事件（等同于SYNCR中的SYNCIN0触发）。" />
       </Register>
-      <Register Name="GPTA_PSCR" Authority="RW" Address="0x40065008" Width="32" Description="Counter Clock Prescaler Register">
+      <Register Name="GPTA_PSCR" Authority="RW" Address="0x40065008" Width="32" Description="时钟分频控制寄存器">
         <Bit Name="PSC" Authority="RW" Bits="15-0" Description="时钟分频控制。&#xD;&#xA;TCLK作为时基模块的计时时钟和工作时钟。TCLK的时钟从PCLK分频得到。TCLK的频率：FTCLK = FPCLK / (PSC+1)&#xD;&#xA;此寄存器具有Shadow寄存器，可通过GPTA_CR[PSCLD]设置载入的条件。" />
       </Register>
-      <Register Name="GPTA_CR(WAVE=0)" Authority="RW" Address="0x4006500c" Width="32" Description="General Control Register">
+      <Register Name="GPTA_CR(WAVE=0)" Authority="RW" Address="0x4006500c" Width="32" Description="控制寄存器，捕捉模式 WAVE=0">
         <Bit Name="LDDRST" Authority="RW" Bits="26" Description="CMPB(Active)捕捉载入后，计数器值计数状态控制位。&#xD;&#xA;0h：当前捕获触发后，计数器值不进行重置&#xD;&#xA;1h：当前捕获触发后，计数器值进行重置" />
         <Bit Name="LDCRST" Authority="RW" Bits="25" Description="CMPA(Active)捕捉载入后，计数器值计数状态控制位。&#xD;&#xA;0h：当前捕获触发后，计数器值不进行重置&#xD;&#xA;1h：当前捕获触发后，计数器值进行重置" />
         <Bit Name="LDBRST" Authority="RW" Bits="24" Description="CMPB(Shadow)捕捉载入后，计数器值计数状态控制位。&#xD;&#xA;0h：当前捕获触发后，计数器值不进行重置&#xD;&#xA;1h：当前捕获触发后，计数器值进行重置" />
@@ -2357,7 +2357,7 @@
         <Bit Name="SWSYNEN" Authority="RW" Bits="2" Description="软件使能同步触发使能控制（RSSR中START控制位）。&#xD;&#xA;0h：设置SW START控制只用于启动。&#xD;&#xA;1h：设置SW START控制用于启动和以产生一次SYNCIN0事件，以外部触发的方式重新启动。" />
         <Bit Name="CNTMD" Authority="RW" Bits="1-0" Description="计数模式设置。&#xD;&#xA;计数模式一般只设置一次，并且在计数过程中不做改变。如果计数模式被改变，变化将发生在下一个TCLK的边沿，并且基于上一个计数器值进行递增或者递减。&#xD;&#xA;00b：递增模式&#xD;&#xA;01b：递减模式&#xD;&#xA;10b：递增递减模式&#xD;&#xA;11b：保留" />
       </Register>
-      <Register Name="GPTA_CR(WAVE=1)" Authority="RW" Address="0x4006500c" Width="32" Description="General Control Register">
+      <Register Name="GPTA_CR(WAVE=1)" Authority="RW" Address="0x4006500c" Width="32" Description="控制寄存器，波形输出模式：WAVE=1">
         <Bit Name="WAVE" Authority="RW" Bits="18" Description="GPTA工作模式选择。&#xD;&#xA;0h：捕捉模式&#xD;&#xA;1h：波形发生模式" />
         <Bit Name="PSCLD" Authority="RW" Bits="17-16" Description="PSCR活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值。&#xD;&#xA;00b：当CNT=ZRO时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;01b：当CNT=PRD时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;10b：当CNT=ZRO或者PRD时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;11b：不进行载入" />
         <Bit Name="CGFLT" Authority="RW" Bits="15-13" Description="门控输入数字滤波控制。此控制定义了滤波器监测的步数，只有连续N次监测结果一致时，滤波器才输出有效的电平翻转。滤波器的采样时钟频率通过CEDR[FLTCKPRS] 控制位定义。&#xD;&#xA;000b：Bypass&#xD;&#xA;001b：N = 2&#xD;&#xA;010b：N = 3&#xD;&#xA;011b：N = 4&#xD;&#xA;100b：N = 6&#xD;&#xA;101b：N = 8&#xD;&#xA;110b：N = 16&#xD;&#xA;111b：N = 32" />
@@ -2370,7 +2370,7 @@
         <Bit Name="SWSYNEN" Authority="RW" Bits="2" Description="软件使能同步触发使能控制（RSSR中START控制位）。&#xD;&#xA;0h：设置SW START控制只用于启动。&#xD;&#xA;1h：设置SW START控制用于启动和以产生一次SYNCIN0事件，以外部触发的方式重新启动。" />
         <Bit Name="CNTMD" Authority="RW" Bits="1-0" Description="计数模式设置。&#xD;&#xA;计数模式一般只设置一次，并且在计数过程中不做改变。如果计数模式被改变，变化将发生在下一个TCLK的边沿，并且基于上一个计数器值进行递增或者递减。&#xD;&#xA;00b：递增模式&#xD;&#xA;01b：递减模式&#xD;&#xA;10b：递增递减模式&#xD;&#xA;11b：保留" />
       </Register>
-      <Register Name="GPTA_SYNCR" Authority="RW" Address="0x40065010" Width="32" Description="Synchronization Control Register">
+      <Register Name="GPTA_SYNCR" Authority="RW" Address="0x40065010" Width="32" Description="同步控制寄存器">
         <Bit Name="AREARM" Authority="RW" Bits="31-30" Description="硬件自动REARM控制位。&#xD;&#xA;0：禁止硬件自动REARM&#xD;&#xA;1：CNT = ZRO时，自动REARM&#xD;&#xA;2：CNT = PRD时，自动REARM&#xD;&#xA;3：CNT = ZRO or CNT = PRD时，自动REARM" />
         <Bit Name="TRGO1SEL" Authority="RW" Bits="29-27" Description="输入触发通道直通作为TRGSRC1的ExtSync条件的选择。只有当EVTRG寄存器中TRGSRC1控制位选择为ExtSync条件时有效。&#xD;&#xA;0h：选择SYNCIN0作为TRGSRC1的ExtSync触发&#xD;&#xA;1h：选择SYNCIN1作为TRGSRC1的ExtSync触发&#xD;&#xA;2h：选择SYNCIN2作为TRGSRC1的ExtSync触发&#xD;&#xA;3h：选择SYNCIN3作为TRGSRC1的ExtSync触发&#xD;&#xA;4h：选择SYNCIN4作为TRGSRC1的ExtSync触发&#xD;&#xA;5h：选择SYNCIN5作为TRGSRC1的ExtSync触发&#xD;&#xA;其他：保留" />
         <Bit Name="TRGO0SEL" Authority="RW" Bits="26-24" Description="输入触发通道直通作为TRGSRC0的ExtSync条件的选择。只有当EVTRG寄存器中TRGSRC0控制位选择为ExtSync条件时有效。&#xD;&#xA;0h：选择SYNCIN0作为TRGSRC0的ExtSync触发&#xD;&#xA;1h：选择SYNCIN1作为TRGSRC0的ExtSync触发&#xD;&#xA;2h：选择SYNCIN2作为TRGSRC0的ExtSync触发&#xD;&#xA;3h：选择SYNCIN3作为TRGSRC0的ExtSync触发&#xD;&#xA;4h：选择SYNCIN4作为TRGSRC0的ExtSync触发&#xD;&#xA;5h：选择SYNCIN5作为TRGSRC0的ExtSync触发&#xD;&#xA;其他：保留" />
@@ -2394,14 +2394,14 @@
         <Bit Name="SYNCEN1" Authority="RW" Bits="1" Description="" />
         <Bit Name="SYNCEN0" Authority="RW" Bits="0" Description="" />
       </Register>
-      <Register Name="GPTA_GLDCR" Authority="RW" Address="0x40065014" Width="32" Description="Global Load Control Register">
+      <Register Name="GPTA_GLDCR" Authority="RW" Address="0x40065014" Width="32" Description="全局载入控制寄存器">
         <Bit Name="GLDCNT" Authority="RW" Bits="12-10" Description="全局载入事件计数器。&#xD;&#xA;计数器值表示当前已发生多少次事件触发。" />
         <Bit Name="GLDPRD" Authority="RW" Bits="9-7" Description="全局载入触发周期选择。&#xD;&#xA;可以选择N次触发条件满足后，才进行一次全局载入。&#xD;&#xA;000b：Disable Counter（立即触发）&#xD;&#xA;001b：第2次条件满足时触发&#xD;&#xA;010b：第3次条件满足时触发&#xD;&#xA;011b：第4次条件满足时触发&#xD;&#xA;100b：第5次条件满足时触发&#xD;&#xA;101b：第6次条件满足时触发&#xD;&#xA;110b：第7次条件满足时触发&#xD;&#xA;111b：第8次条件满足时触发" />
         <Bit Name="OSTMD" Authority="RW" Bits="5" Description="One Shot 载入模式使能控制位&#xD;&#xA;0h：禁止One Shot模式，只要条件满足，Active寄存器都会从Shadow寄存器载入&#xD;&#xA;1h：使能One Shot模式，只有在GLDCR2[OSREARM]写入‘1’后，才会进行一次载入。一旦载入被触发，需要再次对GLDCR2[OSREARM]写入‘1’，才能允许下一次载入触发。" />
         <Bit Name="GLDMD" Authority="RW" Bits="4-1" Description="全局载入触发事件选择。&#xD;&#xA;0h：CNT = ZRO&#xD;&#xA;1h：CNT = PRD&#xD;&#xA;2h：CNT = ZRO or CNT = PRD&#xD;&#xA;3h：CNT = ZRO or 外部LOAD触发或SYNC触发&#xD;&#xA;4h：CNT = PRD or 外部LOAD触发或SYNC触发&#xD;&#xA;5h：CNT = ZRO or CNT = PRD or 外部LOAD触发或SYNC触发&#xD;&#xA;Others：Reserved&#xD;&#xA;Fh：在GLDCR2[GFRCLD]写入‘1’时  [1]" />
         <Bit Name="GLDEN" Authority="RW" Bits="0" Description="全局的Shadow到Active寄存器载入控制。&#xD;&#xA;0：使用独立的单个配置（在各个寄存器中LDMD控制位分别指派的载入控制）&#xD;&#xA;1：使用GLDMD中的设置，其他设置被屏蔽" />
       </Register>
-      <Register Name="GPTA_GLDCFG" Authority="RW" Address="0x40065018" Width="32" Description="Global Load Configuration Register">
+      <Register Name="GPTA_GLDCFG" Authority="RW" Address="0x40065018" Width="32" Description="全局载入配置">
         <Bit Name="AQCSF" Authority="RW" Bits="12" Description="AQCSF寄存器Shadow到Active寄存器载入控制。&#xD;&#xA;0：即使GLDEN=1，仍旧使用独立的载入配置&#xD;&#xA;1：当GLDEN=1时，使用全局载入配置" />
         <Bit Name="AQCRB" Authority="RW" Bits="9" Description="AQCRB寄存器Shadow到Active寄存器载入控制。&#xD;&#xA;0：即使GLDEN=1，仍旧使用独立的载入配置&#xD;&#xA;1：当GLDEN=1时，使用全局载入配置" />
         <Bit Name="AQCRA" Authority="RW" Bits="8" Description="AQCRA寄存器Shadow到Active寄存器载入控制。&#xD;&#xA;0：即使GLDEN=1，仍旧使用独立的载入配置&#xD;&#xA;1：当GLDEN=1时，使用全局载入配置" />
@@ -2409,41 +2409,41 @@
         <Bit Name="CMPA" Authority="RW" Bits="1" Description="CMPA寄存器Shadow到Active寄存器载入控制。&#xD;&#xA;0：即使GLDEN=1，仍旧使用独立的载入配置&#xD;&#xA;1：当GLDEN=1时，使用全局载入配置" />
         <Bit Name="PRDR" Authority="RW" Bits="0" Description="PRDR寄存器Shadow到Active寄存器载入控制。&#xD;&#xA;0：即使GLDEN=1，仍旧使用独立的载入配置&#xD;&#xA;1：当GLDEN=1时，使用全局载入配置" />
       </Register>
-      <Register Name="GPTA_GLDCR2" Authority="RW" Address="0x4006501c" Width="32" Description="Global Load Control Register2">
+      <Register Name="GPTA_GLDCR2" Authority="RW" Address="0x4006501c" Width="32" Description="全局载入控制寄存器2">
         <Bit Name="GFRCLD" Authority="RW" Bits="1" Description="软件产生一次GLD触发。&#xD;&#xA;0：写入‘0’无效，读取时总是返回‘0’&#xD;&#xA;1：软件产生一次GLD触发事件" />
         <Bit Name="OSREARM" Authority="RW" Bits="0" Description="重置ONE SHOT模式&#xD;&#xA;0：写入‘0’无效，读取时总是返回‘0’&#xD;&#xA;1：重置ONE SHOT模式。ONE SHOT模式下，一次触发后，需要重置模式才允许再次触发" />
       </Register>
-      <Register Name="GPTA_PRDR" Authority="RW" Address="0x40065024" Width="32" Description="Period Register">
+      <Register Name="GPTA_PRDR" Authority="RW" Address="0x40065024" Width="32" Description="周期设置寄存器">
         <Bit Name="PRDR" Authority="RW" Bits="15-0" Description="时基控制周期寄存器。&#xD;&#xA;此控制位决定了PWM输出波形的周期值。通过设置GPTA_CR[PRDLD]可以选择Shadow到Active载入的触发条件。" />
       </Register>
-      <Register Name="GPTA_PHSR" Authority="RW" Address="0x40065028" Width="32" Description="Phase setting register">
+      <Register Name="GPTA_PHSR" Authority="RW" Address="0x40065028" Width="32" Description="相位设置寄存器">
         <Bit Name="PHSR" Authority="RW" Bits="15-0" Description="相位控制寄存器。&#xD;&#xA;此控制位决定了PWM输出波形的相位。当CR[PHSEN] = 0时，同步事件不会触发PHSR载入到CNT中，当CR[PHSEN] = 1时，同步事件发生会触发PHSR载入到CNT中。" />
       </Register>
-      <Register Name="GPTA_CMPA" Authority="RW" Address="0x4006502c" Width="32" Description="Compare A Register">
+      <Register Name="GPTA_CMPA" Authority="RW" Address="0x4006502c" Width="32" Description="比较值A寄存器">
         <Bit Name="OVWRT" Authority="RO" Bits="31" Description="Over Write Flag 标志位。&#xD;&#xA;表示当前Capture值是否被Over Written。当连续两次针对于当前寄存器的捕获事件发生，而两次捕获之间未对当前寄存器进行过读取操作，则Over Written标志被置位。读取当前寄存器会自动清除Over Written标志。&#xD;&#xA;此标志位只有在Capture模式下有效。" />
         <Bit Name="CMPA" Authority="RW" Bits="15-0" Description="比较值A寄存器。&#xD;&#xA;此寄存器有Shadow寄存器，Shadow模式可以通过CMPLDR[SHDWCMPA]进行设置。在Shadow模式下，可以通过CMPLDR[LDAMD]选择Shadow到Active载入的触发条件。在写入前，可以通过SHDWAFULL控制位检测当前寄存器状态。&#xD;&#xA;&#xD;&#xA;当工作于Capture模式下，此寄存器对应CAPLD0事件触发的捕获值。" />
       </Register>
-      <Register Name="GPTA_CMPB" Authority="RW" Address="0x40065030" Width="32" Description="Compare B Register">
+      <Register Name="GPTA_CMPB" Authority="RW" Address="0x40065030" Width="32" Description="比较值B寄存器">
         <Bit Name="OVWRT" Authority="RO" Bits="31" Description="Over Write Flag 标志位。&#xD;&#xA;表示当前Capture值是否被Over Written。当连续两次针对于当前寄存器的捕获事件发生，而两次捕获之间未对当前寄存器进行过读取操作，则Over Written标志被置位。读取当前寄存器会自动清除Over Written标志。&#xD;&#xA;此标志位只有在Capture模式下有效。" />
         <Bit Name="CMPB" Authority="RW" Bits="15-0" Description="比较值B寄存器。&#xD;&#xA;此寄存器有Shadow寄存器，Shadow模式可以通过CMPLDR[SHDWCMPB]进行设置。在Shadow模式下，可以通过CMPLDR[LDBMD]选择Shadow到Active载入的触发条件。在写入前，可以通过SHDWBFULL控制位检测当前寄存器状态。&#xD;&#xA;&#xD;&#xA;当工作于Capture模式下，此寄存器对应CAPLD1事件触发的捕获值。" />
       </Register>
-      <Register Name="GPTA_CMPLDR" Authority="RW" Address="0x4006503c" Width="32" Description="Compare Data Load Control Register">
+      <Register Name="GPTA_CMPLDR" Authority="RW" Address="0x4006503c" Width="32" Description="比较值载入控制寄存器">
         <Bit Name="SHDWAFULL" Authority="RO" Bits="21-20" Description="CMPB的Shadow寄存器非空标志位。&#xD;&#xA;当对CMPB进行写操作时，该标志位置位。该标志位在Shadow被载入到Active后，会自动清除。&#xD;&#xA;0h：Shadow空&#xD;&#xA;1h：Shadow非空，对当前CMP寄存器写入会覆盖Shadow中未被载入的值" />
-        <Bit Name="LDBMD" Authority="RW" Bits="9-7" Description="Shadow模式下，Active CMPB从Shadow CMPB载入控制。&#xD;&#xA;xx1b：当CNT=ZRO时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;x1xb：当CNT=PRD时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;1xxb：外部LOAD触发或SYNC触发时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;000b：不进行载入" />
-        <Bit Name="LDAMD" Authority="RW" Bits="6-4" Description="Shadow模式下，Active CMPA从Shadow CMPA载入控制。&#xD;&#xA;xx1b：当CNT=ZRO时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;x1xb：当CNT=PRD时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;1xxb：外部LOAD触发或SYNC触发时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;000b：不进行载入&#xD;&#xA;每个控制位分别对应一个触发条件，可以同时使能多个触发条件。例如，当设置011b时，CNT=ZRO或CNT=PRD时，都会触发寄存器载入。" />
-        <Bit Name="SHDWCMPB" Authority="RW" Bits="1" Description="CMPB的Shadow功能使能控制。&#xD;&#xA;0h：Shadow模式&#xD;&#xA;1h：Immediate模式 [1]" />
-        <Bit Name="SHDWCMPA" Authority="RW" Bits="0" Description="CMPA的Shadow功能使能控制。&#xD;&#xA;0h：Shadow模式&#xD;&#xA;1h：Immediate模式 [1]" />
+        <Bit Name="SHDWLDBMD" Authority="RW" Bits="9-7" Description="Shadow模式下，Active CMPB从Shadow CMPB载入控制。&#xD;&#xA;xx1b：当CNT=ZRO时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;x1xb：当CNT=PRD时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;1xxb：外部LOAD触发或SYNC触发时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;000b：不进行载入" />
+        <Bit Name="SHDWLDAMD" Authority="RW" Bits="6-4" Description="Shadow模式下，Active CMPA从Shadow CMPA载入控制。&#xD;&#xA;xx1b：当CNT=ZRO时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;x1xb：当CNT=PRD时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;1xxb：外部LOAD触发或SYNC触发时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;000b：不进行载入&#xD;&#xA;每个控制位分别对应一个触发条件，可以同时使能多个触发条件。例如，当设置011b时，CNT=ZRO或CNT=PRD时，都会触发寄存器载入。" />
+        <Bit Name="LDCMPBMD" Authority="RW" Bits="1" Description="CMPB的Shadow功能使能控制。&#xD;&#xA;0h：Shadow模式&#xD;&#xA;1h：Immediate模式 [1]" />
+        <Bit Name="LDCMPAMD" Authority="RW" Bits="0" Description="CMPA的Shadow功能使能控制。&#xD;&#xA;0h：Shadow模式&#xD;&#xA;1h：Immediate模式 [1]" />
       </Register>
-      <Register Name="GPTA_CNT" Authority="RW" Address="0x40065040" Width="32" Description="Counter Register">
+      <Register Name="GPTA_CNT" Authority="RW" Address="0x40065040" Width="32" Description="时基计数器寄存器">
         <Bit Name="CNT" Authority="RW" Bits="15-0" Description="时基计数器寄存器。&#xD;&#xA;对CNT读取时，返回当前计数器值。对CNT写入时，将直接更新CNT的计数值。CNT计数器没有Shadow寄存器，CPU的写入将直接影响当前计数器值。" />
       </Register>
-      <Register Name="GPTA_AQLDR" Authority="RW" Address="0x40065044" Width="32" Description="Action Qualifier Load Control Register">
-        <Bit Name="LDBMD" Authority="RW" Bits="7-5" Description="Shadow模式下，Active AQCRB从Shadow载入控制。&#xD;&#xA;xx1b：当CNT=ZRO时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;x1xb：当CNT=PRD时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;1xxb：外部LOAD触发或SYNC触发时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;000b：不进行载入&#xD;&#xA;每个控制位分别对应一个触发条件，可以同时使能多个触发条件。例如，当设置011b时，CNT=ZRO或CNT=PRD时，都会触发寄存器载入。" />
-        <Bit Name="LDAMD" Authority="RW" Bits="4-2" Description="Shadow模式下，Active AQCRA从Shadow载入控制。&#xD;&#xA;xx1b：当CNT=ZRO时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;x1xb：当CNT=PRD时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;1xxb：外部LOAD触发或SYNC触发时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;000b：不进行载入&#xD;&#xA;每个控制位分别对应一个触发条件，可以同时使能多个触发条件。例如，当设置011b时，CNT=ZRO或CNT=PRD时，都会触发寄存器载入。" />
-        <Bit Name="SHDWAQB" Authority="RW" Bits="1" Description="AQCRB寄存器的Shadow功能使能控制。&#xD;&#xA;0h：Immediate模式&#xD;&#xA;1h：Shadow模式" />
-        <Bit Name="SHDWAQA" Authority="RW" Bits="0" Description="AQCRA寄存器的Shadow功能使能控制。&#xD;&#xA;0h：Immediate模式&#xD;&#xA;1h：Shadow模式" />
+      <Register Name="GPTA_AQLDR" Authority="RW" Address="0x40065044" Width="32" Description="波形输出载入控制寄存器">
+        <Bit Name="SHDWLD2MD" Authority="RW" Bits="7-5" Description="Shadow模式下，Active AQCR2从Shadow载入控制。&#xD;&#xA;xx1b：当CNT=ZRO时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;x1xb：当CNT=PRD时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;1xxb：外部LOAD触发或SYNC触发时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;000b：不进行载入&#xD;&#xA;每个控制位分别对应一个触发条件，可以同时使能多个触发条件。例如，当设置011b时，CNT=ZRO或CNT=PRD时，都会触发寄存器载入。" />
+        <Bit Name="SHDWLD1MD" Authority="RW" Bits="4-2" Description="Shadow模式下，Active AQCR1从Shadow载入控制。&#xD;&#xA;xx1b：当CNT=ZRO时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;x1xb：当CNT=PRD时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;1xxb：外部LOAD触发或SYNC触发时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;000b：不进行载入&#xD;&#xA;每个控制位分别对应一个触发条件，可以同时使能多个触发条件。例如，当设置011b时，CNT=ZRO或CNT=PRD时，都会触发寄存器载入。" />
+        <Bit Name="LDAQ2MD" Authority="RW" Bits="1" Description="AQCR2寄存器的Shadow功能使能控制。&#xD;&#xA;0h：Shadow模式&#xD;&#xA;1h：Immediate模式" />
+        <Bit Name="LDAQ1MD" Authority="RW" Bits="0" Description="AQCR1寄存器的Shadow功能使能控制。&#xD;&#xA;0h：Shadow模式&#xD;&#xA;1h：Immediate模式" />
       </Register>
-      <Register Name="GPTA_AQCR1" Authority="RW" Address="0x40065048" Width="32" Description="Action Qualifier Control Register1">
+      <Register Name="GPTA_AQCR1" Authority="RW" Address="0x40065048" Width="32" Description="PWM1波形输出控制寄存器">
         <Bit Name="C2SEL" Authority="RW" Bits="23-22" Description="C2比较值数据源选择。&#xD;&#xA;0h：CMPA寄存器作为C2的数据源。&#xD;&#xA;1h：CMPB寄存器作为C2的数据源。&#xD;&#xA;其他：保留。" />
         <Bit Name="C1SEL" Authority="RW" Bits="21-20" Description="C1比较值的数据源选择。&#xD;&#xA;0h：CMPA寄存器作为C1的数据源。&#xD;&#xA;1h：CMPB寄存器作为C1的数据源。&#xD;&#xA;其他：保留。" />
         <Bit Name="T2D" Authority="RW" Bits="19-18" Description="当T2事件发生，且此时计数方向为递减时，在PWM 1上做出的波形输出动作定义。&#xD;&#xA;0h：不动作（过滤该处理事件）&#xD;&#xA;1h：清除输出（低电平）&#xD;&#xA;2h：置位输出（高电平）&#xD;&#xA;3h：反向（翻转）" />
@@ -2457,7 +2457,7 @@
         <Bit Name="PRD" Authority="RW" Bits="3-2" Description="当CNT值等于PRDR时，在PWM 1上做出的波形输出动作定义。&#xD;&#xA;在递增递减模式时，当计数器值等于PRDR时，计数方向为递减模式&#xD;&#xA;0h：不动作（过滤该处理事件）&#xD;&#xA;1h：清除输出（低电平）&#xD;&#xA;2h：置位输出（高电平）&#xD;&#xA;3h：反向（翻转）" />
         <Bit Name="ZRO" Authority="RW" Bits="1-0" Description="当CNT值等于零时，在PWM 1上做出的波形输出动作定义。&#xD;&#xA;在递增递减模式时，当计数器值等于零时，计数方向为递增模式&#xD;&#xA;0h：不动作（过滤该处理事件）&#xD;&#xA;1h：清除输出（低电平）&#xD;&#xA;2h：置位输出（高电平）&#xD;&#xA;3h：反向（翻转）" />
       </Register>
-      <Register Name="GPTA_AQCR2" Authority="RW" Address="0x4006504c" Width="32" Description="Action Qualifier Control Register2">
+      <Register Name="GPTA_AQCR2" Authority="RW" Address="0x4006504c" Width="32" Description="PWM2波形输出控制寄存器">
         <Bit Name="CBSEL" Authority="RW" Bits="23-22" Description="CB比较值数据源选择。&#xD;&#xA;0h：CMPA寄存器作为CA的数据源。&#xD;&#xA;1h：CMPB寄存器作为CA的数据源。&#xD;&#xA;其他：保留。" />
         <Bit Name="CASEL" Authority="RW" Bits="21-20" Description="CA比较值的数据源选择。&#xD;&#xA;0h：CMPA寄存器作为CA的数据源。&#xD;&#xA;1h：CMPB寄存器作为CA的数据源。&#xD;&#xA;其他：保留。" />
         <Bit Name="T2D" Authority="RW" Bits="19-18" Description="当T2事件发生，且此时计数方向为递减时，在通道B上做出的波形输出动作定义。&#xD;&#xA;0h：保持原来的输出（不动作）&#xD;&#xA;1h：清除输出（低电平）&#xD;&#xA;2h：置位输出（高电平）&#xD;&#xA;3h：反向（翻转）" />
@@ -2471,28 +2471,28 @@
         <Bit Name="PRD" Authority="RW" Bits="3-2" Description="当CNT值等于PRDR时，在通道B上做出的波形输出动作定义。&#xD;&#xA;在递增递减模式时，当计数器值等于PRDR时，计数方向为递减模式&#xD;&#xA;0h：保持原来的输出（不动作）&#xD;&#xA;1h：清除输出（低电平）&#xD;&#xA;2h：置位输出（高电平）&#xD;&#xA;3h：反向（翻转）" />
         <Bit Name="ZRO" Authority="RW" Bits="1-0" Description="当CNT值等于零时，在通道B上做出的波形输出动作定义。&#xD;&#xA;在递增递减模式时，当计数器值等于零时，计数方向为递增模式&#xD;&#xA;0h：保持原来的输出（不动作）&#xD;&#xA;1h：清除输出（低电平）&#xD;&#xA;2h：置位输出（高电平）&#xD;&#xA;3h：反向（翻转）" />
       </Register>
-      <Register Name="GPTA_AQOSF" Authority="RW" Address="0x4006505c" Width="32" Description="Action Qualifier One Shot Force Register">
+      <Register Name="GPTA_AQOSF" Authority="RW" Address="0x4006505c" Width="32" Description="一次性软件强制输出控制">
         <Bit Name="RLDCSF" Authority="RW" Bits="17-16" Description="AQCSF寄存器从Shadow载入到Active的控制。&#xD;&#xA;01b：当CNT=ZRO时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;10b：当CNT=PRD时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;11b：当CNT=ZRO或者PRD时，Shadow寄存器载入到Active寄存器中&#xD;&#xA;00b：立即载入" />
         <Bit Name="ACTB" Authority="RW" Bits="6-5" Description="当软件强制输出时，通道B上做出的波形输出动作定义。&#xD;&#xA;0h：保持原来的输出（不动作）&#xD;&#xA;1h：清除输出（低电平）&#xD;&#xA;2h：置位输出（高电平）&#xD;&#xA;3h：反向（翻转）" />
         <Bit Name="OSTSFB" Authority="RW" Bits="4" Description="在通道B上产生一次性软件强制输出。&#xD;&#xA;0h：对当前位写‘0’无效&#xD;&#xA;1h：产生一次性软件强制输出，此输出状态保持，直到有其他改变通道A输出状态的触发事件发生。" />
         <Bit Name="ACTA" Authority="RW" Bits="2-1" Description="当软件强制输出时，通道A上做出的波形输出动作定义。&#xD;&#xA;0h：保持原来的输出（不动作）&#xD;&#xA;1h：清除输出（低电平）&#xD;&#xA;2h：置位输出（高电平）&#xD;&#xA;3h：反向（翻转）" />
         <Bit Name="OSTSFA" Authority="RW" Bits="0" Description="在通道A上产生一次性软件强制输出。&#xD;&#xA;0h：对当前位写‘0’无效&#xD;&#xA;1h：产生一次性软件强制输出，此输出状态保持，直到有其他改变通道A输出状态的触发事件发生。" />
       </Register>
-      <Register Name="GPTA_AQCSF" Authority="RW" Address="0x40065060" Width="32" Description="Action Qualifier Continuous Force Register">
+      <Register Name="GPTA_AQCSF" Authority="RW" Address="0x40065060" Width="32" Description="连续软件强制输出控制">
         <Bit Name="CSFB" Authority="RW" Bits="3-2" Description="通过软件对通道B做连续强制赋值。在立即更新模式下，赋值将在配置后下一个TCLK输出。在Shadow模式下，在Shadow更新到Active后的下一个TCLK后输出。对Shadow更新到Active的控制，可以通过AQOSF寄存器中的RLDCSF控制位进行配置。&#xD;&#xA;0h：禁止强制赋值&#xD;&#xA;1h：强制输出低&#xD;&#xA;2h：强制输出高&#xD;&#xA;3h：禁止强制赋值" />
         <Bit Name="CSFA" Authority="RW" Bits="1-0" Description="通过软件对通道A做连续强制赋值。在立即更新模式下，赋值将在配置后下一个TCLK输出。在Shadow模式下，在Shadow更新到Active后的下一个TCLK后输出。对Shadow更新到Active的控制，可以通过AQOSF寄存器中的RLDCSF控制位进行配置。&#xD;&#xA;0h：禁止强制赋值&#xD;&#xA;1h：强制输出低&#xD;&#xA;2h：强制输出高&#xD;&#xA;3h：禁止强制赋值" />
       </Register>
-      <Register Name="GPTA_TRGFTCR" Authority="RW" Address="0x400650b8" Width="32" Description="Digital Compare Filter Control Register">
+      <Register Name="GPTA_TRGFTCR" Authority="RW" Address="0x400650b8" Width="32" Description="数字比较器滤波窗控制寄存器">
         <Bit Name="CROSSMD" Authority="RW" Bits="7" Description="允许滤波窗跨越多个TB的周期。&#xD;&#xA;缺省条件下，当滤波窗在周期结束时若任然有效，将跨过周期点，一直持续到窗口计数器溢出。当禁止跨周期时，在周期结束时，窗口计数器将被停止。&#xD;&#xA;0h：禁止跨周期&#xD;&#xA;1h：允许跨周期" />
         <Bit Name="ALIGNMD" Authority="RW" Bits="6-5" Description="窗口对齐模式选择。&#xD;&#xA;0h：CNT=PRD&#xD;&#xA;1h：CNT=ZRO&#xD;&#xA;2h：CNT=PRD or CNT=ZRO&#xD;&#xA;3h：T1事件" />
         <Bit Name="BLKINV" Authority="RW" Bits="4" Description="窗口使能反转控制。&#xD;&#xA;0h：窗口不反转&#xD;&#xA;1h：窗口反转" />
         <Bit Name="SRC_SEL" Authority="RW" Bits="2-0" Description="滤波模块的输入信号选择。&#xD;&#xA;0h：禁止滤波&#xD;&#xA;1h：使能SYNCIN0滤波&#xD;&#xA;2h：使能SYNCIN1滤波&#xD;&#xA;3h：使能SYNCIN2滤波&#xD;&#xA;4h：使能SYNCIN3滤波&#xD;&#xA;5h：使能SYNCIN4滤波&#xD;&#xA;6h：使能SYNCIN5滤波&#xD;&#xA;7h：保留" />
       </Register>
-      <Register Name="GPTA_TRGFTWR" Authority="RW" Address="0x400650bc" Width="32" Description="Digital Compare Filter Window Register">
+      <Register Name="GPTA_TRGFTWR" Authority="RW" Address="0x400650bc" Width="32" Description="数字比较器滤波窗时序寄存器">
         <Bit Name="WINDOW" Authority="RW" Bits="31-16" Description="滤波窗的宽度设置。&#xD;&#xA;此16bit控制位定义了滤波窗的宽度，窗口宽度是基于TCLK的计数值。当OFFSET计数器溢出时，WINDOW计数器被重置，并开始计数直到溢出。当OFFSET计数器溢出，但WINDOW状态已经激活时，WINDOW计数器不会重置。在应用时必须注意此条件的设置。" />
         <Bit Name="OFFSET" Authority="RW" Bits="15-0" Description="滤波窗的OFFSET设置。&#xD;&#xA;此16bit控制位定义了从窗口参考起始位置开始计数多少个TCLK后，开始有效的滤波窗口。参考位置的定义，在TRGFTCR[ALIGNMD]控制位中进行选择。OFFSET的Shadow寄存器在ALIGNMD指定的条件满足时，载入到Active寄存器中，并重新开始计数。" />
       </Register>
-      <Register Name="GPTA_EVTRG" Authority="RW" Address="0x400650c0" Width="32" Description="Event Generation Control Register">
+      <Register Name="GPTA_EVTRG" Authority="RW" Address="0x400650c0" Width="32" Description="事件触发选择寄存器">
         <Bit Name="CNT1INITFRC" Authority="RO" Bits="25" Description="TRGEV1CNT软件触发更新&#xD;&#xA;0h：无效&#xD;&#xA;1h：EVCNT1INIT内容更新到EVCNT1中" />
         <Bit Name="CNT0INITFRC" Authority="RO" Bits="24" Description="TRGEV0CNT软件触发更新&#xD;&#xA;0h：无效&#xD;&#xA;1h：EVCNT0INIT内容更新到EVCNT0中" />
         <Bit Name="TRG1OE" Authority="RW" Bits="21" Description="外部触发端口TRGOUT1使能&#xD;&#xA;0h：禁止触发输出&#xD;&#xA;1h：允许触发输出" />
@@ -2502,21 +2502,21 @@
         <Bit Name="TRGSEL1" Authority="RW" Bits="7-4" Description="TRGEV1事件的触发源选择。&#xD;&#xA;0000：禁止TRGOUT触发输出&#xD;&#xA;0001：当 CNT = ZRO 产生TRGEV事件&#xD;&#xA;0010：当 CNT = PRD 产生TRGEV事件&#xD;&#xA;0011：当 CNT = ZRO or CNT = PRD 产生TRGEV事件&#xD;&#xA;0100：当 CNT = CMPA 且计数方向为递增时，产生TRGEV事件&#xD;&#xA;0101：当 CNT = CMPA 且计数方向为递减时，产生TRGEV事件&#xD;&#xA;0110：当 CNT = CMPB 且计数方向为递增时，产生TRGEV事件&#xD;&#xA;0111：当 CNT = CMPB 且计数方向为递减时，产生TRGEV事件&#xD;&#xA;1100：ExtSync通道&#xD;&#xA;1101：PE0 event&#xD;&#xA;1110：PE1 event&#xD;&#xA;1111：PE2 event" />
         <Bit Name="TRGSEL0" Authority="RW" Bits="3-0" Description="TRGEV0事件的触发源选择。&#xD;&#xA;0000：禁止TRGOUT触发输出&#xD;&#xA;0001：当 CNT = ZRO 产生TRGEV事件&#xD;&#xA;0010：当 CNT = PRD 产生TRGEV事件&#xD;&#xA;0011：当 CNT = ZRO or CNT = PRD 产生TRGEV事件&#xD;&#xA;0100：当 CNT = CMPA 且计数方向为递增时，产生TRGEV事件&#xD;&#xA;0101：当 CNT = CMPA 且计数方向为递减时，产生TRGEV事件&#xD;&#xA;0110：当 CNT = CMPB 且计数方向为递增时，产生TRGEV事件&#xD;&#xA;0111：当 CNT = CMPB 且计数方向为递减时，产生TRGEV事件&#xD;&#xA;1100：ExtSync通道&#xD;&#xA;1101：PE0 event&#xD;&#xA;1110：PE1 event&#xD;&#xA;1111：PE2 event" />
       </Register>
-      <Register Name="GPTA_EVPS" Authority="RW" Address="0x400650c4" Width="32" Description="Event Counter Prescaler">
+      <Register Name="GPTA_EVPS" Authority="RW" Address="0x400650c4" Width="32" Description="事件触发计数寄存器">
         <Bit Name="TRGEV1CNT" Authority="RW" Bits="23-20" Description="TRGEV1事件计数器设置。&#xD;&#xA;读取时，返回当前事件计数器值；&#xD;&#xA;写入时，直接更新事件计数器值。" />
         <Bit Name="TRGEV0CNT" Authority="RW" Bits="19-16" Description="TRGEV0事件计数器设置。&#xD;&#xA;读取时，返回当前事件计数器值；&#xD;&#xA;写入时，直接更新事件计数器值。" />
         <Bit Name="TRGEV1PRD" Authority="RW" Bits="7-4" Description="TRGEV1事件计数的周期设置。&#xD;&#xA;当TRGEV1事件发生次数满足周期时，才产生TRGEV1触发事件" />
         <Bit Name="TRGEV0PRD" Authority="RW" Bits="3-0" Description="TRGEV0事件计数的周期设置。&#xD;&#xA;当TRGEV0事件发生次数满足周期时，才产生TRGEV0触发事件" />
       </Register>
-      <Register Name="GPTA_EVCNTINIT" Authority="RW" Address="0x400650c8" Width="32" Description="Event Counter Initial Value">
+      <Register Name="GPTA_EVCNTINIT" Authority="RW" Address="0x400650c8" Width="32" Description="事件触发计数器初始化值寄存器">
         <Bit Name="CNT1INIT" Authority="RW" Bits="7-4" Description="TRGEV1CNT计数器的初始化值设置。&#xD;&#xA;当EVTRG[CNT1INITEN]控制位有效时，CNT1INIT的值将在触发条件满足时(LOAD事件)，或EVTRG[CNT1INITFRC]软件置位时，被载入到TRGEV1CNT寄存器中。" />
         <Bit Name="CNT0INIT" Authority="RW" Bits="3-0" Description="TRGEV0CNT计数器的初始化值设置。&#xD;&#xA;当EVTRG[CNT0INITEN]控制位有效时，CNT0INIT的值将在触发条件满足时(LOAD事件)，或EVTRG[CNT0INITFRC]软件置位时，被载入到TRGEV0CNT寄存器中。" />
       </Register>
-      <Register Name="GPTA_EVSWF" Authority="RW" Address="0x400650cc" Width="32" Description="Event Counter Load Control Register">
+      <Register Name="GPTA_EVSWF" Authority="RW" Address="0x400650cc" Width="32" Description="事件计数器载入控制寄存器">
         <Bit Name="EV1SWF" Authority="RW" Bits="1" Description="软件产生一次EV1的触发&#xD;&#xA;0h：写入‘0’无效&#xD;&#xA;1h：软件产生一次触发" />
         <Bit Name="EV0SWF" Authority="RW" Bits="0" Description="软件产生一次EV0的触发&#xD;&#xA;0h：写入‘0’无效&#xD;&#xA;1h：软件产生一次触发" />
       </Register>
-      <Register Name="GPTA_RISR" Authority="RW" Address="0x400650d0" Width="32" Description="Raw Interrupt Status Register">
+      <Register Name="GPTA_RISR" Authority="RW" Address="0x400650d0" Width="32" Description="原始中断状态寄存器">
         <Bit Name="PEND" Authority="RO" Bits="16" Description="周期结束中断请求原始标志状态" />
         <Bit Name="CBD" Authority="RO" Bits="11" Description="递减阶段CNT = CMPB中断请求原始标志状态" />
         <Bit Name="CBU" Authority="RO" Bits="10" Description="递增阶段CNT = CMPB中断请求原始标志状态" />
@@ -2524,10 +2524,10 @@
         <Bit Name="CAU" Authority="RO" Bits="8" Description="递增阶段CNT = CMPA中断请求原始标志状态" />
         <Bit Name="CAP_LD1" Authority="RO" Bits="5" Description="Capture Load to CMPB Shadow中断请求原始标志状态" />
         <Bit Name="CAP_LD0" Authority="RO" Bits="4" Description="Capture Load to CMPA Shadow中断请求原始标志状态" />
-        <Bit Name="TRGEV1" Authority="RW" Bits="1" Description="TRGEV1中断请求原始标志状态" />
-        <Bit Name="TRGEV0" Authority="RW" Bits="0" Description="TRGEV0中断请求原始标志状态" />
+        <Bit Name="TRGEV1" Authority="RO" Bits="1" Description="TRGEV1中断请求原始标志状态" />
+        <Bit Name="TRGEV0" Authority="RO" Bits="0" Description="TRGEV0中断请求原始标志状态" />
       </Register>
-      <Register Name="GPTA_MISR" Authority="RW" Address="0x400650d4" Width="32" Description="Masked Interrupt Status Register">
+      <Register Name="GPTA_MISR" Authority="RW" Address="0x400650d4" Width="32" Description="中断状态寄存器">
         <Bit Name="PEND" Authority="RO" Bits="16" Description="周期结束中断请求原始标志状态" />
         <Bit Name="CBD" Authority="RO" Bits="11" Description="递减阶段CNT = CMPB中断请求原始标志状态" />
         <Bit Name="CBU" Authority="RO" Bits="10" Description="递增阶段CNT = CMPB中断请求原始标志状态" />
@@ -2535,10 +2535,10 @@
         <Bit Name="CAU" Authority="RO" Bits="8" Description="递增阶段CNT = CMPA中断请求原始标志状态" />
         <Bit Name="CAP_LD1" Authority="RO" Bits="5" Description="Capture Load to CMPB Shadow中断请求原始标志状态" />
         <Bit Name="CAP_LD0" Authority="RO" Bits="4" Description="Capture Load to CMPA Shadow中断请求原始标志状态" />
-        <Bit Name="TRGEV1" Authority="RW" Bits="1" Description="TRGEV1中断请求标志状态" />
-        <Bit Name="TRGEV0" Authority="RW" Bits="0" Description="TRGEV0中断请求标志状态" />
+        <Bit Name="TRGEV1" Authority="RO" Bits="1" Description="TRGEV1中断请求标志状态" />
+        <Bit Name="TRGEV0" Authority="RO" Bits="0" Description="TRGEV0中断请求标志状态" />
       </Register>
-      <Register Name="GPTA_IMCR" Authority="RW" Address="0x400650d8" Width="32" Description="Interrupt Masking Control Register">
+      <Register Name="GPTA_IMCR" Authority="RW" Address="0x400650d8" Width="32" Description="中断使能控制寄存器">
         <Bit Name="PEND" Authority="RW" Bits="16" Description="周期结束中断请求原始标志状态" />
         <Bit Name="CBD" Authority="RW" Bits="11" Description="递减阶段CNT = CMPB中断请求原始标志状态" />
         <Bit Name="CBU" Authority="RW" Bits="10" Description="递增阶段CNT = CMPB中断请求原始标志状态" />
@@ -2549,16 +2549,28 @@
         <Bit Name="TRGEV1" Authority="RW" Bits="1" Description="TRGEV1中断使能控制位" />
         <Bit Name="TRGEV0" Authority="RW" Bits="0" Description="TRGEV0中断使能控制位" />
       </Register>
-      <Register Name="GPTA_ICR" Authority="RW" Address="0x400650dc" Width="32" Description="Interrupt Clear Register">
-        <Bit Name="PEND" Authority="RO" Bits="16" Description="周期结束中断请求原始标志状态" />
-        <Bit Name="CBD" Authority="RO" Bits="11" Description="递减阶段CNT = CMPB中断请求原始标志状态" />
-        <Bit Name="CBU" Authority="RO" Bits="10" Description="递增阶段CNT = CMPB中断请求原始标志状态" />
-        <Bit Name="CAD" Authority="RO" Bits="9" Description="递减阶段CNT = CMPA中断请求原始标志状态" />
-        <Bit Name="CAU" Authority="RO" Bits="8" Description="递增阶段CNT = CMPA中断请求原始标志状态" />
-        <Bit Name="CAP_LD1" Authority="RO" Bits="5" Description="Capture Load to CMPB Shadow中断请求原始标志状态" />
-        <Bit Name="CAP_LD0" Authority="RO" Bits="4" Description="Capture Load to CMPA Shadow中断请求原始标志状态" />
+      <Register Name="GPTA_ICR" Authority="RW" Address="0x400650dc" Width="32" Description="中断清除寄存器">
+        <Bit Name="PEND" Authority="RW" Bits="16" Description="周期结束中断请求原始标志状态" />
+        <Bit Name="CBD" Authority="RW" Bits="11" Description="递减阶段CNT = CMPB中断请求原始标志状态" />
+        <Bit Name="CBU" Authority="RW" Bits="10" Description="递增阶段CNT = CMPB中断请求原始标志状态" />
+        <Bit Name="CAD" Authority="RW" Bits="9" Description="递减阶段CNT = CMPA中断请求原始标志状态" />
+        <Bit Name="CAU" Authority="RW" Bits="8" Description="递增阶段CNT = CMPA中断请求原始标志状态" />
+        <Bit Name="CAP_LD1" Authority="RW" Bits="5" Description="Capture Load to CMPB Shadow中断请求原始标志状态" />
+        <Bit Name="CAP_LD0" Authority="RW" Bits="4" Description="Capture Load to CMPA Shadow中断请求原始标志状态" />
         <Bit Name="TRGEV1" Authority="RW" Bits="1" Description="清除TRGEV1原始中断状态位" />
         <Bit Name="TRGEV0" Authority="RW" Bits="0" Description="清除TRGEV0原始中断状态位" />
+      </Register>
+      <Register Name="GPTA_REGPROT" Authority="RW" Address="0x400650e8" Width="32" Description="寄存器写保护控制器">
+        <Bit Name="WRKEY" Authority="RO" Bits="31-16" Description="写入保护KEY&#xD;&#xA;当对PROTKEY进行写操作时，必须将KEY设置为A55Ah，否则写入无效" />
+        <Bit Name="PROTKEY" Authority="RW" Bits="15-0" Description="写保护使能控制。&#xD;&#xA;当此寄存器的值不等于C73Ah时，具有写保护功能的寄存器将禁止写入操作。只有解锁后，具有写保护功能的寄存器才允许写操作。对于具有写保护寄存器的写操作完成后，写保护寄存器会自动清除（自动保护使能），所以每次对任意具有写保护功能的寄存器写入之前，都必须进行解锁操作" />
+      </Register>
+      <Register Name="GPTA_ CMPAA" Authority="RW" Address="0x4006582c" Width="32" Description="比较值A active寄存器">
+        <Bit Name="OVWRT" Authority="RO" Bits="31" Description="Over Write Flag 标志位。&#xD;&#xA;表示当前Capture值是否被Over Written。当连续两次针对于当前寄存器的捕获事件发生，而两次捕获之间未对当前寄存器进行过读取操作，则Over Written标志被置位。读取当前寄存器会自动清除Over Written标志。&#xD;&#xA;此标志位只有在Capture模式下有效。" />
+        <Bit Name="CMPAA" Authority="RO" Bits="15-0" Description="比较值A寄存器。&#xD;&#xA;当工作于Capture模式下，此寄存器对应CAPLD2事件触发的捕获值。" />
+      </Register>
+      <Register Name="GPTA_ CMPBA" Authority="RW" Address="0x40065830" Width="32" Description="比较值B active寄存器">
+        <Bit Name="OVWRT" Authority="RO" Bits="31" Description="Over Write Flag 标志位。&#xD;&#xA;表示当前Capture值是否被Over Written。当连续两次针对于当前寄存器的捕获事件发生，而两次捕获之间未对当前寄存器进行过读取操作，则Over Written标志被置位。读取当前寄存器会自动清除Over Written标志。&#xD;&#xA;此标志位只有在Capture模式下有效。" />
+        <Bit Name="CMPBA" Authority="RO" Bits="15-0" Description="比较值B active寄存器。&#xD;&#xA;当工作于Capture模式下，此寄存器对应CAPLD3事件触发的捕获值。" />
       </Register>
     </Peripheral>
     <Peripheral Name="EPT">
@@ -3106,23 +3118,23 @@
         <Bit Name="TRGEV0" Authority="RW" Bits="0" Description="TRGEV0中断使能控制位。" />
       </Register>
       <Register Name="ICR" Authority="RW" Address="0x400690dc" Width="32" Description="中断清除寄存器">
-        <Bit Name="PEND" Authority="RO" Bits="16" Description="周期结束中断中断清除。" />
-        <Bit Name="CDD" Authority="RO" Bits="15" Description="递减阶段CNT = CMPD中断清除。" />
-        <Bit Name="CDU" Authority="RO" Bits="14" Description="递增阶段CNT = CMPD中断清除。" />
-        <Bit Name="CCD" Authority="RO" Bits="13" Description="递减阶段CNT = CMPC中断清除。" />
-        <Bit Name="CCU" Authority="RO" Bits="12" Description="递增阶段CNT = CMPC中断清除。" />
-        <Bit Name="CBD" Authority="RO" Bits="11" Description="递减阶段CNT = CMPB中断清除。" />
-        <Bit Name="CBU" Authority="RO" Bits="10" Description="递增阶段CNT = CMPB中断清除。" />
-        <Bit Name="CAD" Authority="RO" Bits="9" Description="递减阶段CNT = CMPA中断清除。" />
-        <Bit Name="CAU" Authority="RO" Bits="8" Description="递增阶段CNT = CMPA中断清除。" />
-        <Bit Name="CAP_LD3" Authority="RO" Bits="7" Description="Capture Load to CMPD中断清除。" />
-        <Bit Name="CAP_LD2" Authority="RO" Bits="6" Description="Capture Load to CMPC中断清除。" />
-        <Bit Name="CAP_LD1" Authority="RO" Bits="5" Description="Capture Load to CMPB中断清除。" />
-        <Bit Name="CAP_LD0" Authority="RO" Bits="4" Description="Capture Load to CMPA中断清除。" />
-        <Bit Name="TRGEV3" Authority="RO" Bits="3" Description="TRGEV3中断清除。" />
-        <Bit Name="TRGEV2" Authority="RO" Bits="2" Description="TRGEV2中断清除。" />
-        <Bit Name="TRGEV1" Authority="RO" Bits="1" Description="TRGEV1中断清除。" />
-        <Bit Name="TRGEV0" Authority="RO" Bits="0" Description="TRGEV0中断清除。" />
+        <Bit Name="PEND" Authority="RW" Bits="16" Description="周期结束中断中断清除。" />
+        <Bit Name="CDD" Authority="RW" Bits="15" Description="递减阶段CNT = CMPD中断清除。" />
+        <Bit Name="CDU" Authority="RW" Bits="14" Description="递增阶段CNT = CMPD中断清除。" />
+        <Bit Name="CCD" Authority="RW" Bits="13" Description="递减阶段CNT = CMPC中断清除。" />
+        <Bit Name="CCU" Authority="RW" Bits="12" Description="递增阶段CNT = CMPC中断清除。" />
+        <Bit Name="CBD" Authority="RW" Bits="11" Description="递减阶段CNT = CMPB中断清除。" />
+        <Bit Name="CBU" Authority="RW" Bits="10" Description="递增阶段CNT = CMPB中断清除。" />
+        <Bit Name="CAD" Authority="RW" Bits="9" Description="递减阶段CNT = CMPA中断清除。" />
+        <Bit Name="CAU" Authority="RW" Bits="8" Description="递增阶段CNT = CMPA中断清除。" />
+        <Bit Name="CAP_LD3" Authority="RW" Bits="7" Description="Capture Load to CMPD中断清除。" />
+        <Bit Name="CAP_LD2" Authority="RW" Bits="6" Description="Capture Load to CMPC中断清除。" />
+        <Bit Name="CAP_LD1" Authority="RW" Bits="5" Description="Capture Load to CMPB中断清除。" />
+        <Bit Name="CAP_LD0" Authority="RW" Bits="4" Description="Capture Load to CMPA中断清除。" />
+        <Bit Name="TRGEV3" Authority="RW" Bits="3" Description="TRGEV3中断清除。" />
+        <Bit Name="TRGEV2" Authority="RW" Bits="2" Description="TRGEV2中断清除。" />
+        <Bit Name="TRGEV1" Authority="RW" Bits="1" Description="TRGEV1中断清除。" />
+        <Bit Name="TRGEV0" Authority="RW" Bits="0" Description="TRGEV0中断清除。" />
       </Register>
       <Register Name="REGPROT" Authority="RW" Address="0x400690e8" Width="32" Description="寄存器写保护控制器">
         <Bit Name="WRKEY" Authority="RW" Bits="31-16" Description="写入保护KEY&#xD;&#xA;当对PROTKEY进行写操作时，必须将KEY设置为A55Ah，否则写入无效。" />
