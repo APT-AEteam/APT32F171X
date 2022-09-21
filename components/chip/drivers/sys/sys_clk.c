@@ -335,7 +335,7 @@ uint32_t soc_get_bt_freq(uint8_t byIdx)
  *  \param[in]   wTimeOut: the timeout, unit: us, 20us < wTimeOut < 3S
  *  \return      none
 */
-void csi_timer_set_load_value(uint32_t wTimesOut)
+void apt_timer_set_load_value(uint32_t wTimesOut)
 {
 	if((csi_get_pclk_freq() % 1000000) == 0)
 	{
@@ -378,7 +378,7 @@ void csi_timer_set_load_value(uint32_t wTimesOut)
 /** \brief       get timer prdr load value
  *  \return      load prdr value 
 */
-uint32_t csi_timer_get_prdrload_value(void)
+uint32_t apt_timer_get_prdrload_value(void)
 {
 	return wTmLoad;
 }
@@ -386,7 +386,7 @@ uint32_t csi_timer_get_prdrload_value(void)
 /** \brief       get timer clk div
  *  \return      clk div 
 */
-uint32_t csi_timer_get_clkdiv_value(void)
+uint32_t apt_timer_get_clkdiv_value(void)
 {
 	return wClkDivn;
 }

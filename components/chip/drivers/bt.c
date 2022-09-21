@@ -76,9 +76,9 @@ csi_error_t csi_bt_timer_init(csp_bt_t *ptBtBase, uint32_t wTimeOut)
 	csi_clk_enable((uint32_t *)ptBtBase);										//bt clk enable
 	csp_bt_soft_rst(ptBtBase);													//reset bt
 	
-	csi_timer_set_load_value(wTimeOut);
-	wTmLoad = csi_timer_get_prdrload_value();
-	wClkDiv = csi_timer_get_clkdiv_value();
+	apt_timer_set_load_value(wTimeOut);
+	wTmLoad = apt_timer_get_prdrload_value();
+	wClkDiv = apt_timer_get_clkdiv_value();
 		
 	csp_bt_set_cr(ptBtBase, (BT_IMMEDIATE << BT_SHDW_POS) | (BT_CONTINUOUS << BT_OPM_POS) |		//bt work mode
 			(BT_PCLKDIV << BT_EXTCKM_POS) | (BT_CNTRLD_EN << BT_CNTRLD_POS) | BT_CLK_EN);
@@ -460,9 +460,9 @@ void csi_bt_start_sync(csp_bt_t *ptBtBase, uint32_t wTimeOut)
 	csi_clk_enable((uint32_t *)ptBtBase);									//bt clk enable
 	csp_bt_soft_rst(ptBtBase);	                                            //reset bt
 											
-	csi_timer_set_load_value(wTimeOut);
-	wTmLoad = csi_timer_get_prdrload_value();
-	wClkDiv = csi_timer_get_clkdiv_value();
+	apt_timer_set_load_value(wTimeOut);
+	wTmLoad = apt_timer_get_prdrload_value();
+	wClkDiv = apt_timer_get_clkdiv_value();
 	
 	csp_bt_set_cr(ptBtBase, (BT_IMMEDIATE << BT_SHDW_POS) | (BT_CONTINUOUS << BT_OPM_POS) |		//bt work mode
 			(BT_PCLKDIV << BT_EXTCKM_POS) | (BT_CNTRLD_EN << BT_CNTRLD_POS) | BT_CLK_EN );
