@@ -196,6 +196,22 @@ void soc_clk_enable(int32_t module);
 */
 void soc_clk_disable(int32_t module);
 
+/** \brief       timer set load times out
+ *  \param[in]   wTimeOut: the timeout, unit: us, 20us < wTimeOut < 3S
+ *  \return      none
+*/
+void csi_timer_set_load_value(uint32_t wTimesOut);
+
+/** \brief       get timer prdr load value
+ *  \return      load prdr value 
+*/
+uint32_t csi_timer_get_prdrload_value(void);
+
+/** \brief       get timer clk div
+ *  \return      clk div 
+*/
+uint32_t csi_timer_get_clkdiv_value(void);
+
 
 
 #endif /* _SYS_CLK_H_ */

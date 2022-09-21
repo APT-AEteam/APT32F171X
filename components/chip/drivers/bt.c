@@ -76,15 +76,9 @@ csi_error_t csi_bt_timer_init(csp_bt_t *ptBtBase, uint32_t wTimeOut)
 	csi_clk_enable((uint32_t *)ptBtBase);										//bt clk enable
 	csp_bt_soft_rst(ptBtBase);													//reset bt
 	
-	wClkDiv = (long long)csi_get_pclk_freq() * wTimeOut / 1000000 / 60000;		//bt clk div value
-	if(wClkDiv == 0)
-		wClkDiv  = 1;
-	wTmLoad = (long long)csi_get_pclk_freq() * wTimeOut / 1000000 / wClkDiv;	//bt prdr load value
-	if(wTmLoad > 0xffff)
-	{
-		wClkDiv += 1;
-		wTmLoad = (long long)csi_get_pclk_freq() * wTimeOut / wClkDiv / 1000000;	//bt prdr load value
-	}
+	csi_timer_set_load_value(wTimeOut);
+	wTmLoad = csi_timer_get_prdrload_value();
+	wClkDiv = csi_timer_get_clkdiv_value();
 		
 	csp_bt_set_cr(ptBtBase, (BT_IMMEDIATE << BT_SHDW_POS) | (BT_CONTINUOUS << BT_OPM_POS) |		//bt work mode
 			(BT_PCLKDIV << BT_EXTCKM_POS) | (BT_CNTRLD_EN << BT_CNTRLD_POS) | BT_CLK_EN);
@@ -464,12 +458,11 @@ void csi_bt_start_sync(csp_bt_t *ptBtBase, uint32_t wTimeOut)
 	uint32_t wClkDiv;
 	
 	csi_clk_enable((uint32_t *)ptBtBase);									//bt clk enable
-	csp_bt_soft_rst(ptBtBase);												//reset bt
-	
-	wClkDiv = (csi_get_pclk_freq()/100000 * wTimeOut/600000);				//bt clk div
-	if(wClkDiv == 0)
-		wClkDiv  = 1;
-	wTmLoad = (csi_get_pclk_freq() / (wClkDiv * 20000)) * wTimeOut / 50;	//bt prdr load value
+	csp_bt_soft_rst(ptBtBase);	                                            //reset bt
+											
+	csi_timer_set_load_value(wTimeOut);
+	wTmLoad = csi_timer_get_prdrload_value();
+	wClkDiv = csi_timer_get_clkdiv_value();
 	
 	csp_bt_set_cr(ptBtBase, (BT_IMMEDIATE << BT_SHDW_POS) | (BT_CONTINUOUS << BT_OPM_POS) |		//bt work mode
 			(BT_PCLKDIV << BT_EXTCKM_POS) | (BT_CNTRLD_EN << BT_CNTRLD_POS) | BT_CLK_EN );
