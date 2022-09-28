@@ -258,7 +258,7 @@ typedef enum
 
 //CMP_INPCR register
 #define	CMP_INPCR_NSEL		    (0)
-#define	CMP_INPCR_NSEL_MSK		(0xful << CMP_INPCR_NSEL)
+#define	CMP_INPCR_NSEL_MSK		(0xfful << CMP_INPCR_NSEL)
 
 
 #define	CMP_INPCR_1VBUF_ENABLE		    (16)
