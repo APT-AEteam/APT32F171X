@@ -534,6 +534,19 @@ uint16_t csi_gpta_get_prdr(csp_gpta_t *ptGptaBase)
 	return csp_gpta_get_prdr(ptGptaBase);
 }
 
+/** \brief set gpta phsr  
+ * 
+ *  \param[in] ptGptaBase ：pointer of gpta register structure
+ *  \param[in] bwPhsr  :    phsr value
+*   \param[in] bEnable :    ENABLE/DISABLE
+ *  \return none
+ */
+void csi_gpta_set_phsr(csp_gpta_t *ptGptaBase, uint16_t bwPhsr,bool bEnable)
+{
+	csp_gpta_set_phsr(ptGptaBase, bwPhsr);
+	csp_gpta_phsen_enable(ptGptaBase, ENABLE);
+}
+
 /** \brief change gpta output dutycycle. 
  * 
  *  \param[in] ptGptaBase :    pointer of gpta register structure

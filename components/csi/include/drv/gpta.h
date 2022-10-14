@@ -442,6 +442,15 @@ void csi_gpta_set_stop_st(csp_gpta_t *ptGptaBase, csp_gpta_stpst_e eSt);
  */
 uint16_t csi_gpta_get_prdr(csp_gpta_t *ptGptaBase);
 
+/** \brief set gpta phsr  
+ * 
+ *  \param[in] ptGptaBase ：pointer of gpta register structure
+ *  \param[in] bwPhsr  :    phsr value
+*   \param[in] bEnable :    ENABLE/DISABLE
+ *  \return none
+ */
+void csi_gpta_set_phsr(csp_gpta_t *ptGptaBase, uint16_t bwPhsr,bool bEnable);
+
 /** \brief change gpta output dutycycle. 
  * 
  *  \param[in] ptGptaBase :    pointer of gpta register structure
