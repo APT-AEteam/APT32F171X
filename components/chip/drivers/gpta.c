@@ -544,7 +544,7 @@ uint16_t csi_gpta_get_prdr(csp_gpta_t *ptGptaBase)
 void csi_gpta_set_phsr(csp_gpta_t *ptGptaBase, uint16_t bwPhsr,bool bEnable)
 {
 	csp_gpta_set_phsr(ptGptaBase, bwPhsr);
-	csp_gpta_phsen_enable(ptGptaBase, ENABLE);
+	csp_gpta_phsen_enable(ptGptaBase, bEnable);
 }
 
 /** \brief change gpta output dutycycle. 
