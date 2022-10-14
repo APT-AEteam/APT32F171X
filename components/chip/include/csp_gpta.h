@@ -680,6 +680,11 @@ static inline void csp_gpta_capld_enable(csp_gpta_t *ptGptaBase, bool bEnable)
 	ptGptaBase -> CR = (ptGptaBase->CR & ~(GPTA_CAPLD_MSK)) | (bEnable << GPTA_CAPLD_POS);
 }
 
+static inline void csp_gpta_phsen_enable(csp_gpta_t *ptGptaBase, bool bEnable)
+{
+	ptGptaBase -> CR = (ptGptaBase->CR & ~(GPTA_PHSEN_MSK)) | (bEnable << GPTA_PHSEN_POS);
+}
+
 static inline void csp_gpta_set_auto_rearm(csp_gpta_t *ptGptaBase,  csp_gpta_arearm_e eHWMode)
 {   
 	//ptGptaBase -> REGPROT = GPTA_REGPROT;
