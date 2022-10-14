@@ -716,32 +716,32 @@ static inline uint8_t csp_cmp5_get_out(csp_cmp_t *ptCmpBase)
 
 static inline void  csp_cmp0_fltcr(csp_cmp_t *ptCmpBase , fltcr_ckscr_e eCkscr,uint8_t byDivn,uint8_t byDivm)
 {
-	ptCmpBase->FLTCR0 = (ptCmpBase->FLTCR0&~(CMP_FLTCR_CKSRC_MSK|CMP_FLTCR_DIVN_POS|CMP_FLTCR_DIVM_POS))|(eCkscr<<CMP_FLTCR_CKSRC_POS)|(byDivn<<CMP_FLTCR_DIVN_POS)|(byDivm<<CMP_FLTCR_DIVM_POS);
+	ptCmpBase->FLTCR0 = (ptCmpBase->FLTCR0&~(CMP_FLTCR_CKSRC_MSK|CMP_FLTCR_DIVN_MSK|CMP_FLTCR_DIVM_MSK))|(eCkscr<<CMP_FLTCR_CKSRC_POS)|(byDivn<<CMP_FLTCR_DIVN_POS)|(byDivm<<CMP_FLTCR_DIVM_POS);
 }
 
 static inline void  csp_cmp1_fltcr(csp_cmp_t *ptCmpBase , fltcr_ckscr_e eCkscr,uint8_t byDivn,uint8_t byDivm)
 {
-	ptCmpBase->FLTCR1 = (ptCmpBase->FLTCR1&~(CMP_FLTCR_CKSRC_MSK|CMP_FLTCR_DIVN_POS|CMP_FLTCR_DIVM_POS))|(eCkscr<<CMP_FLTCR_CKSRC_POS)|(byDivn<<CMP_FLTCR_DIVN_POS)|(byDivm<<CMP_FLTCR_DIVM_POS);
+	ptCmpBase->FLTCR1 = (ptCmpBase->FLTCR1&~(CMP_FLTCR_CKSRC_MSK|CMP_FLTCR_DIVN_MSK|CMP_FLTCR_DIVM_MSK))|(eCkscr<<CMP_FLTCR_CKSRC_POS)|(byDivn<<CMP_FLTCR_DIVN_POS)|(byDivm<<CMP_FLTCR_DIVM_POS);
 }
 
 static inline void  csp_cmp2_fltcr(csp_cmp_t *ptCmpBase , fltcr_ckscr_e eCkscr,uint8_t byDivn,uint8_t byDivm)
 {
-	ptCmpBase->FLTCR2 = (ptCmpBase->FLTCR2&~(CMP_FLTCR_CKSRC_MSK|CMP_FLTCR_DIVN_POS|CMP_FLTCR_DIVM_POS))|(eCkscr<<CMP_FLTCR_CKSRC_POS)|(byDivn<<CMP_FLTCR_DIVN_POS)|(byDivm<<CMP_FLTCR_DIVM_POS);
+	ptCmpBase->FLTCR2 = (ptCmpBase->FLTCR2&~(CMP_FLTCR_CKSRC_MSK|CMP_FLTCR_DIVN_MSK|CMP_FLTCR_DIVM_MSK))|(eCkscr<<CMP_FLTCR_CKSRC_POS)|(byDivn<<CMP_FLTCR_DIVN_POS)|(byDivm<<CMP_FLTCR_DIVM_POS);
 }
 
 static inline void  csp_cmp3_fltcr(csp_cmp_t *ptCmpBase , fltcr_ckscr_e eCkscr,uint8_t byDivn,uint8_t byDivm)
 {
-	ptCmpBase->FLTCR3 = (ptCmpBase->FLTCR3&~(CMP_FLTCR_CKSRC_MSK|CMP_FLTCR_DIVN_POS|CMP_FLTCR_DIVM_POS))|(eCkscr<<CMP_FLTCR_CKSRC_POS)|(byDivn<<CMP_FLTCR_DIVN_POS)|(byDivm<<CMP_FLTCR_DIVM_POS);
+	ptCmpBase->FLTCR3 = (ptCmpBase->FLTCR3&~(CMP_FLTCR_CKSRC_MSK|CMP_FLTCR_DIVN_MSK|CMP_FLTCR_DIVM_MSK))|(eCkscr<<CMP_FLTCR_CKSRC_POS)|(byDivn<<CMP_FLTCR_DIVN_POS)|(byDivm<<CMP_FLTCR_DIVM_POS);
 }
 
 static inline void  csp_cmp4_fltcr(csp_cmp_t *ptCmpBase , fltcr_ckscr_e eCkscr,uint8_t byDivn,uint8_t byDivm)
 {
-	ptCmpBase->FLTCR4 = (ptCmpBase->FLTCR4&~(CMP_FLTCR_CKSRC_MSK|CMP_FLTCR_DIVN_POS|CMP_FLTCR_DIVM_POS))|(eCkscr<<CMP_FLTCR_CKSRC_POS)|(byDivn<<CMP_FLTCR_DIVN_POS)|(byDivm<<CMP_FLTCR_DIVM_POS);
+	ptCmpBase->FLTCR4 = (ptCmpBase->FLTCR4&~(CMP_FLTCR_CKSRC_MSK|CMP_FLTCR_DIVN_MSK|CMP_FLTCR_DIVM_MSK))|(eCkscr<<CMP_FLTCR_CKSRC_POS)|(byDivn<<CMP_FLTCR_DIVN_POS)|(byDivm<<CMP_FLTCR_DIVM_POS);
 }
 
 static inline void  csp_cmp5_fltcr(csp_cmp_t *ptCmpBase , fltcr_ckscr_e eCkscr,uint8_t byDivn,uint8_t byDivm)
 {
-	ptCmpBase->FLTCR5 = (ptCmpBase->FLTCR5&~(CMP_FLTCR_CKSRC_MSK|CMP_FLTCR_DIVN_POS|CMP_FLTCR_DIVM_POS))|(eCkscr<<CMP_FLTCR_CKSRC_POS)|(byDivn<<CMP_FLTCR_DIVN_POS)|(byDivm<<CMP_FLTCR_DIVM_POS);
+	ptCmpBase->FLTCR5 = (ptCmpBase->FLTCR5&~(CMP_FLTCR_CKSRC_MSK|CMP_FLTCR_DIVN_MSK|CMP_FLTCR_DIVM_MSK))|(eCkscr<<CMP_FLTCR_CKSRC_POS)|(byDivn<<CMP_FLTCR_DIVN_POS)|(byDivm<<CMP_FLTCR_DIVM_POS);
 }
 
 static inline void  csp_cmp_wfcr0(csp_cmp_t *ptCmpBase, uint16_t hwWcnt,uint8_t byClkDiv,uint8_t byDcnt)
