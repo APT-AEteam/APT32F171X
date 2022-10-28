@@ -213,7 +213,10 @@ csi_error_t csi_cmp_init(csp_cmp_t *ptCmpBase,csi_cmp_config_t *ptCmpCfg,uint8_t
 	{
 		return CSI_ERROR;
 	}
-	csi_cmp_int_enable(ptCmpBase, ptCmpCfg->wInt,ENABLE,byIdx);
+	if(ptCmpCfg->wInt)
+	{
+		csi_cmp_int_enable(ptCmpBase, ptCmpCfg->wInt,ENABLE,byIdx);
+	}
 	return tRet;
 }
 
