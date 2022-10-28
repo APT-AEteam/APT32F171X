@@ -290,11 +290,11 @@ void csi_cmp_int_enable(csp_cmp_t *ptCmpBase, csi_cmp_intsrc_e eIntSrc,bool bEna
 
 
 /**
-*  \brief       softrest cmp
+*  \brief       softrest all cmp
 *  \param[in]   ptCmpBase:pointer of cmp register structure
 *  \return none
 */
-void  csi_cmp_software_reset(csp_cmp_t *ptCmpBase);
+void  csi_cmp_all_reset(csp_cmp_t *ptCmpBase);
 
 /**
 *  \brief       init cmp

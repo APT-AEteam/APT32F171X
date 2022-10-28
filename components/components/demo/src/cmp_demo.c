@@ -32,8 +32,9 @@ int cmp_base_demo(void)
 
 	csi_pin_set_mux(PB02,PB02_CPINN0);	         
 	csi_pin_set_mux(PA02,PA02_CPINP0);		     
+	csi_pin_set_mux(PB03,PB03_CP0_OUT);	   
 
-	csi_pin_set_mux(PB03,PB03_CP0_OUT);	         	
+	csi_cmp_all_reset(CMP);                           //比较器会全部复位，如果同时使用几个比较器，只需复位一次      	
 
 	tCmpCfg.byNsel = CMP_NSEL0_CP0;                   //N- 端口选择
 	tCmpCfg.byPsel = CMP_PSEL_CP0;	                  //P+ 端口选择
@@ -62,7 +63,9 @@ int cmp_dfcr_demo(void)
 	csi_pin_set_mux(PB02,PB02_CPINN0);	
 	csi_pin_set_mux(PA02,PA02_CPINP0);
 	csi_pin_set_mux(PB06,PB06_CP1_OUT);	        
-          
+     
+    csi_cmp_all_reset(CMP);                           //比较器会全部复位，如果同时使用几个比较器，只需复位一次
+ 
 	csi_cmp_config_t tCmpCfg;
 	tCmpCfg.byNsel = CMP_NSEL1_5_CP0;                 //N- 端口选择
 	tCmpCfg.byPsel = CMP_PSEL_CP0;	                  //P+ 端口选择
@@ -102,6 +105,8 @@ int cmp_wfcr_demo(void)
 	//csi_pin_set_mux(PB05,PB05_CP2_OUT);	        
 	//csi_pin_set_mux(PA14,PA14_CP3_OUT);	            
 	csi_pin_set_mux(PA07,PA07_CP4_OUT);	
+	
+	csi_cmp_all_reset(CMP);                           //比较器会全部复位，如果同时使用几个比较器，只需复位一次
 	
 	csi_cmp_config_t tCmpCfg;
 	tCmpCfg.byNsel = CMP_NSEL1_5_CP0;                 //N- 端口选择

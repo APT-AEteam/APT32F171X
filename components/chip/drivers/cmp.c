@@ -147,7 +147,7 @@ static void csi_cmp_clk_enable(csp_cmp_t *ptCmpBase,bool bEnable,uint8_t byIdx)
 *  \param[in]   ptCmpBase:pointer of cmp register structure
 *  \return none
 */
-void  csi_cmp_software_reset(csp_cmp_t *ptCmpBase)
+void  csi_cmp_all_reset(csp_cmp_t *ptCmpBase)
 {
 	csp_cmp_software_reset(ptCmpBase);
 }
@@ -163,7 +163,6 @@ void  csi_cmp_software_reset(csp_cmp_t *ptCmpBase)
 csi_error_t csi_cmp_init(csp_cmp_t *ptCmpBase,csi_cmp_config_t *ptCmpCfg,uint8_t byIdx)
 {
 	csi_error_t tRet = CSI_OK;
-	csi_cmp_software_reset(ptCmpBase);
 	csi_clk_enable((uint32_t *)ptCmpBase);
 	csi_cmp_clk_enable(ptCmpBase,ENABLE,byIdx);
 	csi_cmp_set_evtrg(ptCmpBase, ptCmpCfg->byEveSel, byIdx);	
