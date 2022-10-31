@@ -39,7 +39,7 @@ int main()
 	csi_pin_set_mux(PC01, PC01_OUTPUT);		//PC01 output
 	csi_pin_set_high(PC01);					//PC01 output high;
 	
-	my_printf("hello apt32f171!\r\n");
+	my_printf("hello apt32f171!\n");
 	
 	user_demo();							//demo
 	
