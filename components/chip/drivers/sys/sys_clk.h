@@ -135,7 +135,7 @@ extern uint32_t g_wSystemClk;
   \param[in] none.
   \return csi_error_t.
  */ 
-csi_error_t csi_sysclk_config(void);
+csi_error_t csi_sysclk_config(csi_clk_config_t tClkCfg);
 /** \brief Clock output configuration
  * 
  *  \param[in] eCloSrc: source to output

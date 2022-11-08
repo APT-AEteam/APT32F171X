@@ -36,7 +36,7 @@ __attribute__((weak)) void system_init(void)
 	//config system clk, close interrupt
 	CK_CPU_DISALLNORMALIRQ;					//disable total interrupt
 	csi_iwdt_close();						//close iwdt
-	csi_sysclk_config();					//sysclk config
+	csi_sysclk_config(tClkConfig);					//sysclk config
 	csi_get_sclk_freq();					//get system clk
 	csi_get_pclk_freq();					//get pclk 
 	csi_tick_init();						//init system ticks (coret)
