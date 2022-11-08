@@ -615,7 +615,7 @@ static inline void csp_adc_vic_irq_dis(void)
 //
 static inline void csp_adc_wait_ready(csp_adc_t *ptAdcBase)
 {
-	while(!((ptAdcBase->SR >> ADC12_READY) & 0x01));
+	while(!((ptAdcBase->SR) & ADC12_READY));
 }
 static inline void csp_adc_hold_cycle(csp_adc_t *ptAdcBase, uint16_t byCycle)
 {
