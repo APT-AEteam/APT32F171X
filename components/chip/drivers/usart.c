@@ -172,7 +172,7 @@ csi_error_t csi_usart_init(csp_usart_t *ptUsartBase, csi_usart_config_t *ptUsart
 	if(ptUsartCfg->bClkOutEn == ENABLE)
 		csp_usart_set_clko(ptUsartBase, US_CLKO_EN); 				//Enable usartclk output
 	
-	csp_usart_set_rtor(ptUsartBase, 2000);							//set receive timeover time
+	csp_usart_set_rtor(ptUsartBase, ptUsartCfg->hwRecvTo);							//set receive timeover time
 	csp_usart_cr_cmd(ptUsartBase, US_FIFO_EN | US_RXFIFO_1_2);		//set fifo
 	//csp_usart_set_fifo(ptUsartBase, US_FIFO_EN, US_RXFIFO_1_2);		//set fifo
 	

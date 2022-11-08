@@ -159,6 +159,7 @@ typedef enum{
 /// \brief  usart parameter configuration, open to users  
 typedef struct {
 	uint32_t            wBaudRate;			//baud rate	
+	uint8_t				hwRecvTo;           //receive timeout 
 	uint32_t            wInt;				//interrupt
 	uint8_t				byParity;           //parity type 
 	uint8_t				byDatabit;			//data bits
