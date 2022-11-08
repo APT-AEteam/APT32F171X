@@ -39,8 +39,13 @@ int uart_char_demo(void)
 	csi_pin_set_mux(PA010, PA010_UART_RX);		//UART0 TX管脚配置
 	csi_pin_pull_mode(PA010,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
 	
-	tUartConfig.byParity = UART_PARITY_ODD;		//校验位，奇校验
-	tUartConfig.wBaudRate = 115200;				//波特率，115200
+//	csi_pin_set_mux(PA11, PA11_UART_TX);		//UART0 TX管脚配置
+//	csi_pin_set_mux(PA12, PA12_UART_RX);		//UART0 TX管脚配置
+//	csi_pin_pull_mode(PA11,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
+	
+	tUartConfig.byParity = UART_PARITY_ODD;							//校验位，奇校验
+	tUartConfig.wBaudRate = 115200;									//波特率，115200
+	tUartConfig.hwRecvTo = 88;										//UART接收超时时间，单位：bit位周期，8个bytes（11bit*8,115200波特率时=764us）
 	tUartConfig.wInt = UART_INTSRC_NONE;		//无中断
 	tUartConfig.byTxMode = UART_TX_MODE_POLL;	//发送 轮询模式
 	tUartConfig.byRxMode = UART_RX_MODE_POLL;	//接收 轮询模式
@@ -75,8 +80,9 @@ int uart_send_demo(void)
 	csi_pin_set_mux(PA010, PA010_UART_RX);		//UART0 TX管脚配置
 	csi_pin_pull_mode(PA010,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
 	
-	tUartConfig.byParity = UART_PARITY_ODD;		//校验位，奇校验
-	tUartConfig.wBaudRate = 115200;				//波特率，115200
+	tUartConfig.byParity = UART_PARITY_ODD;							//校验位，奇校验
+	tUartConfig.wBaudRate = 115200;									//波特率，115200
+	tUartConfig.hwRecvTo = 88;										//UART接收超时时间，单位：bit位周期，8个bytes（11bit*8,115200波特率时=764us）
 	tUartConfig.wInt = UART_INTSRC_NONE;		//UART中断关闭，轮询(同步)方式
 	tUartConfig.byTxMode = UART_TX_MODE_POLL;	//发送 轮询模式
 	tUartConfig.byRxMode = UART_RX_MODE_POLL;	//接收 轮询模式
@@ -115,8 +121,9 @@ int uart_send_int_demo(void)
 	csi_pin_set_mux(PA010, PA010_UART_RX);		//UART0 TX管脚配置
 	csi_pin_pull_mode(PA010,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
 	
-	tUartConfig.byParity = UART_PARITY_ODD;		//校验位，奇校验
-	tUartConfig.wBaudRate = 115200;				//波特率，115200
+	tUartConfig.byParity = UART_PARITY_ODD;							//校验位，奇校验
+	tUartConfig.wBaudRate = 115200;									//波特率，115200
+	tUartConfig.hwRecvTo = 88;										//UART接收超时时间，单位：bit位周期，8个bytes（11bit*8,115200波特率时=764us）
 	tUartConfig.wInt = UART_INTSRC_TXDONE;		//UART发送中断使能，采用(发送完成)TXDONE中断
 	tUartConfig.byTxMode = UART_TX_MODE_INT;	//发送模式：中断模式
 	tUartConfig.byRxMode = UART_RX_MODE_POLL;	//接收模式：轮询模式
@@ -168,8 +175,9 @@ int uart_receive_demo(void)
 	csi_pin_set_mux(PA010, PA010_UART_RX);		//UART0 TX管脚配置
 	csi_pin_pull_mode(PA010,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
 	
-	tUartConfig.byParity = UART_PARITY_ODD;		//校验位，奇校验
-	tUartConfig.wBaudRate = 115200;				//波特率，115200
+	tUartConfig.byParity = UART_PARITY_ODD;							//校验位，奇校验
+	tUartConfig.wBaudRate = 115200;									//波特率，115200
+	tUartConfig.hwRecvTo = 88;										//UART接收超时时间，单位：bit位周期，8个bytes（11bit*8,115200波特率时=764us）
 	tUartConfig.wInt = UART_INTSRC_NONE;		//串口中断关闭
 	
 	tUartConfig.byTxMode = UART_TX_MODE_POLL;	//发送 轮询模式
@@ -204,16 +212,21 @@ int uart_recv_int_demo(void)
 	
 	csi_uart_config_t tUartConfig;				//UART0 参数配置结构体
 	
-	csi_pin_set_mux(PA09, PA09_UART_TX);		//UART0 TX管脚配置
-	csi_pin_set_mux(PA010, PA010_UART_RX);		//UART0 TX管脚配置
-	csi_pin_pull_mode(PA010,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
+//	csi_pin_set_mux(PA09, PA09_UART_TX);		//UART0 TX管脚配置
+//	csi_pin_set_mux(PA010, PA010_UART_RX);		//UART0 TX管脚配置
+//	csi_pin_pull_mode(PA010,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
+	
+	csi_pin_set_mux(PA11, PA11_UART_TX);		//UART0 TX管脚配置
+	csi_pin_set_mux(PA12, PA12_UART_RX);		//UART0 TX管脚配置
+	csi_pin_pull_mode(PA11,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
 	
 	//接收缓存配置，实例化接收ringbuf，将ringbuf接收数据缓存指向用户定义的的接收buffer(g_byRxBuf)
 	//需要传入参数：串口设备/ringbuf结构体指针/接收buffer/接收buffer长度
 	csi_uart_set_buffer(UART0, &g_tRingbuf, g_byRxBuf, sizeof(g_byRxBuf));
 	
-	tUartConfig.byParity = UART_PARITY_ODD;		//校验位，奇校验
-	tUartConfig.wBaudRate = 115200;				//波特率，115200
+	tUartConfig.byParity = UART_PARITY_ODD;							//校验位，奇校验
+	tUartConfig.wBaudRate = 115200;									//波特率，115200
+	tUartConfig.hwRecvTo = 88;										//UART接收超时时间，单位：bit位周期，8个bytes（11bit*8,115200波特率时=764us）
 	tUartConfig.wInt = UART_INTSRC_RXFIFO;		//串口接收中断打开，使用RXFIFO中断(默认推荐使用)
 	tUartConfig.byTxMode = UART_TX_MODE_POLL;	//发送模式：轮询模式
 	tUartConfig.byRxMode = UART_RX_MODE_INT_FIX;//接收模式：中断指定接收模式
@@ -263,13 +276,18 @@ int uart_recv_dynamic_demo(void)
 	csi_pin_set_mux(PA010, PA010_UART_RX);		//UART0 TX管脚配置
 	csi_pin_pull_mode(PA010,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
 	
+//	csi_pin_set_mux(PA11, PA11_UART_TX);		//UART0 TX管脚配置
+//	csi_pin_set_mux(PA12, PA12_UART_RX);		//UART0 TX管脚配置
+//	csi_pin_pull_mode(PA11,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
+	
 	//接收缓存配置，实例化接收ringbuf，将ringbuf接收数据缓存指向用户定义的的接收buffer(g_byRxBuf)
 	//需要传入参数：串口设备/ringbuf结构体指针/接收buffer/接收buffer长度
 	csi_uart_set_buffer(UART0, &g_tRingbuf, g_byRxBuf, sizeof(g_byRxBuf));
 	
 	//串口参数配置
-	tUartConfig.byParity = UART_PARITY_ODD;		//校验位，奇校验
-	tUartConfig.wBaudRate = 115200;				//波特率，115200
+	tUartConfig.byParity = UART_PARITY_ODD;							//校验位，奇校验
+	tUartConfig.wBaudRate = 115200;									//波特率，115200
+	tUartConfig.hwRecvTo = 88;										//UART接收超时时间，单位：bit位周期，8个bytes（11bit*8,115200波特率时=764us）
 	tUartConfig.wInt = UART_INTSRC_RXFIFO;		//串口接收中断打开，使用RXFIFO中断(默认推荐使用)
 	tUartConfig.byTxMode = UART_TX_MODE_POLL;	//发送模式：轮询模式
 	tUartConfig.byRxMode = UART_RX_MODE_INT_DYN;//接收模式：中断动态接收模式
@@ -318,6 +336,7 @@ int uart_recv_dynamic_int_demo(void)
 	//串口参数配置
 	tUartConfig.byParity = UART_PARITY_ODD;							//校验位，奇校验
 	tUartConfig.wBaudRate = 115200;									//波特率，115200
+	tUartConfig.hwRecvTo = 88;										//UART接收超时时间，单位：bit位周期，8个bytes（11bit*8,115200波特率时=764us）
 	tUartConfig.wInt = UART_INTSRC_RXFIFO | UART_INTSRC_TXDONE;		//串口接收/发送中断打开，使用RXFIFO/TXDONE中断(默认推荐使用)
 	tUartConfig.byTxMode = UART_TX_MODE_INT;						//发送模式：中断发送
 	tUartConfig.byRxMode = UART_RX_MODE_INT_DYN;					//接收模式：中断动态接收模式

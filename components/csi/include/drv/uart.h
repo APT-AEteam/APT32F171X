@@ -135,6 +135,7 @@ typedef struct {
 	uint32_t            wBaudRate;			//baud rate	
 	uint32_t            wInt;				//interrupt
 	uint8_t				byParity;           //parity type 
+	uint8_t				hwRecvTo;           //receive timeout 
 	uint8_t				byTxMode;			//send mode: polling/interrupt
 	uint8_t				byRxMode;			//recv mode: polling/interrupt0/interrupt1
 } csi_uart_config_t;
