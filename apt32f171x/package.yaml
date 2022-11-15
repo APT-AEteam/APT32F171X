@@ -18,7 +18,7 @@ name: apt32f171x
 version: v0.0.0
 description: 我的第一个方案工程
 tag: ""
-keywords: 
+keywords: ~
 author:
   name: ""
 license: ""
@@ -30,17 +30,17 @@ build_config:
   include:
     - include
     - ./
-  internal_include: 
+  internal_include: ~
   cflag: -Og  -g  -Wall
   cxxflag: -Og  -g  -Wall
   asmflag: -Wa,--gdwarf2
-  define: 
-  libs: 
-  libpath: 
+  define: ~
+  libs: ~
+  libpath: ~
 source_file:
   - src/*.c
-install: 
-homepage: 
+install: ~
+homepage: ~
 depends_forward:
   - apt32f171x_demo: v0.0.0
   - sdk_171x: v0.0.0

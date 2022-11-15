@@ -11,7 +11,7 @@
   <Dependencies Name="BuildSet"/>
   <MonitorProgress>
     <FlashOperate>97</FlashOperate>
-    <DebugLaunch>47</DebugLaunch>
+    <DebugLaunch>107</DebugLaunch>
   </MonitorProgress>
   <VendorInfo>
     <VendorName>NULL</VendorName>
@@ -21,24 +21,6 @@
       <FileOption/>
     </File>
   </VirtualDirectory>
-  <DebugSessions>
-    <watchExpressions>GPIOA0:1;SYSCON:1;UART0:1;ETCB:1;wWriteData1:1;wReadBuf1:1;TC0_0:1;TC0MUL:1;tc1:1;TC1:1</watchExpressions>
-    <memoryExpressions>0X00080300;0X400111fc;;</memoryExpressions>
-    <statistics>;;32;;MHZ;</statistics>
-    <peripheralTabs>
-      <Tab disFormat="Hex">SYSCON</Tab>
-      <Tab disFormat="Hex">TC0_0</Tab>
-      <Tab disFormat="Hex">TC0_1</Tab>
-      <Tab disFormat="Hex">TC0_2</Tab>
-      <Tab disFormat="Hex">TC0_MUL</Tab>
-      <Tab disFormat="Hex">TC1</Tab>
-      <Tab disFormat="Hex">EPWM</Tab>
-    </peripheralTabs>
-    <WatchDisplayFormat>1</WatchDisplayFormat>
-    <LocalDisplayFormat>1</LocalDisplayFormat>
-    <debugLayout/>
-    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
-  </DebugSessions>
   <PackPathes>$(ProjectPath)/../apt32f171x|$(ProjectPath)/../board|$(ProjectPath)/../components|</PackPathes>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
@@ -133,7 +115,6 @@
           <RunUserProg>no</RunUserProg>
           <UserProgName/>
         </AfterMake>
-        <Tools/>
       </User>
       <Compiler>
         <Define/>
@@ -170,7 +151,6 @@
         <OtherFlags/>
         <AutoLDFile>yes</AutoLDFile>
         <LinkType>start-group</LinkType>
-        <IncludeAllLibs>no</IncludeAllLibs>
       </Linker>
       <Debug>
         <LoadApplicationAtStartup>yes</LoadApplicationAtStartup>
@@ -192,7 +172,6 @@
           <CPUNumber>0</CPUNumber>
           <Clock>12000</Clock>
           <Delay>10</Delay>
-          <NResetDelay>100</NResetDelay>
           <WaitReset>50</WaitReset>
           <DDC>yes</DDC>
           <TRST>no</TRST>
@@ -206,11 +185,6 @@
           <GDBName/>
           <GDBServerType>Local</GDBServerType>
           <OtherFlags/>
-          <ICEEnablePCSampling>yes</ICEEnablePCSampling>
-          <ICESamplingFreq>1000</ICESamplingFreq>
-          <RemoteICEEnablePCSampling>yes</RemoteICEEnablePCSampling>
-          <RemoteICESamplingPort>1026</RemoteICESamplingPort>
-          <Version>latest</Version>
         </ConfigICE>
         <ConfigSIM>
           <SIMTarget/>
@@ -218,7 +192,6 @@
           <NoGraphic>yes</NoGraphic>
           <Log>no</Log>
           <SimTrace>no</SimTrace>
-          <Version>latest</Version>
         </ConfigSIM>
         <ConfigOpenOCD>
           <OpenOCDExecutablePath/>
@@ -228,8 +201,6 @@
           <OpenOCDTclPort>6666</OpenOCDTclPort>
           <OpenOCDConfigOptions/>
           <OpenOCDTimeout>5000</OpenOCDTimeout>
-          <PluginID>openocd-sifive</PluginID>
-          <Version>latest</Version>
         </ConfigOpenOCD>
       </Debug>
       <Flash>
@@ -247,4 +218,22 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
+  <DebugSessions>
+    <watchExpressions>GPIOA0:1;SYSCON:1;UART0:1;ETCB:1;wWriteData1:1;wReadBuf1:1;TC0_0:1;TC0MUL:1;tc1:1;TC1:1</watchExpressions>
+    <memoryExpressions>0X0;0X400111fc;;</memoryExpressions>
+    <statistics>;;32;;MHZ;</statistics>
+    <peripheralTabs>
+      <Tab disFormat="Hex">SYSCON</Tab>
+      <Tab disFormat="Hex">TC0_0</Tab>
+      <Tab disFormat="Hex">TC0_1</Tab>
+      <Tab disFormat="Hex">TC0_2</Tab>
+      <Tab disFormat="Hex">TC0_MUL</Tab>
+      <Tab disFormat="Hex">TC1</Tab>
+      <Tab disFormat="Hex">EPWM</Tab>
+    </peripheralTabs>
+    <WatchDisplayFormat>1</WatchDisplayFormat>
+    <LocalDisplayFormat>1</LocalDisplayFormat>
+    <debugLayout/>
+    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+  </DebugSessions>
 </Project>
