@@ -36,6 +36,7 @@ int main()
 	__ChipInitHandler();                    //Graphical interface initialization
 	board_init();
 	
+
 	csi_pin_set_mux(PC01, PC01_OUTPUT);		//PC01 output
 	csi_pin_set_high(PC01);					//PC01 output high;
 	

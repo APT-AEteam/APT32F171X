@@ -47,12 +47,12 @@ extern int iwdt_normal_demo(void);
 extern int iwdt_irq_demo(void);
 
 //ifc demo
-
-void ifc_read(void);
-void ifc_program(void);
-void ifc_pflash_page_program(void);
-void ifc_dflash_page_program(void);
-void ifc_flash_page_erase(void);
+extern void ifc_read_demo(void);
+extern void ifc_page_erase_demo(void);
+extern void ifc_dflash_page_program_demo(void);
+extern void ifc_dflash_page_parallel_program_demo(void);
+extern void ifc_pflash_page_program_demo(void);
+extern void ifc_program_demo(void);
 
 
 //adc demo
