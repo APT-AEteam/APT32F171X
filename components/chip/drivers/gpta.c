@@ -753,7 +753,7 @@ void csi_gpta_rearm_sync(csp_gpta_t *ptGptaBase,csi_gpta_trgin_e eTrgin)
  *  \param[in] eTrgSrc: evtrg source(1~15) 
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_gpta_set_evtrg(csp_gpta_t *ptGptaBase, csi_gpta_trgout_e byTrgOut, csp_gpta_trgsrc0_e eTrgSrc)
+csi_error_t csi_gpta_set_evtrg(csp_gpta_t *ptGptaBase, csi_gpta_trgout_e byTrgOut, csp_gpta_trgsrc_e eTrgSrc)
 {
 	switch (byTrgOut)
 	{

@@ -497,11 +497,9 @@ typedef enum{
 	GPTA_TRG01_CMPB_R,
 	GPTA_TRG01_CMPB_F,
 	
-	GPTA_TRG01_SYNC = 0xc,
-	GPTA_TRG01_PE0,
-	GPTA_TRG01_PE1,
-	GPTA_TRG01_PE2
-}csp_gpta_trgsrc0_e;
+	GPTA_TRG01_SYNC = 0xc
+
+}csp_gpta_trgsrc_e;
 
 
 #define GPTA_INITEN_POS_CNT(n)	(16+n)
@@ -798,7 +796,7 @@ static inline void csp_gpta_trg_xoe_enable(csp_gpta_t *ptGptaBase, uint8_t byCh,
 {
 	ptGptaBase -> EVTRG = (ptGptaBase -> EVTRG & (~GPTA_OUTEN_MSK_TRG(byCh))) | (bEnable << GPTA_OUTEN_POS_TRG(byCh));
 }
-static inline void csp_gpta_set_trgsrc01(csp_gpta_t *ptGptaBase, uint8_t byCh, csp_gpta_trgsrc0_e eSrc)
+static inline void csp_gpta_set_trgsrc01(csp_gpta_t *ptGptaBase, uint8_t byCh, csp_gpta_trgsrc_e eSrc)
 {
 	ptGptaBase -> EVTRG = (ptGptaBase -> EVTRG & (~GPTA_SEL_MSK_TRG(byCh))) | (eSrc << GPTA_SEL_POS_TRG(byCh));
 }
