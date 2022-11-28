@@ -139,10 +139,18 @@ uint64_t csi_tick_get_us(void)
 
 static void _500usdelay(void)
 {
+	uint32_t cur,cnt;
     uint32_t start = csi_coret_get_value();
     uint32_t load = csi_coret_get_load();
-    uint32_t cur;
-    uint32_t cnt = (soc_get_coret_freq() / 1000U / 2U) - 91;
+
+	if(soc_get_coret_freq() >182000U)
+	{
+		cnt = (soc_get_coret_freq() / 1000U / 2U) - 91;
+	}
+	else
+	{
+		cnt = 0;
+	}
 
     while (1) {
         cur = csi_coret_get_value();
@@ -174,9 +182,18 @@ __WEAK void mdelay(uint32_t ms)
 
 void _10udelay(void)
 {
+	uint32_t cnt; 
     uint32_t start = csi_coret_get_value();
     uint32_t load  = csi_coret_get_load();
-    uint32_t cnt   = (soc_get_coret_freq() / 1000U / 100U) - 91;
+	
+	if(soc_get_coret_freq() > 9100000U)
+	{
+		cnt   = (soc_get_coret_freq() / 1000U / 100U) - 91;
+	}
+	else
+	{
+		cnt   = 0;
+	}
 
     while (1) {
         uint32_t cur = csi_coret_get_value();
