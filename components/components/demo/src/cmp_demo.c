@@ -20,7 +20,8 @@
 /* Private macro-----------------------------------------------------------*/
 /* Private variablesr------------------------------------------------------*/
 
-/** \brief cmp base demo
+/** \brief 比较器基本功能测试demo
+ *  \brief N-和P+输入不同的电平值，如果P+大于N-，将输出高电平，如果P+小于N-，将输出低电平
  * 
  *  \param[in] none
  *  \return error code
@@ -51,8 +52,12 @@ int cmp_base_demo(void)
 	return iRet;	
 }
 
-/** \brief cmp dfcr demo
- * 
+/** \brief 比较器滤波功能测试demo
+ *  \brief 滤波器1是一个积分滤波器，当滤波器采样到‘1’时，积分计数器加1，反之，采样到‘0’时，积分计数器减1，
+ *  \brief 当积分计数器值≥CMP_DFCR1[DEPTH](滤波时间周期)时，输出高；当积分计数器值= 0时，输出低。
+ *  \brief 如果PCLK时钟配置为24M，滤波时钟周期：24M/(119+1)/2^6 = 320us  
+ *  \brief 滤波积分的时间周期为320*3 = 960us(滤波的固定深度为3)。
+ *   
  *  \param[in] none
  *  \return error code
  */
@@ -88,8 +93,12 @@ int cmp_dfcr_demo(void)
 	return iRet;	
 }
 
-/** \brief cmp wfcr demo
- * 
+/** \brief 比较器窗口功能测试demo
+ *  \brief 通过BT0触发比较器窗口滤波功能
+ *  \brief 窗口的宽度由时钟分频和窗口计数决定，同时可配置相应的窗口延迟
+ *  \brief 如果PCLK时钟配置为24M，窗口滤波时钟周期为： 24M/（4+1） => 5/24(us)
+ *  \brief 窗口滤波的时间宽度为5/24 * 0xf0 = 50us，电平翻转将在窗口内生效，窗口外不进行电平翻转
+ *  
  *  \param[in] none
  *  \return error code
  */
