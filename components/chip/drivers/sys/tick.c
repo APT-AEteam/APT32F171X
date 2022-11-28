@@ -166,7 +166,9 @@ static void _500usdelay(void)
         }
     }
 }
-/** \brief  delay
+
+/** \brief  ms延迟函数
+ *  \brief  因为受SCLK频率和延迟时间影响，此函数建议不要用做精准delay延迟
  * 
  *  \param[in] ms: delay timer,unit: ms 
  *  \return none
@@ -209,9 +211,12 @@ void _10udelay(void)
         }
     }
 }
-/** \brief  delay, least delay over 10us
+
+/** \brief  us延迟函数，最小延迟时间为10us
+ *  \brief  因为受SCLK频率和延迟时间影响，此函数建议不要用做精准delay延迟
+ *  \brief  例如当SCLK为48M的时候，最小延迟为10us,当SCLK为1M的时候，最小延迟为100us。
  * 
- *  \param[in] ms: delay timer,unit: us 
+ *  \param[in] us: delay timer,unit: us 
  *  \return none
  */ 
 void udelay(uint32_t us)
