@@ -21,7 +21,7 @@
 /* Private variablesr------------------------------------------------------*/
 
 
-/** \brief gpta timer
+/** \brief GPTA基本定时功能
  * 
  *  \param[in] none
  *  \return error code

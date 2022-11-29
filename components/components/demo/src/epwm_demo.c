@@ -13,7 +13,13 @@
 #include "csp_epwm.h"
 #include "demo.h"
 
-
+/** \brief EPWM波形输出示例代码
+ *   		-10kHZ   输出波形
+ *     		-PWMA在50%和10%之间切换
+ * 			-
+ *  \param[in] none
+ *  \return error code
+ */
 int epwm_pwm_demo(void)
 {
 	int iRet = 0;	
