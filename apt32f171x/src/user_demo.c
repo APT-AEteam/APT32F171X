@@ -56,12 +56,12 @@ void user_demo(void)
 ///  flash相关的示例代码
 /// ***************************************************	
 //	ifc_read_demo();
-	ifc_dflash_page_program_demo();
-	ifc_dflash_page_parallel_program_demo();	
-	ifc_pflash_page_program_demo();
-	ifc_page_erase_demo();
-	ifc_program_demo();
-	ifc_dflash_page_parallel_program_demo();	
+//	ifc_dflash_page_program_demo();
+//	ifc_dflash_page_parallel_program_demo();	
+//	ifc_pflash_page_program_demo();
+//	ifc_page_erase_demo();
+//	ifc_program_demo();
+//	ifc_dflash_page_parallel_program_demo();	
 
 /// ***************************************************
 ///  低功耗相关的示例代码

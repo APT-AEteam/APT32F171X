@@ -47,10 +47,10 @@
    __IOM uint32_t	CMPLDR;	    //0x003C	Cmp reg load control
    __IOM  uint32_t	CNT;      	//0x0040	Counter reg
    __IOM uint32_t	AQLDR; 		//0x0044	AQ reg load control
-   __IOM uint32_t	AQCRA;      //0x0048	Action qualify of ch-A
-   __IOM uint32_t	AQCRB;    	//0x004C	Action qualify of ch-B
-   __IOM uint32_t	AQCRC; 		//0x0050	Action qualify of ch-C
-   __IOM uint32_t	AQCRD;  	//0x0054	Action qualify of ch-D
+   __IOM uint32_t	AQCR1;      //0x0048	Action qualify of pwm1
+   __IOM uint32_t	AQCR2;    	//0x004C	Action qualify of pwm2
+   __IOM uint32_t	AQCR3; 		//0x0050	Action qualify of pwm3
+   __IOM uint32_t	AQCR4;  	//0x0054	Action qualify of pwm4
    __IOM uint32_t	AQTSCR;   	//0x0058	T event selection
    __IOM uint32_t	AQOSF; 		//0x005C	AQ output one-shot software forcing
    __IOM uint32_t	AQCSF;      //0x0060	AQ output conti-software forcing
@@ -160,7 +160,7 @@ typedef enum{
 typedef enum {
 	EPT_LDPRDR_PRD = 0,
 	EPT_LDPRDR_LD_SYNC,
-	EPT_LDPRDR_ZRO_LD_SYNC,
+	EPT_LDPRDR_PRD_LD_SYNC,
 	EPT_LDPRDR_IMMD
 }csp_ept_ldprdr_e;
 
@@ -187,8 +187,8 @@ typedef enum{
 #define EPT_CGSRC_POS	(11)
 #define EPT_CGSRC_MSK	(0x3 << EPT_CGSRC_POS)
 typedef enum {
-	EPT_CGSRC_TIOA = 0,
-	EPT_CGSRC_TIOB,
+	EPT_CGSRC_CHAX = 0,
+	EPT_CGSRC_CHBX,
 	EPT_CGSRC_TIN
 }csp_ept_cgsrc_e;
 
@@ -197,12 +197,12 @@ typedef enum {
 typedef enum {
 	EPT_CGFLT_BP = 0,
 	EPT_CGFLT_2,
-	EPT_CGFLT_3,
 	EPT_CGFLT_4,
 	EPT_CGFLT_6,
 	EPT_CGFLT_8,
 	EPT_CGFLT_16,
-	EPT_CGFLT_32
+	EPT_CGFLT_32,
+	EPT_CGFLT_64
 }csp_ept_cnflt_e;
 
 #define EPT_PSCLD_POS	(16)
@@ -418,9 +418,10 @@ typedef enum{
 #define EPT_AQCR4_SHDWEN_POS	(9)
 #define EPT_AQCR4_SHDWEN_MSK	(0x1 << EPT_AQCR4_SHDWEN_POS)
 typedef enum{
-	EPT_LD_IMM = 0,
-	EPT_LD_SHDW 
-	
+//	EPT_LD_IMM = 0,
+//	EPT_LD_SHDW 
+	EPT_LD_SHDW = 0,
+	EPT_LD_IMM
 }csp_ept_ld_e;
 #define EPT_LDAMD_POS		(2)
 #define EPT_LDAMD_MSK		(0x7 << EPT_LDAMD_POS)
@@ -478,6 +479,17 @@ typedef enum {
 	EPT_T2
 }csp_ept_t_e;
 
+typedef enum {
+	EPT_T1_SYNC4 = 0,
+	EPT_T2_SYNC5 = 0,
+	EPT_T12_EP0  = 1,
+	EPT_T12_EP1  = 2,
+	EPT_T12_EP2  = 3,
+	EPT_T12_EP3  = 4,
+	EPT_T12_EP4  = 5,
+	EPT_T12_EP5  = 6,
+	EPT_T12_EP6  = 7
+}csp_ept_t1t2_sel_e;
 
 ///AQOSF
 #define EPT_OSTSF1		(1)
@@ -719,14 +731,22 @@ typedef enum {
 typedef enum{
 	EPFLT0_DIS = 0,
 	EPFLT0_2P,
-	EPFLT0_3P,
-	EPFLT0_4P
+	EPFLT0_4P,
+	EPFLT0_6P,
+	EPFLT0_8P,
+	EPFLT0_16P,
+	EPFLT0_32P,
+	EPFLT0_64P
 }csp_ept_epflt0_e;
 typedef enum{
-	EPFLT1_1P = 0,
+	EPFLT1_DIS = 0,
 	EPFLT1_2P,
-	EPFLT1_3P,
-	EPFLT1_4P
+	EPFLT1_4P,
+	EPFLT1_6P,
+	EPFLT1_8P,
+	EPFLT1_16P,
+	EPFLT1_32P,
+	EPFLT1_64P
 }csp_ept_epflt1_e;
 
 ///EMPOL
@@ -871,9 +891,9 @@ typedef enum{
 	EPT_TRG01_CMPD_R,
 	EPT_TRG01_CMPD_F,
 	EPT_TRG01_SYNC,
-	EPT_TRG01_PE0,
-	EPT_TRG01_PE1,
-	EPT_TRG01_PE2
+	EPT_TRG01_EP0,
+	EPT_TRG01_EP1,
+	EPT_TRG01_EP2
 }csp_ept_trgsrc01_e;
 
 typedef enum{
@@ -890,9 +910,9 @@ typedef enum{
 	EPT_TRG23_CMPD_R,
 	EPT_TRG23_CMPD_F,
 	EPT_TRG23_PRDx,
-	EPT_TRG23_PE0,
-	EPT_TRG23_PE1,
-	EPT_TRG23_PE2
+	EPT_TRG23_EP0,
+	EPT_TRG23_EP1,
+	EPT_TRG23_EP2
 }csp_ept_trgsrc23_e;
 
 #define EPT_INITEN_POS_CNT(n)	(16+n)
@@ -1099,9 +1119,6 @@ static inline uint16_t csp_ept_get_prdr(csp_ept_t *ptEptBase)
 	return (ptEptBase -> PRDR);
 }
 
-
-
-
 static inline void csp_ept_set_cmpa(csp_ept_t *ptEptBase, uint16_t bwVal)
 {
 	ptEptBase -> CMPA = bwVal;
@@ -1136,29 +1153,49 @@ static inline uint16_t csp_ept_get_cmpd(csp_ept_t *ptEptBase)
 }
 static inline void csp_ept_set_aqcr1(csp_ept_t *ptEptBase, uint32_t bwVal)
 {
-	ptEptBase -> AQCRA = bwVal;
+	ptEptBase -> AQCR1 = bwVal;
 }
 static inline void csp_ept_set_aqcr2(csp_ept_t *ptEptBase, uint32_t bwVal)
 {
-	ptEptBase -> AQCRB = bwVal;
+	ptEptBase -> AQCR2 = bwVal;
 }
 static inline void csp_ept_set_aqcr3(csp_ept_t *ptEptBase, uint32_t bwVal)
 {
-	ptEptBase -> AQCRC = bwVal;
+	ptEptBase -> AQCR3 = bwVal;
 }
 static inline void csp_ept_set_aqcr4(csp_ept_t *ptEptBase, uint32_t bwVal)
 {
-	ptEptBase -> AQCRD = bwVal;
+	ptEptBase -> AQCR4 = bwVal;
 }
 
-static inline void csp_ept_set_aqtscr(csp_ept_t *ptEptBase, csp_ept_t_e bwVal,csp_ept_ep_e bwEP)
+//static inline void csp_ept_set_aqtscr(csp_ept_t *ptEptBase, csp_ept_t_e bwVal,csp_ept_ep_e bwEP)
+//{  
+//  
+//	if(bwVal==EPT_T1) ptEptBase -> AQTSCR =(ptEptBase -> AQTSCR &~(0x0f))|(((bwEP+1)&0x0f)<<EPT_T1SEL_POS);
+//	if(bwVal==EPT_T2) ptEptBase -> AQTSCR =(ptEptBase -> AQTSCR &~(0xf0))|(((bwEP+1)&0x0f)<<EPT_T2SEL_POS);	
+//}
+
+static inline csi_error_t csp_ept_set_aqtscr(csp_ept_t *ptEptBase, csp_ept_t_e bwVal,csp_ept_t1t2_sel_e bwT1T2Sel)
 {  
   
-	if(bwVal==EPT_T1) ptEptBase -> AQTSCR =(ptEptBase -> AQTSCR &~(0x0f))|(((bwEP+1)&0x0f)<<EPT_T1SEL_POS);
-	if(bwVal==EPT_T2) ptEptBase -> AQTSCR =(ptEptBase -> AQTSCR &~(0xf0))|(((bwEP+1)&0x0f)<<EPT_T2SEL_POS);	
-  
+	if(bwVal==EPT_T1) 
+	{
+		if(bwT1T2Sel == EPT_T2_SYNC5)
+			return CSI_ERROR;
+		else
+			ptEptBase -> AQTSCR = (ptEptBase -> AQTSCR & ~(0x0f)) | ((bwT1T2Sel & 0x0f) << EPT_T1SEL_POS);
+	} 
+	
+	if(bwVal==EPT_T2) 
+	{
+		if(bwT1T2Sel == EPT_T1_SYNC4)
+			return CSI_ERROR;
+		else
+			ptEptBase -> AQTSCR = (ptEptBase -> AQTSCR & ~(0xf0)) | ((bwT1T2Sel & 0x0f) << EPT_T2SEL_POS);	
+	}	
+	
+	return CSI_OK;
 }
-
 
 static inline void csp_ept_set_dbldr(csp_ept_t *ptEptBase, uint32_t w_Val)
 {
@@ -1525,7 +1562,7 @@ static inline void csp_ept_set_em_src(csp_ept_t *ptEptBase, csp_ept_ep_e eEp, cs
 	ptEptBase -> EMSRC = (ptEptBase -> EMSRC & ~(EPT_SEL_POS_EP(eEp))) | (eEpSrc<<EPT_SEL_POS_EP(eEp));
 }
 
-static inline void csp_ept_set_em_epflt(csp_ept_t *ptEptBase, csp_ept_epflt0_e ePace0, csp_ept_epflt0_e ePace1)
+static inline void csp_ept_set_em_epflt(csp_ept_t *ptEptBase, csp_ept_epflt0_e ePace0, csp_ept_epflt1_e ePace1)
 {
 	ptEptBase -> REGPROT = EPT_REGPROT;
 	ptEptBase -> EMSRC2 = (ptEptBase -> EMSRC2 & (~EPT_EPPACE0_MSK) & (~EPT_EPPACE1_MSK)) | (ePace0 << EPT_EPPACE0_POS) | (ePace1 << EPT_EPPACE1_POS);
