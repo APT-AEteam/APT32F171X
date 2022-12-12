@@ -157,11 +157,6 @@ csi_error_t csi_usart_init(csp_usart_t *ptUsartBase, csi_usart_config_t *ptUsart
 		else 
 			byClkDiv = 1;
 
-//		if(csp_usart_get_mode(ptUsartBase) == US_ASYNC)
-//			csp_usart_set_brdiv(ptUsartBase, ptUsartCfg->wBaudRate, (csi_get_pclk_freq() >> 4)/byClkDiv);
-//		else 
-//			csp_usart_set_brdiv(ptUsartBase, ptUsartCfg->wBaudRate, csi_get_pclk_freq()/byClkDiv);
-
 		if(csp_usart_get_mode(ptUsartBase) == US_ASYNC)
 			csp_usart_set_brdiv(ptUsartBase, ptUsartCfg->wBaudRate, csi_get_pclk_freq()/byClkDiv);
 		else 
@@ -170,11 +165,14 @@ csi_error_t csi_usart_init(csp_usart_t *ptUsartBase, csi_usart_config_t *ptUsart
 	}
 	
 	if(ptUsartCfg->bClkOutEn == ENABLE)
-		csp_usart_set_clko(ptUsartBase, US_CLKO_EN); 				//Enable usartclk output
+		csp_usart_set_clko(ptUsartBase, US_CLKO_EN); 							//Enable usartclk output
 	
-	csp_usart_set_rtor(ptUsartBase, ptUsartCfg->hwRecvTo);							//set receive timeover time
-	csp_usart_cr_cmd(ptUsartBase, US_FIFO_EN | US_RXFIFO_1_2);		//set fifo
-	//csp_usart_set_fifo(ptUsartBase, US_FIFO_EN, US_RXFIFO_1_2);		//set fifo
+	csp_usart_set_rtor(ptUsartBase, ptUsartCfg->hwRecvTo);						//set receive timeover time
+	if(ptUsartCfg->bRecvToEn == ENABLE)
+		csp_usart_cr_cmd(ptUsartBase, US_STTTO | US_FIFO_EN | US_RXFIFO_1_2);	//enable receive timeover and  fifo
+	else
+		csp_usart_cr_cmd(ptUsartBase, US_FIFO_EN | US_RXFIFO_1_2);				//set fifo
+	
 	
 	//get usart rx/tx mode 
 	byIdx = apt_get_usart_idx(ptUsartBase);
@@ -185,15 +183,14 @@ csi_error_t csi_usart_init(csp_usart_t *ptUsartBase, csi_usart_config_t *ptUsart
 	
 	if(ptUsartCfg->wInt)
 	{
-		ptUsartCfg->wInt &= 0xbdfd;											//clear tx all interrupt
-		if((ptUsartCfg->wInt) && (ptUsartCfg->byRxMode))					//receive iterrupt mode
+		ptUsartCfg->wInt &= 0xbdfd;													//clear tx all interrupt
+		if((ptUsartCfg->wInt) && (ptUsartCfg->byRxMode))							//receive iterrupt mode
 		{
-			csp_usart_cr_cmd(ptUsartBase, US_STTTO | US_FIFO_EN | US_RXFIFO_1_2);	//enable receive timeover
-			//csp_usart_cr_cmd(ptUsartBase, US_STTTO);
-			ptUsartCfg->wInt |= US_TIMEOUT_INT;								//open receive timeout interrupt
-			csp_usart_int_enable(ptUsartBase, ptUsartCfg->wInt, ENABLE);	//enable usart interrupt
+			//csp_usart_cr_cmd(ptUsartBase, US_STTTO | US_FIFO_EN | US_RXFIFO_1_2);	//enable receive timeover
+			//ptUsartCfg->wInt |= US_TIMEOUT_INT;									//open receive timeout interrupt
+			csp_usart_int_enable(ptUsartBase, ptUsartCfg->wInt, ENABLE);			//enable usart interrupt
 		}
-		csi_irq_enable(ptUsartBase);										//enable usart irq			
+		csi_irq_enable(ptUsartBase);												//enable usart irq			
 	}
 	else
 	{
