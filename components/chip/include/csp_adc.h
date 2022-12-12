@@ -555,7 +555,7 @@ static inline void csp_adc_clr_sr(csp_adc_t *ptAdcBase,adc_sr_e eAdcSr)
 {
 	ptAdcBase->CSR =  eAdcSr;
 }
-static inline uint32_t csp_adc_get_isr(csp_adc_t *ptAdcBase)
+static inline uint32_t csp_adc_get_imr(csp_adc_t *ptAdcBase)
 {
 	return (uint32_t)(ptAdcBase->IMR);
 }
