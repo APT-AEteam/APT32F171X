@@ -31,7 +31,7 @@ csi_adc_samp_t	g_tAdcSamp;
 __attribute__((weak)) void adc_irqhandler(csp_adc_t *ptAdcBase)
 {
 	uint8_t i;
-	uint32_t wIntStat = csp_adc_get_sr(ptAdcBase) & csp_adc_get_isr(ptAdcBase);
+	uint32_t wIntStat = csp_adc_get_sr(ptAdcBase) & csp_adc_get_imr(ptAdcBase);
 	
 	//ADC CMP interrupt
 	switch(wIntStat & 0xf0)
