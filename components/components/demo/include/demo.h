@@ -71,6 +71,10 @@ int uart_send_demo(void);
 int uart_send_int_demo(void);
 //uart receive
 int uart_receive_demo(void);
+int uart_recv_rx_int_demo(void);
+int uart_recv_rxfifo_int_demo(void);
+
+
 int uart_recv_int_demo(void);
 int uart_recv_dynamic_demo(void);
 int uart_recv_dynamic_int_demo(void);
