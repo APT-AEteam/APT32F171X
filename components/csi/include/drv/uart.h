@@ -126,7 +126,8 @@ typedef enum{
 	//receive
 	UART_RX_MODE_POLL		=	0,			//polling mode, no interrupt
 	UART_RX_MODE_INT_FIX	=	1,			//rx use interrupt mode(RXFIFO), receive assign(fixed) length data		
-	UART_RX_MODE_INT_DYN	=	2			//rx use interrupt mode(RXFIFO), receive a bunch of data(dynamic length data)
+	UART_RX_MODE_INT_DYN	=	2,			//rx use interrupt mode(RXFIFO), receive a bunch of data(dynamic length data)
+	UART_RX_MODE_INT		=	3			//rx use interrupt mode
 }csi_uart_work_e;
 
 /// \struct csi_uart_config_t
