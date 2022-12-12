@@ -75,10 +75,6 @@ int uart_recv_rx_int_demo(void);
 int uart_recv_rxfifo_int_demo(void);
 
 
-int uart_recv_int_demo(void);
-int uart_recv_dynamic_demo(void);
-int uart_recv_dynamic_int_demo(void);
-
 //etcb demo
 int etcb_one_trg_one_demo0(void);
 int etcb_one_trg_one_demo1(void);
@@ -90,8 +86,9 @@ int usart_char_demo(void);
 int usart_send_demo(void);
 int usart_recv_demo(void);
 int usart_send_int_demo(void);
-int usart_recv_int_demo(void);
-int usart_recv_dynamic_demo(void);
+int usart_recv_rx_int_demo(void);
+int usart_recv_rxfifo_int_demo(void);
+
 
 //lin
 int lin_send_test(void);
