@@ -20,8 +20,11 @@
 /* Private macro-----------------------------------------------------------*/
 /* Private variablesr------------------------------------------------------*/
 
-ringbuffer_t g_tRingbuf;						//循环buffer
-uint8_t 	 g_byRxBuf[UART_RECV_MAX_LEN-96];	//接收缓存
+//ringbuffer_t g_tRingbuf;						//循环buffer
+//uint8_t 	 g_byRxBuf[UART_RECV_MAX_LEN-96];	//接收缓存
+
+static uint8_t s_byRecvBuf[64];					//接收缓存
+static uint8_t s_byRecvLen = 0;	
 
 /** \brief uart char receive and send 
  *  \brief 串口接收/发送一个字符，轮询方式
@@ -196,162 +199,115 @@ int uart_receive_demo(void)
 	return iRet;
 }
 
-/** \brief uart receive assign(fixed) length data; interrupt(async) mode
- *  \brief 串口接收指定长度数据，RX使用中断，TX不使用中断
+/** \brief 串口中断函数，接收数据可使用中断方式(FIFO/RX两种中断)，在此中断函数中接收数据
+ * 
+ *  \param[in] ptUartBase: pointer of uart register structure
+ *  \param[in] byIdx: uart id number(0~2)
+ */
+void uart_irqhandler(csp_uart_t *ptUartBase,uint8_t byIdx)
+{
+	//此中断例程支持RXFIFO/RX/TXDONE/RXTO四种中断，基本满足UART的各种处理
+	switch(csp_uart_get_isr(ptUartBase) & 0x080242)							//获取RXFIFO/TXDONE/RXTO/RX 中断状态
+	{
+		case UART_RXFIFO_INT_S:		
+			//使用RXFIFO中断接收数据
+			csp_uart_rto_en(ptUartBase);									//使能接收超时(若需要进字节接收超时中断，需使能)	
+			while(csp_uart_get_sr(ptUartBase) & UART_RNE)					//接收FIFO非空
+			{
+				s_byRecvBuf[s_byRecvLen] = csp_uart_get_data(ptUartBase);
+				s_byRecvLen ++;
+				if(s_byRecvLen > 31)										//接收完32个bytes，接收buf从头开始接收										
+				{
+					csi_uart_send(ptUartBase,(void *)s_byRecvBuf, s_byRecvLen);	//UART发送采用轮询方式，发送接收到的48bytes
+					s_byRecvLen = 0;
+				}
+			}
+			break;
+		case UART_RX_INT_S:
+			//使用RX中断接收数据			
+			//csp_uart_rto_en(ptUartBase);									//使能接收超时(若需要进字节接收超时中断，需使能)		
+			csp_uart_clr_isr(ptUartBase, UART_RX_INT_S);					//清除中断标志(状态)
+			s_byRecvBuf[s_byRecvLen] = csp_uart_get_data(ptUartBase);
+			s_byRecvLen ++;
+			if(s_byRecvLen > 31)											//接收完32个bytes，接收buf从头开始接收	
+			{
+				csi_uart_send(ptUartBase,(void *)s_byRecvBuf, s_byRecvLen);	//UART发送采用轮询方式，发送接收到的48bytes
+				s_byRecvLen = 0;
+			}
+			break;
+		case UART_TXDONE_INT_S:		
+			//使用TXDONE中断发送数据，下面处理支持csi_uart_send接口
+			//用户可按自己习惯方式处理中断发送（此时不支持csi_uart_send接口）
+			csp_uart_clr_isr(ptUartBase,UART_TXDONE_INT_S);					//清除中断状态
+			g_tUartTran[byIdx].hwTxSize --;
+			g_tUartTran[byIdx].pbyTxData ++;
+			
+			if(g_tUartTran[byIdx].hwTxSize == 0)		
+				g_tUartTran[byIdx].bySendStat = UART_STATE_DONE;			//发送完成
+			else
+				csp_uart_set_data(ptUartBase, *g_tUartTran[byIdx].pbyTxData);//发送数据
+				
+			break;
+		case UART_RXTO_INT_S:
+			//字节接收超时中断，可以作为一串字符是否结束的依据，若使用此功能，需在接收数据时使能接收超时
+			//用户添加自己的处理
+			csp_uart_clr_isr(ptUartBase, UART_RXTO_INT_S);					//清除中断状态							
+			csp_uart_rto_dis(ptUartBase);									//关闭接收超时	
+			break;
+		default:
+			break;
+	}
+}
+/** \brief 串口接收中断，RX使用接收中断，TX不使用中断
  * 
  *  \param[in] none
  *  \return error code
  */
-
-int uart_recv_int_demo(void)
+int uart_recv_rx_int_demo(void)
 {
 	int iRet = 0;
-	uint8_t  byRxBuf[32];
-	uint16_t hwRecvNum = 5;
-	volatile uint16_t hwRecvLen;
-	
-	csi_uart_config_t tUartConfig;				//UART0 参数配置结构体
-	
-//	csi_pin_set_mux(PA09, PA09_UART_TX);		//UART0 TX管脚配置
-//	csi_pin_set_mux(PA010, PA010_UART_RX);		//UART0 TX管脚配置
-//	csi_pin_pull_mode(PA010,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
-	
-	csi_pin_set_mux(PA11, PA11_UART_TX);		//UART0 TX管脚配置
-	csi_pin_set_mux(PA12, PA12_UART_RX);		//UART0 TX管脚配置
-	csi_pin_pull_mode(PA11,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
-	
-	//接收缓存配置，实例化接收ringbuf，将ringbuf接收数据缓存指向用户定义的的接收buffer(g_byRxBuf)
-	//需要传入参数：串口设备/ringbuf结构体指针/接收buffer/接收buffer长度
-	csi_uart_set_buffer(UART0, &g_tRingbuf, g_byRxBuf, sizeof(g_byRxBuf));
-	
-	tUartConfig.byParity = UART_PARITY_ODD;							//校验位，奇校验
-	tUartConfig.wBaudRate = 115200;									//波特率，115200
-	tUartConfig.hwRecvTo = 88;										//UART接收超时时间，单位：bit位周期，8个bytes（11bit*8,115200波特率时=764us）
-	tUartConfig.wInt = UART_INTSRC_RXFIFO;		//串口接收中断打开，使用RXFIFO中断(默认推荐使用)
-	tUartConfig.byTxMode = UART_TX_MODE_POLL;	//发送模式：轮询模式
-	tUartConfig.byRxMode = UART_RX_MODE_INT_FIX;//接收模式：中断指定接收模式
-	
-	csi_uart_init(UART0, &tUartConfig);			//初始化串口
-	csi_uart_start(UART0, UART_FUNC_RX_TX);		//开启UART的RX和TX功能，也可单独开启RX或者TX功能
-	
-	while(1)
-	{
-		//从串口缓存（UART接收循环buffer）里面读取数据，返回读取数据个数
-		//用户应用根据实际不同协议来处理数据
-		
-		if(hwRecvNum == 1)		//单个字节收数据(读接收ringbuf)
-		{
-			hwRecvLen = csi_uart_receive(UART0,(void *)byRxBuf, hwRecvNum, 0);	//读取接收循环buffer数据, 有数据返回数据
-			if(hwRecvLen == hwRecvNum)
-				csi_uart_putc(UART0,*byRxBuf);
-		}
-		else if(hwRecvNum > 1)	//多个字节收数据(读接收ringbuf)
-		{
-			hwRecvLen = csi_uart_receive(UART0,(void *)byRxBuf, hwRecvNum, 0);	//读取接收循环buffer数据
-			if(hwRecvLen == hwRecvNum)
-				csi_uart_send(UART0,(void *)byRxBuf, hwRecvNum);				//UART发送采用轮询方式(同步)
-		}
-	}
-	
-	return iRet;
-}
-
-
-/** \brief uart receive a bunch of data; interrupt(async) mode
- *  \brief 串口接收到一串字符串，RX使用中断模式，TX不使用中断
- *
- *  \param[in] none
- *  \return error code
- */
-int uart_recv_dynamic_demo(void)
-{
-	int iRet = 0;
-	uint8_t byRxBuf[128];
-	
-	volatile uint16_t hwRecvLen;
-	
-	csi_uart_config_t tUartConfig;				//UART0 参数配置结构体
+	csi_uart_config_t tUartConfig;				//UART1 参数配置结构体
 	
 	csi_pin_set_mux(PA09, PA09_UART_TX);		//UART0 TX管脚配置
 	csi_pin_set_mux(PA010, PA010_UART_RX);		//UART0 TX管脚配置
 	csi_pin_pull_mode(PA010,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
 	
-//	csi_pin_set_mux(PA11, PA11_UART_TX);		//UART0 TX管脚配置
-//	csi_pin_set_mux(PA12, PA12_UART_RX);		//UART0 TX管脚配置
-//	csi_pin_pull_mode(PA11,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
-	
-	//接收缓存配置，实例化接收ringbuf，将ringbuf接收数据缓存指向用户定义的的接收buffer(g_byRxBuf)
-	//需要传入参数：串口设备/ringbuf结构体指针/接收buffer/接收buffer长度
-	csi_uart_set_buffer(UART0, &g_tRingbuf, g_byRxBuf, sizeof(g_byRxBuf));
-	
-	//串口参数配置
-	tUartConfig.byParity = UART_PARITY_ODD;							//校验位，奇校验
-	tUartConfig.wBaudRate = 115200;									//波特率，115200
-	tUartConfig.hwRecvTo = 88;										//UART接收超时时间，单位：bit位周期，8个bytes（11bit*8,115200波特率时=764us）
-	tUartConfig.wInt = UART_INTSRC_RXFIFO;		//串口接收中断打开，使用RXFIFO中断(默认推荐使用)
+	tUartConfig.byParity = UART_PARITY_ODD;		//校验位，奇校验
+	tUartConfig.wBaudRate = 115200;				//波特率，115200
+	tUartConfig.hwRecvTo = 88;					//UART接收超时时间，单位：bit位周期，8个bytes(11bit*8=88, 115200波特率时=764us)
+	tUartConfig.wInt = UART_INTSRC_RX;			//串口接收中断打开，使用RX中断
 	tUartConfig.byTxMode = UART_TX_MODE_POLL;	//发送模式：轮询模式
-	tUartConfig.byRxMode = UART_RX_MODE_INT_DYN;//接收模式：中断动态接收模式
+	tUartConfig.byRxMode = UART_RX_MODE_INT;	//接收模式：中断模式
 	
 	csi_uart_init(UART0, &tUartConfig);			//初始化串口
 	csi_uart_start(UART0, UART_FUNC_RX_TX);		//开启UART的RX和TX功能，也可单独开启RX或者TX功能
 	
-	while(1)
-	{
-		if(csi_uart_get_msg(UART0,UART_RECV, ENABLE))					//获取判接收完成消息，并清除消息(设置为idle)，串口接收到一串字符
-		{
-			hwRecvLen = csi_uart_receive(UART0,(void*)byRxBuf,0,0);		//获取接收到的一串数据，返回数据长度, 后面两个参数无意义
-			csi_uart_send(UART0,(void *)byRxBuf,hwRecvLen);				//UART发送采用轮询方式(同步)
-		}
-	}
 	return iRet;
 }
-
-/** \brief uart receive a bunch of data; interrupt(async) mode
- *  \brief 串口接收到一串字符串, RX使用中断模式,TX使用中断方式
- *
+/** \brief 串口接收FIFO中断，RX使用FIFO中断，TX不使用中断
+ * 
  *  \param[in] none
  *  \return error code
  */
-int uart_recv_dynamic_int_demo(void)
+int uart_recv_rxfifo_int_demo(void)
 {
 	int iRet = 0;
-	uint8_t byRxBuf[128];
-	
-	volatile uint16_t hwRecvLen;
-	
-	csi_uart_config_t tUartConfig;				//UART0 参数配置结构体
+	csi_uart_config_t tUartConfig;				//UART1 参数配置结构体
 	
 	csi_pin_set_mux(PA09, PA09_UART_TX);		//UART0 TX管脚配置
 	csi_pin_set_mux(PA010, PA010_UART_RX);		//UART0 TX管脚配置
 	csi_pin_pull_mode(PA010,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
-
-//	csi_pin_set_mux(PC02, PC02_UART_TX);		//UART0 TX管脚配置
-//	csi_pin_set_mux(PA011, PA011_UART_RX);		//UART0 TX管脚配置
-//	csi_pin_pull_mode(PA011,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
 	
-	//接收缓存配置，实例化接收ringbuf，将ringbuf接收数据缓存指向用户定义的的接收buffer(g_byRxBuf)
-	//需要传入参数：串口设备/ringbuf结构体指针/接收buffer/接收buffer长度
-	csi_uart_set_buffer(UART0, &g_tRingbuf, g_byRxBuf, sizeof(g_byRxBuf));
+	tUartConfig.byParity = UART_PARITY_ODD;		//校验位，奇校验
+	tUartConfig.wBaudRate = 115200;				//波特率，115200
+	tUartConfig.hwRecvTo = 88;					//UART接收超时时间，单位：bit位周期，8个bytes(11bit*8=88, 115200波特率时=764us)
+	tUartConfig.wInt = UART_INTSRC_RXFIFO 
+					| UART_INTSRC_RXTO;;		//串口接收中断打开，使用RXFIFO中断(默认推荐使用)和接收超时中断
+	tUartConfig.byTxMode = UART_TX_MODE_POLL;	//发送模式：轮询模式
+	tUartConfig.byRxMode = UART_RX_MODE_INT;	//接收模式：中断模式
 	
-	//串口参数配置
-	tUartConfig.byParity = UART_PARITY_ODD;							//校验位，奇校验
-	tUartConfig.wBaudRate = 115200;									//波特率，115200
-	tUartConfig.hwRecvTo = 88;										//UART接收超时时间，单位：bit位周期，8个bytes（11bit*8,115200波特率时=764us）
-	tUartConfig.wInt = UART_INTSRC_RXFIFO | UART_INTSRC_TXDONE;		//串口接收/发送中断打开，使用RXFIFO/TXDONE中断(默认推荐使用)
-	tUartConfig.byTxMode = UART_TX_MODE_INT;						//发送模式：中断发送
-	tUartConfig.byRxMode = UART_RX_MODE_INT_DYN;					//接收模式：中断动态接收模式
-	
-	csi_uart_init(UART0, &tUartConfig);								//初始化串口
-	csi_uart_start(UART0, UART_FUNC_RX_TX);							//开启UART的RX和TX功能，也可单独开启RX或者TX功能
-	
-	while(1)
-	{
-		if(csi_uart_get_msg(UART0,UART_RECV, ENABLE))				//获取判接收完成消息，并清除消息(设置为idle)，串口接收到一串字符
-		{
-			hwRecvLen = csi_uart_receive(UART0,(void*)byRxBuf,0,0);	//获取接收到的一串数据，返回数据长度, 后面两个参数无意义
-			csi_uart_send(UART0,(void *)byRxBuf,hwRecvLen);			//UART发送采用中断方式(异步)
-		}
-	}
+	csi_uart_init(UART0, &tUartConfig);			//初始化串口
+	csi_uart_start(UART0, UART_FUNC_RX_TX);		//开启UART的RX和TX功能，也可单独开启RX或者TX功能
 	
 	return iRet;
 }
