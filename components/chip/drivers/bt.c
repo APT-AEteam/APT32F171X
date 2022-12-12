@@ -432,7 +432,22 @@ csi_error_t csi_bt_set_evtrg(csp_bt_t *ptBtBase, csi_bt_trgout_e eTrgOut, csi_bt
 		
 	return CSI_OK;
 }
-
+/** \brief bt evtrg output enable/disable
+ * 
+ *  \param[in] ptBtBase: pointer of bt register structure
+ *  \param[in] eTrgOut: bt evtrg out port (0)
+ *  \param[in] bEnable: ENABLE/DISABLE
+ *  \return error code \ref csi_error_t
+ */
+csi_error_t csi_bt_evtrg_enable(csp_bt_t *ptBtBase, csi_bt_trgout_e eTrgOut, bool bEnable)
+{
+	if(eTrgOut == BT_TRGOUT)
+		ptBtBase->EVTRG = (ptBtBase->EVTRG & ~BT_TRGOE_MSK) | (bEnable << BT_TRGOE_POS);
+	else
+		return CSI_ERROR;
+		
+	return CSI_OK;
+}
 /** \brief bt soft ware evtrg config
  * 
  *  \param[in] ptBtBase:pointer of bt register structure

@@ -43,8 +43,7 @@ int main()
 	my_printf("hello apt32f171!\n");
 	
 	user_demo();							//demo
-	
-	
+
 	while(1)
 	{
 		mdelay(100);						//delay 100ms

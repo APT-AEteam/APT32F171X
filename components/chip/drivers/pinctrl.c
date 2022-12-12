@@ -705,7 +705,21 @@ csi_error_t csi_exi_set_evtrg(csi_exi_trgout_e eTrgOut, csi_exi_trgsrc_e eExiTrg
 	
 	return CSI_OK;
 }
-
+/** \brief exi evtrg output enable/disable
+ * 
+ *  \param[in] eTrgOut: exi evtrg out port (0~5)
+ *  \param[in] bEnable: ENABLE/DISABLE
+ *  \return error code \ref csi_error_t
+ */
+csi_error_t csi_exi_evtrg_enable(csi_exi_trgout_e eTrgOut, bool bEnable)
+{
+	if(eTrgOut <= EXI_TRGOUT5)
+		SYSCON->EVTRG = (SYSCON->EVTRG & ~ENDIS_ESYNC_MSK(eTrgOut)) | (bEnable << ENDIS_ESYNC_POS(eTrgOut));
+	else
+		return CSI_ERROR;
+		
+	return CSI_OK;
+}
 /** \brief  exi software trigger event 
  *  \param[in] eTrgOut: output Event select(EXI_TRGOUT0~5)
  *  \return none

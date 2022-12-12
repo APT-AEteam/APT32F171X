@@ -398,7 +398,8 @@ typedef enum{
 
 #define ADC12_TRG0OE       (0x01ul <<20)       /**< ADC out TRG En          */
 #define ADC12_TRG1OE       (0x01ul <<21)       /**< ADC out TRG En          */
-
+#define ADC12_TRGOE_POS(n)      (20 + (n))     /**< ADC out TRG En          */
+#define ADC12_TRGOE_MSK(n) 		(0x01ul << ADC12_TRGOE_POS(n) ) 
 /******************************************************************************
 * EVPS  
 ******************************************************************************/

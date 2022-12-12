@@ -408,7 +408,6 @@ void csi_cmp_set_evtrg(csp_cmp_t *ptCmpBase,csi_eve_sel_e eEveSel, uint8_t byIdx
 	else if(byIdx == CMP_IDX4)   csp_cmp4_evtrg(ptCmpBase ,eEveSel);
 	else if(byIdx == CMP_IDX5)   csp_cmp5_evtrg(ptCmpBase ,eEveSel);		
 }
-
 /**
 *  \brief       cmp  sync nstep
 *  \param[in]   ptCmpBase:pointer of cmp register structure
