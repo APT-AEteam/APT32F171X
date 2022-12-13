@@ -96,7 +96,6 @@ int pin_irq_demo(void)
 {
 	int iRet = 0;
 	
-//	csi_imosc_enable(2);
 //	csi_exi_flt_enable(EXI_FLT_CKDIV4, ENABLE);				//EXI 去抖滤波
 	csi_pin_set_mux(PB02, PC01_INPUT);							//PB02 配置为输入
 	csi_pin_pull_mode(PB02, GPIO_PULLUP);						//PB02 上拉

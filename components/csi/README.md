@@ -2,6 +2,15 @@
 cpu core头文件，csi api接口头文件。
 
 # Release Notes
+======================================================
+Version: V1.0.1
+Release Date: 2022.12.13
+
+Release Notes
+1、更新GPTA事件触发驱动，去掉枚举中PE事件触发
+2、csi_uart_work_e中添加UART_RX_MODE_INT枚举定义
+3、添加USART_RX_MODE_INT枚举定义，添加超时使能参数bRecvToEn
+======================================================
 
 ======================================================
 Version: V1.0.0

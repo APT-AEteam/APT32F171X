@@ -1,5 +1,5 @@
 name: apt_csi
-version: v1.0.0
+version: v1.0.1
 description: chip system interface.
 tag: 核心模块
 keywords:
