@@ -91,8 +91,8 @@ int usart_recv_rxfifo_int_demo(void);
 
 
 //lin
-int lin_send_test(void);
-int lin_send_recv_test(void);
+int lin_send_demo(void);
+int lin_send_recv_demo(void);
 
 
 //ept demo
