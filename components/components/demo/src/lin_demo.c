@@ -24,15 +24,21 @@
 /* Private variablesr------------------------------------------------------*/
 
 /////使用Lin demo时，请先打开interrupt.c中的lin_irqhandler 函数
-int lin_send_test(void)
+
+/** \brief lin_send：lin 发送数据
+ * 
+ *  \param[in] none
+ *  \return error code
+ */
+int lin_send_demo(void)
 {
 	int iRet = 0;
 //	volatile uint8_t byRecv;
 	uint8_t bySdBuf[8] = {0x45,0x46,3,4,5,6,7,8};
 	csi_lin_config_t tLinCfg;							//lin 初始化参数配置结构体
 
-	csi_pin_set_mux(PC01, PC01_USART0_TX);			//TX	
-	csi_pin_set_mux(PC00, PC00_USART0_RX);			//RX		
+	csi_pin_set_mux(PC01, PC01_USART0_TX);				//TX	
+	csi_pin_set_mux(PC00, PC00_USART0_RX);				//RX		
 	csi_pin_pull_mode(PC00,GPIO_PULLUP);				//RX管脚上拉使能, 建议配置
 	
 	tLinCfg.byClkSrc	= LIN_CLKSRC_DIV1;				//时钟源clk = pclk
@@ -77,8 +83,12 @@ int lin_send_test(void)
 	
 	return iRet;
 }
-
-int lin_send_recv_test(void)
+/** \brief lin_send_recv：lin 读取数据
+ * 
+ *  \param[in] none
+ *  \return error code
+ */
+int lin_send_recv_demo(void)
 {
 	volatile int iRet = 0;
 	volatile uint8_t byRecv;
@@ -86,8 +96,8 @@ int lin_send_recv_test(void)
 	
 	csi_lin_config_t tLinCfg;							//lin 初始化参数配置结构体
 
-	csi_pin_set_mux(PC01, PC01_USART0_TX);			//TX	
-	csi_pin_set_mux(PC00, PC00_USART0_RX);			//RX		
+	csi_pin_set_mux(PC01, PC01_USART0_TX);				//TX	
+	csi_pin_set_mux(PC00, PC00_USART0_RX);				//RX		
 	csi_pin_pull_mode(PC00,GPIO_PULLUP);				//RX管脚上拉使能, 建议配置
 	
 	tLinCfg.byClkSrc	= LIN_CLKSRC_DIV1;				//时钟源clk = pclk
@@ -103,7 +113,7 @@ int lin_send_recv_test(void)
 	tLinCfg.byLcp2[1]	= 0x92;
 	tLinCfg.byLcp2[2]	= 0xa0;
 	tLinCfg.byLcp2[3]	= 0xaf;
-	tLinCfg.hwBaudRate	= 9600;						//速率 <= 20kpbs
+	tLinCfg.hwBaudRate	= 9600;							//速率 <= 20kpbs
 	tLinCfg.wInt 		= LIN_INTSRC_USER; 				//中断	
 	
 	csi_lin_init(LIN0, &tLinCfg);						//初始化LIN
