@@ -32,9 +32,9 @@ extern csi_error_t crc_demo();
 //bt demo
 extern int bt_timer_demo(void);
 extern int bt_pwm_demo(void);
-int bt_sync_trg_start_demo(void);
-int bt_sync_trg_stop_demo(void);
-int bt_sync_trg_count_demo(void);
+int bt_sync_start_demo(void);
+int bt_sync_stop_demo(void);
+int bt_sync_count_demo(void);
 int bt_trg_out_demo(void);
 int bt_sync1_arearm_sync0_demo(void);
 int bt_sync0_arearm_sync1_demo(void);
