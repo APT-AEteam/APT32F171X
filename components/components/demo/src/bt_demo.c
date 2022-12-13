@@ -19,7 +19,7 @@
 /* Private macro-----------------------------------------------------------*/
 /* Private variablesr------------------------------------------------------*/
 
-/** \brief bt timer
+/** \brief bt timer：BT定时中断demo
  * 
  *  \param[in] none
  *  \return error code
@@ -35,7 +35,7 @@ int bt_timer_demo(void)
 	return iRet;
 }
 
-/** \brief bt pwm ouput
+/** \brief bt pwm ouput：BT PWM输出demo
  *  
  *  \param[in] none
  *  \return error code
@@ -70,12 +70,12 @@ int bt_pwm_demo(void)
 	
 	return iRet;
 }
-/** \brief bt sync trg start 
+/** \brief bt sync start：EXI通过BT同步输入端口0触发BT启动 
  *  
  *  \param[in] none
  *  \return error code
  */
-int bt_sync_trg_start_demo(void)
+int bt_sync_start_demo(void)
 {
 	int iRet = 0;
 	volatile uint8_t ch;
@@ -106,12 +106,12 @@ int bt_sync_trg_start_demo(void)
 	
 	return iRet;
 }
-/** \brief bt sync trg count
+/** \brief bt sync stop：EXI通过BT同步输入端口1触发BT停止
  *  
  *  \param[in] none
  *  \return error code
  */
-int bt_sync_trg_stop_demo(void)
+int bt_sync_stop_demo(void)
 {
 	int iRet = 0;
 	volatile uint8_t ch;
@@ -142,12 +142,12 @@ int bt_sync_trg_stop_demo(void)
 	return iRet;
 	
 }
-/** \brief bt sync trg count
+/** \brief bt sync count: EXI通过BT同步输入端口2触发BT计数值加1
  *  
  *  \param[in] none
  *  \return error code
  */
-int bt_sync_trg_count_demo(void)
+int bt_sync_count_demo(void)
 {
 	int iRet = 0;
 	volatile uint8_t ch;
@@ -179,7 +179,7 @@ int bt_sync_trg_count_demo(void)
 }
 
 
-/** \brief bt sync trg count
+/** \brief  bt event trg count：BT0通过PEND事件产生触发输出到ETCB,通过BT1同步输入0触发BT1启动
  *  
  *  \param[in] none
  *  \return error code
@@ -193,7 +193,7 @@ int bt_trg_out_demo(void)
 	csi_bt_timer_init(BT0,100000);										//BT定时100ms，默认连续计数模式
 	//csi_bt_count_mode(BT0, BT_CNT_ONCE);								//单次计数模式
 	csi_bt_set_evtrg(BT0, BT_TRGOUT, BT_TRGSRC_PEND);					//BT0 PEND事件触发输出
-	csi_bt_start(BT0);												//启动定时器
+	csi_bt_start(BT0);													//启动定时器
 	
 	csi_bt_timer_init(BT1,50000);										//BT定时50ms,默认连续计数模式
 	csi_bt_count_mode(BT1, BT_CNT_ONCE);								//单次计数模式
@@ -215,7 +215,7 @@ int bt_trg_out_demo(void)
 	
 	return iRet;
 }
-/** \brief bt sync trg auto rearm for sync, bt用sync1事件自动REARM sync0
+/** \brief bt sync trg auto rearm for sync: bt用sync1事件自动REARM sync0
  *  
  *  \param[in] none
  *  \return error code
@@ -272,7 +272,7 @@ int bt_sync1_arearm_sync0_demo(void)
 	return iRet;
 }
 
-/** \brief bt sync trg auto rearm for sync, bt用sync0事件自动REARM sync1
+/** \brief bt sync trg auto rearm for sync: bt用sync0事件自动REARM sync1
  *  
  *  \param[in] none
  *  \return error code
