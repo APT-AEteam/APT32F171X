@@ -129,6 +129,7 @@ extern void emcm_demo(void);
 extern void opa_internal_gain_mode_test(void);
 extern void opa_external_gain_mode_test(void);
 
+#if CONFIG_USE_TCx_EPWM
 //tc0 demo
 extern void tc00_capture_demo1(void);
 extern void tc00_capture_demo2(void);
@@ -149,6 +150,7 @@ extern int tc2_trg_out_demo(void);
 
 //epwm
 extern int epwm_pwm_demo(void);
+#endif /* CONFIG_USE_TCx_EPWM */
 
 /*
 //osc clk check

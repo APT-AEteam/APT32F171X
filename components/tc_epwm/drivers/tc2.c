@@ -8,7 +8,6 @@
  * </table>
  * *********************************************************************
 */
-
 #include <sys_clk.h>
 #include <drv/tc2.h>
 #include <drv/irq.h>
@@ -191,7 +190,8 @@ csi_error_t csi_tc2_init(csp_tc2_t *ptTc2Base,csi_tc2_config_t *ptTc2Cfg)
 	if((ptTc2Cfg->byStopType != TC2_AUTOLOAD_STOP)&&(ptTc2Cfg->byStopType != TC2_IMMEDY_STOP))
 		return  CSI_ERROR;
 	csp_tc2_softreset(ptTc2Base);
-	csi_clk_enable((uint32_t *)ptTc2Base);	
+//	csi_clk_enable((uint32_t *)ptTc2Base);	
+	csi_clk_enable_te((uint32_t *)ptTc2Base);// 组件拆分后使用，clk enable_te
 	csp_tc2_clk_enable(ptTc2Base,ENABLE);
 	csp_tc2_count_mode(ptTc2Base , ptTc2Cfg->bySingle);
 	csp_tc2_count_stoptype(ptTc2Base , ptTc2Cfg->byStopType);

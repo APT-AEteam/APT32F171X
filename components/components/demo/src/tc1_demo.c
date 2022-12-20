@@ -14,7 +14,8 @@
 #include "iostring.h"
 #include "csi_drv.h"
 
-
+#if CONFIG_USE_TCx_EPWM
+#include <drv/tc1.h>
 
 /** \brief TC1 capture the pulse width
  * 
@@ -93,3 +94,4 @@ void tc1_pwm_demo(void)
 		nop;
 	}
 }
+#endif /* CONFIG_USE_TCx_EPWM */

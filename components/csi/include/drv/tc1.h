@@ -14,7 +14,8 @@
 
 #include "stdint.h"
 #include "common.h"
-#include "csp.h"
+#if CONFIG_USE_TCx_EPWM
+#include "csp_te.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -308,5 +309,7 @@ uint8_t csi_tc1_get_clk_divm(csp_tc1_t *ptTc1Base);
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* CONFIG_USE_TCx_EPWM */
 
 #endif

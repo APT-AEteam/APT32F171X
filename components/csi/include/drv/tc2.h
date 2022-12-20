@@ -12,7 +12,8 @@
 #define _DRV_TC2_H_
 
 #include <drv/common.h>
-#include "csp.h"
+#if CONFIG_USE_TCx_EPWM
+#include "csp_te.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -193,6 +194,7 @@ uint16_t csi_tc2_get_capture0_cmp(csp_tc2_t *ptTc2Base);
 */
 uint16_t csi_tc2_get_capture1_cmp(csp_tc2_t *ptTc2Base);
 
+#endif /* CONFIG_USE_TCx_EPWM */
 
 #endif
 

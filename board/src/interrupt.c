@@ -12,11 +12,18 @@
 /* Includes ------------------------------------------------------------------*/
 
 #include <soc.h>
-#include <drv/pin.h>
+//#include <drv/pin.h>
 #include "board_config.h"
 #include "csp.h"
-#include <drv/gpio.h>
+//#include <drv/gpio.h>
 
+#if CONFIG_USE_TCx_EPWM
+#include "csp_te.h"
+extern void epwm_irqhandler(csp_epwm_t *ptEpwmBase);
+extern void tc0_irqhandler(csp_tc0_t *ptTc0Base);
+extern void tc1_irqhandler(csp_tc1_t *ptTc1Base);
+extern void tc2_irqhandler(csp_tc2_t *ptTc2Base);
+#endif /* CONFIG_USE_TCx_EPWM */
 
 /* externs function--------------------------------------------------------*/
 extern void tick_irqhandler(void);
@@ -31,10 +38,6 @@ extern void wwdt_irqhandler(csp_wwdt_t *ptWwdtBase);
 extern void cmp_irqhandler(csp_cmp_t *ptCmpBase);
 extern void adc_irqhandler(csp_adc_t *ptAdcBase);
 extern void syscon_irqhandler(csp_syscon_t *ptSysconBase);
-extern void epwm_irqhandler(csp_epwm_t *ptEpwmBase);
-extern void tc0_irqhandler(csp_tc0_t *ptTc0Base);
-extern void tc1_irqhandler(csp_tc1_t *ptTc1Base);
-extern void tc2_irqhandler(csp_tc2_t *ptTc2Base);
 /* private function--------------------------------------------------------*/
 
 /* extern variablesr-------------------------------------------------------*/
@@ -76,6 +79,7 @@ void ADCIntHandler(void)
 #endif
 }
 
+#if CONFIG_USE_TCx_EPWM
 void TC0_0IntHandler(void)
 {
 #if TC0_0_INT_HANDLE_EN
@@ -99,6 +103,31 @@ void TC0_2IntHandler(void)
 	tc0_irqhandler(TC0_2);
 #endif
 }
+
+void EPWMIntHandler(void)
+{
+#if EPWM_INT_HANDLE_EN
+    // ISR content ...
+	epwm_irqhandler(EPWM);
+#endif
+}
+
+void TC1IntHandler(void)
+{
+#if TC1_INT_HANDLE_EN
+	// ISR content ...
+	tc1_irqhandler(TC1);
+#endif
+}
+
+void TC2IntHandler(void)
+{
+#if TC2_INT_HANDLE_EN
+	// ISR content ...
+	tc2_irqhandler(TC2);
+#endif
+}
+#endif /* CONFIG_USE_TCx_EPWM */
 
 void EXI0IntHandler(void) 
 {
@@ -137,31 +166,6 @@ void EXI10to15IntHandler(void)
 #if EXI10_15_INT_HANDLE_EN
     // ISR content ...
 	gpio_irqhandler(4);
-#endif
-}
-
-
-void EPWMIntHandler(void)
-{
-#if EPWM_INT_HANDLE_EN
-    // ISR content ...
-	epwm_irqhandler(EPWM);
-#endif
-}
-
-void TC1IntHandler(void)
-{
-#if TC1_INT_HANDLE_EN
-	// ISR content ...
-	tc1_irqhandler(TC1);
-#endif
-}
-
-void TC2IntHandler(void)
-{
-#if TC2_INT_HANDLE_EN
-	// ISR content ...
-	tc2_irqhandler(TC2);
 #endif
 }
 

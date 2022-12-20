@@ -150,7 +150,7 @@ void user_demo(void)
 //	cmp_wfcr_demo();
 
 /// ***************************************************
-///  EPWM相关的示例代码
+///  EPWM相关的示例代码，需要在工程设置compiler tab下设置CONFIG_USE_TCx_EPWM=1，且工程中添加apt32f171x_with_tc_epwm组件
 /// ***************************************************
 //	epwm_pwm_demo();
 
@@ -161,7 +161,7 @@ void user_demo(void)
 //	opa_external_gain_mode_test();
 
 /// ***************************************************
-///  TC0相关的示例代码
+///  TC0相关的示例代码，需要在工程设置compiler tab下设置CONFIG_USE_TCx_EPWM=1，且工程中添加apt32f171x_with_tc_epwm组件
 /// ***************************************************
 //	tc00_capture_demo1();
 //	tc00_capture_demo2();	
@@ -171,13 +171,13 @@ void user_demo(void)
 //	tc02_output_double_pwm_demo();
 
 /// ***************************************************
-///  TC1相关的示例代码
+///  TC1相关的示例代码，需要在工程设置compiler tab下设置CONFIG_USE_TCx_EPWM=1，且工程中添加apt32f171x_with_tc_epwm组件
 /// ***************************************************
 //	tc1_capture_demo();
 //	tc1_pwm_demo();
 
 /// ***************************************************
-///  TC2相关的示例代码
+///  TC2相关的示例代码，需要在工程设置compiler tab下设置CONFIG_USE_TCx_EPWM=1，且工程中添加apt32f171x_with_tc_epwm组件
 /// ***************************************************
 //	tc2_timer_demo();
 //	tc2_capture_demo();

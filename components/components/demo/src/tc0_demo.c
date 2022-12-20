@@ -14,6 +14,8 @@
 #include "iostring.h"
 #include "csi_drv.h"
 
+#if CONFIG_USE_TCx_EPWM
+#include <drv/tc0.h>
 
 /** \brief TC0的通道0捕获功能（捕获一个信号的脉宽和周期）
  * TIOA下降沿复位并且开始计数，如果RA已经被载入，那么TIOA下降沿也载入RB。
@@ -316,3 +318,4 @@ void tc02_output_double_pwm_demo(void)
 		nop;
 	}
 }
+#endif /* CONFIG_USE_TCx_EPWM */

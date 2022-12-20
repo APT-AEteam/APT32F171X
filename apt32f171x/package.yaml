@@ -12,6 +12,7 @@ def_config:
   CONFIG_KERNEL_NONE: 1
   CONFIG_SUPPORT_TSPEND: 1
   CONFIG_USER_PM: 1
+  CONFIG_USE_TCx_EPWM: 0
   CONFIG_XIP: 1
   DBG_PRINT2PC: 1
 name: apt32f171x
@@ -25,7 +26,6 @@ license: ""
 type: solution
 depends:
   - apt32f171x_demo: v1.0.1
-  - apt32f171x_demo_pro: V1.0.1
   - sdk_171x: v1.0.1
 build_config:
   include:
@@ -44,5 +44,4 @@ install:
 homepage: 
 depends_forward:
   - apt32f171x_demo: v1.0.1
-  - apt32f171x_demo_pro: V1.0.1
   - sdk_171x: v1.0.1

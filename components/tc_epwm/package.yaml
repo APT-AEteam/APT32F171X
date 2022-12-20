@@ -1,0 +1,37 @@
+name: apt32f171x_with_tc_epwm
+version: v1.0.1
+description: provide apt32f171x tc0/1/2 and epwm driver code
+tag: ""
+keywords: 
+author:
+  name: ""
+license: ""
+homepage: 
+type: common
+depends: 
+yoc_version: 
+hw_info:
+  cpu_id: ""
+  cpu_name: ""
+  vendor_name: ""
+  chip_name: ""
+  board_name: ""
+  ld_script: ""
+  flash_program: ""
+build_config:
+  include:
+    - include
+    - drivers/sys
+  internal_include: 
+  cflag: -Og  -g3
+  cxxflag: -Og  -g3
+  asmflag: -Wa,--gdwarf2
+  define: 
+  libs: 
+  libpath: 
+source_file:
+  - drivers/*.c
+  - drivers/sys/*.c
+def_config: 
+install: 
+depends_forward: 

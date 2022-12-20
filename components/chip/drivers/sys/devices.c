@@ -40,17 +40,10 @@ csp_bt_t  		*BT2 	   	= (csp_bt_t *)(APB_BT2_BASE) ;
 csp_bt_t  		*BT3 	   	= (csp_bt_t *)(APB_BT3_BASE) ;
 csp_gpta_t 		*GPTA0     	= (csp_gpta_t *)(APB_GPTA0_BASE);
 csp_ept_t 		*EPT0     	= (csp_ept_t *)(APB_EPT0_BASE);
-csp_epwm_t 		*EPWM     	= (csp_epwm_t *)(APB_EPWM_BASE);
 csp_wwdt_t 		*WWDT      	= (csp_wwdt_t *)(APB_WWDT_BASE);
 csp_uart_t 		*UART0   	= (csp_uart_t *)(APB_UART0_BASE);
 csp_usart_t 	*USART0   	= (csp_usart_t *)(APB_USART0_BASE);
 csp_iwdt_t 		*IWDT		= (csp_iwdt_t *)(APB_SYS_BASE);
-csp_tc0_t  		*TC0_0 	   	= (csp_tc0_t *)(APB_TC0_0_BASE);
-csp_tc0_t  		*TC0_1 	   	= (csp_tc0_t *)(APB_TC0_1_BASE);
-csp_tc0_t  		*TC0_2 	   	= (csp_tc0_t *)(APB_TC0_2_BASE);
-csp_tc0mul_t    *TC0MUL     = (csp_tc0mul_t *)(APB_TC0MUL_BASE);
-csp_tc1_t  		*TC1 	   	= (csp_tc1_t *)(APB_TC1_BASE);
-csp_tc2_t  		*TC2 	   	= (csp_tc2_t *)(APB_TC2_BASE);
 csp_cmp_t  		*CMP 	   	= (csp_cmp_t *)(APB_CMP_BASE);
 csp_opa_t  		*OPA0 	   	= (csp_opa_t *)(APB_OPA0_BASE);
 csp_opa_t  		*OPA1 	   	= (csp_opa_t *)(APB_OPA1_BASE);
@@ -73,8 +66,7 @@ const csi_devmap_t dev_map[] =
 	{(uint16_t)((APB_EPT0_BASE >> 16) 	| ((APB_EPT0_BASE & 0xffff) >> 4)), 	EPT0_IRQ_NUM,		EPT0_SYS_CLK	},		    //ept0
 	{(uint16_t)((APB_WWDT_BASE >> 16) 	| ((APB_WWDT_BASE & 0xffff) >> 4)), 	WWDT_IRQ_NUM,		WWDT_SYS_CLK	},			//wwdt
 	{(uint16_t)((APB_GPTA0_BASE >> 16) 	| ((APB_GPTA0_BASE & 0xffff) >> 4)), 	GPTA0_IRQ_NUM,		GPTA0_SYS_CLK	},			//gpta0
-	{(uint16_t)((APB_EPWM_BASE >> 16) 	| ((APB_EPWM_BASE & 0xffff) >> 4)), 	EPWM_IRQ_NUM,		EPWM_SYS_CLK	},			//epwm
-
+	
 	{(uint16_t)((APB_UART0_BASE >> 16) 	| ((APB_UART0_BASE & 0xffff) >> 4)), 	UART0_IRQ_NUM,		UART0_SYS_CLK	},			//uart0
 	{(uint16_t)((APB_USART0_BASE >> 16) | ((APB_USART0_BASE & 0xffff) >> 4)), 	USART0_IRQ_NUM,		USART0_SYS_CLK	},			//usart0
 	
@@ -86,13 +78,6 @@ const csi_devmap_t dev_map[] =
 	{(uint16_t)((APB_BT1_BASE >> 16)    | ((APB_BT1_BASE & 0xffff) >> 4)), 		BT1_IRQ_NUM,		BT1_SYS_CLK		},			//bt1
 	{(uint16_t)((APB_BT2_BASE >> 16)    | ((APB_BT2_BASE & 0xffff) >> 4)), 		BT2_IRQ_NUM,		BT2_SYS_CLK		},			//bt2
 	{(uint16_t)((APB_BT3_BASE >> 16)    | ((APB_BT3_BASE & 0xffff) >> 4)), 		BT3_IRQ_NUM,		BT3_SYS_CLK		},			//bt3
-
-	{(uint16_t)((APB_TC0_0_BASE >> 16)  | ((APB_TC0_0_BASE & 0xffff) >> 4)), 	TC00_IRQ_NUM,		TC0_SYS_CLK		},          //tc0_0
-	{(uint16_t)((APB_TC0_1_BASE >> 16)  | ((APB_TC0_1_BASE & 0xffff) >> 4)), 	TC01_IRQ_NUM,		TC0_SYS_CLK		},          //tc0_1
-	{(uint16_t)((APB_TC0_2_BASE >> 16)  | ((APB_TC0_2_BASE & 0xffff) >> 4)), 	TC02_IRQ_NUM,		TC0_SYS_CLK		},          //tc0_2
-	{(uint16_t)((APB_TC1_BASE >> 16)    | ((APB_TC1_BASE & 0xffff) >> 4)), 	    TC1_IRQ_NUM,		TC1_SYS_CLK		},          //tc1
-	{(uint16_t)((APB_TC2_BASE >> 16)    | ((APB_TC2_BASE & 0xffff) >> 4)), 	    TC2_IRQ_NUM,		TC2_SYS_CLK		},          //tc2
-	
 	
 	{(uint16_t)((APB_ETCB_BASE >> 16) 	| ((APB_ETCB_BASE & 0xffff) >> 4)), 	0xff,				ETCB_SYS_CLK	},			//etcb
 	{0, 																		0xff,				0xff			},

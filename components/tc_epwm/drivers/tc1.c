@@ -8,8 +8,6 @@
  * </table>
  * *********************************************************************
 */
-
-#include "csp.h"
 #include <drv/tc1.h>
 #include <drv/irq.h>
 #include "board_config.h"
@@ -83,7 +81,8 @@ csi_error_t csi_tc1_capture_init(csp_tc1_t *ptTc1Base, csi_tc1_capture_config_t 
 		tRet = CSI_ERROR;
 	}
 	
-	csi_clk_enable(ptTc1Base);
+//	csi_clk_enable(ptTc1Base);
+	csi_clk_enable_te(ptTc1Base);// 组件拆分后使用，clk enable_te
 	csi_tc1_swrst(ptTc1Base);
 	
 	csp_tc1_clk_sel(ptTc1Base,FIN_PCLK);
@@ -229,7 +228,8 @@ csi_error_t csi_tc1_pwm_init(csp_tc1_t *ptTc1Base, csi_tc1_pwm_config_t *ptTc1Pw
 		tRet = CSI_ERROR;
 	}
 
-	csi_clk_enable(ptTc1Base);
+	//csi_clk_enable(ptTc1Base);
+	csi_clk_enable_te(ptTc1Base);// 组件拆分后使用，clk enable_te
 	csi_tc1_swrst(ptTc1Base);
 	
 	csp_tc1_clk_sel(ptTc1Base,ptTc1PwmCfg->byClkSrc);

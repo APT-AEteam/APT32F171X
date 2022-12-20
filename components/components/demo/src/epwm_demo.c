@@ -9,9 +9,11 @@
  * *********************************************************************
 */
 #include <drv/pin.h>
+#include "demo.h"
+
+#if CONFIG_USE_TCx_EPWM
 #include "drv/epwm.h"
 #include "csp_epwm.h"
-#include "demo.h"
 
 /** \brief EPWM波形输出示例代码
  *   		-10kHZ   输出波形
@@ -164,3 +166,4 @@ int epwm_pwm_demo(void)
 	}
 	return iRet;
 }
+#endif /* CONFIG_USE_TCx_EPWM */

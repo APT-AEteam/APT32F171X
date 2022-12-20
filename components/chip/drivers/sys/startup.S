@@ -61,14 +61,22 @@ vector_table:           //totally 256 entries
 .long SYSCONIntHandler
 .long IFCIntHandler
 .long ADCIntHandler
+
+#if CONFIG_USE_TCx_EPWM
 .long TC0_0IntHandler //TC0_0IntHandler
 .long TC0_1IntHandler //TC0_1IntHandler
 .long TC0_2IntHandler //TC0_2IntHandler
+#endif /* CONFIG_USE_TCx_EPWM */
+
 .long EXI0IntHandler
 .long EXI1IntHandler
+
+#if CONFIG_USE_TCx_EPWM
 .long EPWMIntHandler //EPWMIntHandler
 .long TC1IntHandler //TC1IntHandler
 .long TC2IntHandler //TC2IntHandler
+#endif /* CONFIG_USE_TCx_EPWM */
+
 .long WWDTHandler
 .long USARTIntHandler
 .long EPTIntHandler

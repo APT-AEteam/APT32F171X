@@ -11,12 +11,13 @@
 
 /* Includes ---------------------------------------------------------------*/
 #include <string.h>
-#include <drv/tc2.h>
 #include <drv/pin.h>
 
 #include "drv/etb.h"
 #include "drv/bt.h"
 
+#if CONFIG_USE_TCx_EPWM
+#include <drv/tc2.h>
 
 /* externs function--------------------------------------------------------*/
 /* externs variablesr------------------------------------------------------*/
@@ -168,3 +169,4 @@ int tc2_match_demo(void)
 	
 	return iRet;
 }
+#endif /* CONFIG_USE_TCx_EPWM */

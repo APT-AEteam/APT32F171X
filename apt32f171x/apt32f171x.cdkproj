@@ -10,8 +10,8 @@
   <MergedToYaml>yes</MergedToYaml>
   <Dependencies Name="BuildSet"/>
   <MonitorProgress>
-    <FlashOperate>46</FlashOperate>
-    <DebugLaunch>93</DebugLaunch>
+    <FlashOperate>83</FlashOperate>
+    <DebugLaunch>95</DebugLaunch>
   </MonitorProgress>
   <VendorInfo>
     <VendorName>NULL</VendorName>
@@ -22,6 +22,16 @@
     </File>
   </VirtualDirectory>
   <PackPathes>$(ProjectPath)/../apt32f171x|$(ProjectPath)/../board|$(ProjectPath)/../components|</PackPathes>
+  <DebugSessions>
+    <watchExpressions>GPIOA0:1;SYSCON:1;UART0:1;ETCB:1;wWriteData1:1;wReadBuf1:1;TC0_0:1;TC0MUL:1;tc1:1;TC1:1</watchExpressions>
+    <memoryExpressions>0X40030088;0X400111fc;;</memoryExpressions>
+    <statistics>;;32;;MHZ;</statistics>
+    <peripheralTabs/>
+    <WatchDisplayFormat>1</WatchDisplayFormat>
+    <LocalDisplayFormat>1</LocalDisplayFormat>
+    <debugLayout/>
+    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+  </DebugSessions>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
       <Target>
@@ -230,19 +240,4 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
-  <DebugSessions>
-    <watchExpressions>GPIOA0:1;SYSCON:1;UART0:1;ETCB:1;wWriteData1:1;wReadBuf1:1;TC0_0:1;TC0MUL:1;tc1:1;TC1:1</watchExpressions>
-    <memoryExpressions>0X40030088;0X400111fc;;</memoryExpressions>
-    <statistics>;;32;;MHZ;</statistics>
-    <peripheralTabs>
-      <Tab disFormat="Hex">SYSCON</Tab>
-      <Tab disFormat="Hex">GPIOA0</Tab>
-      <Tab disFormat="Hex">ADC0</Tab>
-      <Tab disFormat="Hex">BT0</Tab>
-    </peripheralTabs>
-    <WatchDisplayFormat>1</WatchDisplayFormat>
-    <LocalDisplayFormat>1</LocalDisplayFormat>
-    <debugLayout/>
-    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
-  </DebugSessions>
 </Project>

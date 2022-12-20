@@ -29,6 +29,11 @@ extern "C" {
 void csi_clk_enable(void *pIpBase);
 void csi_clk_disable(void *pIpBase);
 
+#if CONFIG_USE_TCx_EPWM
+void csi_clk_enable_te(void *pIpBase);
+void csi_clk_disable_te(void *pIpBase);
+#endif /* CONFIG_USE_TCx_EPWM */
+
 /** \brief emosc enable
  * 
  *  enable external main oscillator in SYSCON

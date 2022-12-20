@@ -8,7 +8,6 @@
  * </table>
  * *********************************************************************
 */
-#include "csp.h"
 #include "drv/epwm.h"
 #include <irq.h>
 
@@ -50,7 +49,8 @@ csi_error_t  csi_epwm_wave_init(csp_epwm_t *ptEpwmBase, csi_epwm_pwmconfig_t *pt
   
 	if(ptEpwmPwmCfg->wFreq0 == 0 ){return CSI_ERROR;}
 		
-	csi_clk_enable((uint32_t *)ptEpwmBase);								// clk enable	
+	//csi_clk_enable((uint32_t *)ptEpwmBase);							// clk enable	
+	csi_clk_enable_te((uint32_t *)ptEpwmBase);							// 组件拆分后使用clk enable_te
 	csp_epwm_set_clken(ptEpwmBase, ENABLE);                             //ENABLE
 	csp_epwm_reset(ptEpwmBase);
 

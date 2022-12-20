@@ -3,6 +3,15 @@
 
 # Release Notes
 ======================================================
+Version: V1.1.1
+Release Date: 2022.12.20
+
+Release Notes
+1、demo.h及tc/epwm的demo添加CONFIG_USE_TCx_EPWM条件编译
+2、lp_exi_wakeup_demo添加PA05 vic中断使能
+======================================================
+
+======================================================
 Version: V1.0.1
 Release Date: 2022.12.13
 

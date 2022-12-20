@@ -32,9 +32,12 @@
 #include <drv/uart.h>
 #include <drv/usart.h>
 #include <drv/cmp.h>
+
+#if CONFIG_USE_TCx_EPWM
 #include <drv/tc0.h>
 #include <drv/tc1.h>
 #include <drv/tc2.h>
 #include <drv/epwm.h>
+#endif /* CONFIG_USE_TCx_EPWM */
 
 #endif /* _CSI_DRV_H_ */

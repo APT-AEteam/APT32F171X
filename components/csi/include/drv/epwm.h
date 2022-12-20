@@ -14,7 +14,8 @@
 #define _EPWM_H_
 
 #include <drv/common.h>
-#include "csp.h"
+#if CONFIG_USE_TCx_EPWM
+#include "csp_te.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -180,6 +181,8 @@ csi_error_t csi_epwm_change_camp(csp_epwm_t *ptEpwmBase, csi_epwm_camp_e eCh, ui
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* CONFIG_USE_TCx_EPWM */
 
 #endif /* _DRV_EPWM_H_ */
 
