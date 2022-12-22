@@ -78,7 +78,7 @@ typedef enum
 	CMP_EVE_UP,
 	CMP_EVE_DOWN_UP,
 	CMP_EVE_DOWN_UP1
-}csi_eve_sel_e;
+}csi_cmp_irq_mode_e;
 
 typedef enum
 {
@@ -248,6 +248,37 @@ typedef enum
 	CMP_AD_TRG5    =   (1<<5)
 }csi_ad_trgx_e;
 
+typedef enum
+{
+	CMP_TRGOUT	= 0,  			//none trigger	     	
+}
+csi_cmp_trgout_e;
+
+typedef enum
+{
+	CMP_TRGSRC_CMP0OUT13	 = 1,  	 
+	CMP_TRGSRC_CMP1OUT13	 = 2,  
+	CMP_TRGSRC_CMP2OUT13	 = 3,  	 
+	CMP_TRGSRC_CMP3OUT13	 = 4,  	
+	CMP_TRGSRC_CMP4OUT13	 = 5,  	 
+	CMP_TRGSRC_CMP5OUT13	 = 6,  	
+	CMP_TRGSRC_ALLOUT13	     = 7,  	
+	CMP_TRGSRC_CMP0OUT7   = (1 << 3),
+	CMP_TRGSRC_CMP1OUT8   = (1 << 4),	
+	CMP_TRGSRC_CMP2OUT9   = (1 << 5),	
+ 	CMP_TRGSRC_CMP3OUT10  = (1 << 6),
+	CMP_TRGSRC_CMP4OUT11  = (1 << 7),	
+	CMP_TRGSRC_CMP5OUT12  = (1 << 8),	
+	
+	CMP_TRGSRC_CMP0OUT0_6  = (1 << 9),        //CMP_TRGOUT0 and CMP_TRGOUT6
+	CMP_TRGSRC_CMP1OUT1_6  = (1 << 10),	      //CMP_TRGOUT1 and CMP_TRGOUT6
+	CMP_TRGSRC_CMP2OUT2_6  = (1 << 11),	      //CMP_TRGOUT2 and CMP_TRGOUT6
+ 	CMP_TRGSRC_CMP3OUT3_6  = (1 << 12),       //CMP_TRGOUT3 and CMP_TRGOUT6
+	CMP_TRGSRC_CMP4OUT4_6  = (1 << 13),	      //CMP_TRGOUT4 and CMP_TRGOUT6
+	CMP_TRGSRC_CMP5OUT5_6  = (1 << 14)		  //CMP_TRGOUT5 and CMP_TRGOUT6
+	       
+}csi_cmp_trgsrc_e;
+
 typedef struct
 {
 	uint8_t  byNsel;                  //N- pin
@@ -351,11 +382,11 @@ csi_error_t csi_cmp_wfcr_config(csp_cmp_t *ptCmpBase,csi_cmp_wfcr_config_t *ptCm
 /** \brief cmp evtrg output eve sel
  * 
  *  \param[in] ptCmpBase:pointer of cmp register structure
- *  \param[in] eEveSel: evtrg eve sel(0~3) 
+ *  \param[in] eTrgEdge: evtrg eve sel(0~3) 
  *  \param[in] byIdx: cmp id number(0~5)
  *  \return none
  */
-void csi_cmp_set_evtrg(csp_cmp_t *ptCmpBase,csi_eve_sel_e eEveSel, uint8_t byIdx);
+void csi_cmp_set_irq_mode(csp_cmp_t *ptCmpBase,csi_cmp_irq_mode_e eTrgEdge, uint8_t byIdx);
 
 /**
 *  \brief       cmp  sync nstep
@@ -401,6 +432,15 @@ void  csi_cmp_trgcr_tc_cinx_enable(csp_cmp_t *ptCmpBase ,csi_tc_cinx_e eTcCinx,b
  *  \return none
  */
 void csi_cmp_trgcr_ad_enable(csp_cmp_t *ptCmpBase ,csi_ad_trgx_e eAdTrgx,bool bEnable);
+
+/** \brief cmp evtrg output config
+ * 
+ *  \param[in] ptCmpBase:pointer of cmp register structure
+ *  \param[in] eTrgOut: evtrg out port (only CMP_TRGOUT)
+ *  \param[in] csi_cmp_trgsrc_e: cmp trg src 
+ *  \return error code \ref csi_error_t
+ */
+csi_error_t csi_cmp_set_evtrg(csp_cmp_t *ptCmpBase, csi_cmp_trgout_e eTrgOut, csi_cmp_trgsrc_e eTrgSrc,bool bEnable);
 
 /** \brief cmp out status
  * 

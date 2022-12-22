@@ -165,7 +165,7 @@ csi_error_t csi_cmp_init(csp_cmp_t *ptCmpBase,csi_cmp_config_t *ptCmpCfg,uint8_t
 	csi_error_t tRet = CSI_OK;
 	csi_clk_enable((uint32_t *)ptCmpBase);
 	csi_cmp_clk_enable(ptCmpBase,ENABLE,byIdx);
-	csi_cmp_set_evtrg(ptCmpBase, ptCmpCfg->byEveSel, byIdx);	
+	csi_cmp_set_irq_mode(ptCmpBase, ptCmpCfg->byEveSel, byIdx);	
 	csp_cmp_volsel(ptCmpBase ,ptCmpCfg->byVolSel);
 	if(byIdx == CMP_IDX0)
 	{ 
@@ -395,18 +395,18 @@ csi_error_t csi_cmp_wfcr_config(csp_cmp_t *ptCmpBase,csi_cmp_wfcr_config_t *ptCm
 /** \brief cmp evtrg output eve sel
  * 
  *  \param[in] ptCmpBase:pointer of cmp register structure
- *  \param[in] eEveSel: evtrg eve sel(0~3) 
+ *  \param[in] eTrgEdge: evtrg eve sel(0~3) 
  *  \param[in] byIdx: cmp id number(0~5)
  *  \return none
  */
-void csi_cmp_set_evtrg(csp_cmp_t *ptCmpBase,csi_eve_sel_e eEveSel, uint8_t byIdx)
+void csi_cmp_set_irq_mode(csp_cmp_t *ptCmpBase,csi_cmp_irq_mode_e eTrgEdge, uint8_t byIdx)
 {
-	if(byIdx == CMP_IDX0)        csp_cmp0_evtrg(ptCmpBase ,eEveSel);
-	else if(byIdx == CMP_IDX1)   csp_cmp1_evtrg(ptCmpBase ,eEveSel);
-	else if(byIdx == CMP_IDX2)   csp_cmp2_evtrg(ptCmpBase ,eEveSel);
-	else if(byIdx == CMP_IDX3)   csp_cmp3_evtrg(ptCmpBase ,eEveSel);
-	else if(byIdx == CMP_IDX4)   csp_cmp4_evtrg(ptCmpBase ,eEveSel);
-	else if(byIdx == CMP_IDX5)   csp_cmp5_evtrg(ptCmpBase ,eEveSel);		
+	if(byIdx == CMP_IDX0)        csp_cmp0_evtrg(ptCmpBase ,eTrgEdge);
+	else if(byIdx == CMP_IDX1)   csp_cmp1_evtrg(ptCmpBase ,eTrgEdge);
+	else if(byIdx == CMP_IDX2)   csp_cmp2_evtrg(ptCmpBase ,eTrgEdge);
+	else if(byIdx == CMP_IDX3)   csp_cmp3_evtrg(ptCmpBase ,eTrgEdge);
+	else if(byIdx == CMP_IDX4)   csp_cmp4_evtrg(ptCmpBase ,eTrgEdge);
+	else if(byIdx == CMP_IDX5)   csp_cmp5_evtrg(ptCmpBase ,eTrgEdge);		
 }
 /**
 *  \brief       cmp  sync nstep
@@ -469,6 +469,47 @@ void  csi_cmp_trgcr_tc_cinx_enable(csp_cmp_t *ptCmpBase ,csi_tc_cinx_e eTcCinx,b
 void csi_cmp_trgcr_ad_enable(csp_cmp_t *ptCmpBase ,csi_ad_trgx_e eAdTrgx,bool bEnable)
 {
 	csp_cmp_trgcr_ad_trgx_enable(ptCmpBase,eAdTrgx,bEnable);
+}
+
+/** \brief cmp evtrg output config
+ * 
+ *  \param[in] ptCmpBase:pointer of cmp register structure
+ *  \param[in] eTrgOut: evtrg out port (only CMP_TRGOUT)
+ *  \param[in] csi_cmp_trgsrc_e: cmp trg src 
+ *  \return error code \ref csi_error_t
+ */
+csi_error_t csi_cmp_set_evtrg(csp_cmp_t *ptCmpBase, csi_cmp_trgout_e eTrgOut, csi_cmp_trgsrc_e eTrgSrc,bool bEnable)
+{
+	if (eTrgOut > CMP_TRGOUT)
+		return CSI_ERROR;
+	
+	if(eTrgSrc <= CMP_TRGSRC_CMP5OUT13)
+	{
+		if(bEnable == ENABLE)
+		{
+			csp_cmp_set_evtrg(ptCmpBase,eTrgSrc,ENABLE);
+		}
+		else
+		{
+			csp_cmp_set_evtrg(ptCmpBase,CMP_TRGSRC_ALLOUT13,DISABLE);
+		}
+	}
+	else if(eTrgSrc <= CMP_TRGSRC_CMP5OUT5_6)
+	{
+		if(bEnable == ENABLE)
+		{
+			csp_cmp_set_evtrg(ptCmpBase,eTrgSrc,ENABLE);	
+		}
+		else
+		{
+			csp_cmp_set_evtrg(ptCmpBase,eTrgSrc,DISABLE);	
+		}
+	}
+	else
+	{
+		return CSI_ERROR;
+	}
+	return CSI_OK;
 }
 
 /** \brief cmp out status
