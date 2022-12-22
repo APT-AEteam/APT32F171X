@@ -373,6 +373,32 @@ typedef enum
 }
 cmp_ad_trgx_e;
 
+typedef enum
+{
+	CMP_EVTRG_NONE	     = 0,  	
+	CMP_EVTRG0_TRGOUT13	 = 1,  	 
+	CMP_EVTRG1_TRGOUT13	 = 2,  
+	CMP_EVTRG2_TRGOUT13	 = 3,  	 
+	CMP_EVTRG3_TRGOUT13	 = 4,  	
+	CMP_EVTRG4_TRGOUT13	 = 5,  	 
+	CMP_EVTRG5_TRGOUT13	 = 6,  	
+	CMP_EVTRG0_TRGOUT7   = (1 << 3),
+	CMP_EVTRG1_TRGOUT8   = (1 << 4),	
+	CMP_EVTRG2_TRGOUT9   = (1 << 5),	
+ 	CMP_EVTRG3_TRGOUT10  = (1 << 6),
+	CMP_EVTRG4_TRGOUT11  = (1 << 7),	
+	CMP_EVTRG5_TRGOUT12  = (1 << 8),	
+	
+	CMP_EVTRG0_TRGOUT0_6  = (1 << 9),        //CMP_TRGOUT0 and CMP_TRGOUT6
+	CMP_EVTRG1_TRGOUT1_6  = (1 << 10),	     //CMP_TRGOUT1 and CMP_TRGOUT6
+	CMP_EVTRG2_TRGOUT2_6  = (1 << 11),	     //CMP_TRGOUT2 and CMP_TRGOUT6
+ 	CMP_EVTRG3_TRGOUT3_6  = (1 << 12),       //CMP_TRGOUT3 and CMP_TRGOUT6
+	CMP_EVTRG4_TRGOUT4_6  = (1 << 13),	     //CMP_TRGOUT4 and CMP_TRGOUT6
+	CMP_EVTRG5_TRGOUT5_6  = (1 << 14)		 //CMP_TRGOUT5 and CMP_TRGOUT6
+	       
+}cmp_evtrg_sel_e;
+
+
 #define	CMP_VOLSEL_POS		  (0)
 #define	CMP_VOLSEL_MSK     (0x1Ful << CMP_VOLSEL_POS)
 
@@ -873,6 +899,14 @@ static inline void  csp_cmp_trgcr_ad_trgx_enable(csp_cmp_t *ptCmpBase ,cmp_ad_tr
 		ptCmpBase->TRGCR |= (eAdTrgx<<CMP_TRGCR_TRGEN_POS); 
 	else
 	    ptCmpBase->TRGCR &= ~(eAdTrgx<<CMP_TRGCR_TRGEN_POS); 			
+}
+
+static inline void csp_cmp_set_evtrg(csp_cmp_t *ptCmpBase ,uint32_t wVal,bool bEnable)
+{
+	if(bEnable)
+		ptCmpBase->TRGCR |= wVal; 
+	else
+	    ptCmpBase->TRGCR &= ~wVal; 
 }
 
 static inline void  csp_cmp_volsel(csp_cmp_t *ptCmpBase ,cmp_volsel_e eVolSel)
