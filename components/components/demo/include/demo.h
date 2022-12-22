@@ -113,6 +113,7 @@ extern int gpta_pwm_syncin0_demo();
 extern int cmp_base_demo(void);
 extern int cmp_dfcr_demo(void);
 extern int cmp_wfcr_demo(void);
+extern int cmp_trg_out_demo(void);
 
 //low power
 extern void lp_exi_wakeup_demo(void);

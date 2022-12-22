@@ -163,3 +163,52 @@ int cmp_wfcr_demo(void)
 
 	return iRet;	
 }
+
+/** \brief 比较器5输出触发功能demo
+ *  \brief 比较器5可产生ETB_CMP_TRGOUT5和ETB_CMP_TRGOUT6触发源事件，通过ETCB,触发BT0启动
+ *  
+ *  \param[in] none
+ *  \return error code
+ */
+int cmp_trg_out_demo(void)
+{
+	int iRet = 0;
+	volatile uint8_t ch;
+	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体		
+	csi_cmp_config_t tCmpCfg;
+
+//	csi_pin_set_mux(PB02,PB02_CPINN0);	         //3	
+	csi_pin_set_mux(PA02,PA02_CPINP0);		     //2
+	csi_pin_set_mux(PA08,PA08_CP5_OUT);	
+
+	tCmpCfg.byNsel =  CMP_NSEL1_5_REF126(10);         // CMP_NSEL1_5_REF126(10) //N- 输入选择
+	tCmpCfg.byPsel = CMP_PSEL_CP0;	                  //P+ 端口选择
+	tCmpCfg.byNhystpol = CMP_PHYST_POL_0mv;           //比较器输入迟滞
+	tCmpCfg.byPhystpol = CMP_PHYST_POL_0mv;           //比较器输入迟滞
+	tCmpCfg.byVolSel   = CMP_VOLSEL_3_5VDD;	          //比较器参考电压选择
+	tCmpCfg.byPolarity = CMP_POL_OUT_DIRECT;          //比较器输出极性选择 0:不反向
+	tCmpCfg.byCpoSel  = CMP_CPOS_OUT_IN;	          //CMP_OUT管脚上输出信号选择 0h：滤波前信号直接输出 	1h：滤波后信号输出 
+	tCmpCfg.wInt = CMP_INTSRC_NONE;	      	          //中断模式
+	tCmpCfg.byEveSel = CMP_EVE_DOWN_UP;                  //触发边沿选择
+	csi_cmp_init(CMP,&tCmpCfg,CMP_IDX5);
+	
+	csi_cmp_start(CMP,CMP_IDX5);
+	csi_cmp_set_evtrg(CMP, CMP_TRGOUT, CMP_TRGSRC_CMP5OUT5_6,ENABLE);
+	
+	csi_bt_start_sync(BT0, 100);
+	csi_bt_set_sync(BT0,BT_TRG_SYNCIN0, BT_TRG_ONCE, ENABLE);  	
+
+	tEtbConfig.byChType = ETB_ONE_TRG_ONE;  		     //单个源触发单个目标
+	//tEtbConfig.bySrcIp  = ETB_CMP_TRGOUT5 ;  	         //触发输出5作为触发源	
+	tEtbConfig.bySrcIp  = ETB_CMP_TRGOUT6 ;  	         //触发输出6作为触发源
+	tEtbConfig.byDstIp =  ETB_BT0_SYNCIN0;   	    //BT0 同步输入作为目标事件
+	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
+   
+	csi_etb_init();
+	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	    //自动获取空闲通道号,ch >= 0 获取成功		
+	if(ch < 0)
+		return -1;								    //ch < 0,则获取通道号失败
+	iRet = csi_etb_ch_config(ch, &tEtbConfig);	
+		
+	return iRet;
+}
