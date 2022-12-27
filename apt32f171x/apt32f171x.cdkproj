@@ -10,8 +10,8 @@
   <MergedToYaml>yes</MergedToYaml>
   <Dependencies Name="BuildSet"/>
   <MonitorProgress>
-    <FlashOperate>83</FlashOperate>
-    <DebugLaunch>95</DebugLaunch>
+    <FlashOperate>84</FlashOperate>
+    <DebugLaunch>93</DebugLaunch>
   </MonitorProgress>
   <VendorInfo>
     <VendorName>NULL</VendorName>

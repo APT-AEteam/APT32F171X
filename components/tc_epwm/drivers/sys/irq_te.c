@@ -22,7 +22,7 @@ extern csi_devmap_t dev_map_te[];
  *  \param[in] pIpBase: pointer of devices Base address
  *  \return none.
  */
-void csi_irq_enable(void *pIpBase)
+void csi_irq_enable_te(void *pIpBase)
 {
 //	csi_irqmap_t *ptMap = irq_map;
 //
@@ -60,7 +60,7 @@ void csi_irq_enable(void *pIpBase)
  *  \param[in] pIpBase: pointer of devices Base address
  *  \return none.
  */
-void csi_irq_disable(void *pIpBase)
+void csi_irq_disable_te(void *pIpBase)
 {
 //	csi_irqmap_t *ptMap = irq_map;
 //

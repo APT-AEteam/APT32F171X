@@ -100,13 +100,21 @@ void csi_tc2_int_enable(csp_tc2_t *ptTc2Base, uint8_t byIntSrc,bool bEnable)
 	csp_tc2_int_enable(ptTc2Base, byIntSrc,bEnable);
 	if(bEnable == ENABLE)
 	{
-		csi_irq_enable((uint32_t *)ptTc2Base);
+		#if CONFIG_USE_TCx_EPWM		
+			csi_irq_enable_te((uint32_t *)ptTc2Base);							// 组件拆分后使用csi_irq_enable_te	
+		#else
+			csi_irq_enable((uint32_t *)ptTc2Base);							    // enable  irq
+		#endif
 	}
 	else
 	{
 		if((byIntSrc == csp_tc2_get_imscr(ptTc2Base))&&((csp_tc2_get_channel_cimscr(ptTc2Base)&0x303) == 0x0))
 		{
-			csi_irq_disable((uint32_t *)ptTc2Base);
+			#if CONFIG_USE_TCx_EPWM		
+				csi_irq_disable_te((uint32_t *)ptTc2Base);							// 组件拆分后使用csi_irq_disable_te	
+			#else
+				csi_irq_disable((uint32_t *)ptTc2Base);							    //disable  irq
+			#endif
 		}
 	}
 }
@@ -143,13 +151,21 @@ void csi_tc2_channel_int_enable(csp_tc2_t *ptTc2Base, uint16_t hwChannelIntSrc,b
 	csp_tc2_channel_int_enable(ptTc2Base, hwChannelIntSrc,bEnable);
 	if(bEnable == ENABLE)
 	{
-		csi_irq_enable((uint32_t *)ptTc2Base);
+		#if CONFIG_USE_TCx_EPWM		
+			csi_irq_enable_te((uint32_t *)ptTc2Base);							// 组件拆分后使用csi_irq_enable_te	
+		#else
+			csi_irq_enable((uint32_t *)ptTc2Base);							    // enable  irq
+		#endif
 	}
 	else
 	{
 		if((hwChannelIntSrc == csp_tc2_get_channel_cimscr(ptTc2Base))&&((csp_tc2_get_imscr(ptTc2Base)&0x07) == 0x0))
 		{
-			csi_irq_disable((uint32_t *)ptTc2Base);
+			#if CONFIG_USE_TCx_EPWM		
+				csi_irq_disable_te((uint32_t *)ptTc2Base);							// 组件拆分后使用csi_irq_disable_te	
+			#else
+				csi_irq_disable((uint32_t *)ptTc2Base);							    //disable  irq
+			#endif
 		}
 	}
 }
@@ -190,8 +206,11 @@ csi_error_t csi_tc2_init(csp_tc2_t *ptTc2Base,csi_tc2_config_t *ptTc2Cfg)
 	if((ptTc2Cfg->byStopType != TC2_AUTOLOAD_STOP)&&(ptTc2Cfg->byStopType != TC2_IMMEDY_STOP))
 		return  CSI_ERROR;
 	csp_tc2_softreset(ptTc2Base);
-//	csi_clk_enable((uint32_t *)ptTc2Base);	
-	csi_clk_enable_te((uint32_t *)ptTc2Base);// 组件拆分后使用，clk enable_te
+#if CONFIG_USE_TCx_EPWM		
+	csi_clk_enable_te((uint32_t *)ptTc2Base);							// 组件拆分后使用clk enable_te	
+#else
+	csi_clk_enable((uint32_t *)ptTc2Base);							    // clk enable
+#endif
 	csp_tc2_clk_enable(ptTc2Base,ENABLE);
 	csp_tc2_count_mode(ptTc2Base , ptTc2Cfg->bySingle);
 	csp_tc2_count_stoptype(ptTc2Base , ptTc2Cfg->byStopType);

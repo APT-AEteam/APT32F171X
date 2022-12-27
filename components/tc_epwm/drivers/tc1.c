@@ -81,8 +81,11 @@ csi_error_t csi_tc1_capture_init(csp_tc1_t *ptTc1Base, csi_tc1_capture_config_t 
 		tRet = CSI_ERROR;
 	}
 	
-//	csi_clk_enable(ptTc1Base);
-	csi_clk_enable_te(ptTc1Base);// 组件拆分后使用，clk enable_te
+#if CONFIG_USE_TCx_EPWM		
+	csi_clk_enable_te((uint32_t *)ptTc1Base);							// 组件拆分后使用clk enable_te	
+#else
+	csi_clk_enable((uint32_t *)ptTc1Base);							    // clk enable
+#endif
 	csi_tc1_swrst(ptTc1Base);
 	
 	csp_tc1_clk_sel(ptTc1Base,FIN_PCLK);
@@ -228,8 +231,11 @@ csi_error_t csi_tc1_pwm_init(csp_tc1_t *ptTc1Base, csi_tc1_pwm_config_t *ptTc1Pw
 		tRet = CSI_ERROR;
 	}
 
-	//csi_clk_enable(ptTc1Base);
-	csi_clk_enable_te(ptTc1Base);// 组件拆分后使用，clk enable_te
+#if CONFIG_USE_TCx_EPWM		
+	csi_clk_enable_te((uint32_t *)ptTc1Base);							// 组件拆分后使用clk enable_te	
+#else
+	csi_clk_enable((uint32_t *)ptTc1Base);							    // clk enable
+#endif
 	csi_tc1_swrst(ptTc1Base);
 	
 	csp_tc1_clk_sel(ptTc1Base,ptTc1PwmCfg->byClkSrc);
@@ -321,11 +327,17 @@ void csi_tc1_clk_enable(csp_tc1_t *ptTc1Base, bool bEnable)
 void csi_tc1_int_enable(csp_tc1_t *ptTc1Base, csi_tc1_intsrc_e eIntSrc, bool bEnable)
 {
 	csp_tc1_int_enable(ptTc1Base, eIntSrc, bEnable);
-	
+#if CONFIG_USE_TCx_EPWM
+	if(bEnable)
+		csi_irq_enable_te(ptTc1Base);
+	else
+		csi_irq_disable_te(ptTc1Base);
+#else
 	if(bEnable)
 		csi_irq_enable(ptTc1Base);
 	else
 		csi_irq_disable(ptTc1Base);
+#endif
 }
 
 

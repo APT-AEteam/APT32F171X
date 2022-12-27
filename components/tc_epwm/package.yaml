@@ -1,5 +1,5 @@
 name: apt32f171x_with_tc_epwm
-version: v1.1.1
+version: v1.1.2
 description: provide apt32f171x tc0/1/2 and epwm driver code
 tag: ""
 keywords: 

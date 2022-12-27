@@ -49,8 +49,11 @@ csi_error_t  csi_epwm_wave_init(csp_epwm_t *ptEpwmBase, csi_epwm_pwmconfig_t *pt
   
 	if(ptEpwmPwmCfg->wFreq0 == 0 ){return CSI_ERROR;}
 		
-	//csi_clk_enable((uint32_t *)ptEpwmBase);							// clk enable	
-	csi_clk_enable_te((uint32_t *)ptEpwmBase);							// 组件拆分后使用clk enable_te
+#if CONFIG_USE_TCx_EPWM		
+	csi_clk_enable_te((uint32_t *)ptEpwmBase);							// 组件拆分后使用clk enable_te	
+#else
+	csi_clk_enable((uint32_t *)ptEpwmBase);							    // clk enable
+#endif
 	csp_epwm_set_clken(ptEpwmBase, ENABLE);                             //ENABLE
 	csp_epwm_reset(ptEpwmBase);
 
@@ -96,7 +99,11 @@ csi_error_t  csi_epwm_wave_init(csp_epwm_t *ptEpwmBase, csi_epwm_pwmconfig_t *pt
 	if(ptEpwmPwmCfg->wInt)
 	{
 		csp_epwm_int_enable(ptEpwmBase, ptEpwmPwmCfg->wInt, ENABLE);		//enable interrupt
-		csi_irq_enable((uint32_t *)ptEpwmBase);							    //enable  irq
+	#if CONFIG_USE_TCx_EPWM		
+		csi_irq_enable_te((uint32_t *)ptEpwmBase);							// 组件拆分后使用csi_irq_enable_te	
+	#else
+		csi_irq_enable((uint32_t *)ptEpwmBase);							    // enable  irq
+	#endif
 	}
 	
 	wEpwmPrd0=wPrdrLoad0;wEpwmPrd1=wPrdrLoad1;wEpwmPrd2=wPrdrLoad2;
@@ -330,7 +337,11 @@ csi_error_t csi_epwm_emergency_config(csp_epwm_t *ptEpwmBase, csi_epwm_emergency
 csi_error_t csi_epwm_int_enable(csp_epwm_t *ptEpwmBase, csp_epwm_int_e eInt, bool bEnable)
 {  
 	csp_epwm_int_enable(ptEpwmBase,eInt,bEnable);
-	csi_irq_enable((uint32_t *)ptEpwmBase);							//enable  irq
+	#if CONFIG_USE_TCx_EPWM		
+		csi_irq_enable_te((uint32_t *)ptEpwmBase);							// 组件拆分后使用csi_irq_enable_te	
+	#else
+		csi_irq_enable((uint32_t *)ptEpwmBase);							    // enable  irq
+	#endif
 	return CSI_OK;
 }
 

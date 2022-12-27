@@ -78,8 +78,11 @@ csi_error_t csi_tc0_capture_init(csp_tc0_t *ptTc0Base, csi_tc0_capture_config_t 
 		tRet = CSI_ERROR;
 	}
 	
-//	csi_clk_enable(ptTc0Base);
-	csi_clk_enable_te(ptTc0Base);// 组件拆分后使用，clk enable_te
+#if CONFIG_USE_TCx_EPWM		
+	csi_clk_enable_te((uint32_t *)ptTc0Base);							// 组件拆分后使用clk enable_te	
+#else
+	csi_clk_enable((uint32_t *)ptTc0Base);							    // clk enable
+#endif
 	csi_tc0_swrst(ptTc0Base);
 	
 	csi_tc0_set_internal_clksrc(ptTc0CapCfg->byIntClkSrc);
@@ -238,8 +241,11 @@ csi_error_t csi_tc0_pwm_init(csp_tc0_t *ptTc0Base, csi_tc0_pwm_config_t *ptTc0Pw
 		tRet = CSI_ERROR;
 	}
 
-	//csi_clk_enable(ptTc0Base);
-	csi_clk_enable_te(ptTc0Base);// 组件拆分后使用，clk enable_te
+#if CONFIG_USE_TCx_EPWM		
+	csi_clk_enable_te((uint32_t *)ptTc0Base);							// 组件拆分后使用clk enable_te	
+#else
+	csi_clk_enable((uint32_t *)ptTc0Base);							    // clk enable
+#endif
 	csi_tc0_swrst(ptTc0Base);
 	
 	csi_tc0_set_internal_clksrc(ptTc0PwmCfg->byIntClkSrc);
@@ -321,10 +327,17 @@ void csi_tc0_int_enable(csp_tc0_t *ptTc0Base, csi_tc0_intsrc_e eIntSrc, bool bEn
 {
 	csp_tc0_int_enable(ptTc0Base, eIntSrc, bEnable);
 	
+	#if CONFIG_USE_TCx_EPWM
+	if(bEnable)
+		csi_irq_enable_te(ptTc0Base);
+	else
+		csi_irq_disable_te(ptTc0Base);
+	#else
 	if(bEnable)
 		csi_irq_enable(ptTc0Base);
 	else
 		csi_irq_disable(ptTc0Base);
+	#endif
 }
 
 /** \brief get tc0 channel

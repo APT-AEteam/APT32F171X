@@ -3,10 +3,18 @@
 
 # Release Notes
 ======================================================
+Version: V1.1.2
+Release Date: 2022.12.27
+
+Release Notes
+1、csi_irq_enable/csi_irq_disable改写为csi_irq_enable_te/csi_irq_disable_te
+======================================================
+
+======================================================
 Version: V1.1.1
 Release Date: 2022.12.20
 
 Release Notes
 1、新增的组件
-2、csi_clk_enable改写为csi_clk_enable_te
+2、csi_clk_enable/csi_clk_enable改写为csi_clk_enable_te/csi_clk_disable_te
 ======================================================

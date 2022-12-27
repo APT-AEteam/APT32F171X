@@ -66,7 +66,11 @@ vector_table:           //totally 256 entries
 .long TC0_0IntHandler //TC0_0IntHandler
 .long TC0_1IntHandler //TC0_1IntHandler
 .long TC0_2IntHandler //TC0_2IntHandler
-#endif /* CONFIG_USE_TCx_EPWM */
+#else
+.long DummyHandler
+.long DummyHandler
+.long DummyHandler
+#endif
 
 .long EXI0IntHandler
 .long EXI1IntHandler
@@ -75,7 +79,11 @@ vector_table:           //totally 256 entries
 .long EPWMIntHandler //EPWMIntHandler
 .long TC1IntHandler //TC1IntHandler
 .long TC2IntHandler //TC2IntHandler
-#endif /* CONFIG_USE_TCx_EPWM */
+#else
+.long DummyHandler
+.long DummyHandler
+.long DummyHandler
+#endif
 
 .long WWDTHandler
 .long USARTIntHandler

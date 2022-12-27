@@ -20,6 +20,11 @@
 //    uint32_t wIrqNum;
 //} csi_irqmap_t;
 
+#if CONFIG_USE_TCx_EPWM
+void csi_irq_enable_te(void *pIpBase);
+void csi_irq_disable_te(void *pIpBase);
+#endif /* CONFIG_USE_TCx_EPWM */
+
 /**
   \brief       enable irq.
   \param[in]   irq_num Number of IRQ.
