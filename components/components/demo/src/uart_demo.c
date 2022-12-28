@@ -117,7 +117,6 @@ int uart_send_int_demo(void)
 {
 	int iRet = 0;
 	uint8_t bySendData[30]={1,2,3,4,5,6,7,8,9,21,22,23,24,25,26,27,28,29,30,10,11,12,13,14,15,16,17,18,19};
-	volatile uint8_t byRecv;
 	csi_uart_config_t tUartConfig;				//UART0 参数配置结构体
 	
 	csi_pin_set_mux(PA09, PA09_UART_TX);		//UART0 TX管脚配置
@@ -136,9 +135,8 @@ int uart_send_int_demo(void)
 
 	while(1)
 	{
-		byRecv = csi_uart_getc(UART0);
-		if(byRecv == 0x06)
-			csi_uart_send(UART0,(void *)bySendData,28);		//采用中断方式。调用改函数时，UART发送中断使能
+		csi_uart_getc(UART0);
+		csi_uart_send(UART0,(void *)bySendData,28);		//采用中断方式。调用改函数时，UART发送中断使能
 		
 		while(1)			
 		{
