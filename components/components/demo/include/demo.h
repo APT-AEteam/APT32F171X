@@ -32,12 +32,12 @@ extern csi_error_t crc_demo();
 //bt demo
 extern int bt_timer_demo(void);
 extern int bt_pwm_demo(void);
-int bt_sync_start_demo(void);
-int bt_sync_stop_demo(void);
-int bt_sync_count_demo(void);
-int bt_trg_out_demo(void);
-int bt_sync1_arearm_sync0_demo(void);
-int bt_sync0_arearm_sync1_demo(void);
+extern int bt_sync_start_demo(void);
+extern int bt_sync_stop_demo(void);
+extern int bt_sync_count_demo(void);
+extern int bt_trg_out_demo(void);
+extern int bt_sync1_arearm_sync0_demo(void);
+extern int bt_sync0_arearm_sync1_demo(void);
 
 //wwdt demo
 extern csi_error_t wwdt_demo(void);
@@ -57,46 +57,45 @@ extern void ifc_program_demo(void);
 
 //adc demo
 //normal mode(no interrupt)
-int adc_samp_oneshot_demo(void);
-int adc_samp_oneshot_demo2(void);
-int adc_samp_continuous_demo(void);
+extern int adc_samp_oneshot_demo(void);
+extern int adc_samp_continuous_demo(void);
 //interrupt mode
-int adc_samp_oneshot_int_demo(void);
-int adc_samp_continuous_int_demo(void);
+extern int adc_samp_oneshot_int_demo(void);
+extern int adc_samp_continuous_int_demo(void);
 
 //uart demo
 //uart send
-int uart_char_demo(void);
-int uart_send_demo(void);
-int uart_send_int_demo(void);
+extern int uart_char_demo(void);
+extern int uart_send_demo(void);
+extern int uart_send_int_demo(void);
 //uart receive
-int uart_receive_demo(void);
-int uart_recv_rx_int_demo(void);
-int uart_recv_rxfifo_int_demo(void);
+extern int uart_receive_demo(void);
+extern int uart_recv_rx_int_demo(void);
+extern int uart_recv_rxfifo_int_demo(void);
 
 
 //etcb demo
-int etcb_one_trg_one_demo0(void);
-int etcb_one_trg_one_demo1(void);
-int etcb_one_trg_more_demo(void);
-int etcb_mix_demo(void);
+extern int etcb_one_trg_one_demo0(void);
+extern int etcb_one_trg_one_demo1(void);
+extern int etcb_one_trg_more_demo(void);
+extern int etcb_mix_demo(void);
 
 //usart
-int usart_char_demo(void);
-int usart_send_demo(void);
-int usart_recv_demo(void);
-int usart_send_int_demo(void);
-int usart_recv_rx_int_demo(void);
-int usart_recv_rxfifo_int_demo(void);
-
+//usart send
+extern int usart_char_demo(void);
+extern int usart_send_demo(void);
+extern int usart_send_int_demo(void);
+//usart receive
+extern int usart_recv_demo(void);
+extern int usart_recv_rx_int_demo(void);
+extern int usart_recv_rxfifo_int_demo(void);
 
 //lin
-int lin_send_demo(void);
-int lin_send_recv_demo(void);
-
+extern int lin_send_demo(void);
+extern int lin_send_recv_demo(void);
 
 //ept demo
-extern csi_error_t ept_capture_demo();
+extern int ept_capture_demo();
 extern int ept_pwm_demo();
 extern int ept_pwm_dz_demo();
 extern int ept_pwm_dz_em_demo();
@@ -124,7 +123,6 @@ extern void lvd_demo(void);
 extern void lvr_demo(void);
 extern void memorycheck_demo(void);
 extern void emcm_demo(void);
-
 
 //opa demo
 extern void opa_internal_gain_mode_test(void);
