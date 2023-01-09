@@ -155,23 +155,23 @@ int gpta_pwm_demo(void)
 //    csi_gpta_channel_aqload_config(GPTA0, GPTA_LD_SHDW, GPTA_LDCMP_PRD ,GPTA_CHANNEL_1);//配置波形控制寄存器的载入模式：Immediate/Shadow  注意：在改变AQLDR寄存器时 会清除相应的AQCRx
 //	csi_gpta_channel_aqload_config(GPTA0, GPTA_LD_SHDW, GPTA_LDCMP_PRD ,GPTA_CHANNEL_2);
 	
-	csi_gpta_pwmchannel_config_t  tEptchannelCfg;
-	tEptchannelCfg.byActionZro    =   GPTA_LO;
-	tEptchannelCfg.byActionPrd    =   GPTA_NA;
-	tEptchannelCfg.byActionC1u    =   GPTA_HI;
-	tEptchannelCfg.byActionC1d    =   GPTA_LO;
-	tEptchannelCfg.byActionC2u    =   GPTA_HI;
-	tEptchannelCfg.byActionC2d    =   GPTA_LO;
-	tEptchannelCfg.byActionT1u    =   GPTA_LO;
-	tEptchannelCfg.byActionT1d    =   GPTA_LO;
-	tEptchannelCfg.byActionT2u    =   GPTA_NA;
-	tEptchannelCfg.byActionT2d    =   GPTA_NA;
-	tEptchannelCfg.byChoiceC1sel  =   GPTA_CMPA;
-	tEptchannelCfg.byChoiceC2sel  =   GPTA_CMPA;	
-	csi_gpta_channel_config(GPTA0, &tEptchannelCfg,  GPTA_CHANNEL_1);//channel
-	tEptchannelCfg.byChoiceC1sel  =   GPTA_CMPB;
-	tEptchannelCfg.byChoiceC2sel  =   GPTA_CMPB;
-	csi_gpta_channel_config(GPTA0, &tEptchannelCfg,  GPTA_CHANNEL_2);
+	csi_gpta_pwmchannel_config_t  tGptachannelCfg;
+	tGptachannelCfg.byActionZro    =   GPTA_LO;
+	tGptachannelCfg.byActionPrd    =   GPTA_NA;
+	tGptachannelCfg.byActionC1u    =   GPTA_HI;
+	tGptachannelCfg.byActionC1d    =   GPTA_LO;
+	tGptachannelCfg.byActionC2u    =   GPTA_HI;
+	tGptachannelCfg.byActionC2d    =   GPTA_LO;
+	tGptachannelCfg.byActionT1u    =   GPTA_LO;
+	tGptachannelCfg.byActionT1d    =   GPTA_LO;
+	tGptachannelCfg.byActionT2u    =   GPTA_NA;
+	tGptachannelCfg.byActionT2d    =   GPTA_NA;
+	tGptachannelCfg.byChoiceC1sel  =   GPTA_CMPA;
+	tGptachannelCfg.byChoiceC2sel  =   GPTA_CMPA;	
+	csi_gpta_channel_config(GPTA0, &tGptachannelCfg,  GPTA_CHANNEL_1);//channel
+	tGptachannelCfg.byChoiceC1sel  =   GPTA_CMPB;
+	tGptachannelCfg.byChoiceC2sel  =   GPTA_CMPB;
+	csi_gpta_channel_config(GPTA0, &tGptachannelCfg,  GPTA_CHANNEL_2);
 //------------------------------------------------------------------------------------------------------------------------
 
 //    csi_gpta_Global_load_control_config_t  Globaldemo;
@@ -351,23 +351,23 @@ int gpta_pwm_syncin4_demo(void)
 	csi_gpta_wave_init(GPTA0, &tPwmCfg);
 	
 	
-	csi_gpta_pwmchannel_config_t  tEptchannelCfg;
-	tEptchannelCfg.byActionZro    =   GPTA_LO;
-	tEptchannelCfg.byActionPrd    =   GPTA_NA;
-	tEptchannelCfg.byActionC1u    =   GPTA_LO;
-	tEptchannelCfg.byActionC1d    =   GPTA_LO;
-	tEptchannelCfg.byActionC2u    =   GPTA_LO;
-	tEptchannelCfg.byActionC2d    =   GPTA_LO;
-	tEptchannelCfg.byActionT1u    =   GPTA_HI;
-	tEptchannelCfg.byActionT1d    =   GPTA_HI;
-	tEptchannelCfg.byActionT2u    =   GPTA_LO;
-	tEptchannelCfg.byActionT2d    =   GPTA_LO;
-	tEptchannelCfg.byChoiceC1sel  =   GPTA_CMPA;
-	tEptchannelCfg.byChoiceC2sel  =   GPTA_CMPA;	
-	csi_gpta_channel_config(GPTA0, &tEptchannelCfg,  GPTA_CHANNEL_1);//channel
-	tEptchannelCfg.byChoiceC1sel  =   GPTA_CMPB;
-	tEptchannelCfg.byChoiceC2sel  =   GPTA_CMPB;
-	csi_gpta_channel_config(GPTA0, &tEptchannelCfg,  GPTA_CHANNEL_2);
+	csi_gpta_pwmchannel_config_t  tGptachannelCfg;
+	tGptachannelCfg.byActionZro    =   GPTA_LO;
+	tGptachannelCfg.byActionPrd    =   GPTA_NA;
+	tGptachannelCfg.byActionC1u    =   GPTA_LO;
+	tGptachannelCfg.byActionC1d    =   GPTA_LO;
+	tGptachannelCfg.byActionC2u    =   GPTA_LO;
+	tGptachannelCfg.byActionC2d    =   GPTA_LO;
+	tGptachannelCfg.byActionT1u    =   GPTA_HI;
+	tGptachannelCfg.byActionT1d    =   GPTA_HI;
+	tGptachannelCfg.byActionT2u    =   GPTA_LO;
+	tGptachannelCfg.byActionT2d    =   GPTA_LO;
+	tGptachannelCfg.byChoiceC1sel  =   GPTA_CMPA;
+	tGptachannelCfg.byChoiceC2sel  =   GPTA_CMPA;	
+	csi_gpta_channel_config(GPTA0, &tGptachannelCfg,  GPTA_CHANNEL_1);//channel
+	tGptachannelCfg.byChoiceC1sel  =   GPTA_CMPB;
+	tGptachannelCfg.byChoiceC2sel  =   GPTA_CMPB;
+	csi_gpta_channel_config(GPTA0, &tGptachannelCfg,  GPTA_CHANNEL_2);
 	
 //------------------------------------------------------------------------------------------------------------------------
 	csi_gpta_set_sync(GPTA0, GPTA_TRG_SYNCEN4, GPTA_TRG_CONTINU, GPTA_AUTO_REARM_ZRO);//使能SYNCIN2外部触发
@@ -425,23 +425,23 @@ int gpta_pwm_syncin0_demo(void)
 	csi_gpta_wave_init(GPTA0, &tPwmCfg);
 	
 	
-	csi_gpta_pwmchannel_config_t  tEptchannelCfg;
-	tEptchannelCfg.byActionZro    =   GPTA_LO;
-	tEptchannelCfg.byActionPrd    =   GPTA_NA;
-	tEptchannelCfg.byActionC1u    =   GPTA_HI;
-	tEptchannelCfg.byActionC1d    =   GPTA_LO;
-	tEptchannelCfg.byActionC2u    =   GPTA_HI;
-	tEptchannelCfg.byActionC2d    =   GPTA_LO;
-	tEptchannelCfg.byActionT1u    =   GPTA_LO;
-	tEptchannelCfg.byActionT1d    =   GPTA_LO;
-	tEptchannelCfg.byActionT2u    =   GPTA_NA;
-	tEptchannelCfg.byActionT2d    =   GPTA_NA;
-	tEptchannelCfg.byChoiceC1sel  =   GPTA_CMPA;
-	tEptchannelCfg.byChoiceC2sel  =   GPTA_CMPA;	
-	csi_gpta_channel_config(GPTA0, &tEptchannelCfg,  GPTA_CHANNEL_1);//channel
-	tEptchannelCfg.byChoiceC1sel  =   GPTA_CMPB;
-	tEptchannelCfg.byChoiceC2sel  =   GPTA_CMPB;
-	csi_gpta_channel_config(GPTA0, &tEptchannelCfg,  GPTA_CHANNEL_2);
+	csi_gpta_pwmchannel_config_t  tGptachannelCfg;
+	tGptachannelCfg.byActionZro    =   GPTA_LO;
+	tGptachannelCfg.byActionPrd    =   GPTA_NA;
+	tGptachannelCfg.byActionC1u    =   GPTA_HI;
+	tGptachannelCfg.byActionC1d    =   GPTA_LO;
+	tGptachannelCfg.byActionC2u    =   GPTA_HI;
+	tGptachannelCfg.byActionC2d    =   GPTA_LO;
+	tGptachannelCfg.byActionT1u    =   GPTA_LO;
+	tGptachannelCfg.byActionT1d    =   GPTA_LO;
+	tGptachannelCfg.byActionT2u    =   GPTA_NA;
+	tGptachannelCfg.byActionT2d    =   GPTA_NA;
+	tGptachannelCfg.byChoiceC1sel  =   GPTA_CMPA;
+	tGptachannelCfg.byChoiceC2sel  =   GPTA_CMPA;	
+	csi_gpta_channel_config(GPTA0, &tGptachannelCfg,  GPTA_CHANNEL_1);//channel
+	tGptachannelCfg.byChoiceC1sel  =   GPTA_CMPB;
+	tGptachannelCfg.byChoiceC2sel  =   GPTA_CMPB;
+	csi_gpta_channel_config(GPTA0, &tGptachannelCfg,  GPTA_CHANNEL_2);
 	
 //------------------------------------------------------------------------------------------------------------------------
 	csi_gpta_set_sync(GPTA0, GPTA_TRG_SYNCEN0, GPTA_TRG_CONTINU, GPTA_AUTO_REARM_ZRO);//使能SYNCIN2外部触发
