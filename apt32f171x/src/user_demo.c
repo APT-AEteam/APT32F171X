@@ -25,6 +25,7 @@ void user_demo(void)
 //	pin_output_demo();
 //	pin_input_demo();
 //	pin_irq_demo();
+//	pin_ioremap_demo();
 	
 /// ***************************************************
 ///  通过PB03输出系统时钟，主要用于调试。
@@ -60,8 +61,7 @@ void user_demo(void)
 //	ifc_dflash_page_parallel_program_demo();	
 //	ifc_pflash_page_program_demo();
 //	ifc_page_erase_demo();
-//	ifc_program_demo();
-//	ifc_dflash_page_parallel_program_demo();	
+//	ifc_program_demo();	
 
 /// ***************************************************
 ///  低功耗相关的示例代码
@@ -74,9 +74,9 @@ void user_demo(void)
 /// ***************************************************
 //	bt_timer_demo();
 //	bt_pwm_demo();
-//	bt_sync_trg_start_demo();
-//	bt_sync_trg_stop_demo();
-//	bt_sync_trg_count_demo();
+//	bt_sync_start_demo();
+//	bt_sync_stop_demo();
+//	bt_sync_count_demo();
 //	bt_trg_out_demo();
 //	bt_sync1_arearm_sync0_demo();
 //	bt_sync0_arearm_sync1_demo();
@@ -103,7 +103,6 @@ void user_demo(void)
 ///  ADC相关的示例代码
 /// ***************************************************
 //	adc_samp_oneshot_demo();
-//	adc_samp_oneshot_demo2();
 //	adc_samp_continuous_demo();
 //	adc_samp_oneshot_int_demo();
 //	adc_samp_continuous_int_demo();
@@ -128,9 +127,8 @@ void user_demo(void)
 //	uart_send_demo();
 //	uart_send_int_demo();
 //	uart_receive_demo();
-//	uart_recv_int_demo();
-//	uart_recv_dynamic_demo();
-//	uart_recv_dynamic_int_demo();
+//	uart_recv_rx_int_demo();
+//	uart_recv_rxfifo_int_demo();
 
 /// ***************************************************
 ///  USART相关的示例代码
@@ -139,8 +137,8 @@ void user_demo(void)
 //	usart_send_demo();
 //	usart_send_int_demo();
 //	usart_recv_demo();
-//	usart_recv_int_demo();
-//	usart_recv_dynamic_demo();
+//	usart_recv_rx_int_demo();
+//	usart_recv_rxfifo_int_demo();
 
 /// ***************************************************
 ///  CMP相关的示例代码
@@ -148,6 +146,7 @@ void user_demo(void)
 //	cmp_base_demo();
 //	cmp_dfcr_demo();
 //	cmp_wfcr_demo();
+//	cmp_trg_out_demo();
 
 /// ***************************************************
 ///  EPWM相关的示例代码
