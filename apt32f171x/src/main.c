@@ -33,7 +33,6 @@ extern void __ChipInitHandler(void);
 int main()
 {	
 	system_init();
-	__ChipInitHandler();                    //Graphical interface initialization
 	board_init();
 	
 
