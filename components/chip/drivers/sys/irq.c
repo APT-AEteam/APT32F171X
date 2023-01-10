@@ -91,4 +91,15 @@ void csi_irq_disable(void *pIpBase)
     }
 }
 
-
+/** \brief irq priority set
+ * 
+ *  Set all irq priorities to the same value
+ * 
+ *  \param[in] ePriority:Priority to set
+ *  \return none
+ */
+void csi_set_all_irq_priority(irq_prio_e ePriority)
+{
+	for(uint8_t irq_num = 0;irq_num < CMP3_IRQ_NUM + 1;irq_num++)
+		csi_irq_priority(irq_num,ePriority);
+}
