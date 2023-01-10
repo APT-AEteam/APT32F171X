@@ -11,16 +11,18 @@
  * *********************************************************************
 */  
 
-#include <soc.h>
+#include <irq.h>
 #include "sys_clk.h"
-#include "csp_gpio.h"
 #include "drv/tick.h"
 #include "drv/iwdt.h" 
-#include "csp.h"
+
+//#include <soc.h>
 //#include <csi_core.h>
 //#include <csi_config.h>
 //#include "drv/rlblty.h"
 //#include "drv/wdt.h"
+//#include "csp.h"
+//#include "csp_gpio.h"
 
 //csi_wdt_t tIwdt;
 
@@ -35,8 +37,9 @@ __attribute__((weak)) void system_init(void)
 {
 	//config system clk, close interrupt
 	CK_CPU_DISALLNORMALIRQ;					//disable total interrupt
+	csi_set_all_irq_priority(PRIORITY_03);	//set all irq priorities to lowest
 	csi_iwdt_close();						//close iwdt
-	csi_sysclk_config(tClkConfig);					//sysclk config
+	csi_sysclk_config(tClkConfig);			//sysclk config
 	csi_get_sclk_freq();					//get system clk
 	csi_get_pclk_freq();					//get pclk 
 	csi_tick_init();						//init system ticks (coret)
