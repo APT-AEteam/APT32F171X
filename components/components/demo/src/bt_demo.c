@@ -36,7 +36,11 @@ int bt_timer_demo(void)
 }
 
 /** \brief bt pwm ouput：BT PWM输出demo
- *  
+ *   		-100HZ，占空50%   输出波形
+ *     		-可通过以下三种方式灵活调整PWM参数
+ *     		--csi_bt_pwm_duty_cycle_updata：修改PWM占空比
+ *     		--csi_bt_pwm_updata：修改PWM周期和占空比
+ *     		--csi_bt_prdr_cmp_updata：修改PWM周期寄存器和比较寄存器的值
  *  \param[in] none
  *  \return error code
  */
@@ -58,15 +62,20 @@ int bt_pwm_demo(void)
 	csi_bt_pwm_init(BT0, &tPwmCfg);							//初始化BT0 PWM输出
 	csi_bt_start(BT0);										//启动BT0
 	
-	csi_bt_pwm_duty_cycle_updata(BT0, 10);
-	csi_bt_pwm_duty_cycle_updata(BT0, 0);
-	csi_bt_pwm_updata(BT0, 1000, 20);
-	csi_bt_pwm_duty_cycle_updata(BT0, 50);
-	csi_bt_pwm_duty_cycle_updata(BT0, 100);
-	csi_bt_pwm_duty_cycle_updata(BT0, 70);
-	csi_bt_pwm_updata(BT0, 10000, 50);
-	csi_bt_pwm_duty_cycle_updata(BT0, 40);
-	csi_bt_pwm_duty_cycle_updata(BT0, 0);
+	csi_bt_pwm_duty_cycle_updata(BT0, 10);					//修改PWM占空比为10%
+	csi_bt_pwm_duty_cycle_updata(BT0, 0);					//修改PWM占空比为0%
+	
+	csi_bt_pwm_updata(BT0, 1000, 20);						//修改PWM参数为周期1KHz，占空比为20%
+	csi_bt_pwm_duty_cycle_updata(BT0, 50);					//修改PWM占空比为50%
+	csi_bt_pwm_duty_cycle_updata(BT0, 100);					//修改PWM占空比为100%
+	csi_bt_pwm_duty_cycle_updata(BT0, 70);					//修改PWM占空比为70%
+	
+	csi_bt_pwm_updata(BT0, 10000, 50);						//修改PWM参数为周期10KHz，占空比为50%
+	csi_bt_pwm_duty_cycle_updata(BT0, 40);					//修改PWM占空比为40%
+	csi_bt_pwm_duty_cycle_updata(BT0, 0);					//修改PWM占空比为0%
+	
+	csi_bt_prdr_cmp_updata(BT0, 10000, 5000);				//修改PWM周期为10000，比较值为5000
+	csi_bt_prdr_cmp_updata(BT0, 20000, 5000);				//修改PWM周期为20000，比较值为5000
 	
 	return iRet;
 }

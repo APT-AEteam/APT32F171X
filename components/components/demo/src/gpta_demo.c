@@ -109,9 +109,10 @@ int gpta_capture_demo(void)
 };
 
 /** \brief GPTA波形输出示例代码
- *   		-10kHZ   输出波形
- *     		-PWMA在50%和20%之间切换
- * 			-
+ *   		-20kHZ，占空比25%   输出波形
+ *     		-可通过以下两种方式灵活调整PWM参数
+ * 			--csi_gpta_change_ch_duty：修改PWM占空比
+ *			--csi_gpta_prdr_cmp_update：修改PWM周期寄存器和比较寄存器的值
  *  \param[in] none
  *  \return error code
  */
@@ -129,8 +130,8 @@ int gpta_pwm_demo(void)
 //	csi_pin_set_mux(PA03,   PA03_GPT_CHA);//7   调试口  需修改
 //	csi_pin_set_mux(PA04,   PA04_GPT_CHB);//8
 //------------------------------------------------------------------------------------------------------------------------	
-//    csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_CAMPA);
-//	csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_CAMPB);
+//    csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_COMPA);
+//	csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_COMPB);
 	csi_gpta_pwmconfig_t tPwmCfg;								  
 	tPwmCfg.byWorkmod        = GPTA_WAVE;                        //WAVE  波形模式
 	tPwmCfg.byCountingMode   = GPTA_UPDNCNT;                     //CNYMD  //计数方向
@@ -202,9 +203,11 @@ int gpta_pwm_demo(void)
 //------------------------------------------------------------------------------------------------------------------------
 	 while(1){
 		    
-		  	csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPA, 20);
-	        csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPB, 20);
-//			csi_gpta_global_sw(GPTA0) ;                                   //软件产生一次GLD触发
+		  	csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 20);				  	//修改PWM1占空比为20%
+	        csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 20);					//修改PWM2占空比为20%
+			csi_gpta_prdr_cmp_update(GPTA0,GPTA_COMPA,1200,800);			//修改PWM1周期为1200，比较值为800
+			csi_gpta_prdr_cmp_update(GPTA0,GPTA_COMPB,1200,800);			//修改PWM2周期为1200，比较值为800
+//			csi_gpta_global_sw(GPTA0) ;                                   	//软件产生一次GLD触发
 		    mdelay(1);
 //			csi_gpta_onetimesoftware_output(GPTA0,GPTA_OSTSF1,GPTA_LO);
 //			csi_gpta_global_sw(GPTA0) ;
@@ -214,9 +217,11 @@ int gpta_pwm_demo(void)
 //            csi_gpta_onetimesoftware_output(GPTA0,GPTA_OSTSF1,GPTA_LO);
 //		    csi_pin_set_low(PA00);
 //            mdelay(1);			
-		    csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPA, 50);
-	        csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPB, 50);
-//	        csi_gpta_global_sw(GPTA0) ;                                   //软件产生一次GLD触发
+			csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 50);		//修改PWM1占空比为50%
+	        csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 50);					//修改PWM2占空比为50%
+			csi_gpta_prdr_cmp_update(GPTA0,GPTA_COMPA,1200,1000);			//修改PWM1周期为1200，比较值为1000
+			csi_gpta_prdr_cmp_update(GPTA0,GPTA_COMPB,1200,1000);			//修改PWM2周期为1200，比较值为1000
+//	        csi_gpta_global_sw(GPTA0) ;                                   	//软件产生一次GLD触发
             mdelay(1);
 //			csi_gpta_continuous_software_waveform(GPTA0, GPTA_CHANNEL_1, GPTA_AQCSF_L);
 //			csi_gpta_global_sw(GPTA0) ;                                   //软件产生一次GLD触发

@@ -96,9 +96,10 @@ int ept_capture_demo(void)
 };
 
 /** \brief EPT波形输出示例代码
- *   		-10kHZ   输出波形
- *     		-PWMA在50%和20%之间切换
- * 			-
+ *   		-10kHZ，占空比50%   输出波形
+ *     		-可通过以下两种方式灵活调整PWM参数
+ * 			--csi_ept_change_ch_duty：修改PWM占空比
+ *			--csi_ept_prdr_cmp_update：修改PWM周期寄存器和比较寄存器的值		-
  *  \param[in] none
  *  \return error code
  */
@@ -115,10 +116,10 @@ int ept_pwm_demo(void)
     csi_pin_set_mux(PA010,PA010_EPT_CHAY);					    //PIN14	
 	csi_pin_set_mux(PA02, PA02_EPT_CHD);					    //PIN2
 //------------------------------------------------------------------------------------------------------------------------
-//    csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_SHDW, EPT_LDCMP_ZRO ,EPT_CAMPA);
-//	csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_SHDW, EPT_LDCMP_ZRO ,EPT_CAMPB);
-//    csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_SHDW, EPT_LDCMP_ZRO ,EPT_CAMPC);
-//    csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_SHDW, EPT_LDCMP_ZRO ,EPT_CAMPD);	
+//    csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_SHDW, EPT_LDCMP_ZRO ,EPT_COMPA);
+//	csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_SHDW, EPT_LDCMP_ZRO ,EPT_COMPB);
+//    csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_SHDW, EPT_LDCMP_ZRO ,EPT_COMPC);
+//    csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_SHDW, EPT_LDCMP_ZRO ,EPT_COMPD);	
 	
     csi_ept_pwmconfig_t tPwmCfg;								  
 	tPwmCfg.byWorkmod        = EPT_WAVE;                        //WAVE  波形模式
@@ -178,15 +179,23 @@ int ept_pwm_demo(void)
 //------------------------------------------------------------------------------------------------------------------------
 	csi_ept_start(EPT0);//start  timer
 	while(1){	
-		    csi_ept_change_ch_duty(EPT0,EPT_CAMPA, 50);
-		    csi_ept_change_ch_duty(EPT0,EPT_CAMPB, 50);
-            csi_ept_change_ch_duty(EPT0,EPT_CAMPC, 50);
-            csi_ept_change_ch_duty(EPT0,EPT_CAMPD, 50);  
+		    csi_ept_change_ch_duty(EPT0,EPT_COMPA, 50);			//修改PWM1占空比为50%
+		    csi_ept_change_ch_duty(EPT0,EPT_COMPB, 50);			//修改PWM2占空比为50%
+            csi_ept_change_ch_duty(EPT0,EPT_COMPC, 50);			//修改PWM3占空比为50%
+            csi_ept_change_ch_duty(EPT0,EPT_COMPD, 50);			//修改PWM4占空比为50% 
+			csi_ept_prdr_cmp_update(EPT0,EPT_COMPA,2400,600); 	//修改PWM1周期为2400，比较值为600
+			csi_ept_prdr_cmp_update(EPT0,EPT_COMPB,2400,600); 	//修改PWM2周期为2400，比较值为600 
+			csi_ept_prdr_cmp_update(EPT0,EPT_COMPC,2400,600); 	//修改PWM3周期为2400，比较值为600 
+			csi_ept_prdr_cmp_update(EPT0,EPT_COMPD,2400,600); 	//修改PWM4周期为2400，比较值为600 
 		    mdelay(200);                        
-		    csi_ept_change_ch_duty(EPT0,EPT_CAMPA, 20);
-			csi_ept_change_ch_duty(EPT0,EPT_CAMPB, 20);
-            csi_ept_change_ch_duty(EPT0,EPT_CAMPC, 20);
-			csi_ept_change_ch_duty(EPT0,EPT_CAMPD, 20); 
+		    csi_ept_change_ch_duty(EPT0,EPT_COMPA, 20);			//修改PWM1占空比为20%
+			csi_ept_change_ch_duty(EPT0,EPT_COMPB, 20);			//修改PWM2占空比为20%
+            csi_ept_change_ch_duty(EPT0,EPT_COMPC, 20);			//修改PWM3占空比为20%
+			csi_ept_change_ch_duty(EPT0,EPT_COMPD, 20);			//修改PWM4占空比为20% 
+			csi_ept_prdr_cmp_update(EPT0,EPT_COMPA,2400,1800);	//修改PWM1周期为2400，比较值为1800 
+			csi_ept_prdr_cmp_update(EPT0,EPT_COMPB,2400,1800);	//修改PWM2周期为2400，比较值为1800 
+			csi_ept_prdr_cmp_update(EPT0,EPT_COMPC,2400,1800);	//修改PWM3周期为2400，比较值为1800 
+			csi_ept_prdr_cmp_update(EPT0,EPT_COMPD,2400,1800);	//修改PWM4周期为2400，比较值为1800 
 		    mdelay(200);	
 	}
 	return iRet;
@@ -294,13 +303,13 @@ int ept_pwm_dz_demo(void)
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_ept_start(EPT0);//start  timer
     while(1){			
-		    csi_ept_change_ch_duty(EPT0,EPT_CAMPA, 80);
-            csi_ept_change_ch_duty(EPT0,EPT_CAMPB, 80);
-		    csi_ept_change_ch_duty(EPT0,EPT_CAMPC, 80); 
+		    csi_ept_change_ch_duty(EPT0,EPT_COMPA, 80);
+            csi_ept_change_ch_duty(EPT0,EPT_COMPB, 80);
+		    csi_ept_change_ch_duty(EPT0,EPT_COMPC, 80); 
 		    mdelay(200);                        
-		    csi_ept_change_ch_duty(EPT0,EPT_CAMPA, 40);
-            csi_ept_change_ch_duty(EPT0,EPT_CAMPB, 40);
-		    csi_ept_change_ch_duty(EPT0,EPT_CAMPC, 40);
+		    csi_ept_change_ch_duty(EPT0,EPT_COMPA, 40);
+            csi_ept_change_ch_duty(EPT0,EPT_COMPB, 40);
+		    csi_ept_change_ch_duty(EPT0,EPT_COMPC, 40);
 		    mdelay(200);
 	}			
 	return iRet;
@@ -515,13 +524,13 @@ int ept_pwm_dz_em_demo(void)
 //			csi_ept_continuous_software_output(EPT0, EPT_CHANNEL_2,EPT_EM_AQCSF_NONE);
 //			csi_ept_continuous_software_output(EPT0, EPT_CHANNEL_3,EPT_EM_AQCSF_NONE);
 //			mdelay(1);
-	        csi_ept_change_ch_duty(EPT0,EPT_CAMPA, 20);
-            csi_ept_change_ch_duty(EPT0,EPT_CAMPB, 20);
-		    csi_ept_change_ch_duty(EPT0,EPT_CAMPC, 20);
+	        csi_ept_change_ch_duty(EPT0,EPT_COMPA, 20);
+            csi_ept_change_ch_duty(EPT0,EPT_COMPB, 20);
+		    csi_ept_change_ch_duty(EPT0,EPT_COMPC, 20);
 		    mdelay(1);
-			csi_ept_change_ch_duty(EPT0,EPT_CAMPA, 80);
-            csi_ept_change_ch_duty(EPT0,EPT_CAMPB, 80);
-		    csi_ept_change_ch_duty(EPT0,EPT_CAMPC, 80);
+			csi_ept_change_ch_duty(EPT0,EPT_COMPA, 80);
+            csi_ept_change_ch_duty(EPT0,EPT_COMPB, 80);
+		    csi_ept_change_ch_duty(EPT0,EPT_COMPC, 80);
 			mdelay(1);
 //			 csp_ept_clr_emHdlck(EPT0, EP4);
 //			 csp_ept_clr_emSdlck(EPT0, EP7);
