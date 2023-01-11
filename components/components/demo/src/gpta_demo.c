@@ -205,8 +205,10 @@ int gpta_pwm_demo(void)
 		    
 		  	csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 20);				  	//修改PWM1占空比为20%
 	        csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 20);					//修改PWM2占空比为20%
+			
 			csi_gpta_prdr_cmp_update(GPTA0,GPTA_COMPA,1200,800);			//修改PWM1周期为1200，比较值为800
 			csi_gpta_prdr_cmp_update(GPTA0,GPTA_COMPB,1200,800);			//修改PWM2周期为1200，比较值为800
+			
 //			csi_gpta_global_sw(GPTA0) ;                                   	//软件产生一次GLD触发
 		    mdelay(1);
 //			csi_gpta_onetimesoftware_output(GPTA0,GPTA_OSTSF1,GPTA_LO);
@@ -217,10 +219,12 @@ int gpta_pwm_demo(void)
 //            csi_gpta_onetimesoftware_output(GPTA0,GPTA_OSTSF1,GPTA_LO);
 //		    csi_pin_set_low(PA00);
 //            mdelay(1);			
-			csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 50);		//修改PWM1占空比为50%
+			csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 50);					//修改PWM1占空比为50%
 	        csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 50);					//修改PWM2占空比为50%
+			
 			csi_gpta_prdr_cmp_update(GPTA0,GPTA_COMPA,1200,1000);			//修改PWM1周期为1200，比较值为1000
 			csi_gpta_prdr_cmp_update(GPTA0,GPTA_COMPB,1200,1000);			//修改PWM2周期为1200，比较值为1000
+			
 //	        csi_gpta_global_sw(GPTA0) ;                                   	//软件产生一次GLD触发
             mdelay(1);
 //			csi_gpta_continuous_software_waveform(GPTA0, GPTA_CHANNEL_1, GPTA_AQCSF_L);
