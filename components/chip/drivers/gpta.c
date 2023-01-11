@@ -95,27 +95,27 @@ __attribute__((weak)) void gpta0_irqhandler(csp_gpta_t *ptGptaBase)
 //	                               gTick=0;
 								   //csi_pin_set_high(PA00);
 								   //load1();
-//								   csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_IMM, GPTA_LDCMP_ZRO ,GPTA_CAMPA);
-//	                               csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_IMM, GPTA_LDCMP_ZRO ,GPTA_CAMPB);
-//								   csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPA, 25);
-//	                               csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPB, 25);
+//								   csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_IMM, GPTA_LDCMP_ZRO ,GPTA_COMPA);
+//	                               csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_IMM, GPTA_LDCMP_ZRO ,GPTA_COMPB);
+//								   csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 25);
+//	                               csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 25);
 								   //csi_pin_set_low(PA00);
 //		                         }
 //		else{
-//			                       csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_CAMPA);
-//	                               csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_CAMPB);
-//								   csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPA, 50);
-//	                               csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPB, 50);
+//			                       csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_COMPA);
+//	                               csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_COMPB);
+//								   csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 50);
+//	                               csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 50);
 //		}
 //        gTick++;
 //		if(gTick>=5){	 gTick=0;
-//		             csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPA, 50);
-//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPB, 50);	
+//		             csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 50);
+//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 50);	
 //					 
 //					}
 //		else{
-//			         csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPA, 30);
-//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPB, 30);		
+//			         csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 30);
+//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 30);		
 //		}			
             				 
 	    csp_gpta_clr_int(ptGptaBase, GPTA_INT_CBU);
@@ -126,13 +126,13 @@ __attribute__((weak)) void gpta0_irqhandler(csp_gpta_t *ptGptaBase)
 //		csi_pin_set_high(PB04);	
 //	    gTick++;
 //		if(gTick>=5){	 gTick=0;
-//		             csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPA, 70);
-//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPB, 70);	
+//		             csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 70);
+//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 70);	
 //					 
 //					}
 //		else{
-//			         csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPA, 90);
-//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_CAMPB, 90);		
+//			         csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 90);
+//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 90);		
 //		}			
             		
         csp_gpta_clr_int(ptGptaBase, GPTA_INT_CBD);	
@@ -320,17 +320,17 @@ csi_error_t csi_gpta_burst_enable(csp_gpta_t *ptGptaBase,uint8_t byCgsrc,uint8_t
  *  \param[in] ptGptaBase: pointer of ept register structure
  *  \param[in] tld: refer to csp_gpta_cmpdata_ldmd_e
  *  \param[in] tldamd: refer to csp_gpta_ldamd_e
- *  \param[in] eChannel: refer to csi_gpta_camp_e
+ *  \param[in] eChannel: refer to csi_gpta_comp_e
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_gpta_channel_cmpload_config(csp_gpta_t *ptGptaBase, csp_gpta_cmpdata_ldmd_e tld, csp_gpta_ldamd_e tldamd ,csi_gpta_camp_e channel)
+csi_error_t csi_gpta_channel_cmpload_config(csp_gpta_t *ptGptaBase, csp_gpta_cmpdata_ldmd_e tld, csp_gpta_ldamd_e tldamd ,csi_gpta_comp_e channel)
 {			  
 	switch (channel)
 	{	
-		case (GPTA_CAMPA):   ptGptaBase -> CMPLDR = (ptGptaBase -> CMPLDR &~(GPTA_CMPA_LD_MSK) )    |  (tld    << GPTA_CMPA_LD_POS);
+		case (GPTA_COMPA):   ptGptaBase -> CMPLDR = (ptGptaBase -> CMPLDR &~(GPTA_CMPA_LD_MSK) )    |  (tld    << GPTA_CMPA_LD_POS);
 		                     ptGptaBase -> CMPLDR = (ptGptaBase -> CMPLDR &~(GPTA_CMPA_LDTIME_MSK) )|  (tldamd <<GPTA_CMPA_LDTIME_POS);
 			break;
-		case (GPTA_CAMPB):   ptGptaBase -> CMPLDR = (ptGptaBase -> CMPLDR &~(GPTA_CMPB_LD_MSK) )    |  (tld    << GPTA_CMPB_LD_POS);
+		case (GPTA_COMPB):   ptGptaBase -> CMPLDR = (ptGptaBase -> CMPLDR &~(GPTA_CMPB_LD_MSK) )    |  (tld    << GPTA_CMPB_LD_POS);
 		                     ptGptaBase -> CMPLDR = (ptGptaBase -> CMPLDR &~(GPTA_CMPB_LDTIME_MSK) )|  (tldamd << GPTA_CMPB_LDTIME_POS);
 			break;
 //		case (GPTA_CAMPC):   ptGptaBase -> CMPLDR = (ptGptaBase -> CMPLDR &~(GPTA_CMPC_LD_MSK) )    |  (tld    << GPTA_CMPC_LD_POS);
@@ -547,26 +547,54 @@ void csi_gpta_set_phsr(csp_gpta_t *ptGptaBase, uint16_t bwPhsr,bool bEnable)
 	csp_gpta_phsen_enable(ptGptaBase, bEnable);
 }
 
+/** \brief  update gpta PRDR and CMPx reg value
+ * 
+ *  \param[in] ptGptaBase: pointer of gpta register structure
+ *  \param[in] eComp: select which COMP to set(COMPA or COMPB)
+ *  \param[in] hwPrdr: gpta PRDR reg  value
+ *  \param[in] hwCmp: gpta COMP reg value
+ *  \return none
+ */
+csi_error_t csi_gpta_prdr_cmp_update(csp_gpta_t *ptGptaBase,csi_gpta_comp_e eComp, uint16_t hwPrdr, uint16_t hwCmp) 
+{
+	csp_gpta_set_prdr(ptGptaBase, (uint16_t)hwPrdr);		//set GPTA PRDR Value
+	switch (eComp)
+	{	
+		case (GPTA_COMPA):
+			csp_gpta_set_cmpa(ptGptaBase, (uint16_t)hwCmp);	//set GPTA COMPA Value
+			break;
+			
+		case (GPTA_COMPB):
+			csp_gpta_set_cmpb(ptGptaBase, (uint16_t)hwCmp);	//set GPTA COMPB Value
+			break;
+
+		default: 
+			return CSI_ERROR;
+			break;
+	}
+    return (CSI_OK);
+}
+
 /** \brief change gpta output dutycycle. 
  * 
  *  \param[in] ptGptaBase :    pointer of gpta register structure
- *  \param[in] eCh  :          refer to csi_gpta_camp_e
- *	\param[in] wActiveTime :   cmpx data to be set directly
+ *  \param[in] eCh  :          refer to csi_gpta_comp_e
+ *	\param[in] wDuty :   	   duty of PWM:0%-100%
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_gpta_change_ch_duty(csp_gpta_t *ptGptaBase, csi_gpta_camp_e eCh, uint32_t wActiveTime)
+csi_error_t csi_gpta_change_ch_duty(csp_gpta_t *ptGptaBase, csi_gpta_comp_e eCh, uint32_t wDuty)
 { uint16_t  wCmpLoad;
   uint16_t  wPrd;
     wPrd=csp_gpta_get_prd(ptGptaBase);
-	if(wActiveTime>=100){wCmpLoad=0;}
-	else if(wActiveTime==0){wCmpLoad=wPrd+1;}
-	else{wCmpLoad =wPrd-(wPrd * wActiveTime /100);}
+	if(wDuty>=100){wCmpLoad=0;}
+	else if(wDuty==0){wCmpLoad=wPrd+1;}
+	else{wCmpLoad =wPrd-(wPrd * wDuty /100);}
 
 	switch (eCh)
 	{	
-		case (GPTA_CAMPA):csp_gpta_set_cmpa(ptGptaBase, (uint16_t)wCmpLoad);
+		case (GPTA_COMPA):csp_gpta_set_cmpa(ptGptaBase, (uint16_t)wCmpLoad);
 			break;
-		case (GPTA_CAMPB):csp_gpta_set_cmpb(ptGptaBase, (uint16_t)wCmpLoad);
+		case (GPTA_COMPB):csp_gpta_set_cmpb(ptGptaBase, (uint16_t)wCmpLoad);
 			break;
 
 		default: return CSI_ERROR;

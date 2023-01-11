@@ -227,11 +227,11 @@ typedef enum{
 	GPTA_CHANNEL_2
 }csi_gpta_channel_e;
 typedef enum{
-    GPTA_CAMPA=1,
-	GPTA_CAMPB,
+    GPTA_COMPA=1,
+	GPTA_COMPB,
 //	GPTA_CAMPC,
 //	GPTA_CAMPD
-}csi_gpta_camp_e;
+}csi_gpta_comp_e;
 
 typedef enum {
 	GPTA_CH_A = 0,
@@ -340,10 +340,10 @@ csi_error_t csi_gpta_burst_enable(csp_gpta_t *ptGptaBase,uint8_t byCgsrc,uint8_t
  *  \param[in] ptGptaBase: pointer of ept register structure
  *  \param[in] tld: refer to csp_gpta_cmpdata_ldmd_e
  *  \param[in] tldamd: refer to csp_gpta_ldamd_e
- *  \param[in] eChannel: refer to csi_gpta_camp_e
+ *  \param[in] eChannel: refer to csi_gpta_comp_e
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_gpta_channel_cmpload_config(csp_gpta_t *ptGptaBase, csp_gpta_cmpdata_ldmd_e tld, csp_gpta_ldamd_e tldamd ,csi_gpta_camp_e channel);
+csi_error_t csi_gpta_channel_cmpload_config(csp_gpta_t *ptGptaBase, csp_gpta_cmpdata_ldmd_e tld, csp_gpta_ldamd_e tldamd ,csi_gpta_comp_e channel);
 
 
 /** \brief Channel configuration
@@ -451,14 +451,24 @@ uint16_t csi_gpta_get_prdr(csp_gpta_t *ptGptaBase);
  */
 void csi_gpta_set_phsr(csp_gpta_t *ptGptaBase, uint16_t bwPhsr,bool bEnable);
 
+/** \brief  update gpta PRDR and CMPx reg value
+ * 
+ *  \param[in] ptGptaBase: pointer of gpta register structure
+ *  \param[in] eComp: select which COMP to set(COMPA or COMPB)
+ *  \param[in] hwPrdr: gpta PRDR reg  value
+ *  \param[in] hwCmp: gpta COMP reg value
+ *  \return none
+ */
+csi_error_t csi_gpta_prdr_cmp_update(csp_gpta_t *ptGptaBase,csi_gpta_comp_e eComp, uint16_t hwPrdr, uint16_t hwCmp);
+
 /** \brief change gpta output dutycycle. 
  * 
  *  \param[in] ptGptaBase :    pointer of gpta register structure
- *  \param[in] eCh  :          refer to csi_gpta_camp_e
- *	\param[in] wActiveTime :   cmpx data to be set directly
+ *  \param[in] eCh  :          refer to csi_gpta_comp_e
+ *	\param[in] wDuty :   	  duty of PWM:0%-100%
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_gpta_change_ch_duty(csp_gpta_t *ptGptaBase, csi_gpta_camp_e eCh, uint32_t wActiveTime);
+csi_error_t csi_gpta_change_ch_duty(csp_gpta_t *ptGptaBase, csi_gpta_comp_e eCh, uint32_t wDuty);
 
 
 /** \brief enable/disable gpta in debug mode

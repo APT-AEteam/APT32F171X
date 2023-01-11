@@ -283,11 +283,11 @@ typedef enum{
 }csi_ept_channel_e;
 
 typedef enum{
-    EPT_CAMPA=1,
-	EPT_CAMPB,
-	EPT_CAMPC,
-	EPT_CAMPD
-}csi_ept_camp_e;
+    EPT_COMPA=1,
+	EPT_COMPB,
+	EPT_COMPC,
+	EPT_COMPD
+}csi_ept_comp_e;
 
 typedef enum{
     EPT_SYNCIN0 =0,
@@ -590,7 +590,7 @@ csi_error_t csi_ept_channel_config(csp_ept_t *ptEptBase, csi_ept_pwmchannel_conf
  *  \param[in] eChannel: refer to csi_ept_channel_e
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_ept_channel_cmpload_config(csp_ept_t *ptEptBase, csp_ept_cmpdata_ldmd_e tld, csp_ept_ldamd_e tldamd ,csi_ept_camp_e channel);
+csi_error_t csi_ept_channel_cmpload_config(csp_ept_t *ptEptBase, csp_ept_cmpdata_ldmd_e tld, csp_ept_ldamd_e tldamd ,csi_ept_comp_e channel);
 
 /** \brief Channel AQLDR configuration
  * 
@@ -747,10 +747,10 @@ uint16_t csi_ept_get_prdr(csp_ept_t *ptEptBase);
  * 
  *  \param[in] ptEptBase :    pointer of ept register structure
  *  \param[in] eCh   :        refer to csi_ept_chtype_e
- *	\param[in] wActiveTime :  cmpx data to be set directly
+ *	\param[in] wDuty :  	  duty of PWM:0%-100%
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_ept_change_ch_duty(csp_ept_t *ptEptBase, csi_ept_camp_e eCh, uint32_t wActiveTime);
+csi_error_t csi_ept_change_ch_duty(csp_ept_t *ptEptBase, csi_ept_comp_e eCh, uint32_t wDuty);
 
 
 /** \brief software force lock
