@@ -48,6 +48,7 @@ csp_cmp_t  		*CMP 	   	= (csp_cmp_t *)(APB_CMP_BASE);
 csp_opa_t  		*OPA0 	   	= (csp_opa_t *)(APB_OPA0_BASE);
 csp_opa_t  		*OPA1 	   	= (csp_opa_t *)(APB_OPA1_BASE);
 
+csp_lin_t 		*LIN0   	= (csp_lin_t *)(APB_USART0_BASE);
 
 //devices information, Bass Addr/Irq Num/Pclk Num
 //typedef struct {
