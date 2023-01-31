@@ -98,8 +98,8 @@ void csi_irq_disable(void *pIpBase)
  *  \param[in] ePriority:Priority to set
  *  \return none
  */
-void csi_set_all_irq_priority(irq_prio_e ePriority)
+void csi_irq_set_all_prio(csi_irq_prio_e ePrio)
 {
 	for(uint8_t irq_num = 0;irq_num < CMP3_IRQ_NUM + 1;irq_num++)
-		csi_irq_priority(irq_num,ePriority);
+		csi_irq_priority(irq_num,ePrio);
 }
