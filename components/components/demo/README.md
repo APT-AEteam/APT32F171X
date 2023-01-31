@@ -3,6 +3,17 @@
 
 # Release Notes
 ======================================================
+Version: V1.1.3
+Release Date: 2023.1.31
+
+Release Notes
+1、uart_send_int_demo删除接收判断
+2、完善BT/GPTA/EPT的PWM demo注释，并添加直接设置PRDR和CMP寄存器的api用法
+3、pin_demo中irq函数pc01改为pb02
+4、lowPower_demo.c文件名修改，csp_clk_pm_enable注释完善
+======================================================
+
+======================================================
 Version: V1.1.2
 Release Date: 2022.12.27
 

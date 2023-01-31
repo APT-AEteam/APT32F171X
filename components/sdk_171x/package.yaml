@@ -1,5 +1,5 @@
 name: sdk_171x
-version: v1.1.2
+version: v1.1.3
 description: sdk for apt32f171x
 tag: ""
 keywords: 
@@ -9,9 +9,9 @@ license: ""
 homepage: 
 type: sdk
 depends:
-  - apt32f171x_evb: v1.1.2
+  - apt32f171x_evb: v1.1.3
   - apt_console: v1.0.0
-  - apt_csi: v1.1.2
+  - apt_csi: v1.1.3
 hw_info:
   cpu_id: ""
   cpu_name: ""
@@ -33,6 +33,6 @@ source_file:
 def_config: 
 install: 
 depends_forward:
-  - apt32f171x_evb: v1.1.2
+  - apt32f171x_evb: v1.1.3
   - apt_console: v1.0.0
-  - apt_csi: v1.1.2
+  - apt_csi: v1.1.3
