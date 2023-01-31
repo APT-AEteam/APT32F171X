@@ -60,7 +60,7 @@ int gpta_capture_demo(void)
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体	
 	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
 	tEtbConfig.bySrcIp   = ETB_EXI_TRGOUT1 ;  	//...作为触发源
-	tEtbConfig.byDstIp   =  ETB_GPTA0_SYNCIN2;  //GPTB0 同步输入2作为目标事件
+	tEtbConfig.byDstIp   =  ETB_GPTA0_SYNCIN2;  //GPTA0 同步输入2作为目标事件
 	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
 	csi_etb_init();
 	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功
@@ -283,7 +283,7 @@ int gpta_soft_trgout_demo(void)
 	volatile uint8_t ch;
 
 	csi_bt_start_sync(BT1, 10);
-	csi_bt_set_sync(BT1,BT_TRG_SYNCIN0, BT_TRG_ONCE, ENABLE);  	
+	csi_bt_set_sync(BT1,BT_TRG_SYNCIN0, BT_TRG_ONCE, BT_AREARM_PEND);  	
 
 	csi_gpta_pwmconfig_t tPwmCfg;								  
 	tPwmCfg.byWorkmod        = GPTA_WAVE;                        //WAVE  波形模式
@@ -299,7 +299,7 @@ int gpta_soft_trgout_demo(void)
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体	
 	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
 	tEtbConfig.bySrcIp   = ETB_GPTA0_TRGOUT0 ;  	//...作为触发源
-	tEtbConfig.byDstIp   =  ETB_BT1_SYNCIN0;  //GPTB0 同步输入2作为目标事件
+	tEtbConfig.byDstIp   =  ETB_BT1_SYNCIN0;  //GPTA0 同步输入2作为目标事件
 	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
 	csi_etb_init();
 	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功						//ch < 0,则获取通道号失败		
@@ -341,7 +341,7 @@ int gpta_pwm_syncin4_demo(void)
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体	
 	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
 	tEtbConfig.bySrcIp   = ETB_BT0_TRGOUT ;  	//...作为触发源
-	tEtbConfig.byDstIp   =  ETB_GPTA0_SYNCIN4;  //GPTB0 同步输入4作为目标事件
+	tEtbConfig.byDstIp   =  ETB_GPTA0_SYNCIN4;  //GPTA0 同步输入4作为目标事件
 	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
 	csi_etb_init();
 	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功						//ch < 0,则获取通道号失败		
@@ -416,7 +416,7 @@ int gpta_pwm_syncin0_demo(void)
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体	
 	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
 	tEtbConfig.bySrcIp   = ETB_BT0_TRGOUT ;  	//...作为触发源
-	tEtbConfig.byDstIp   =  ETB_GPTA0_SYNCIN0;  //GPTB0 同步输入1作为目标事件
+	tEtbConfig.byDstIp   =  ETB_GPTA0_SYNCIN0;  //GPTA0 同步输入1作为目标事件
 	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
 	csi_etb_init();
 	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功						//ch < 0,则获取通道号失败		

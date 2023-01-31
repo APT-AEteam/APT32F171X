@@ -112,7 +112,7 @@ void lp_iwdt_wakeup_demo(void)
 	csi_pin_set_high(PC01);
 	
 	
-	csp_clk_pm_enable(SYSCON, ISOSC_STP, ENABLE);   //使能deepsleep下
+	csp_clk_pm_enable(SYSCON, ISOSC_STP, ENABLE);   //deepsleep模式下使能ISOSC运行
 	csi_iwdt_init(IWDT_TO_4096);					//初始化看门狗，溢出时间为4000ms(系统复位时间)
 	csi_iwdt_irq_enable(IWDT_ALARMTO_2_8, ENABLE);	//使能看门狗报警中断，报警时间为2/8溢出时间
 	csi_iwdt_open();								//打开看门狗,记得在syscon_irqhandler函数中（在reliability.c中）喂狗
