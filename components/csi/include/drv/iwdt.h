@@ -43,7 +43,7 @@ typedef enum{
 	IWDT_TO_512,			//512ms
 	IWDT_TO_1024,			//1024ms 
 	IWDT_TO_2048,			//2048ms
-	IWDT_TO_3072,			//3072ms 
+	IWDT_TO_2944,			//2944ms 
 	IWDT_TO_4096, 			//4096ms 
 	IWDT_TO_8192			//8192ms 
 }csi_iwdt_to_e;

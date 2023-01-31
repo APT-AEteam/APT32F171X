@@ -47,7 +47,7 @@ csi_error_t csi_iwdt_init(csi_iwdt_to_e eTimeOut)
 			break;
 		case IWDT_TO_2048:	byOvt = 0x4; s_wIwdtTimeout = 2048;
 			break;
-		case IWDT_TO_3072:	byOvt = 0x5; s_wIwdtTimeout = 3072;
+		case IWDT_TO_2944:	byOvt = 0x5; s_wIwdtTimeout = 2944;
 			break;
 		case IWDT_TO_4096: 	byOvt = 0x6; s_wIwdtTimeout = 4096;
 			break;
