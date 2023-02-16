@@ -11,7 +11,7 @@
   <Dependencies Name="BuildSet"/>
   <MonitorProgress>
     <FlashOperate>83</FlashOperate>
-    <DebugLaunch>93</DebugLaunch>
+    <DebugLaunch>92</DebugLaunch>
   </MonitorProgress>
   <VendorInfo>
     <VendorName>NULL</VendorName>
@@ -235,7 +235,7 @@
     <memoryExpressions>0X40030088;0X400111fc;;</memoryExpressions>
     <statistics>;;32;;MHZ;</statistics>
     <peripheralTabs>
-      <Tab disFormat="Hex">EPT</Tab>
+      <Tab disFormat="Hex">SYSCON</Tab>
     </peripheralTabs>
     <WatchDisplayFormat>1</WatchDisplayFormat>
     <LocalDisplayFormat>1</LocalDisplayFormat>

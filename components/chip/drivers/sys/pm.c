@@ -176,3 +176,16 @@ void csi_pm_clk_enable(csi_pm_clk_e eOsc, bool bEnable)
 		while(csp_get_gcsr(ptSysconBase) & eOsc);
 	}
 }
+
+/**
+  \brief       power strategy control
+  \param[in]   ePmMode: Power Mode(RUN/SLEEP/DEEPSLEEP)
+  \param[in]   byCfgValue: power control value
+  \return      none
+*/
+void csi_pm_power_control(csi_pm_mode_e ePmMode, uint8_t byCfgValue)
+{
+	csp_syscon_t *ptSysconBase  = (csp_syscon_t*)APB_SYS_BASE;
+	csp_load_pwr_key(ptSysconBase);
+	csp_set_pwr_control(ptSysconBase,ePmMode,byCfgValue);
+}

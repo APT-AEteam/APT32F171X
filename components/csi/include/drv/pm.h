@@ -90,6 +90,14 @@ void csi_pm_attach_callback(csi_pm_mode_e eMd, void *pBeforeSlp, void *pWkup);
 */
 void csi_pm_clk_enable(csi_pm_clk_e eOsc, bool bEnable);
 
+/**
+  \brief       power strategy control
+  \param[in]   ePmMode: Power Mode(RUN/SLEEP/DEEPSLEEP)
+  \param[in]   byCfgValue: power control value
+  \return      none
+*/
+void csi_pm_power_control(csi_pm_mode_e ePmMode, uint8_t byCfgValue);
+
 #ifdef __cplusplus
 }
 #endif

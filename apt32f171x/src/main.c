@@ -27,7 +27,7 @@ extern void system_init(void);
 extern void board_init(void);
 extern void user_demo(void);
 extern void __ChipInitHandler(void);
-//---------------------------------------------------------- 
+//----------------------------------------------------------
  
 
 int main()

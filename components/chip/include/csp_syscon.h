@@ -219,6 +219,10 @@ typedef enum {
 #define VOS_REGLP (1<<1ul)
 #define VOS_REGLV (2<<1ul)
 #define VOS_REGON (3<<1ul)
+
+#define RUN_CFG_POS       (8)
+#define SLEEP_CFG_POS     (16)
+#define DEEPSLEEP_CFG_POS (24)
 #define PWRKEY_PWRKEY	  (0xa67a << 16)
 #define PWRKEY_VOSLCK	  (0x6cc7)
 
@@ -755,6 +759,16 @@ static inline  void csp_swd_lock(csp_syscon_t *ptSysconBase)
 static inline  void csp_swd_unlock(csp_syscon_t *ptSysconBase)
 {
 	ptSysconBase->DBGCR = 0x00;
+}
+
+static inline  void csp_load_pwr_key(csp_syscon_t *ptSysconBase)
+{
+	ptSysconBase->PWRKEY |= PWRKEY_PWRKEY | PWRKEY_VOSLCK;
+}
+
+static inline  void csp_set_pwr_control(csp_syscon_t *ptSysconBase,csi_pm_mode_e ePmMode, uint8_t byCfgValue)
+{
+	ptSysconBase->PWRCR  = (ptSysconBase->PWRCR & ~(0x1f << (8 *(ePmMode+1)))) | (0x01 << ePmMode) | (byCfgValue << (8 *(ePmMode+1)));
 }
 
 #endif  /* _CSP_SYSCON_H*/
