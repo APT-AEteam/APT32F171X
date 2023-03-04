@@ -154,6 +154,14 @@ csi_error_t csi_clo_config(clo_src_e eCloSrc, clo_div_e eCloDiv);
  */ 
 void csi_clk_pm_enable(clk_pm_e eClk, bool bEnable);
 
+/** 
+  \brief to calculate SCLK and PCLK frequence according to the current reg content
+   tClkConfig.wSclk and tClkConfig.wPclk will be updated after excuting this function
+  \param[in] none.
+  \return csi_error_t.
+ */
+csi_error_t csi_calc_clk_freq(void);
+
 /**
   \brief       Soc get sclk frequence.
   \param[in]   none

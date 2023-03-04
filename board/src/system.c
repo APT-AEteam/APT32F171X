@@ -40,8 +40,7 @@ __attribute__((weak)) void system_init(void)
 	csi_irq_set_all_prio(IRQ_PRIO_3);		//set all irq priorities to the lowest
 	csi_iwdt_close();						//close iwdt
 	csi_sysclk_config(tClkConfig);			//sysclk config
-	csi_get_sclk_freq();					//get system clk
-	csi_get_pclk_freq();					//get pclk 
+	csi_calc_clk_freq();					//calculate(update) sclk and pclk
 	csi_tick_init();						//init system ticks (coret)
 	CK_CPU_ENALLNORMALIRQ;					//enable total interrupt
 	

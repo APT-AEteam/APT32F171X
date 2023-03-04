@@ -172,79 +172,102 @@ void soc_clk_disable(int32_t wModule)
 		csp_pder1_clk_dis(SYSCON, (uint32_t)wModule - 32U);
 }
 
+/** \brief to calculate SCLK and PCLK frequence according to the current reg content
+ *  tClkConfig.wSclk and tClkConfig.wPclk will be updated after excuting this function
+ *  \param[in] none.
+ *  \return csi_error_t.
+ */
+csi_error_t csi_calc_clk_freq(void)
+{
+	//calculate sclk
+	{
+		cclk_src_e eClkSrc;
+		uint8_t  byHclkDiv;
+		uint32_t wHfoFreq;
+		uint32_t wImoFreq;
+	
+		eClkSrc = ((cclk_src_e) csp_get_clksrc(SYSCON));
+		switch(eClkSrc)
+		{ 	
+			case (SRC_ISOSC): 	
+				tClkConfig.wSclk = ISOSC_VALUE;
+				break;
+			case (SRC_EMOSC): 	
+				tClkConfig.wSclk = EMOSC_VALUE;//Èç¹ûÊ¹ÓÃÍâ²¿¾§Õñ£¬¼ÇµÃ¶ÔEMOSC_VALUE½øÐÐ¸³Öµ
+				break;
+			case (SRC_IMOSC):	
+				wImoFreq = csp_get_imosc_fre(SYSCON);
+				switch (wImoFreq)
+				{
+					case (0): 
+						tClkConfig.wSclk = IMOSC_5M_VALUE;
+						break;
+					case (1): 
+						tClkConfig.wSclk = IMOSC_4M_VALUE;
+						break;
+					case (2): 
+						tClkConfig.wSclk = IMOSC_2M_VALUE;	
+						break;
+					case (3): 
+						tClkConfig.wSclk = IMOSC_131K_VALUE;	
+						break;
+					default: 
+						return CSI_ERROR;	
+						break;
+				}
+				break;
+			case  (SRC_HFOSC):	
+				wHfoFreq =  csp_get_hfosc_fre(SYSCON);
+				switch (wHfoFreq)
+				{
+					case (0): 
+						tClkConfig.wSclk = HFOSC_48M_VALUE;
+						break;
+					case (1): 
+						tClkConfig.wSclk = HFOSC_24M_VALUE;
+						break;
+					case (2): 
+						tClkConfig.wSclk = HFOSC_12M_VALUE;	
+						break;
+					case (3): 
+						tClkConfig.wSclk = HFOSC_6M_VALUE;	
+						break;
+				default:  
+						return CSI_ERROR;	
+						break;
+				}
+				break;
+			default:
+				return CSI_ERROR;
+				break;
+		}
+		byHclkDiv = csp_get_hclk_div(SYSCON);
+
+		tClkConfig.wSclk = tClkConfig.wSclk/g_wHclkDiv[byHclkDiv];
+	}
+	
+	//calculate pclk
+	{		
+		uint32_t wPdiv = 1;
+		uint32_t wSclk = csi_get_sclk_freq();
+		wPdiv = csp_get_pdiv(SYSCON);
+		
+		if(wPdiv == 0) 
+			tClkConfig.wPclk = wSclk;
+		else           
+			tClkConfig.wPclk = wSclk/(wPdiv<<1);
+	}
+	
+	return CSI_OK;
+}
+
 /** \brief to get SCLK frequence according to the current reg content
  *  tClkConfig.wSclk will be updated after excuting this function
  *  \param[in] none.
  *  \return csi_error_t.
  */ 
 uint32_t csi_get_sclk_freq(void)
-{	
-	//csi_error_t ret = CSI_OK;
-	cclk_src_e eClkSrc;
-	uint8_t  byHclkDiv;
-	uint32_t wHfoFreq;
-	uint32_t wImoFreq;
-	
-    eClkSrc = ((cclk_src_e) csp_get_clksrc(SYSCON));
-	switch(eClkSrc)
-	{ 	case (SRC_ISOSC): 	
-			tClkConfig.wSclk = ISOSC_VALUE;
-			break;
-		case (SRC_EMOSC): 	
-			tClkConfig.wSclk = EMOSC_VALUE;//å¦‚æžœä½¿ç”¨å¤–éƒ¨æ™¶æŒ¯ï¼Œè®°å¾—å¯¹EMOSC_VALUEè¿›è¡Œèµ‹å€¼
-			break;
-		case (SRC_IMOSC):	
-			wImoFreq = csp_get_imosc_fre(SYSCON);
-			switch (wImoFreq)
-			{
-				case (0): 
-					tClkConfig.wSclk = IMOSC_5M_VALUE;
-					break;
-				case (1): 
-					tClkConfig.wSclk = IMOSC_4M_VALUE;
-					break;
-				case (2): 
-					tClkConfig.wSclk = IMOSC_2M_VALUE;	
-					break;
-				case (3): 
-					tClkConfig.wSclk = IMOSC_131K_VALUE;	
-					break;
-				default: 
-					return CSI_ERROR;	
-					break;
-			}
-			break;
-		case  (SRC_HFOSC):	
-			wHfoFreq =  csp_get_hfosc_fre(SYSCON);
-			switch (wHfoFreq)
-			{
-				case (0): 
-					tClkConfig.wSclk = HFOSC_48M_VALUE;
-					break;
-				case (1): 
-					tClkConfig.wSclk = HFOSC_24M_VALUE;
-					break;
-				case (2): 
-					tClkConfig.wSclk = HFOSC_12M_VALUE;	
-					break;
-				case (3): 
-					tClkConfig.wSclk = HFOSC_6M_VALUE;	
-					break;
-				default:  
-					return CSI_ERROR;	
-					break;
-			}
-			break;
-		default:
-			return CSI_ERROR;
-			break;
-	}
-	byHclkDiv = csp_get_hclk_div(SYSCON);
-
-	
-	//g_wSystemClk = g_wSystemClk / g_wHclkDiv[byHclkDiv];
-	tClkConfig.wSclk = tClkConfig.wSclk/g_wHclkDiv[byHclkDiv];
-	
+{		
 	return tClkConfig.wSclk;
 }
 
@@ -255,20 +278,6 @@ uint32_t csi_get_sclk_freq(void)
  */ 
 uint32_t csi_get_pclk_freq(void)
 {
-    uint32_t wDiv, wPdiv = 1;
-	wDiv = csp_get_pdiv(SYSCON);
-	if(wDiv == 0)
-		wPdiv = 1;
-	else if(wDiv == 1)
-		wPdiv = 2;
-	else if(wDiv & 0x02)
-		wPdiv = 4;
-	else if(wDiv & 0x04)
-		wPdiv = 8;
-	else if(wDiv & 0x08)
-		wPdiv = 16;
-	
-	tClkConfig.wPclk = tClkConfig.wSclk / wPdiv;
 	return tClkConfig.wPclk;
 }
 
@@ -348,7 +357,7 @@ void apt_timer_set_load_value(uint32_t wTimesOut)
 			wTmLoad = csi_get_pclk_freq() / 1000000 * wTimesOut / wClkDivn ;	//bt prdr load value
 		}			
 	}
-	else if((csi_get_pclk_freq() % 4000) <= 2000)              //æœ€å¤§5556000 
+	else if((csi_get_pclk_freq() % 4000) <= 2000)              //×î´ó5556000 
 	{
 		wClkDivn = csi_get_pclk_freq() / 4000 * wTimesOut / 250 / 60000;		//bt clk div value
 		if(wClkDivn == 0)
