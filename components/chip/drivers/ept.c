@@ -644,7 +644,7 @@ csi_error_t csi_ept_emergency_config(csp_ept_t *ptEptBase, csi_ept_emergency_con
 			  case (CMP_5): wEmpol=( wEmpol  &~ POL_MSK_EBI(9)) | (tCfg -> byPolEbix <<POL_POS_EBI(9) );break;
 			  case (ORL0):	 break;
               case (ORL1):	 break;
-			  default:return CSI_ERROR;break;
+			  default:break;
 		 }
 		csp_ept_set_empol(ptEptBase,wEmpol);
 	}
