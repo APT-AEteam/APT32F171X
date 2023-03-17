@@ -698,20 +698,23 @@ typedef enum {
 	CMP_3,
 	CMP_4,
 	CMP_5,
+	SYNCIN4,
+	SYNCIN5,
 	LVD,
 	ORL0 = 0xe,
 	ORL1,
 }csp_ept_ebi_e;
 
-#define ORLx_EP0  1
-#define ORLx_EP1  1<<1
-#define	ORLx_EP2  1<<2
-#define	ORLx_EP3  1<<3
-#define	ORLx_EP4  1<<4
-#define	ORLx_EP5  1<<5
-#define	ORLx_EP6  1<<6
-#define ORLx_EP7  1<<7
-
+#define ORLx_EBI0  1<<0
+#define ORLx_EBI1  1<<1
+#define	ORLx_EBI2  1<<2
+#define	ORLx_EBI3  1<<3
+#define	ORLx_CMP0  1<<4
+#define	ORLx_CMP1  1<<5
+#define	ORLx_CMP2  1<<6
+#define ORLx_CMP3  1<<7
+#define	ORLx_CMP4  1<<8
+#define ORLx_CMP5  1<<9
 
 
 

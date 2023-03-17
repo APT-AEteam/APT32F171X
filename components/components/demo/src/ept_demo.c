@@ -455,11 +455,11 @@ int ept_pwm_dz_em_demo(void)
 //    {  tEptEmergencyCfg.byOsrldmd= EPT_LDEMOSR_ZRO;
 //	}	
 //	if(tEptEmergencyCfg.byEpxInt ==ORL0)
-//		{tEptEmergencyCfg.byOrl0 = ORLx_EP2|ORLx_EP3 ;
+//		{tEptEmergencyCfg.byOrl0 = ORLx_EBI2|ORLx_EBI3 ;
 //		 tEptEmergencyCfg.byFltpace0  = EPFLT0_DIS;            //EP0、EP1、EP2和EP3的数字去抖滤波检查周期数
 //	    }
 //	else if(tEptEmergencyCfg.byEpxInt ==ORL1)
-//		{tEptEmergencyCfg.byOrl1 = ORLx_EP2|ORLx_EP3 ; 
+//		{tEptEmergencyCfg.byOrl1 = ORLx_EBI2|ORLx_EBI3 ; 
 //		 tEptEmergencyCfg.byFltpace1  = EPFLT1_2P;             //EP4、EP5、EP6和EP7的数字去抖滤波检查周期数
 //		}
 //	csi_ept_emergency_config(EPT0,&tEptEmergencyCfg);         //配置EPx
