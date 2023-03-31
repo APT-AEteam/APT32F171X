@@ -103,12 +103,14 @@ csi_error_t csi_sysclk_config(csi_clk_config_t tClkCfg)
 			break;
 	}
 	
-	if (wTargetSclk >= 16000000) {
+	if (wTargetSclk >= 8000000) {
 		IFC->CEDR = IFC_CLKEN;
 		if (wTargetSclk >= 24000000)
 			IFC->MR = (IFC->MR & (~PF_SPEED_MSK) & (~PF_WAIT_MSK)) | HIGH_SPEED | PF_WAIT2;
+		else if(wTargetSclk > 16000000)
+			IFC->MR = (IFC->MR & (~PF_SPEED_MSK) & (~PF_WAIT_MSK)) | HIGH_SPEED | PF_WAIT1;
 		else 
-			IFC->MR = (IFC->MR & (~PF_SPEED_MSK) & (~PF_WAIT_MSK) )| HIGH_SPEED | PF_WAIT1;
+			IFC->MR = (IFC->MR & (~PF_SPEED_MSK) & (~PF_WAIT_MSK) )| HIGH_SPEED | PF_WAIT0;
 		csp_set_sdiv(SYSCON, tClkCfg.eSdiv);
 		csp_set_clksrc(SYSCON, eSrc);
 	}
@@ -193,7 +195,7 @@ csi_error_t csi_calc_clk_freq(void)
 				tClkConfig.wSclk = ISOSC_VALUE;
 				break;
 			case (SRC_EMOSC): 	
-				tClkConfig.wSclk = EMOSC_VALUE;//Èç¹ûÊ¹ÓÃÍâ²¿¾§Õñ£¬¼ÇµÃ¶ÔEMOSC_VALUE½øÐÐ¸³Öµ
+				tClkConfig.wSclk = EMOSC_VALUE;//å¦‚æžœä½¿ç”¨å¤–éƒ¨æ™¶æŒ¯ï¼Œè®°å¾—å¯¹EMOSC_VALUEè¿›è¡Œèµ‹å€¼
 				break;
 			case (SRC_IMOSC):	
 				wImoFreq = csp_get_imosc_fre(SYSCON);
@@ -357,7 +359,7 @@ void apt_timer_set_load_value(uint32_t wTimesOut)
 			wTmLoad = csi_get_pclk_freq() / 1000000 * wTimesOut / wClkDivn ;	//bt prdr load value
 		}			
 	}
-	else if((csi_get_pclk_freq() % 4000) <= 2000)              //×î´ó5556000 
+	else if((csi_get_pclk_freq() % 4000) <= 2000)              //æœ€å¤§5556000 
 	{
 		wClkDivn = csi_get_pclk_freq() / 4000 * wTimesOut / 250 / 60000;		//bt clk div value
 		if(wClkDivn == 0)
