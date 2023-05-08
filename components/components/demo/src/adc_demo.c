@@ -154,7 +154,7 @@ int adc_samp_continuous_demo(void)
  *  \param[in] none
  *  \return error code
  */
-void adc_irqhandler(csp_adc_t *ptAdcBase)
+__attribute__((weak)) void adc_irqhandler(csp_adc_t *ptAdcBase)
 {
 	uint8_t i;
  	volatile uint16_t hwDataBuf[3];

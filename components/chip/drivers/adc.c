@@ -23,69 +23,6 @@
 /* Private variablesr------------------------------------------------------*/
 csi_adc_samp_t	g_tAdcSamp;
 
-/** \brief adc interrupt handle function
- * 
- *  \param[in] ptAdcBase: pointer of adc register structure
- *  \return none
- */ 
-__attribute__((weak)) void adc_irqhandler(csp_adc_t *ptAdcBase)
-{
-	uint8_t i;
-	uint32_t wIntStat = csp_adc_get_sr(ptAdcBase) & csp_adc_get_imr(ptAdcBase);
-	
-	//ADC CMP interrupt
-	switch(wIntStat & 0xf0)
-	{
-		case ADC_INTSRC_CMP0H:
-			csp_adc_clr_sr(ptAdcBase, ADC12_CMP0H);	
-			break;
-		case ADC_INTSRC_CMP0L:
-			csp_adc_clr_sr(ptAdcBase, ADC12_CMP0L);	
-			break;
-		case ADC_INTSRC_CMP1H:
-			csp_adc_clr_sr(ptAdcBase, ADC12_CMP1H);	
-			break;
-		case ADC_INTSRC_CMP1L:
-			csp_adc_clr_sr(ptAdcBase, ADC12_CMP1L);	
-			break;
-	}
-	
-	//ADC SEQ_END interrupt
-	switch(g_tAdcSamp.hwSampCnt)				
-	{
-		case 1:																		
-			for(i = 0; i < g_tAdcSamp.byChnlNum; i++)						//data length(length = 1)  of channel 	
-			{
-				if(wIntStat & ADC12_SEQ(i))									//sequence channel sample complete?
-				{
-					g_tAdcSamp.phwData[i] = csp_adc_get_data(ptAdcBase, i);	//get adc channel value
-					csp_adc_clr_sr(ptAdcBase, ADC12_SEQ(i));				//clr channel status
-				}
-			}
-			
-			g_tAdcSamp.byConvStat = ADC_STATE_DONE;							//sequence	sample complete
-			
-			break;
-		default:			
-			if(g_tAdcSamp.hwChnlDep)										//data length(length > 1)  of channel 			
-			{
-				for(i = 0; i < g_tAdcSamp.byChnlNum; i++)
-				{
-					if(wIntStat & ADC12_SEQ(i))								//sequence channel sample complete?
-					{
-						*(g_tAdcSamp.phwData + i*g_tAdcSamp.hwSampCnt + g_tAdcSamp.hwChnlDep -1) = csp_adc_get_data(ptAdcBase, i);
-						csp_adc_clr_sr(ptAdcBase, ADC12_SEQ(i));			//clr channel status
-					}
-				}
-				g_tAdcSamp.hwChnlDep --;
-			}
-			
-			if(g_tAdcSamp.hwChnlDep == 0)
-				g_tAdcSamp.byConvStat = ADC_STATE_DONE;						//sequence	sample complete
-	
-			break;
-	}
-}
 /** \brief initialize adc data structure
  * 
  *  \param[in] ptAdcBase: pointer of adc register structure
