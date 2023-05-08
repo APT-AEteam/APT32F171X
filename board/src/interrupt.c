@@ -197,7 +197,7 @@ void GPTA0IntHandler(void)
 {
 #if GPTA0_INT_HANDLE_EN
     // ISR content ...
-	gpta0_irqhandler(GPTA0);
+	gpta0_irqhandler(GPTA0); //this is a weak function defined in gpta_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -245,7 +245,7 @@ void CMP0IntHandler(void)
 {
 #if CMP0_INT_HANDLE_EN
 	// ISR content ...
-	cmp_irqhandler(CMP);
+	cmp_irqhandler(CMP); //this is a weak function defined in cmp_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -253,7 +253,7 @@ void CMP1IntHandler(void)
 {
 #if CMP1_INT_HANDLE_EN
 	// ISR content ...
-	cmp_irqhandler(CMP);
+	cmp_irqhandler(CMP); //this is a weak function defined in cmp_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -261,7 +261,7 @@ void CMP2IntHandler(void)
 {
 #if CMP2_INT_HANDLE_EN
 	// ISR content ...
-	cmp_irqhandler(CMP);
+	cmp_irqhandler(CMP); //this is a weak function defined in cmp_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -269,7 +269,7 @@ void CMP3IntHandler(void)
 {
 #if CMP3_INT_HANDLE_EN
 	// ISR content ...
-	cmp_irqhandler(CMP);
+	cmp_irqhandler(CMP);  //this is a weak function defined in cmp_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -277,7 +277,7 @@ void CMP4IntHandler(void)
 {
 #if CMP4_INT_HANDLE_EN
 	// ISR content ...
-	cmp_irqhandler(CMP);
+	cmp_irqhandler(CMP);  //this is a weak function defined in cmp_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -285,7 +285,7 @@ void CMP5IntHandler(void)
 {
 #if CMP5_INT_HANDLE_EN
 	// ISR content ...
-	cmp_irqhandler(CMP);
+	cmp_irqhandler(CMP);  //this is a weak function defined in adc_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 /*************************************************************/
