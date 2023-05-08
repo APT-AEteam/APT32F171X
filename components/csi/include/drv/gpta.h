@@ -19,8 +19,6 @@
 extern "C" {
 #endif
 
-extern uint32_t gGpta0Prd;
-extern uint32_t gGpta1Prd;
 typedef struct csi_gpta_config    csi_gpta_config_t;
 struct csi_gpta_config {
     uint8_t		byWorkmod;          //Count or capture

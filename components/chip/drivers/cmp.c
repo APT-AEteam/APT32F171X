@@ -23,45 +23,6 @@
 /* externs variablesr------------------------------------------------------*/
 /* Private variablesr------------------------------------------------------*/
 
-/** \brief CMP interrupt handle function
- * 
- *  \param[in] ptCmpBase: pointer of cmp register structure
- *  \param[in] byIdx: cmp id number(0~5)
- *  \return none
- */ 
-__attribute__((weak)) void cmp_irqhandler(csp_cmp_t *ptCmpBase)
-{
-    // ISR content ...
-	if(csi_cmp_get_misr(ptCmpBase) & CMP_EDGEDET0_INT)
-	{
-		csi_cmp_int_clear(ptCmpBase,CMP_INTSRC_EDGEDET0);
-	}
-	else if(csi_cmp_get_misr(ptCmpBase) & CMP_EDGEDET1_INT)
-	{
-		csi_cmp_int_clear(ptCmpBase,CMP_INTSRC_EDGEDET1);
-	}
-	else if(csi_cmp_get_misr(ptCmpBase) & CMP_EDGEDET2_INT)
-	{
-		csi_cmp_int_clear(ptCmpBase,CMP_INTSRC_EDGEDET2);
-	}
-	else if(csi_cmp_get_misr(ptCmpBase) & CMP_EDGEDET3_INT)
-	{
-		csi_cmp_int_clear(ptCmpBase,CMP_INTSRC_EDGEDET3);
-	}
-	else if(csi_cmp_get_misr(ptCmpBase) & CMP_EDGEDET4_INT)
-	{
-		csi_cmp_int_clear(ptCmpBase,CMP_INTSRC_EDGEDET4);
-	}
-	else if(csi_cmp_get_misr(ptCmpBase) & CMP_EDGEDET5_INT)
-	{
-		csi_cmp_int_clear(ptCmpBase,CMP_INTSRC_EDGEDET5);
-	}
-	else if(csi_cmp_get_misr(ptCmpBase) & CMP_INTSRC_CMP1_NMAX)
-	{
-		csi_cmp_int_clear(ptCmpBase,CMP_INTSRC_CMP1_NMAX);
-	}
-}
-
 /** \brief CMP SYSCON interrupt enable function
  * 
  *  \param[in] byIdx: cmp id number(0~5)

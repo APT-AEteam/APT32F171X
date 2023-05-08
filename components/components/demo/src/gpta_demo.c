@@ -143,9 +143,6 @@ int gpta_pwm_demo(void)
 	tPwmCfg.wInt 		 	 = GPTA_INTSRC_CBU;                     //interrupt
 	csi_gpta_wave_init(GPTA0, &tPwmCfg);
 	
-//	csp_gpta_dbg_enable(GPTA0,ENABLE);
-//	csp_gpta_set_phsr(GPTA0,gGpta0Prd/2);csp_gpta_set_phsen(GPTA0,1);
-//	csp_gpta_set_phsr(GPTA0,0x80000000+gGpta0Prd/2);
 	csi_gpta_set_sync(GPTA0, GPTA_TRG_SYNCEN0, GPTA_TRG_CONTINU, GPTA_AUTO_REARM_ZRO);//使能SYNCIN2外部触发
 	csi_gpta_set_extsync_chnl(GPTA0, GPTA_TRG_SYNCEN0,GPTA_TRGOUT0);                  //SYNCIN2--TRGSEL0
 	csi_gpta_set_evtrg(GPTA0, GPTA_TRGOUT0, GPTA_TRG01_SYNC);                         //TRGSEL0	
@@ -474,6 +471,119 @@ int gpta_pwm_syncin0_demo(void)
 		    mdelay(200);
 	}	
     return iRet;
+}
+
+//uint32_t gTick;
+static uint32_t s_wGpta_Cmp_Buff[4] = {0};
+
+/** \brief gpta interrupt handle weak function
+ *   		- 
+ *     		- 
+ * 			- 
+ *  \param[in] none
+ *  \return    none
+ */
+__attribute__((weak)) void gpta0_irqhandler(csp_gpta_t *ptGptaBase)
+{
+
+	if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_PEND))==GPTA_INT_PEND)
+	{	
+		csi_gpio_port_set_high(GPIOA0, (0x01ul << 0));			
+            nop;
+		csi_gpio_port_set_low (GPIOA0, (0x01ul << 0));
+	    csp_gpta_clr_int(ptGptaBase, GPTA_INT_PEND);
+	}
+	if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_TRGEV0))==GPTA_INT_TRGEV0)
+	{	
+		csi_pin_set_high(PB04);				//输出高			
+	    csp_gpta_clr_int(ptGptaBase, GPTA_INT_TRGEV0);
+		csi_pin_set_low(PB04);
+	}
+	if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_TRGEV1))==GPTA_INT_TRGEV1)
+	{	csi_pin_set_high(PB04);
+//		csi_gpta_change_ch_duty(GPTA0,GPTA_CH_A, 50);
+//	    csi_gpta_change_ch_duty(GPTA0,GPTA_CH_B, 50);		
+	    csp_gpta_clr_int(ptGptaBase, GPTA_INT_TRGEV1);
+	   		csi_pin_set_low(PB04);
+	}
+    if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CAPLD0))==GPTA_INT_CAPLD0)
+	{		
+	 s_wGpta_Cmp_Buff[0]=csp_gpta_get_cmpa(ptGptaBase);
+	 csp_gpta_clr_int(ptGptaBase, GPTA_INT_CAPLD0);			
+	}
+	if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CAPLD1))==GPTA_INT_CAPLD1)
+	{		
+     	s_wGpta_Cmp_Buff[0]=csp_gpta_get_cmpa(ptGptaBase);
+		s_wGpta_Cmp_Buff[1]=csp_gpta_get_cmpb(ptGptaBase);
+		csp_gpta_clr_int(ptGptaBase, GPTA_INT_CAPLD1);			
+	}
+    if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CAPLD2))==GPTA_INT_CAPLD2)
+	{		
+     	s_wGpta_Cmp_Buff[0]=csp_gpta_get_cmpa(ptGptaBase);
+		s_wGpta_Cmp_Buff[1]=csp_gpta_get_cmpb(ptGptaBase);
+		s_wGpta_Cmp_Buff[2]=csp_gpta_get_cmpaa(ptGptaBase);
+		csp_gpta_clr_int(ptGptaBase, GPTA_INT_CAPLD2);			
+	}
+	if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CAPLD3))==GPTA_INT_CAPLD3)
+	{		
+     	s_wGpta_Cmp_Buff[0]=csp_gpta_get_cmpa(ptGptaBase);
+		s_wGpta_Cmp_Buff[1]=csp_gpta_get_cmpb(ptGptaBase);
+		s_wGpta_Cmp_Buff[2]=csp_gpta_get_cmpaa(ptGptaBase);
+		s_wGpta_Cmp_Buff[3]=csp_gpta_get_cmpba(ptGptaBase);
+		csp_gpta_clr_int(ptGptaBase, GPTA_INT_CAPLD3);			
+	}	
+	
+    if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CBU))==GPTA_INT_CBU)
+	{	
+//		csi_pin_set_high(PB04);
+//		gTick++;
+//		if(gTick>=5){	
+//								   	
+//	                               gTick=0;
+								   //csi_pin_set_high(PA00);
+//								   csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_IMM, GPTA_LDCMP_ZRO ,GPTA_COMPA);
+//	                               csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_IMM, GPTA_LDCMP_ZRO ,GPTA_COMPB);
+//								   csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 25);
+//	                               csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 25);
+								   //csi_pin_set_low(PA00);
+//		                         }
+//		else{
+//			                       csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_COMPA);
+//	                               csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_COMPB);
+//								   csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 50);
+//	                               csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 50);
+//		}
+//        gTick++;
+//		if(gTick>=5){	 gTick=0;
+//		             csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 50);
+//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 50);	
+//					 
+//					}
+//		else{
+//			         csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 30);
+//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 30);		
+//		}			
+            				 
+	    csp_gpta_clr_int(ptGptaBase, GPTA_INT_CBU);
+//	   	csi_pin_set_low(PB04);
+	}
+    if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CBD))==GPTA_INT_CBD)
+	{	
+//		csi_pin_set_high(PB04);	
+//	    gTick++;
+//		if(gTick>=5){	 gTick=0;
+//		             csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 70);
+//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 70);	
+//					 
+//					}
+//		else{
+//			         csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 90);
+//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 90);		
+//		}			
+            		
+        csp_gpta_clr_int(ptGptaBase, GPTA_INT_CBD);	
+//	   	csi_pin_set_low(PB04);
+	}
 }
 
 

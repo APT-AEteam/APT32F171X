@@ -14,131 +14,6 @@
 #include "csp_gpta.h"
 #include "drv/pin.h"
 #include <drv/irq.h>
-extern void load1(void);
-uint32_t gTick;
-uint32_t gGpta0Prd;
-uint32_t gGpta1Prd;
-uint32_t wGpta_Cmp_Buff[4] = {0};
-
-/** \brief gpta interrupt handle weak function
- *   		- 
- *     		- 
- * 			- 
- *  \param[in] none
- *  \return    none
- */
-__attribute__((weak)) void gpta0_irqhandler(csp_gpta_t *ptGptaBase)
-{
-
-	if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_PEND))==GPTA_INT_PEND)
-	{	
-		csi_gpio_port_set_high(GPIOA0, (0x01ul << 0));			
-            nop;
-		csi_gpio_port_set_low (GPIOA0, (0x01ul << 0));
-	    csp_gpta_clr_int(ptGptaBase, GPTA_INT_PEND);
-	}
-	if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_TRGEV0))==GPTA_INT_TRGEV0)
-	{	
-		csi_pin_set_high(PB04);				//输出高
-//		csi_gpta_change_ch_duty(GPTA0,GPTA_CH_A, 25);
-//	    csi_gpta_change_ch_duty(GPTA0,GPTA_CH_B, 25);
-//        gTick++;
-//		if(gTick>=5){	 gTick=0;
-//					csp_gpta_set_phsr(GPTA0,0x80000000+gGpta0Prd/2);
-//					}
-//		else{
-//			        csp_gpta_set_phsr(GPTA0,gGpta0Prd/2);
-//		}			
-	    csp_gpta_clr_int(ptGptaBase, GPTA_INT_TRGEV0);
-		csi_pin_set_low(PB04);
-	}
-	if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_TRGEV1))==GPTA_INT_TRGEV1)
-	{	csi_pin_set_high(PB04);
-//		csi_gpta_change_ch_duty(GPTA0,GPTA_CH_A, 50);
-//	    csi_gpta_change_ch_duty(GPTA0,GPTA_CH_B, 50);		
-	    csp_gpta_clr_int(ptGptaBase, GPTA_INT_TRGEV1);
-	   		csi_pin_set_low(PB04);
-	}
-    if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CAPLD0))==GPTA_INT_CAPLD0)
-	{		
-	 wGpta_Cmp_Buff[0]=csp_gpta_get_cmpa(ptGptaBase);
-	 csp_gpta_clr_int(ptGptaBase, GPTA_INT_CAPLD0);			
-	}
-	if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CAPLD1))==GPTA_INT_CAPLD1)
-	{		
-     	wGpta_Cmp_Buff[0]=csp_gpta_get_cmpa(ptGptaBase);
-		wGpta_Cmp_Buff[1]=csp_gpta_get_cmpb(ptGptaBase);
-		csp_gpta_clr_int(ptGptaBase, GPTA_INT_CAPLD1);			
-	}
-    if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CAPLD2))==GPTA_INT_CAPLD2)
-	{		
-     	wGpta_Cmp_Buff[0]=csp_gpta_get_cmpa(ptGptaBase);
-		wGpta_Cmp_Buff[1]=csp_gpta_get_cmpb(ptGptaBase);
-		wGpta_Cmp_Buff[2]=csp_gpta_get_cmpaa(ptGptaBase);
-		csp_gpta_clr_int(ptGptaBase, GPTA_INT_CAPLD2);			
-	}
-	if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CAPLD3))==GPTA_INT_CAPLD3)
-	{		
-     	wGpta_Cmp_Buff[0]=csp_gpta_get_cmpa(ptGptaBase);
-		wGpta_Cmp_Buff[1]=csp_gpta_get_cmpb(ptGptaBase);
-		wGpta_Cmp_Buff[2]=csp_gpta_get_cmpaa(ptGptaBase);
-		wGpta_Cmp_Buff[3]=csp_gpta_get_cmpba(ptGptaBase);
-		csp_gpta_clr_int(ptGptaBase, GPTA_INT_CAPLD3);			
-	}	
-	
-    if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CBU))==GPTA_INT_CBU)
-	{	
-//		csi_pin_set_high(PB04);
-//		gTick++;
-//		if(gTick>=5){	
-//								   	
-//	                               gTick=0;
-								   //csi_pin_set_high(PA00);
-								   //load1();
-//								   csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_IMM, GPTA_LDCMP_ZRO ,GPTA_COMPA);
-//	                               csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_IMM, GPTA_LDCMP_ZRO ,GPTA_COMPB);
-//								   csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 25);
-//	                               csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 25);
-								   //csi_pin_set_low(PA00);
-//		                         }
-//		else{
-//			                       csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_COMPA);
-//	                               csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_COMPB);
-//								   csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 50);
-//	                               csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 50);
-//		}
-//        gTick++;
-//		if(gTick>=5){	 gTick=0;
-//		             csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 50);
-//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 50);	
-//					 
-//					}
-//		else{
-//			         csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 30);
-//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 30);		
-//		}			
-            				 
-	    csp_gpta_clr_int(ptGptaBase, GPTA_INT_CBU);
-//	   	csi_pin_set_low(PB04);
-	}
-    if(((csp_gpta_get_misr(ptGptaBase) & GPTA_INT_CBD))==GPTA_INT_CBD)
-	{	
-//		csi_pin_set_high(PB04);	
-//	    gTick++;
-//		if(gTick>=5){	 gTick=0;
-//		             csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 70);
-//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 70);	
-//					 
-//					}
-//		else{
-//			         csi_gpta_change_ch_duty(GPTA0,GPTA_COMPA, 90);
-//	                 csi_gpta_change_ch_duty(GPTA0,GPTA_COMPB, 90);		
-//		}			
-            		
-        csp_gpta_clr_int(ptGptaBase, GPTA_INT_CBD);	
-//	   	csi_pin_set_low(PB04);
-	}
-}
 
 /** \brief capture configuration
  * 
@@ -185,9 +60,7 @@ csi_error_t csi_gpta_capture_init(csp_gpta_t *ptGptaBase, csi_gpta_captureconfig
 		csp_gpta_int_enable(ptGptaBase, ptGptaPwmCfg->wInt, true);		//enable interrupt
 		csi_irq_enable((uint32_t *)ptGptaBase);							//enable  irq
 	}
-	
-//	gGpta0Prd=wPrdrLoad;
-	
+		
 	return CSI_OK;
 }
 
@@ -245,9 +118,7 @@ csi_error_t  csi_gpta_wave_init(csp_gpta_t *ptGptaBase, csi_gpta_pwmconfig_t *pt
 		csp_gpta_int_enable(ptGptaBase, ptGptaPwmCfg->wInt, true);		//enable interrupt
 		csi_irq_enable((uint32_t *)ptGptaBase);							    //enable  irq
 	}
-	
-	gGpta0Prd=wPrdrLoad;
-	
+		
 	return CSI_OK;	
 }
 
