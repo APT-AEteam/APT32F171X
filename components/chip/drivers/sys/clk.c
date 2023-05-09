@@ -17,7 +17,7 @@
 #include "board_config.h"
 
 //extern csi_clkmap_t clk_map[];
-extern csi_devmap_t dev_map[];
+extern csi_devmap_t g_tDevMap[];
 
 /** \brief clock enable
  * 
@@ -43,7 +43,7 @@ void csi_clk_enable(void *pIpBase)
 //        ptMap++;
 //    }
 
-	csi_devmap_t *ptMap = dev_map;
+	csi_devmap_t *ptMap = g_tDevMap;
 	uint32_t wIpBase = (uint32_t)pIpBase;
 	
 	while(ptMap->hwRegBase) 
@@ -87,7 +87,7 @@ void csi_clk_disable(void *pIpBase)
 //        ptMap++;
 //    }
 	
-	csi_devmap_t *ptMap = dev_map;
+	csi_devmap_t *ptMap = g_tDevMap;
 	uint32_t wIpBase = (uint32_t)pIpBase;
 	
 	while(ptMap->hwRegBase)

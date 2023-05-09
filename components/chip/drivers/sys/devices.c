@@ -57,7 +57,7 @@ csp_lin_t 		*LIN0   	= (csp_lin_t *)(APB_USART0_BASE);
 //	uint8_t byPcerNum;				//pclk num in pcer
 //} csi_devmap_t;
 
-const csi_devmap_t dev_map[] = 
+const csi_devmap_t g_tDevMap[] = 
 {
 	{(uint16_t)((CORET_ADDR_BASE >> 16) | ((CORET_ADDR_BASE & 0xffff) >> 4)),	CORET_IRQ_NUM,		CORET_SYS_CLK	},			//coret
 	{(uint16_t)((APB_SYS_BASE >> 16) 	| ((APB_SYS_BASE & 0xffff) >> 4)), 		SYSCON_IRQ_NUM,		0xff			},			//syscon

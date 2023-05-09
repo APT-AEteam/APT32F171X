@@ -33,7 +33,7 @@ typedef struct {
     csp_uart_t *uart;
 } sys_console_t;
 
-extern sys_console_t console;
+extern sys_console_t g_tConsole;
 
 int32_t console_init(sys_console_t *handle);
 
