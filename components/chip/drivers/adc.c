@@ -396,7 +396,7 @@ csi_error_t csi_adc_set_sync(csp_adc_t *ptAdcBase, csi_adc_trgin_e eTrgIn, csi_a
  */
 void csi_adc_rearm_sync(csp_adc_t *ptAdcBase, csi_adc_trgin_e eTrgIn)
 {
-	csp_adc_rearm_sync(ptAdcBase, (adc_trgin_e)eTrgIn);
+	csp_adc_rearm_sync(ptAdcBase, (adc_sync_e)eTrgIn);
 }
 
 /** \brief set adc evtrg output

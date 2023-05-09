@@ -56,3 +56,13 @@ csi_error_t wwdt_demo(void)
 	
 	return CSI_ERROR;
 }
+
+/** \brief wwdt interrupt handle function
+ * 
+*  \param[in] ptWwdtBase: pointer of wwdt register structure
+ *  \return none
+ */ 
+__attribute__((weak)) void wwdt_irqhandler(csp_wwdt_t *ptWwdtBase)
+{
+	csp_wwdt_clr_isr(ptWwdtBase);
+}

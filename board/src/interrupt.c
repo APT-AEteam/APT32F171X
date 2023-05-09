@@ -173,7 +173,7 @@ void WWDTHandler(void)
 {
 #if WWDT_INT_HANDLE_EN
 	// ISR content ...
-	wwdt_irqhandler(WWDT);
+	wwdt_irqhandler(WWDT);   //this is a weak function defined in wwdt_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
