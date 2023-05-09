@@ -153,7 +153,7 @@ csi_error_t csi_adc_stop(csp_adc_t *ptAdcBase)
  */
 void csi_adc_conv_mode(csp_adc_t *ptAdcBase, csi_adc_conv_mode_e eConvMode)
 {
-	csp_adc_set_conv_mode(ptAdcBase, eConvMode);
+	csp_adc_set_conv_mode(ptAdcBase, (adc_conv_mode_e)eConvMode);
 }
 /** \brief set adc conversion sequence priority
  * 
@@ -304,10 +304,10 @@ csi_error_t csi_adc_set_cmp0(csp_adc_t *ptAdcBase, uint8_t byCmpChnl, uint32_t w
 	switch(eDir)
 	{
 		case ADC_CMP_H:	
-			csp_adc_int_enable(ptAdcBase,ADC12_CMP0H , ENABLE);
+			csp_adc_int_enable(ptAdcBase,(adc_int_e)ADC12_CMP0H , ENABLE);
 			break;
 		case ADC_CMP_L:	
-			csp_adc_int_enable(ptAdcBase,ADC12_CMP0L , ENABLE);
+			csp_adc_int_enable(ptAdcBase,(adc_int_e)ADC12_CMP0L , ENABLE);
 			break;
 		default:		
 			return CSI_ERROR;
@@ -331,10 +331,10 @@ csi_error_t csi_adc_set_cmp1(csp_adc_t *ptAdcBase, uint8_t byCmpChnl, uint32_t w
 	switch(eDir)
 	{
 		case ADC_CMP_H:	
-			csp_adc_int_enable(ptAdcBase,ADC12_CMP1H , ENABLE);
+			csp_adc_int_enable(ptAdcBase,(adc_int_e)ADC12_CMP1H , ENABLE);
 			break;
 		case ADC_CMP_L:	
-			csp_adc_int_enable(ptAdcBase,ADC12_CMP1L , ENABLE);
+			csp_adc_int_enable(ptAdcBase,(adc_int_e)ADC12_CMP1L , ENABLE);
 			break;
 		default:		
 			return CSI_ERROR;
@@ -396,7 +396,7 @@ csi_error_t csi_adc_set_sync(csp_adc_t *ptAdcBase, csi_adc_trgin_e eTrgIn, csi_a
  */
 void csi_adc_rearm_sync(csp_adc_t *ptAdcBase, csi_adc_trgin_e eTrgIn)
 {
-	csp_adc_rearm_sync(ptAdcBase, eTrgIn);
+	csp_adc_rearm_sync(ptAdcBase, (adc_trgin_e)eTrgIn);
 }
 
 /** \brief set adc evtrg output
