@@ -496,10 +496,10 @@ csi_error_t csi_gpta_prdr_cmp_update(csp_gpta_t *ptGptaBase,csi_gpta_comp_e eCom
  * 
  *  \param[in] ptGptaBase :    pointer of gpta register structure
  *  \param[in] eCh  :          refer to csi_gpta_camp_e
- *	\param[in] wActiveTime :   cmpx data to be set directly
+ *	\param[in] wDuty :         cmpx data to be set directly
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_gpta_change_ch_duty(csp_gpta_t *ptGptaBase, csi_gpta_comp_e eCh, uint32_t wActiveTime);
+csi_error_t csi_gpta_change_ch_duty(csp_gpta_t *ptGptaBase, csi_gpta_comp_e eCh, uint32_t wDuty);
 
 /** \brief enable/disable gpta in debug mode
  * 
@@ -529,10 +529,10 @@ csi_error_t csi_gpta_onetimesoftware_output(csp_gpta_t *ptGptaBase, uint16_t hwC
 
 /** \brief  Continuous software waveform loading control
  *  \param[in] ptGptaBase: pointer of gpta register structure
- *  \param[in] bEnable:    refer to csp_gpta_aqosf_e
+ *  \param[in] eAqosf:    refer to csp_gpta_aqosf_e
  *  \return  none
  */
-void csi_gpta_aqcsfload_config(csp_gpta_t *ptGptaBase, csi_gpta_aqosf_e bEnable);
+void csi_gpta_aqcsfload_config(csp_gpta_t *ptGptaBase, csi_gpta_aqosf_e eAqosf);
 
 /** \brief Continuous software waveform control
  *  \param[in] ptGptaBase: pointer of gpta register structure
