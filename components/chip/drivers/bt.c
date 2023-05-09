@@ -27,37 +27,6 @@ static uint32_t	s_wPrdrVal	= 0;			//prdr value backup
 static uint32_t	s_wCmpVal	= 0;			//cmp value backup
 
 
-/** \brief bt interrupt handle function
- * 
- *  \param[in] ptBtBase: pointer of bt register structure
- *  \return none
- */ 
-__attribute__((weak)) void bt_irqhandler(csp_bt_t *ptBtBase)
-{
-    // ISR content ...
-	volatile uint32_t wMisr = csp_bt_get_isr(ptBtBase);
-	
-	if(wMisr & BT_PEND_INT)					//PEND interrupt
-	{
-		csp_bt_clr_isr(ptBtBase, BT_PEND_INT);
-		//csi_pin_toggle(PA05);
-	}
-	
-	if(wMisr & BT_CMP_INT)					//CMP interrupt
-	{
-		csp_bt_clr_isr(ptBtBase, BT_CMP_INT);
-	}
-	
-	if(wMisr & BT_OVF_INT)					//OVF interrupt
-	{
-		csp_bt_clr_isr(ptBtBase, BT_OVF_INT);
-	}
-	
-	if(wMisr & BT_EVTRG_INT)				//EVTRG interrupt
-	{
-		csp_bt_clr_isr(ptBtBase, BT_EVTRG_INT);
-	}
-}
 /** \brief initialize bt data structure
  * 
  *  \param[in] ptBtBase: pointer of bt register structure

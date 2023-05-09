@@ -139,83 +139,83 @@ static uint8_t apt_lin_set_data(csp_lin_t *ptLinBase, uint8_t *pbyData, uint8_t 
  *  \return none
  *  \note:  when use lin demo, please uncomment this funtion ,and comment USART0_irqhandler function in interrupt.c.
  */ 
-__attribute__((weak)) void lin_irqhandler(csp_lin_t *ptLinBase, uint8_t byIdx)
-{
-	uint32_t wLinSr = csp_usart_get_isr(ptLinBase) & 0x7f000000;
-	
-	if(wLinSr & LIN_ERR_INT)								//error
-	{
-		if(wLinSr & LIN_CHECKSUM_INT)						//Checksum error 					
-		{
-			g_tLinTran.byWkStat |= LIN_STATE_CHKERR;
-			csp_usart_clr_isr(ptLinBase,LIN_CHECKSUM_INT);	//clear interrupt status
-		}
-		
-		if(wLinSr & LIN_IPERROR_INT)						//Identity parity error 
-		{
-			g_tLinTran.byWkStat |= LIN_STATE_IPERR;
-			csp_usart_clr_isr(ptLinBase,LIN_IPERROR_INT);	//clear interrupt status
-		}
-		
-		if(wLinSr & LIN_BITERROR_INT)						//Bit error 
-		{
-			g_tLinTran.byWkStat |= LIN_STATE_BITERR;
-			csp_usart_clr_isr(ptLinBase,LIN_BITERROR_INT);	//clear interrupt status
-		}
-		
-		if(wLinSr & LIN_NOTREPS_INT)						//Bit error 
-		{
-			g_tLinTran.byWkStat |= LIN_STATE_NOTRESP;
-			csp_usart_clr_isr(ptLinBase,LIN_NOTREPS_INT);	//clear interrupt status
-		}
-	}
-	else
-	{
-		switch(wLinSr)	
-		{
-			case LIN_WAKEUP_INT:								//LIN Wake up Interrupt	
-				nop;
-				csp_usart_clr_isr(ptLinBase,LIN_WAKEUP_INT);	//clear interrupt status
-				break;
-			case LIN_ENDMESS_INT:								//Ended message Interrupt
-				if(!(g_tLinTran.byWkStat & LIN_STATE_ALLERR))	//no error
-				{
-					if(g_tLinTran.byWkMode == LIN_RECV)
-					{
-						if(g_tLinTran.byRxSize < 5)
-						{
-							for(uint8_t i = 0; i < g_tLinTran.byRxSize; i++)
-							{
-								g_tLinTran.pbyRxData[i] = (uint8_t)(csp_usart_lin_get_dfrr0(ptLinBase) >> (8 * i));
-							}
-						}
-						else
-						{
-							for(uint8_t i = 0; i < (g_tLinTran.byRxSize - 4); i++)
-							{
-								g_tLinTran.pbyRxData[i+4] = (uint8_t)(csp_usart_lin_get_dfrr1(ptLinBase) >> (8 * i));
-							}
-							g_tLinTran.pbyRxData[0] = (uint8_t)csp_usart_lin_get_dfrr0(ptLinBase);
-							g_tLinTran.pbyRxData[1] = (uint8_t)(csp_usart_lin_get_dfrr0(ptLinBase) >> 8);
-							g_tLinTran.pbyRxData[2] = (uint8_t)(csp_usart_lin_get_dfrr0(ptLinBase) >> 16);
-							g_tLinTran.pbyRxData[3] = (uint8_t)(csp_usart_lin_get_dfrr0(ptLinBase) >> 24);
-						}
-					}
-					g_tLinTran.byWkStat = LIN_STATE_ENDMESS;	
-				}
-					
-				csp_usart_clr_isr(ptLinBase,LIN_ENDMESS_INT);	//clear interrupt status
-				break;
-			case LIN_ENDHEADER_INT:								//Ended header Interrupt
-//				if(g_tLinTran.byWkMode == LIN_RECV)
-//					csp_usart_cr_cmd(ptLinBase, LIN_STRESP);	
-				csp_usart_clr_isr(ptLinBase,LIN_ENDHEADER_INT);	//clear interrupt status
-				break;
-			default:
-				break;
-		}
-	}
-}
+//__attribute__((weak)) void lin_irqhandler(csp_lin_t *ptLinBase, uint8_t byIdx)
+//{
+//	uint32_t wLinSr = csp_usart_get_isr(ptLinBase) & 0x7f000000;
+//	
+//	if(wLinSr & LIN_ERR_INT)								//error
+//	{
+//		if(wLinSr & LIN_CHECKSUM_INT)						//Checksum error 					
+//		{
+//			g_tLinTran.byWkStat |= LIN_STATE_CHKERR;
+//			csp_usart_clr_isr(ptLinBase,LIN_CHECKSUM_INT);	//clear interrupt status
+//		}
+//		
+//		if(wLinSr & LIN_IPERROR_INT)						//Identity parity error 
+//		{
+//			g_tLinTran.byWkStat |= LIN_STATE_IPERR;
+//			csp_usart_clr_isr(ptLinBase,LIN_IPERROR_INT);	//clear interrupt status
+//		}
+//		
+//		if(wLinSr & LIN_BITERROR_INT)						//Bit error 
+//		{
+//			g_tLinTran.byWkStat |= LIN_STATE_BITERR;
+//			csp_usart_clr_isr(ptLinBase,LIN_BITERROR_INT);	//clear interrupt status
+//		}
+//		
+//		if(wLinSr & LIN_NOTREPS_INT)						//Bit error 
+//		{
+//			g_tLinTran.byWkStat |= LIN_STATE_NOTRESP;
+//			csp_usart_clr_isr(ptLinBase,LIN_NOTREPS_INT);	//clear interrupt status
+//		}
+//	}
+//	else
+//	{
+//		switch(wLinSr)	
+//		{
+//			case LIN_WAKEUP_INT:								//LIN Wake up Interrupt	
+//				nop;
+//				csp_usart_clr_isr(ptLinBase,LIN_WAKEUP_INT);	//clear interrupt status
+//				break;
+//			case LIN_ENDMESS_INT:								//Ended message Interrupt
+//				if(!(g_tLinTran.byWkStat & LIN_STATE_ALLERR))	//no error
+//				{
+//					if(g_tLinTran.byWkMode == LIN_RECV)
+//					{
+//						if(g_tLinTran.byRxSize < 5)
+//						{
+//							for(uint8_t i = 0; i < g_tLinTran.byRxSize; i++)
+//							{
+//								g_tLinTran.pbyRxData[i] = (uint8_t)(csp_usart_lin_get_dfrr0(ptLinBase) >> (8 * i));
+//							}
+//						}
+//						else
+//						{
+//							for(uint8_t i = 0; i < (g_tLinTran.byRxSize - 4); i++)
+//							{
+//								g_tLinTran.pbyRxData[i+4] = (uint8_t)(csp_usart_lin_get_dfrr1(ptLinBase) >> (8 * i));
+//							}
+//							g_tLinTran.pbyRxData[0] = (uint8_t)csp_usart_lin_get_dfrr0(ptLinBase);
+//							g_tLinTran.pbyRxData[1] = (uint8_t)(csp_usart_lin_get_dfrr0(ptLinBase) >> 8);
+//							g_tLinTran.pbyRxData[2] = (uint8_t)(csp_usart_lin_get_dfrr0(ptLinBase) >> 16);
+//							g_tLinTran.pbyRxData[3] = (uint8_t)(csp_usart_lin_get_dfrr0(ptLinBase) >> 24);
+//						}
+//					}
+//					g_tLinTran.byWkStat = LIN_STATE_ENDMESS;	
+//				}
+//					
+//				csp_usart_clr_isr(ptLinBase,LIN_ENDMESS_INT);	//clear interrupt status
+//				break;
+//			case LIN_ENDHEADER_INT:								//Ended header Interrupt
+////				if(g_tLinTran.byWkMode == LIN_RECV)
+////					csp_usart_cr_cmd(ptLinBase, LIN_STRESP);	
+//				csp_usart_clr_isr(ptLinBase,LIN_ENDHEADER_INT);	//clear interrupt status
+//				break;
+//			default:
+//				break;
+//		}
+//	}
+//}
 /** \brief initialize lin parameter structure
  * 
  *  \param[in] ptLinBase: pointer of lin register structure
