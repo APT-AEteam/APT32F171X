@@ -105,7 +105,7 @@ typedef enum
 
 ///CR
 #define GPTA_CNTMD_POS  (0)
-#define GPTA_CNTMD_MSK_	(0x03 )
+#define GPTA_CNTMD_MSK	(0x3ul << GPTA_CNTMD_POS)
 typedef enum{
 	GPTA_CNTMD_UP = 0,
 	GPTA_CNTMD_DN,
@@ -183,11 +183,6 @@ typedef enum {
 
 #define GPTA_PSCLD_POS	(16)
 #define GPTA_PSCLD_MSK	(0x3 << GPTA_PSCLD_POS)
-typedef enum{
-	GPTA_LDPSCR_ZRO = 0,
-	GPTA_LDPSCR_PRD,
-	GPTA_LDPSCR_ZROPRD
-}csp_gpta_ldpscr_e;
 
 #define GPTA_MODE_POS	(18)
 #define GPTA_MODE_MSK     (1ul << GPTA_MODE_POS)
@@ -378,11 +373,6 @@ typedef enum{
 #define GPTA_LDAMD_MSK		(0x7 << GPTA_LDAMD_POS)
 #define GPTA_LDBMD_POS		(5)
 #define GPTA_LDBMD_MSK		(0x7 << GPTA_LDBMD_POS)
-typedef enum{
-	GPTA_LD_SHDW = 0,
-	GPTA_LD_IMM 
-	
-}csp_gpta_ld_e;
 
 ///AQCR1/2
 #define GPTA_ACT_ZRO_POS	(0)
@@ -405,20 +395,12 @@ typedef enum{
 #define GPTA_ACT_T2U_MSK	(0x3 << GPTA_ACT_T2U_POS)
 #define GPTA_ACT_T2D_POS	(18)
 #define GPTA_ACT_T2D_MSK	(0x3 << GPTA_ACT_T2D_POS)
-typedef enum {
-	GPTA_NA = 0,
-	GPTA_LO,
-	GPTA_HI,
-	GPTA_TG	
-}csp_gpta_action_e;
+
+
 #define GPTA_C1SEL_POS	(20)
 #define GPTA_C1SEL_MSK	(0x3<<GPTA_C1SEL_POS)
 #define GPTA_C2SEL_POS	(22)
 #define GPTA_C2SEL_MSK	(0x3<<GPTA_C2SEL_POS)
-typedef enum {
-	GPTA_CMPA= 0,
-	GPTA_CMPB,
-}csp_gpta_csrc_sel_e;
 
 
 ///AQOSF
@@ -618,12 +600,12 @@ static inline void csp_gpta_set_mode(csp_gpta_t *ptGptaBase, csp_gpta_md_e eMode
 
 static inline void csp_gpta_set_cntmd(csp_gpta_t *ptGptaBase, csp_gpta_cntmd_e eMode)
 {
-	ptGptaBase -> CR = (ptGptaBase->CR & (~GPTA_CNTMD_MSK_)) | (eMode << GPTA_CNTMD_POS);
+	ptGptaBase -> CR = (ptGptaBase->CR & (~GPTA_CNTMD_MSK)) | (eMode << GPTA_CNTMD_POS);
 }
 
 static inline uint8_t csp_gpta_get_cntmd(csp_gpta_t *ptGptaBase)
 {
-	return (ptGptaBase->CR & GPTA_CNTMD_MSK_);
+	return (ptGptaBase->CR & GPTA_CNTMD_MSK);
 }
 static inline void csp_gpta_set_capmd(csp_gpta_t *ptGptaBase, csp_gpta_capmd_e eMode)
 {
@@ -756,7 +738,7 @@ static inline void csp_gpta_start(csp_gpta_t *ptGptaBase)
 
 static inline void csp_gpta_stop(csp_gpta_t *ptGptaBase)
 {
-	ptGptaBase->RSSR &= ~EPT_START ;
+	ptGptaBase->RSSR &= ~GPTA_START ;
 }
 
 static inline uint16_t csp_gpta_get_prdr(csp_gpta_t *ptGptaBase)
