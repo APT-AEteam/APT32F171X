@@ -4,7 +4,8 @@
  * \copyright Copyright (C) 2015-2022 @ APTCHIP
  * <table>
  * <tr><th> Date  <th>Version  <th>Author  <th>Description
- * <tr><td> 2022-02-17 <td>V0.0 <td>LQ    <td>initial
+ * <tr><td> 2022-02-17 <td>V0.0  <td>LQ    <td>initial
+ * <tr><td> 2023-3-21  <td>V0.1  <td>WCH     <td>initial
  * </table>
  * *********************************************************************
 */
@@ -318,4 +319,57 @@ void tc02_output_double_pwm_demo(void)
 		nop;
 	}
 }
+
+/** \brief TC0 interrupt handle function
+ * 
+ *  \param[in] ptTc0Base: pointer of tc0 register structure
+ *  \return none
+ */ 
+__attribute__((weak)) void tc0_irqhandler(csp_tc0_t *ptTc0Base)
+{
+    // ISR content ...
+	volatile uint32_t wIntState = csp_tc0_get_sr(ptTc0Base);
+	
+	if(wIntState & COVFS)
+	{
+		csp_tc0_clr_sr(ptTc0Base,COVFS);
+	}
+	
+	if(wIntState & LOVRS)
+	{
+		csp_tc0_clr_sr(ptTc0Base,LOVRS);
+	}
+	
+	if(wIntState & CPAS)
+	{
+		csp_tc0_clr_sr(ptTc0Base,CPAS);
+	}
+	
+	if(wIntState & CPBS)
+	{
+		csp_tc0_clr_sr(ptTc0Base,CPBS);
+	}
+	
+	if(wIntState & CPCS)
+	{
+		csp_tc0_clr_sr(ptTc0Base,CPCS);
+	}
+	
+	if(wIntState & LDRAS)
+	{
+		csp_tc0_clr_sr(ptTc0Base,LDRAS);
+	}
+	
+	if(wIntState & LDRBS)
+	{
+		csp_tc0_clr_sr(ptTc0Base,LDRBS);
+	}
+	
+	if(wIntState & ETRGS)
+	{
+		csp_tc0_clr_sr(ptTc0Base,ETRGS);
+	}
+}
+
+
 #endif /* CONFIG_USE_TCx_EPWM */

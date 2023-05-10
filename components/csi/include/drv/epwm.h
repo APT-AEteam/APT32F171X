@@ -21,11 +21,9 @@
 extern "C" {
 #endif
 
-
-
-extern uint32_t wEpwmPrd0;
-extern uint32_t wEpwmPrd1;
-extern uint32_t wEpwmPrd2;
+extern uint32_t g_wEpwmPrd0;
+extern uint32_t g_wEpwmPrd1;
+extern uint32_t g_wEpwmPrd2;
 
 typedef struct  {
 	uint8_t		byWorkmod;           //SINGLE

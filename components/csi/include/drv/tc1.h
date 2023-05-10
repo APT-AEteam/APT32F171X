@@ -36,7 +36,6 @@ typedef struct {
 	uint32_t wCapRise;          //rise capture data
 	uint32_t wCapFall;          //fall capture data
 }csi_tc1_capture_data_t;
-extern csi_tc1_capture_data_t tCapData;
 
 
 /// \struct csi_tc1_pwm_config_t

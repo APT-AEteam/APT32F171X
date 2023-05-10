@@ -13,57 +13,6 @@
 #include "board_config.h"
 #include <drv/pin.h>
 
-csi_tc1_capture_data_t tCapData;
-
-/** \brief TC1 interrupt handle function
- * 
- *  \param[in] ptTc1Base: pointer of tc1 register structure
- *  \return none
- */ 
-__attribute__((weak)) void tc1_irqhandler(csp_tc1_t *ptTc1Base)
-{
-    // ISR content ...
-	volatile uint32_t wIntState = csp_tc1_get_isr(ptTc1Base);
-	
-	if(wIntState & TC1_START_INT)
-	{
-		csp_tc1_clr_isr(ptTc1Base,TC1_START_INT);
-	}
-	
-	if(wIntState & TC1_STOP_INT)
-	{
-		csp_tc1_clr_isr(ptTc1Base,TC1_STOP_INT);
-	}
-	
-	if(wIntState & TC1_PSTART_INT)
-	{
-		csp_tc1_clr_isr(ptTc1Base,TC1_PSTART_INT);
-	}
-	
-	if(wIntState & TC1_PEND_INT)
-	{
-		csp_tc1_clr_isr(ptTc1Base,TC1_PEND_INT);
-	}
-	
-	if(wIntState & TC1_MAT_INT)
-	{
-		csp_tc1_clr_isr(ptTc1Base,TC1_MAT_INT);
-	}
-	
-	if(wIntState & TC1_OVF_INT)
-	{
-		csp_tc1_clr_isr(ptTc1Base,TC1_OVF_INT);
-	}
-	
-	if(wIntState & TC1_CAPT_INT)
-	{
-		tCapData.wCapRise = csp_tc1_get_cucr(ptTc1Base);
-		tCapData.wCapFall = csp_tc1_get_cdcr(ptTc1Base);
-		csp_tc1_clr_isr(ptTc1Base,TC1_CAPT_INT);
-	}
-}
-
-
 //------------------------------------------------------------------------------------------------
 
 /** \brief capture configuration

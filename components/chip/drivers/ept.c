@@ -4,7 +4,8 @@
  * \copyright Copyright (C) 2015-2020 @ APTCHIP
  * <table>
  * <tr><th> Date  <th>Version  <th>Author  <th>Description
- * <tr><td> 2021-6-17 <td>V0.0  <td>ljy   <td>initial
+ * <tr><td> 2021-6-17  <td>V0.0  <td>ljy   <td>initial
+ * <tr><td> 2023-3-21  <td>V0.1  <td>WCH     <td>initial
  * </table>
  * *********************************************************************
 */
@@ -15,144 +16,8 @@
 #include "drv/pin.h"
 #include <drv/irq.h>
 #include <sys_clk.h>
-extern void load(void);
-uint32_t gEptTick;
-uint32_t gEptPrd;
-uint32_t val_BUFF[4];
 
-/** \brief ept interrupt handle weak function
- *   		- 
- *     		- 
- * 			- 
- *  \param[in] none
- *  \return    none
- */
-__attribute__((weak)) void ept_irqhandler(csp_ept_t *ptEptBase)
-{
-	if(((csp_ept_get_emmisr(ptEptBase) & EPT_INT_CPUF))==EPT_INT_CPUF)
-	{
-	 ptEptBase -> EMHLCLR |=  EPT_INT_CPUF;
-	 csp_ept_clr_emint(ptEptBase,EPT_INT_CPUF);	
-	}
-	
-	if(((csp_ept_get_emmisr(ptEptBase) & EPT_INT_EP6))==EPT_INT_EP6)
-	{
-	 //csp_ept_clr_emHdlck(EPT0, EP6);
-	 csp_ept_clr_emint(ptEptBase,EPT_INT_EP6);	
-	}	
-	if(((csp_ept_get_emmisr(ptEptBase) & EPT_INT_EP7))==EPT_INT_EP7)
-	{ 
-	 csi_pin_set_high(PB04);
-	  nop;
-	 //csp_ept_clr_emHdlck(EPT0, EP7);
-	 csp_ept_clr_emint(ptEptBase,EPT_INT_EP7);
-     csi_pin_set_low(PB04);	
-	}	
-	if(((csp_ept_get_misr(ptEptBase) & EPT_INT_TRGEV0))==EPT_INT_TRGEV0)
-	{	
-	  
-	  csp_ept_clr_int(ptEptBase, EPT_INT_TRGEV0);
-	  nop;
-	  
-	}
-	if(((csp_ept_get_misr(ptEptBase) & EPT_INT_CBU))==EPT_INT_CBU)
-	{		
-		csi_pin_set_high(PA00);
-//	  		csi_ept_change_ch_duty(EPT0,EPT_COMPA, 20);
-//			csi_ept_change_ch_duty(EPT0,EPT_COMPB, 40);
-//			csi_ept_change_ch_duty(EPT0,EPT_COMPC, 60);
-//			csi_ept_change_ch_duty(EPT0,EPT_COMPD, 60);	
-			//csi_ept_continuous_software_output(EPT0, EPT_CHANNEL_1,EPT_EM_AQCSF_L);
-			//EPT0-> REGPROT = EPT_REGPROT; EPT0->EMOSR=0x1515;
-		csi_pin_set_low(PA00);
-//		gEptTick++;
-//		if(gEptTick>=5){	
-//								    csi_pin_set_high(PA00);	
-//	                                gEptTick=0;
-////								    load(); 						 
-//									csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_IMM, EPT_LDCMP_ZRO ,EPT_COMPA);
-//									csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_IMM, EPT_LDCMP_ZRO ,EPT_COMPB);
-//									csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_IMM, EPT_LDCMP_ZRO ,EPT_COMPC);
-//									csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_IMM, EPT_LDCMP_ZRO ,EPT_COMPD);
-//									csi_ept_change_ch_duty(EPT0,EPT_COMPA, 20);
-//									csi_ept_change_ch_duty(EPT0,EPT_COMPB, 20);
-//									csi_ept_change_ch_duty(EPT0,EPT_COMPC, 20);
-//							 		csi_ept_change_ch_duty(EPT0,EPT_COMPD, 20);	
-//                                    csi_pin_set_low(PA00);														   
-//						}
-//		else{                       
-//			                        csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_SHDW, EPT_LDCMP_ZRO ,EPT_COMPA);
-//									csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_SHDW, EPT_LDCMP_ZRO ,EPT_COMPB);
-//									csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_SHDW, EPT_LDCMP_ZRO ,EPT_COMPC);
-//									csi_ept_channel_cmpload_config(EPT0, EPT_CMPLD_SHDW, EPT_LDCMP_ZRO ,EPT_COMPD);
-//									csi_ept_change_ch_duty(EPT0,EPT_COMPA, 50);
-//									csi_ept_change_ch_duty(EPT0,EPT_COMPB, 50);
-//									csi_ept_change_ch_duty(EPT0,EPT_COMPC, 50);
-//			                        csi_ept_change_ch_duty(EPT0,EPT_COMPD, 50);
-//		}				
-						 
-	  csp_ept_clr_int(ptEptBase, EPT_INT_CBU);
-	     
-	}
-	if(((csp_ept_get_misr(ptEptBase) & EPT_INT_CBD))==EPT_INT_CBD)
-	{		
-	  csi_pin_set_high(PA00);
-//	   EPT0->PRDR =2200;
-//	   EPT0->DBDTF=0x10;
-//	   EPT0->DBDTR=0x05;
-//	   EPT0->AQCRA=0x00005062;
-//	   EPT0->AQCRB=0x00505062;
-//	   EPT0->AQCRC=0x00a05062;
-//	   EPT0->AQCRD=0x00a05062;
-//	   EPT0->AQCSF=0xaa;
-//	   EPT0-> REGPROT = EPT_REGPROT; EPT0->EMOSR=0x1515;
-	   
-//		csi_ept_change_ch_duty(EPT0,EPT_COMPA, 60);
-//		csi_ept_change_ch_duty(EPT0,EPT_COMPB, 40);
-//		csi_ept_change_ch_duty(EPT0,EPT_COMPC, 20);
-//		csi_ept_change_ch_duty(EPT0,EPT_COMPD, 20);
-	  csi_pin_set_low(PA00);
-	  csp_ept_clr_int(ptEptBase, EPT_INT_CBD);
-	  
-	}
-	
-	if(((csp_ept_get_misr(ptEptBase) & EPT_INT_PEND))==EPT_INT_PEND)
-	{		
-	   			
-      nop;
-      
-	  csp_ept_clr_int(ptEptBase, EPT_INT_PEND);
-	    
-	}
-	
-    if(((csp_ept_get_misr(ptEptBase) & EPT_INT_CAPLD0))==EPT_INT_CAPLD0)
-	{		
-		
-	 csp_ept_clr_int(ptEptBase, EPT_INT_CAPLD0);			
-	}
-	if(((csp_ept_get_misr(ptEptBase) & EPT_INT_CAPLD1))==EPT_INT_CAPLD1)
-	{		
-
-	 csp_ept_clr_int(ptEptBase, EPT_INT_CAPLD1);			
-	}
-	if(((csp_ept_get_misr(ptEptBase) & EPT_INT_CAPLD2))==EPT_INT_CAPLD2)
-	{		
-	 
-	 csp_ept_clr_int(ptEptBase, EPT_INT_CAPLD2);			
-	}
-	if(((csp_ept_get_misr(ptEptBase) & EPT_INT_CAPLD3))==EPT_INT_CAPLD3)
-	{		
-	   
-		val_BUFF[0]=csp_ept_get_cmpa(ptEptBase);
-		val_BUFF[1]=csp_ept_get_cmpb(ptEptBase);
-		val_BUFF[2]=csp_ept_get_cmpc(ptEptBase);
-		val_BUFF[3]=csp_ept_get_cmpd(ptEptBase);
-	 csp_ept_clr_int(ptEptBase, EPT_INT_CAPLD3);
-     csp_ept_set_crrearm(ptEptBase);//单次模式下 rearm				
-	}
-}
-
-
+uint32_t g_wEptPrd;
 
 /** \brief Basic configuration
  * 
@@ -227,7 +92,7 @@ csi_error_t csi_ept_config_init(csp_ept_t *ptEptBase, csi_ept_config_t *pteptPwm
 		csi_irq_enable((uint32_t *)ptEptBase);							//enable  irq
 	}
 	
-	gEptPrd=wPrdrLoad;
+	g_wEptPrd=wPrdrLoad;
 	
 	return CSI_OK;
 }
@@ -279,7 +144,7 @@ csi_error_t csi_ept_capture_init(csp_ept_t *ptEptBase, csi_ept_captureconfig_t *
 		csi_irq_enable((uint32_t *)ptEptBase);							//enable  irq
 	}
 	
-	gEptPrd=wPrdrLoad;
+	g_wEptPrd=wPrdrLoad;
 	
 	return CSI_OK;
 }
@@ -343,7 +208,7 @@ csi_error_t  csi_ept_wave_init(csp_ept_t *ptEptBase, csi_ept_pwmconfig_t *pteptP
 		csi_irq_enable((uint32_t *)ptEptBase);							//enable  irq
 	}
 	
-	gEptPrd=wPrdrLoad;
+	g_wEptPrd=wPrdrLoad;
 	
 	return CSI_OK;	
 }
@@ -881,8 +746,8 @@ csi_error_t csi_ept_change_ch_duty(csp_ept_t *ptEptBase, csi_ept_comp_e eCh, uin
 	uint16_t  wCmpLoad;
 
 	if(wDuty>=100){wCmpLoad=0;}
-	else if(wDuty==0){wCmpLoad=gEptPrd+1;}
-	else{wCmpLoad =gEptPrd-(gEptPrd * wDuty /100);}
+	else if(wDuty==0){wCmpLoad=g_wEptPrd+1;}
+	else{wCmpLoad =g_wEptPrd-(g_wEptPrd * wDuty /100);}
 
 	switch (eCh)
 	{	

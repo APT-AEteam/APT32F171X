@@ -5,33 +5,17 @@
  * <table>
  * <tr><th> Date  <th>Version  <th>Author  <th>Description
  * <tr><td> 2022-02-17 <td>V0.0  <td>LJY   <td>initial
+ * <tr><td> 2023-3-21  <td>V0.1  <td>WCH     <td>initial
  * </table>
  * *********************************************************************
 */
+#include "sys_clk.h"
 #include "drv/epwm.h"
 #include <irq.h>
 
-
-/** \brief epwm interrupt handle function
- * 
- *  \param[in] ptEpwmBas: pointer of epwm register structure
- *  \return none
- */ 
-__attribute__((weak)) void epwm_irqhandler(csp_epwm_t *ptEpwmBase)
-{ //uint32_t wIrVal;
-	if(csp_epwm_get_misr(ptEpwmBase,EPWM_INT_PEND1))
-	{
-		
-	   csp_epwm_clr_int(ptEpwmBase,EPWM_INT_PEND1);
-	}
-	
-	
-}
-
-
-uint32_t wEpwmPrd0;
-uint32_t wEpwmPrd1;
-uint32_t wEpwmPrd2;
+uint32_t g_wEpwmPrd0;
+uint32_t g_wEpwmPrd1;
+uint32_t g_wEpwmPrd2;
 /** \brief wave configuration
  * 
  *  \param[in] ptEpwmBase: pointer of epwm register structure
@@ -106,7 +90,7 @@ csi_error_t  csi_epwm_wave_init(csp_epwm_t *ptEpwmBase, csi_epwm_pwmconfig_t *pt
 	#endif
 	}
 	
-	wEpwmPrd0=wPrdrLoad0;wEpwmPrd1=wPrdrLoad1;wEpwmPrd2=wPrdrLoad2;
+	g_wEpwmPrd0=wPrdrLoad0;g_wEpwmPrd1=wPrdrLoad1;g_wEpwmPrd2=wPrdrLoad2;
 	
 	return CSI_OK;	
 }

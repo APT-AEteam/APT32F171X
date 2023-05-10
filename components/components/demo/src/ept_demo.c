@@ -5,7 +5,8 @@
  * \copyright Copyright (C) 2015-2022 @ APTCHIP
  * <table>
  * <tr><th> Date  <th>Version  <th>Author  <th>Description
- * <tr><td> 2021-5-11 <td>V0.0 <td>ljy     <td>initial
+ * <tr><td> 2021-5-11  <td>V0.0 <td>ljy     <td>initial
+ * <tr><td> 2023-3-21  <td>V0.1  <td>WCH     <td>initial
  * </table>
  * *********************************************************************
 */
@@ -20,7 +21,7 @@
 /* externs variablesr------------------------------------------------------*/
 /* Private macro-----------------------------------------------------------*/
 /* Private variablesr------------------------------------------------------*/
-
+static uint32_t s_wEptCapBuf[4];
 
 /** \brief EPT捕获示例代码
  *   		- 捕获四次产生一次捕获中断
@@ -80,8 +81,8 @@ int ept_capture_demo(void)
 //	tpFiltercfg.byWinInv         =1;                              //0h：窗口不反转，窗口有效区间禁止滤波输入;  1h：窗口反转，  窗口有效区间使能滤波输入
 //	tpFiltercfg.byWinAlign       =EPT_ALIGN_ZRO;                  //窗口对齐模式选择															  
 //	tpFiltercfg.byWinCross       =1;                              //滤波窗跨越窗口对齐点:  0h：禁止跨窗口对齐点;  1h：允许跨窗口对齐点
-//	tpFiltercfg.byWinOffset      =gEptPrd/2;                      //
-//	tpFiltercfg.byWinWidth       =gEptPrd/2;                      //
+//	tpFiltercfg.byWinOffset      =g_wEptPrd/2;                      //
+//	tpFiltercfg.byWinWidth       =g_wEptPrd/2;                      //
 //    csi_ept_set_sync_filter(EPT0, &tpFiltercfg);
 //------------------------------------------------------------------------------------------------------------------------
 															  
@@ -331,8 +332,7 @@ int ept_pwm_dz_demo(void)
  *  \return error code
  */
 int ept_pwm_dz_em_demo(void)
-{
-	int iRet = 0;	
+{	
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_pin_set_mux(PA05, PA05_EPT_CHCX);						//PIN9
 	csi_pin_set_mux(PA06, PA06_EPT_CHCY);						//PIN10
@@ -509,7 +509,7 @@ int ept_pwm_dz_em_demo(void)
 //------------------------------------------------------------------------------------------------------------------------		
 	
 	
-//    while(1){			
+    while(1){			
 //		     udelay(1);		    
 //			 csi_gpio_port_set_high(GPIOA0, (0x01ul << 0));
 //			 csp_ept_force_em(EPT0, EP7);
@@ -539,37 +539,60 @@ int ept_pwm_dz_em_demo(void)
 			mdelay(1);
 //			 csp_ept_clr_emHdlck(EPT0, EP4);
 //			 csp_ept_clr_emSdlck(EPT0, EP7);
-//	}			
-	return iRet;
-};
+	}			
+}
 
-void load(void)
-{   
-	csi_ept_channel_aqload_config(EPT0, EPT_LD_IMM, EPT_LDCMP_ZRO ,EPT_CHANNEL_1);
-	csi_ept_channel_aqload_config(EPT0, EPT_LD_IMM, EPT_LDCMP_ZRO ,EPT_CHANNEL_2);
-	csi_ept_channel_aqload_config(EPT0, EPT_LD_IMM, EPT_LDCMP_ZRO ,EPT_CHANNEL_3);
-	csi_ept_pwmchannel_config_t  channel1;
-	channel1.byActionZro    =   LO;
-	channel1.byActionPrd    =   LO;
-	channel1.byActionC1u    =   LO;
-	channel1.byActionC1d    =   LO;
-	channel1.byActionC2u    =   LO;
-	channel1.byActionC2d    =   LO;
-	channel1.byActionT1u    =   LO;
-	channel1.byActionT1d    =   LO;
-	channel1.byActionT2u    =   LO;
-	channel1.byActionT2d    =   LO;
-	channel1.byChoiceC1sel  =   EPT_CMPA;
-	channel1.byChoiceC2sel  =   EPT_CMPA;	
-	csi_ept_channel_config(EPT0, &channel1,  EPT_CHANNEL_1);//channel
-//	channel.byChoiceC1sel  =   EPT_CMPB;
-//	channel.byChoiceC2sel  =   EPT_CMPB;
-	csi_ept_channel_config(EPT0, &channel1,  EPT_CHANNEL_2);
-//	channel.byChoiceC1sel  =   EPT_CMPC;
-//	channel.byChoiceC2sel  =   EPT_CMPC;
-	csi_ept_channel_config(EPT0, &channel1,  EPT_CHANNEL_3);
-//	channel.byChoiceC1sel  =   EPT_CMPD;
-//	channel.byChoiceC2sel  =   EPT_CMPD;
-	csi_ept_channel_config(EPT0, &channel1,  EPT_CHANNEL_4);
+/** \brief ept interrupt handle weak function
+ *  \param[in] none
+ *  \return    none
+ */
+__attribute__((weak)) void ept_irqhandler(csp_ept_t *ptEptBase)
+{
+	if(((csp_ept_get_emmisr(ptEptBase) & EPT_INT_EP6))==EPT_INT_EP6)
+	{
+	 csp_ept_clr_emint(ptEptBase,EPT_INT_EP6);	
+	}	
+	if(((csp_ept_get_emmisr(ptEptBase) & EPT_INT_EP7))==EPT_INT_EP7)
+	{ 
+	 csp_ept_clr_emint(ptEptBase,EPT_INT_EP7);
+	}	
+	if(((csp_ept_get_misr(ptEptBase) & EPT_INT_TRGEV0))==EPT_INT_TRGEV0)
+	{	
+	  csp_ept_clr_int(ptEptBase, EPT_INT_TRGEV0);
+	}
+	if(((csp_ept_get_misr(ptEptBase) & EPT_INT_CBU))==EPT_INT_CBU)
+	{		
+	  csp_ept_clr_int(ptEptBase, EPT_INT_CBU);
+	}
+	if(((csp_ept_get_misr(ptEptBase) & EPT_INT_CBD))==EPT_INT_CBD)
+	{		
+	  csp_ept_clr_int(ptEptBase, EPT_INT_CBD);
+	}
 	
+	if(((csp_ept_get_misr(ptEptBase) & EPT_INT_PEND))==EPT_INT_PEND)
+	{		
+	  csp_ept_clr_int(ptEptBase, EPT_INT_PEND);
+	}
+	
+    if(((csp_ept_get_misr(ptEptBase) & EPT_INT_CAPLD0))==EPT_INT_CAPLD0)
+	{		
+	 csp_ept_clr_int(ptEptBase, EPT_INT_CAPLD0);			
+	}
+	if(((csp_ept_get_misr(ptEptBase) & EPT_INT_CAPLD1))==EPT_INT_CAPLD1)
+	{		
+	 csp_ept_clr_int(ptEptBase, EPT_INT_CAPLD1);			
+	}
+	if(((csp_ept_get_misr(ptEptBase) & EPT_INT_CAPLD2))==EPT_INT_CAPLD2)
+	{		
+	 csp_ept_clr_int(ptEptBase, EPT_INT_CAPLD2);			
+	}
+	if(((csp_ept_get_misr(ptEptBase) & EPT_INT_CAPLD3))==EPT_INT_CAPLD3)
+	{		
+		s_wEptCapBuf[0]=csp_ept_get_cmpa(ptEptBase);
+		s_wEptCapBuf[1]=csp_ept_get_cmpb(ptEptBase);
+		s_wEptCapBuf[2]=csp_ept_get_cmpc(ptEptBase);
+		s_wEptCapBuf[3]=csp_ept_get_cmpd(ptEptBase);
+		csp_ept_clr_int(ptEptBase, EPT_INT_CAPLD3);
+		csp_ept_set_crrearm(ptEptBase);//单次模式下 rearm				
+	}
 }

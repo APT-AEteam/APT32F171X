@@ -60,7 +60,20 @@ void CORETHandler(void)
 void SYSCONIntHandler(void) 
 {
     // ISR content ...
-	syscon_irqhandler(SYSCON);	
+	if(csp_syscon_get_int_st(SYSCON) & LVD_INT)
+	{
+		csp_syscon_int_clr(SYSCON, LVD_INT);
+	}
+	
+	if(csp_syscon_get_int_st(SYSCON) & IWDT_INT)
+	{
+		csp_syscon_int_clr(SYSCON, IWDT_INT);
+	}
+	
+	if(csp_syscon_get_int_st(SYSCON) & EMFAIL_INT)
+	{
+		csp_syscon_int_clr(SYSCON, EMFAIL_INT);
+	}	
 }
 
 void IFCIntHandler(void) 
@@ -84,7 +97,7 @@ void TC0_0IntHandler(void)
 {
 #if TC0_0_INT_HANDLE_EN
 	// ISR content ...
-	tc0_irqhandler(TC0_0);
+	tc0_irqhandler(TC0_0);//this is a weak function defined in tc00_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -92,7 +105,7 @@ void TC0_1IntHandler(void)
 {
 #if TC0_1_INT_HANDLE_EN
 	// ISR content ...
-	tc0_irqhandler(TC0_1);
+	tc0_irqhandler(TC0_1);//this is a weak function defined in tc01_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -100,7 +113,7 @@ void TC0_2IntHandler(void)
 {
 #if TC0_2_INT_HANDLE_EN
 	// ISR content ...
-	tc0_irqhandler(TC0_2);
+	tc0_irqhandler(TC0_2);//this is a weak function defined in tc02_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -108,7 +121,7 @@ void EPWMIntHandler(void)
 {
 #if EPWM_INT_HANDLE_EN
     // ISR content ...
-	epwm_irqhandler(EPWM);
+	epwm_irqhandler(EPWM);//this is a weak function defined in epwm_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -116,7 +129,7 @@ void TC1IntHandler(void)
 {
 #if TC1_INT_HANDLE_EN
 	// ISR content ...
-	tc1_irqhandler(TC1);
+	tc1_irqhandler(TC1);//this is a weak function defined in tc1_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -124,7 +137,7 @@ void TC2IntHandler(void)
 {
 #if TC2_INT_HANDLE_EN
 	// ISR content ...
-	tc2_irqhandler(TC2);
+	tc2_irqhandler(TC2);//this is a weak function defined in tc2_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 #endif /* CONFIG_USE_TCx_EPWM */
@@ -189,7 +202,7 @@ void EPTIntHandler(void)
 {	
 #if EPT_INT_HANDLE_EN
     // ISR content ...	
-	ept_irqhandler(EPT0);
+	ept_irqhandler(EPT0);//this is a weak function defined in ept_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 

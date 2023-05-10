@@ -17,58 +17,6 @@
 #include "csp_syscon.h"
 #include "csp_tc2.h"
 
-
-/** \brief TC2 interrupt handle function
- * 
- *  \param[in] ptTc2Base: pointer of tc2 register structure
- *  \return none
- */ 
-static uint16_t hwChannel_Rise,hwChannel_Fall;
- 
-__attribute__((weak)) void tc2_irqhandler(csp_tc2_t *ptTc2Base)
-{
-    // ISR content ...
-	//csi_pin_toggle(PB02);
-	if(csi_tc2_get_misr(ptTc2Base) & TC2_INTSRC_START)
-	{
-		csi_tc2_int_clear(ptTc2Base, TC2_INTSRC_START);
-	}
-	else if(csi_tc2_get_misr(ptTc2Base) & TC2_INTSRC_STOP)
-	{
-		csi_tc2_int_clear(ptTc2Base, TC2_INTSRC_STOP);
-	}
-	else if(csi_tc2_get_misr(ptTc2Base) & TC2_INTSRC_PEND)
-	{
-		csi_tc2_int_clear(ptTc2Base, TC2_INTSRC_PEND);
-	}
-	else if(csi_tc2_get_channel_misr(ptTc2Base) & TC2_CHANNEL0_INTSRC_RISE)
-	{
-		csi_tc2_channel_int_clear(ptTc2Base, TC2_CHANNEL0_INTSRC_RISE);
-		hwChannel_Rise = csi_tc2_get_capture0_cmp(ptTc2Base);
-		csi_tc2_stop(ptTc2Base);
-		csi_tc2_start(ptTc2Base);
-	}
-	else if(csi_tc2_get_channel_misr(ptTc2Base) & TC2_CHANNEL1_INTSRC_RISE)
-	{
-		csi_tc2_channel_int_clear(ptTc2Base, TC2_CHANNEL1_INTSRC_RISE);
-		csi_tc2_stop(ptTc2Base);
-		csi_tc2_start(ptTc2Base);
-	}
-	else if(csi_tc2_get_channel_misr(ptTc2Base) & TC2_CHANNEL0_INTSRC_FALL)
-	{
-		csi_tc2_channel_int_clear(ptTc2Base, TC2_CHANNEL0_INTSRC_FALL);
-		hwChannel_Fall = csi_tc2_get_capture0_cmp(ptTc2Base);
-		csi_tc2_stop(ptTc2Base);
-		csi_tc2_start(ptTc2Base);
-	}
-	else if(csi_tc2_get_channel_misr(ptTc2Base) & TC2_CHANNEL1_INTSRC_FALL)
-	{
-		csi_tc2_channel_int_clear(ptTc2Base, TC2_CHANNEL1_INTSRC_FALL);
-		csi_tc2_stop(ptTc2Base);
-		csi_tc2_start(ptTc2Base);
-	}
-}
-
 /**
 *  \brief       tc2 start
 *  \param[in]   ptTc2Base:pointer of tc2 register structure

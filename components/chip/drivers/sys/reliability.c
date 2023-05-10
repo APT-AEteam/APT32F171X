@@ -389,34 +389,3 @@ void csi_swd_unlock(void)
 {
 	csp_swd_unlock(SYSCON);
 }
-
-/**
-  \brief       syscon irqhandler
-  \param       ptSysconBase: pointer of syscon register structure
-  \return      none
-*/
-__attribute__((weak)) void syscon_irqhandler(csp_syscon_t *ptSysconBase)
-{
-	volatile uint32_t wState = 0;
-	wState = csp_syscon_get_int_st(ptSysconBase);
-	
-	if(wState & LVD_INT)
-	{
-		csp_syscon_int_clr(SYSCON, LVD_INT);
-		//my_printf("lvd interrupt!\n");
-	}
-	
-	if(wState & IWDT_INT)
-	{
-		csp_syscon_int_clr(SYSCON, IWDT_INT);
-		//csi_iwdt_feed();
-		//csi_pin_toggle(PC01);
-
-	}
-	if(wState & EMFAIL_INT)
-	{
-		csp_syscon_int_clr(SYSCON, EMFAIL_INT);
-		//my_printf("emosc error!\n");
-	}
-	
-}	

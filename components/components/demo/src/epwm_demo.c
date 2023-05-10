@@ -5,6 +5,7 @@
  * <table>
  * <tr><th> Date  <th>Version  <th>Author  <th>Description
  * <tr><td> 2022-05-17 <td>V0.0 <td>LJY    <td>initial
+ * <tr><td> 2023-3-21  <td>V0.1  <td>WCH     <td>initial
  * </table>
  * *********************************************************************
 */
@@ -150,20 +151,34 @@ int epwm_pwm_demo(void)
 	}	
 
 	while(1){	
-		    csi_epwm_change_camp(EPWM, EPWM_CAMPA0,wEpwmPrd0*0.1);
-			csi_epwm_change_camp(EPWM, EPWM_CAMPA1,wEpwmPrd1*0.1);
-			csi_epwm_change_camp(EPWM, EPWM_CAMPA2,wEpwmPrd2*0.1);
+		    csi_epwm_change_camp(EPWM, EPWM_CAMPA0,g_wEpwmPrd0*0.1);
+			csi_epwm_change_camp(EPWM, EPWM_CAMPA1,g_wEpwmPrd1*0.1);
+			csi_epwm_change_camp(EPWM, EPWM_CAMPA2,g_wEpwmPrd2*0.1);
 		    mdelay(200); 
 			nop;                       
 		    csp_epwm_clr_hlock(EPWM) ;
 			nop;
 			csp_epwm_clr_slock(EPWM) ;
 			nop;		    
-			csi_epwm_change_camp(EPWM, EPWM_CAMPA0,wEpwmPrd0*0.5);
-			csi_epwm_change_camp(EPWM, EPWM_CAMPA1,wEpwmPrd1*0.5);
-			csi_epwm_change_camp(EPWM, EPWM_CAMPA2,wEpwmPrd2*0.5);
+			csi_epwm_change_camp(EPWM, EPWM_CAMPA0,g_wEpwmPrd0*0.5);
+			csi_epwm_change_camp(EPWM, EPWM_CAMPA1,g_wEpwmPrd1*0.5);
+			csi_epwm_change_camp(EPWM, EPWM_CAMPA2,g_wEpwmPrd2*0.5);
 	        mdelay(200);
 	}
 	return iRet;
 }
+
+/** \brief epwm interrupt handle function
+ * 
+ *  \param[in] ptEpwmBas: pointer of epwm register structure
+ *  \return none
+ */ 
+__attribute__((weak)) void epwm_irqhandler(csp_epwm_t *ptEpwmBase)
+{ 
+	if(csp_epwm_get_misr(ptEpwmBase,EPWM_INT_PEND1))
+	{
+	   csp_epwm_clr_int(ptEpwmBase,EPWM_INT_PEND1);
+	}
+}
+
 #endif /* CONFIG_USE_TCx_EPWM */

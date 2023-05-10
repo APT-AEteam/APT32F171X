@@ -27,7 +27,7 @@ extern "C" {
 
 
 
-extern uint32_t gEptPrd;
+extern uint32_t g_wEptPrd;
 
 typedef struct csi_ept_config csi_ept_config_t;
 struct csi_ept_config {

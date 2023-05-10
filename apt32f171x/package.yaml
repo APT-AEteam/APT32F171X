@@ -7,13 +7,9 @@ hw_info:
   ld_script: ../board/gcc_flash.ld
   flash_program: ""
 def_config:
-  CONFIG_ARCH_INTERRUPTSTACK: 1024
   CONFIG_DEBUG_MODE: 1
-  CONFIG_KERNEL_NONE: 1
-  CONFIG_SUPPORT_TSPEND: 1
   CONFIG_USER_PM: 1
   CONFIG_USE_TCx_EPWM: 0
-  CONFIG_XIP: 1
   DBG_PRINT2PC: 1
 name: apt32f171x
 version: v1.1.3

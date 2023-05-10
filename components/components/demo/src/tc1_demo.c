@@ -5,6 +5,7 @@
  * <table>
  * <tr><th> Date  <th>Version  <th>Author  <th>Description
  * <tr><td> 2022-02-17 <td>V0.0 <td>LQ    <td>initial
+ * <tr><td> 2023-3-21  <td>V0.1  <td>WCH     <td>initial
  * </table>
  * *********************************************************************
 */
@@ -16,6 +17,8 @@
 
 #if CONFIG_USE_TCx_EPWM
 #include <drv/tc1.h>
+
+csi_tc1_capture_data_t tCapData;
 
 /** \brief TC1 capture the pulse width
  * 
@@ -94,4 +97,53 @@ void tc1_pwm_demo(void)
 		nop;
 	}
 }
+
+/** \brief TC1 interrupt handle function
+ * 
+ *  \param[in] ptTc1Base: pointer of tc1 register structure
+ *  \return none
+ */ 
+__attribute__((weak)) void tc1_irqhandler(csp_tc1_t *ptTc1Base)
+{
+    // ISR content ...
+	volatile uint32_t wIntState = csp_tc1_get_isr(ptTc1Base);
+	
+	if(wIntState & TC1_START_INT)
+	{
+		csp_tc1_clr_isr(ptTc1Base,TC1_START_INT);
+	}
+	
+	if(wIntState & TC1_STOP_INT)
+	{
+		csp_tc1_clr_isr(ptTc1Base,TC1_STOP_INT);
+	}
+	
+	if(wIntState & TC1_PSTART_INT)
+	{
+		csp_tc1_clr_isr(ptTc1Base,TC1_PSTART_INT);
+	}
+	
+	if(wIntState & TC1_PEND_INT)
+	{
+		csp_tc1_clr_isr(ptTc1Base,TC1_PEND_INT);
+	}
+	
+	if(wIntState & TC1_MAT_INT)
+	{
+		csp_tc1_clr_isr(ptTc1Base,TC1_MAT_INT);
+	}
+	
+	if(wIntState & TC1_OVF_INT)
+	{
+		csp_tc1_clr_isr(ptTc1Base,TC1_OVF_INT);
+	}
+	
+	if(wIntState & TC1_CAPT_INT)
+	{
+		tCapData.wCapRise = csp_tc1_get_cucr(ptTc1Base);
+		tCapData.wCapFall = csp_tc1_get_cdcr(ptTc1Base);
+		csp_tc1_clr_isr(ptTc1Base,TC1_CAPT_INT);
+	}
+}
+
 #endif /* CONFIG_USE_TCx_EPWM */

@@ -5,6 +5,7 @@
  * <table>
  * <tr><th> Date  <th>Version  <th>Author  <th>Description
  * <tr><td> 2022-05-09 <td>V0.0  <td>YYM   <td>initial
+ * <tr><td> 2023-3-21  <td>V0.1  <td>WCH     <td>initial
  * </table>
  * *********************************************************************
 */
@@ -169,4 +170,56 @@ int tc2_match_demo(void)
 	
 	return iRet;
 }
+
+/** \brief TC2 interrupt handle function
+ * 
+ *  \param[in] ptTc2Base: pointer of tc2 register structure
+ *  \return none
+ */ 
+static uint16_t s_hwChannel_Rise,s_hwChannel_Fall;
+ 
+__attribute__((weak)) void tc2_irqhandler(csp_tc2_t *ptTc2Base)
+{
+    // ISR content ...
+	//csi_pin_toggle(PB02);
+	if(csi_tc2_get_misr(ptTc2Base) & TC2_INTSRC_START)
+	{
+		csi_tc2_int_clear(ptTc2Base, TC2_INTSRC_START);
+	}
+	else if(csi_tc2_get_misr(ptTc2Base) & TC2_INTSRC_STOP)
+	{
+		csi_tc2_int_clear(ptTc2Base, TC2_INTSRC_STOP);
+	}
+	else if(csi_tc2_get_misr(ptTc2Base) & TC2_INTSRC_PEND)
+	{
+		csi_tc2_int_clear(ptTc2Base, TC2_INTSRC_PEND);
+	}
+	else if(csi_tc2_get_channel_misr(ptTc2Base) & TC2_CHANNEL0_INTSRC_RISE)
+	{
+		csi_tc2_channel_int_clear(ptTc2Base, TC2_CHANNEL0_INTSRC_RISE);
+		s_hwChannel_Rise = csi_tc2_get_capture0_cmp(ptTc2Base);
+		csi_tc2_stop(ptTc2Base);
+		csi_tc2_start(ptTc2Base);
+	}
+	else if(csi_tc2_get_channel_misr(ptTc2Base) & TC2_CHANNEL1_INTSRC_RISE)
+	{
+		csi_tc2_channel_int_clear(ptTc2Base, TC2_CHANNEL1_INTSRC_RISE);
+		csi_tc2_stop(ptTc2Base);
+		csi_tc2_start(ptTc2Base);
+	}
+	else if(csi_tc2_get_channel_misr(ptTc2Base) & TC2_CHANNEL0_INTSRC_FALL)
+	{
+		csi_tc2_channel_int_clear(ptTc2Base, TC2_CHANNEL0_INTSRC_FALL);
+		s_hwChannel_Fall = csi_tc2_get_capture0_cmp(ptTc2Base);
+		csi_tc2_stop(ptTc2Base);
+		csi_tc2_start(ptTc2Base);
+	}
+	else if(csi_tc2_get_channel_misr(ptTc2Base) & TC2_CHANNEL1_INTSRC_FALL)
+	{
+		csi_tc2_channel_int_clear(ptTc2Base, TC2_CHANNEL1_INTSRC_FALL);
+		csi_tc2_stop(ptTc2Base);
+		csi_tc2_start(ptTc2Base);
+	}
+}
+
 #endif /* CONFIG_USE_TCx_EPWM */
