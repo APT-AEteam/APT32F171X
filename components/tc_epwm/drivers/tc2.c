@@ -4,7 +4,8 @@
  * \copyright Copyright (C) 2015-2022 @ APTCHIP
  * <table>
  * <tr><th> Date  <th>Version  <th>Author  <th>Description
- * <tr><td> 2022-05-09 <td>V0.0  <td>YYM   <td>initial
+ * <tr><td> 2022-5-9   <td>V0.0  <td>YYM   <td>initial
+ * <tr><td> 2023-5-11  <td>V0.1  <td>WCH     <td>modify
  * </table>
  * *********************************************************************
 */
@@ -85,7 +86,7 @@ uint8_t csi_tc2_get_misr(csp_tc2_t *ptTc2Base)
 */
 void csi_tc2_int_clear(csp_tc2_t *ptTc2Base, csi_tc2_int_e eTc2Int)
 {
-	csp_tc2_int_clear(ptTc2Base, eTc2Int);
+	csp_tc2_int_clear(ptTc2Base, (tc2_int_e)eTc2Int);
 }
 
 /**
@@ -136,7 +137,7 @@ uint16_t csi_tc2_get_channel_misr(csp_tc2_t *ptTc2Base)
 */
 void csi_tc2_channel_int_clear(csp_tc2_t *ptTc2Base, csi_tc2_channel_int_e eTc2ChannelInt)
 {
-	csp_tc2_channel_int_clear(ptTc2Base, eTc2ChannelInt);
+	csp_tc2_channel_int_clear(ptTc2Base, (tc2_channel_int_e)eTc2ChannelInt);
 }
 
 /**

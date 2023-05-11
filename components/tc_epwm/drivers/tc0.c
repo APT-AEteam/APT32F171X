@@ -5,7 +5,7 @@
  * <table>
  * <tr><th> Date  <th>Version  <th>Author  <th>Description
  * <tr><td> 2022-02-17 <td>V0.0  <td>LQ   <td>initial
- * <tr><td> 2023-3-21  <td>V0.1  <td>WCH     <td>initial
+ * <tr><td> 2023-3-21  <td>V0.1  <td>WCH     <td>modify
  * </table>
  * *********************************************************************
 */
@@ -133,41 +133,41 @@ static void apt_tc0_dutycycle_freq_cal(csp_tc0_t *ptTc0Base, csi_tc0_pwm_config_
 	
 	if(0 == ptTc0PwmCfg->byDutyCycleA)
 	{
-		csp_tc0_out_acpa(ptTc0Base,TC0_BSWTRG_LOW);
-		csp_tc0_out_acpc(ptTc0Base,TC0_BSWTRG_LOW);
+		csp_tc0_out_acpa(ptTc0Base,(tc0_acpa_e)TC0_BSWTRG_LOW);
+		csp_tc0_out_acpc(ptTc0Base,(tc0_acpc_e)TC0_BSWTRG_LOW);
 	}
 	else if(100 == ptTc0PwmCfg->byDutyCycleA)
 	{
-		csp_tc0_out_acpa(ptTc0Base,TC0_BSWTRG_HIGH);
-		csp_tc0_out_acpc(ptTc0Base,TC0_BSWTRG_HIGH);
+		csp_tc0_out_acpa(ptTc0Base,(tc0_acpa_e)TC0_BSWTRG_HIGH);
+		csp_tc0_out_acpc(ptTc0Base,(tc0_acpc_e)TC0_BSWTRG_HIGH);
 	}
 	else
 	{
-		csp_tc0_out_acpa(ptTc0Base,TC0_BSWTRG_LOW);
-		csp_tc0_out_acpc(ptTc0Base,TC0_BSWTRG_HIGH);
+		csp_tc0_out_acpa(ptTc0Base,(tc0_acpa_e)TC0_BSWTRG_LOW);
+		csp_tc0_out_acpc(ptTc0Base,(tc0_acpc_e)TC0_BSWTRG_HIGH);
 	}
-	csp_tc0_out_aeevt(ptTc0Base,TC0_BSWTRG_HOLD);
-	csp_tc0_out_aswtrg(ptTc0Base,TC0_BSWTRG_HOLD);
+	csp_tc0_out_aeevt(ptTc0Base,(tc0_aeevt_e)TC0_BSWTRG_HOLD);
+	csp_tc0_out_aswtrg(ptTc0Base,(tc0_aswtrg_e)TC0_BSWTRG_HOLD);
 	
 	if(ptTc0PwmCfg->byExtTrgSrc)//double output need set b,single output needn't
 	{
 		if(0 == ptTc0PwmCfg->byDutyCycleB)
 		{
-			csp_tc0_out_bcpb(ptTc0Base,TC0_BSWTRG_LOW);
+			csp_tc0_out_bcpb(ptTc0Base,(tc0_bcpb_e)TC0_BSWTRG_LOW);
 			csp_tc0_out_bcpc(ptTc0Base,TC0_BSWTRG_LOW);
 		}
 		else if(100 == ptTc0PwmCfg->byDutyCycleB)
 		{
-			csp_tc0_out_bcpb(ptTc0Base,TC0_BSWTRG_HIGH);
-			csp_tc0_out_bcpc(ptTc0Base,TC0_BSWTRG_HIGH);
+			csp_tc0_out_bcpb(ptTc0Base,(tc0_bcpb_e)TC0_BSWTRG_HIGH);
+			csp_tc0_out_bcpc(ptTc0Base,(tc0_bcpc_e)TC0_BSWTRG_HIGH);
 		}
 		else
 		{
-			csp_tc0_out_bcpb(ptTc0Base,TC0_BSWTRG_LOW);
-			csp_tc0_out_bcpc(ptTc0Base,TC0_BSWTRG_HIGH);
+			csp_tc0_out_bcpb(ptTc0Base,(tc0_bcpb_e)TC0_BSWTRG_LOW);
+			csp_tc0_out_bcpc(ptTc0Base,(tc0_bcpc_e)TC0_BSWTRG_HIGH);
 		}
-		csp_tc0_out_beevt(ptTc0Base,TC0_BSWTRG_HOLD);
-		csp_tc0_out_bswtrg(ptTc0Base,TC0_BSWTRG_HOLD);
+		csp_tc0_out_beevt(ptTc0Base,(tc0_beevt_e)TC0_BSWTRG_HOLD);
+		csp_tc0_out_bswtrg(ptTc0Base,(tc0_bswtrg_e)TC0_BSWTRG_HOLD);
 	}
 }
 
@@ -276,7 +276,7 @@ void csi_tc0_counter_clk_enable(csp_tc0_t *ptTc0Base, bool bEnable)
  */ 
 void csi_tc0_int_enable(csp_tc0_t *ptTc0Base, csi_tc0_intsrc_e eIntSrc, bool bEnable)
 {
-	csp_tc0_int_enable(ptTc0Base, eIntSrc, bEnable);
+	csp_tc0_int_enable(ptTc0Base, (tc0_int_e)eIntSrc, bEnable);
 	
 	#if CONFIG_USE_TCx_EPWM
 	if(bEnable)
@@ -320,7 +320,7 @@ uint8_t csi_tc0_get_channel_number(csp_tc0_t *ptTc0Base)
  */ 
 void csi_tc0_set_internal_clksrc(csi_tc0_internal_clksrc_e eClksrc)
 {
-	csp_tc0_set_internal_clksrc(TC0MUL,eClksrc);
+	csp_tc0_set_internal_clksrc(TC0MUL,(tc0_internal_clksrc_e)eClksrc);
 }
 
 /** \brief set xc0,xc1,xc2 clk source
@@ -336,15 +336,15 @@ void csi_tc0_set_external_clksrc(csp_tc0_t *ptTc0Base,csi_tc0_external_clksrc_e 
 	switch(byChannel)
 	{
 		case TC0_CHANNEL0:
-			csp_tc00_set_external_clksrc(TC0MUL,eClksrc);
+			csp_tc00_set_external_clksrc(TC0MUL,(tc00_external_clksrc_e)eClksrc);
 			break;
 			
 		case TC0_CHANNEL1:
-			csp_tc01_set_external_clksrc(TC0MUL,eClksrc);
+			csp_tc01_set_external_clksrc(TC0MUL,(tc01_external_clksrc_e)eClksrc);
 			break;
 			
 		case TC0_CHANNEL2:
-			csp_tc02_set_external_clksrc(TC0MUL,eClksrc);
+			csp_tc02_set_external_clksrc(TC0MUL,(tc02_external_clksrc_e)eClksrc);
 			break;
 			
 		default:;	

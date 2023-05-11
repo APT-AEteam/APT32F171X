@@ -5,6 +5,7 @@
  * <table>
  * <tr><th> Date  <th>Version  <th>Author  <th>Description
  * <tr><td> 2022-02-17 <td>V0.0  <td>LQ   <td>initial
+ * <tr><td> 2023-5-11  <td>V0.1  <td>WCH     <td>modify
  * </table>
  * *********************************************************************
 */
@@ -275,7 +276,7 @@ void csi_tc1_clk_enable(csp_tc1_t *ptTc1Base, bool bEnable)
  */ 
 void csi_tc1_int_enable(csp_tc1_t *ptTc1Base, csi_tc1_intsrc_e eIntSrc, bool bEnable)
 {
-	csp_tc1_int_enable(ptTc1Base, eIntSrc, bEnable);
+	csp_tc1_int_enable(ptTc1Base, (tc1_int_e)eIntSrc, bEnable);
 #if CONFIG_USE_TCx_EPWM
 	if(bEnable)
 		csi_irq_enable_te(ptTc1Base);

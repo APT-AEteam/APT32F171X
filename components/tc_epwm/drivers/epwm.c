@@ -5,7 +5,8 @@
  * <table>
  * <tr><th> Date  <th>Version  <th>Author  <th>Description
  * <tr><td> 2022-02-17 <td>V0.0  <td>LJY   <td>initial
- * <tr><td> 2023-3-21  <td>V0.1  <td>WCH     <td>initial
+ * <tr><td> 2023-3-21  <td>V0.1  <td>WCH     <td>modify
+ * <tr><td> 2023-5-11  <td>V0.2  <td>WCH     <td>modify
  * </table>
  * *********************************************************************
 */
@@ -98,36 +99,36 @@ csi_error_t  csi_epwm_wave_init(csp_epwm_t *ptEpwmBase, csi_epwm_pwmconfig_t *pt
 
 /** \brief Channel configuration
  *  \param[in] ptEpwmBase: pointer of epwm register structure
- *  \param[in] tPwmCfg: refer to csi_epwm_pwmchannel_config_t
+ *  \param[in] ptPwmCfg: refer to csi_epwm_pwmchannel_config_t
  *  \param[in] eChannel: Channel label
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_epwm_channel_config(csp_epwm_t *ptEpwmBase, csi_epwm_pwmchannel_config_t *tPwmCfg, csi_epwm_channel_e echannel)
+csi_error_t csi_epwm_channel_config(csp_epwm_t *ptEpwmBase, csi_epwm_pwmchannel_config_t *ptPwmCfg, csi_epwm_channel_e eChannel)
 {
-    uint32_t WGCRx_Val=0;
+    uint32_t wVal=0;
 	
-	WGCRx_Val=    (   (tPwmCfg -> byChoiceA_X & 0x3) << EPWM_X_A_POS        )
-	              | ( (tPwmCfg -> byChoiceB_X & 0x3) << EPWM_X_B_POS        )
-				  | ( (tPwmCfg -> byActionC_X & 0x3) << EPWM_X_CENTERE_POS  )
-				  | ( (tPwmCfg -> byActionP_X & 0x3) << EPWM_X_PRD_POS      )
-				  | ( (tPwmCfg -> byActionS_X & 0x3) << EPWM_X_START_POS    )				  
-				  | ( (tPwmCfg -> byChoiceA_Y & 0x3) << EPWM_Y_A_POS        )
-	              | ( (tPwmCfg -> byChoiceB_Y & 0x3) << EPWM_Y_B_POS        )
-				  | ( (tPwmCfg -> byActionC_Y & 0x3) << EPWM_Y_CENTERE_POS  )
-				  | ( (tPwmCfg -> byActionP_Y & 0x3) << EPWM_Y_PRD_POS      )
-				  | ( (tPwmCfg -> byActionS_Y & 0x3) << EPWM_Y_START_POS    )
+	wVal     =    (   (ptPwmCfg -> byChoiceA_X & 0x3) << EPWM_X_A_POS        )
+	              | ( (ptPwmCfg -> byChoiceB_X & 0x3) << EPWM_X_B_POS        )
+				  | ( (ptPwmCfg -> byActionC_X & 0x3) << EPWM_X_CENTERE_POS  )
+				  | ( (ptPwmCfg -> byActionP_X & 0x3) << EPWM_X_PRD_POS      )
+				  | ( (ptPwmCfg -> byActionS_X & 0x3) << EPWM_X_START_POS    )				  
+				  | ( (ptPwmCfg -> byChoiceA_Y & 0x3) << EPWM_Y_A_POS        )
+	              | ( (ptPwmCfg -> byChoiceB_Y & 0x3) << EPWM_Y_B_POS        )
+				  | ( (ptPwmCfg -> byActionC_Y & 0x3) << EPWM_Y_CENTERE_POS  )
+				  | ( (ptPwmCfg -> byActionP_Y & 0x3) << EPWM_Y_PRD_POS      )
+				  | ( (ptPwmCfg -> byActionS_Y & 0x3) << EPWM_Y_START_POS    )
 				 ;
 				  
-	switch (echannel)
+	switch (eChannel)
 	{	
 		case (EPWM_CHANNEL_0):
-		                     csp_epwm_set_wgcr0(ptEpwmBase,WGCRx_Val);
+		                     csp_epwm_set_wgcr0(ptEpwmBase,wVal);
 			break;
 		case (EPWM_CHANNEL_1):
-		                     csp_epwm_set_wgcr1(ptEpwmBase,WGCRx_Val);
+		                     csp_epwm_set_wgcr1(ptEpwmBase,wVal);
 			break;
 		case (EPWM_CHANNEL_2):
-		                     csp_epwm_set_wgcr2(ptEpwmBase,WGCRx_Val);
+		                     csp_epwm_set_wgcr2(ptEpwmBase,wVal);
             break;
 		default:return CSI_ERROR;
 			break;
@@ -140,11 +141,11 @@ csi_error_t csi_epwm_channel_config(csp_epwm_t *ptEpwmBase, csi_epwm_pwmchannel_
 /** \brief channelmode configuration 
  * 
  *  \param[in] ptEpwmBase: pointer of ept register structure
- *  \param[in] tCfg: refer to csi_ept_deadzone_config_t
+ *  \param[in] ptDeadZoneCfg: refer to csi_ept_deadzone_config_t
  *  \param[in] eChannel: refer to csi_ept_channel_e
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_epwm_channelmode_config(csp_epwm_t *ptEpwmBase,csi_epwm_deadzone_config_t *tCfg,csi_epwm_channel_e eChannel)
+csi_error_t csi_epwm_channelmode_config(csp_epwm_t *ptEpwmBase,csi_epwm_deadzone_config_t *ptDeadZoneCfg,csi_epwm_channel_e eChannel)
 {    float     f_Val;
      uint16_t  hw_RS;
 	 uint16_t  hw_FS;
@@ -159,21 +160,21 @@ csi_error_t csi_epwm_channelmode_config(csp_epwm_t *ptEpwmBase,csi_epwm_deadzone
 	 w_CR=(w_CR & ~EPWM_DIVM_MSK)| (0<<EPWM_DIVM_POS);
      csp_epwm_set_cr(ptEpwmBase, w_CR);
 	 
-	 w_val=(uint32_t)(tCfg -> hwRisingEdgereGister/f_Val);
+	 w_val=(uint32_t)(ptDeadZoneCfg -> hwRisingEdgereGister/f_Val);
 	 if(w_val>511){return CSI_ERROR;}
 	 else{
 		 hw_RS=w_val&0x1ff;
 	 }
-	 w_val=(uint32_t)(tCfg -> hwFallingEdgereGister/f_Val);
+	 w_val=(uint32_t)(ptDeadZoneCfg -> hwFallingEdgereGister/f_Val);
 	 if(w_val>511){return CSI_ERROR;}
 	 else{
 		 hw_FS=w_val&0x1ff;
 	 }
 	 
-	 w_OUTCR= (tCfg -> byOutsel<<DB_OUTSEL_POS)
-	         |(tCfg -> hwXpolarity <<DB_POLARITY_X_POS)
-			 |(tCfg -> hwYpolarity <<DB_POLARITY_Y_POS)
-			 |(tCfg -> bySrcsel <<DB_SRCSEL_POS);
+	 w_OUTCR= (ptDeadZoneCfg -> byOutsel<<DB_OUTSEL_POS)
+	         |(ptDeadZoneCfg -> hwXpolarity <<DB_POLARITY_X_POS)
+			 |(ptDeadZoneCfg -> hwYpolarity <<DB_POLARITY_Y_POS)
+			 |(ptDeadZoneCfg -> bySrcsel <<DB_SRCSEL_POS);
 	 w_OUTCR=(w_OUTCR&~DB_DTR_MSK)|	(hw_RS << DB_DTR_POS);	 
 	 w_OUTCR=(w_OUTCR&~DB_DTF_MSK)|	(hw_FS << DB_DTF_POS);		 
 	 
@@ -201,14 +202,14 @@ csi_error_t csi_epwm_channelmode_config(csp_epwm_t *ptEpwmBase,csi_epwm_deadzone
  *  \param[in] bEn: ENABLE/DISABLE
  *  \return  CSI_OK;
  */
-csi_error_t csi_epwm_Chopper_config(csp_epwm_t *ptEpwmBase, csi_epwm_Chopper_config_t *tCfg ,csi_epwm_channel_e eChannel)
+csi_error_t csi_epwm_Chopper_config(csp_epwm_t *ptEpwmBase, csi_epwm_Chopper_config_t *ptChopperCfg ,csi_epwm_channel_e eChannel)
 {   uint32_t w_CFCRx=0;
 
-	if(tCfg->byCfen){
-		w_CFCRx =  (tCfg->byCfen         <<EPWM_CFEN_POS)
-		          |((tCfg->byOsw&0xf)   << EPWM_OSPWTH_POS)
-		          |((tCfg->byCdiv&0x07) << EPWM_CDIV_POS)
-				  |((tCfg->byDuty&0x07) << EPWM_CDUTY_POS);
+	if(ptChopperCfg->byCfen){
+		w_CFCRx =  (ptChopperCfg->byCfen         <<EPWM_CFEN_POS)
+		          |((ptChopperCfg->byOsw&0xf)   << EPWM_OSPWTH_POS)
+		          |((ptChopperCfg->byCdiv&0x07) << EPWM_CDIV_POS)
+				  |((ptChopperCfg->byDuty&0x07) << EPWM_CDUTY_POS);
 				  
 		switch (eChannel)
 		{	
@@ -248,64 +249,64 @@ csi_error_t csi_epwm_Chopper_config(csp_epwm_t *ptEpwmBase, csi_epwm_Chopper_con
 /** \brief State of emergency configuration 
  * 
  *  \param[in] ptEpwmBase: pointer of ept register structure
- *  \param[in] tCfg: refer to csi_epwm_emergency_config_t
+ *  \param[in] ptEmCfg: refer to csi_epwm_emergency_config_t
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_epwm_emergency_config(csp_epwm_t *ptEpwmBase, csi_epwm_emergency_config_t *tCfg)
+csi_error_t csi_epwm_emergency_config(csp_epwm_t *ptEpwmBase, csi_epwm_emergency_config_t *ptEmCfg)
 {
 	uint32_t w_LKCR=0;
 	uint32_t w_EMR=0;
 	uint32_t w_SLCON=0;
 	
-	w_LKCR= (w_LKCR &~EPWM_CMP0LKM_MSK) | (tCfg->CMP0LKM << EPWM_CMP0LKM_POS);
-	w_LKCR= (w_LKCR &~EPWM_CMP1LKM_MSK) | (tCfg->CMP1LKM << EPWM_CMP1LKM_POS);
-	w_LKCR= (w_LKCR &~EPWM_CMP2LKM_MSK) | (tCfg->CMP2LKM << EPWM_CMP2LKM_POS);
-	w_LKCR= (w_LKCR &~EPWM_CMP3LKM_MSK) | (tCfg->CMP3LKM << EPWM_CMP3LKM_POS);
-	w_LKCR= (w_LKCR &~EPWM_CMP4LKM_MSK) | (tCfg->CMP4LKM << EPWM_CMP4LKM_POS);
-	w_LKCR= (w_LKCR &~EPWM_EP0LKM_MSK)  | (tCfg->EP0LKM  << EPWM_EP0LKM_POS);
-	w_LKCR= (w_LKCR &~EPWM_EP1LKM_MSK)  | (tCfg->EP1LKM  << EPWM_EP1LKM_POS);
-	w_LKCR= (w_LKCR &~EPWM_EP2LKM_MSK)  | (tCfg->EP2LKM  << EPWM_EP2LKM_POS);
-	w_LKCR= (w_LKCR &~EPWM_EP3LKM_MSK)  | (tCfg->EP3LKM  << EPWM_EP3LKM_POS);
-	w_LKCR= (w_LKCR &~EPWM_EP4LKM_MSK)  | (tCfg->EP4LKM  << EPWM_EP4LKM_POS);
+	w_LKCR= (w_LKCR &~EPWM_CMP0LKM_MSK) | (ptEmCfg->CMP0LKM << EPWM_CMP0LKM_POS);
+	w_LKCR= (w_LKCR &~EPWM_CMP1LKM_MSK) | (ptEmCfg->CMP1LKM << EPWM_CMP1LKM_POS);
+	w_LKCR= (w_LKCR &~EPWM_CMP2LKM_MSK) | (ptEmCfg->CMP2LKM << EPWM_CMP2LKM_POS);
+	w_LKCR= (w_LKCR &~EPWM_CMP3LKM_MSK) | (ptEmCfg->CMP3LKM << EPWM_CMP3LKM_POS);
+	w_LKCR= (w_LKCR &~EPWM_CMP4LKM_MSK) | (ptEmCfg->CMP4LKM << EPWM_CMP4LKM_POS);
+	w_LKCR= (w_LKCR &~EPWM_EP0LKM_MSK)  | (ptEmCfg->EP0LKM  << EPWM_EP0LKM_POS);
+	w_LKCR= (w_LKCR &~EPWM_EP1LKM_MSK)  | (ptEmCfg->EP1LKM  << EPWM_EP1LKM_POS);
+	w_LKCR= (w_LKCR &~EPWM_EP2LKM_MSK)  | (ptEmCfg->EP2LKM  << EPWM_EP2LKM_POS);
+	w_LKCR= (w_LKCR &~EPWM_EP3LKM_MSK)  | (ptEmCfg->EP3LKM  << EPWM_EP3LKM_POS);
+	w_LKCR= (w_LKCR &~EPWM_EP4LKM_MSK)  | (ptEmCfg->EP4LKM  << EPWM_EP4LKM_POS);
 	csp_epwm_set_lkcr(ptEpwmBase,w_LKCR);
 	
-	csp_epwm_set_trgivt(ptEpwmBase, tCfg->TRGIVT&0xff);
-	csp_epwm_set_trgtdl(ptEpwmBase, tCfg->TRGTDL&0x0f);
+	csp_epwm_set_trgivt(ptEpwmBase, ptEmCfg->TRGIVT&0xff);
+	csp_epwm_set_trgtdl(ptEpwmBase, ptEmCfg->TRGTDL&0x0f);
 	
 	//	w_SLCON=csp_epwm_get_slcon(ptEpwmBase);
-	w_SLCON=(w_SLCON & ~EPWM_S_ONE_MSK) |(tCfg->S_ONE<<EPWM_S_ONE_POS);
-	w_SLCON=(w_SLCON & ~EPWM_SL_CNTR_INC_EN_MSK) |(tCfg->SL_CNTR_INC_EN<<EPWM_SL_CNTR_INC_EN_POS);
-	w_SLCON=(w_SLCON & ~EPWM_SL_CNTR_DEC_EN_MSK) |(tCfg->SL_CNTR_DEC_EN<<EPWM_SL_CNTR_DEC_EN_POS);
-	w_SLCON=(w_SLCON & ~EPWM_SL_INCB_EN1_MSK)    |(tCfg->SL_INCB_EN1<<EPWM_SL_INCB_EN1_POS);
-	w_SLCON=(w_SLCON & ~EPWM_SL_DECB_EN1_MSK)    |(tCfg->SL_DECB_EN1<<EPWM_SL_DECB_EN1_POS);
-	w_SLCON=(w_SLCON & ~EPWM_SL_INCA_EN1_MSK)    |(tCfg->SL_INCA_EN1<<EPWM_SL_INCA_EN1_POS);
-	w_SLCON=(w_SLCON & ~EPWM_SL_DECA_EN1_MSK)    |(tCfg->SL_DECA_EN1<<EPWM_SL_DECA_EN1_POS);
-	w_SLCON=(w_SLCON & ~EPWM_SL_INCB_EN0_MSK)    |(tCfg->SL_INCB_EN0<<EPWM_SL_INCB_EN0_POS);
-	w_SLCON=(w_SLCON & ~EPWM_SL_DECB_EN0_MSK)    |(tCfg->SL_DECB_EN0<<EPWM_SL_DECB_EN0_POS);
-	w_SLCON=(w_SLCON & ~EPWM_SL_INCA_EN0_MSK)    |(tCfg->SL_INCA_EN0<<EPWM_SL_INCA_EN0_POS);
-	w_SLCON=(w_SLCON & ~EPWM_SL_DECA_EN0_MSK)    |(tCfg->SL_DECA_EN0<<EPWM_SL_DECA_EN0_POS);
+	w_SLCON=(w_SLCON & ~EPWM_S_ONE_MSK) |(ptEmCfg->S_ONE<<EPWM_S_ONE_POS);
+	w_SLCON=(w_SLCON & ~EPWM_SL_CNTR_INC_EN_MSK) |(ptEmCfg->SL_CNTR_INC_EN<<EPWM_SL_CNTR_INC_EN_POS);
+	w_SLCON=(w_SLCON & ~EPWM_SL_CNTR_DEC_EN_MSK) |(ptEmCfg->SL_CNTR_DEC_EN<<EPWM_SL_CNTR_DEC_EN_POS);
+	w_SLCON=(w_SLCON & ~EPWM_SL_INCB_EN1_MSK)    |(ptEmCfg->SL_INCB_EN1<<EPWM_SL_INCB_EN1_POS);
+	w_SLCON=(w_SLCON & ~EPWM_SL_DECB_EN1_MSK)    |(ptEmCfg->SL_DECB_EN1<<EPWM_SL_DECB_EN1_POS);
+	w_SLCON=(w_SLCON & ~EPWM_SL_INCA_EN1_MSK)    |(ptEmCfg->SL_INCA_EN1<<EPWM_SL_INCA_EN1_POS);
+	w_SLCON=(w_SLCON & ~EPWM_SL_DECA_EN1_MSK)    |(ptEmCfg->SL_DECA_EN1<<EPWM_SL_DECA_EN1_POS);
+	w_SLCON=(w_SLCON & ~EPWM_SL_INCB_EN0_MSK)    |(ptEmCfg->SL_INCB_EN0<<EPWM_SL_INCB_EN0_POS);
+	w_SLCON=(w_SLCON & ~EPWM_SL_DECB_EN0_MSK)    |(ptEmCfg->SL_DECB_EN0<<EPWM_SL_DECB_EN0_POS);
+	w_SLCON=(w_SLCON & ~EPWM_SL_INCA_EN0_MSK)    |(ptEmCfg->SL_INCA_EN0<<EPWM_SL_INCA_EN0_POS);
+	w_SLCON=(w_SLCON & ~EPWM_SL_DECA_EN0_MSK)    |(ptEmCfg->SL_DECA_EN0<<EPWM_SL_DECA_EN0_POS);
 	csp_epwm_set_slcon(ptEpwmBase,w_SLCON);
 	
 	w_EMR=csp_epwm_get_emr(ptEpwmBase);
-	w_EMR= (w_EMR &~EPWM_HL_P0XS_MSK) |(tCfg->HL_P0XS<<EPWM_HL_P0XS_POS);
-	w_EMR= (w_EMR &~EPWM_HL_P0YS_MSK) |(tCfg->HL_P0YS<<EPWM_HL_P0YS_POS);
-	w_EMR= (w_EMR &~EPWM_HL_P1XS_MSK) |(tCfg->HL_P1XS<<EPWM_HL_P1XS_POS);
-	w_EMR= (w_EMR &~EPWM_HL_P1YS_MSK) |(tCfg->HL_P1YS<<EPWM_HL_P1YS_POS);
-	w_EMR= (w_EMR &~EPWM_HL_P2XS_MSK) |(tCfg->HL_P2XS<<EPWM_HL_P2XS_POS);
-	w_EMR= (w_EMR &~EPWM_HL_P2YS_MSK) |(tCfg->HL_P2YS<<EPWM_HL_P2YS_POS);
+	w_EMR= (w_EMR &~EPWM_HL_P0XS_MSK) |(ptEmCfg->HL_P0XS<<EPWM_HL_P0XS_POS);
+	w_EMR= (w_EMR &~EPWM_HL_P0YS_MSK) |(ptEmCfg->HL_P0YS<<EPWM_HL_P0YS_POS);
+	w_EMR= (w_EMR &~EPWM_HL_P1XS_MSK) |(ptEmCfg->HL_P1XS<<EPWM_HL_P1XS_POS);
+	w_EMR= (w_EMR &~EPWM_HL_P1YS_MSK) |(ptEmCfg->HL_P1YS<<EPWM_HL_P1YS_POS);
+	w_EMR= (w_EMR &~EPWM_HL_P2XS_MSK) |(ptEmCfg->HL_P2XS<<EPWM_HL_P2XS_POS);
+	w_EMR= (w_EMR &~EPWM_HL_P2YS_MSK) |(ptEmCfg->HL_P2YS<<EPWM_HL_P2YS_POS);
 	
-	w_EMR= (w_EMR &~EPWM_SL_P0XS_MSK) |(tCfg->SL_P0XS<<EPWM_SL_P0XS_POS);
-	w_EMR= (w_EMR &~EPWM_SL_P0YS_MSK) |(tCfg->SL_P0YS<<EPWM_SL_P0YS_POS);
-	w_EMR= (w_EMR &~EPWM_SL_P1XS_MSK) |(tCfg->SL_P1XS<<EPWM_SL_P1XS_POS);
-	w_EMR= (w_EMR &~EPWM_SL_P1YS_MSK) |(tCfg->SL_P1YS<<EPWM_SL_P1YS_POS);
-	w_EMR= (w_EMR &~EPWM_SL_P2XS_MSK) |(tCfg->SL_P2XS<<EPWM_SL_P2XS_POS);
-	w_EMR= (w_EMR &~EPWM_SL_P2YS_MSK) |(tCfg->SL_P2YS<<EPWM_SL_P2YS_POS);	
+	w_EMR= (w_EMR &~EPWM_SL_P0XS_MSK) |(ptEmCfg->SL_P0XS<<EPWM_SL_P0XS_POS);
+	w_EMR= (w_EMR &~EPWM_SL_P0YS_MSK) |(ptEmCfg->SL_P0YS<<EPWM_SL_P0YS_POS);
+	w_EMR= (w_EMR &~EPWM_SL_P1XS_MSK) |(ptEmCfg->SL_P1XS<<EPWM_SL_P1XS_POS);
+	w_EMR= (w_EMR &~EPWM_SL_P1YS_MSK) |(ptEmCfg->SL_P1YS<<EPWM_SL_P1YS_POS);
+	w_EMR= (w_EMR &~EPWM_SL_P2XS_MSK) |(ptEmCfg->SL_P2XS<<EPWM_SL_P2XS_POS);
+	w_EMR= (w_EMR &~EPWM_SL_P2YS_MSK) |(ptEmCfg->SL_P2YS<<EPWM_SL_P2YS_POS);	
 	csp_epwm_set_emr(ptEpwmBase,w_EMR);
 		
-	csp_epwm_set_dec0(ptEpwmBase,tCfg->DEC_STEP0&0xFFF );
-	csp_epwm_set_inc0(ptEpwmBase,tCfg->INC_STEP0&0xFFF );
-	csp_epwm_set_dec1(ptEpwmBase,tCfg->DEC_STEP1&0xFFF );
-	csp_epwm_set_inc1(ptEpwmBase,tCfg->INC_STEP1&0xFFF );	
+	csp_epwm_set_dec0(ptEpwmBase,ptEmCfg->DEC_STEP0&0xFFF );
+	csp_epwm_set_inc0(ptEpwmBase,ptEmCfg->INC_STEP0&0xFFF );
+	csp_epwm_set_dec1(ptEpwmBase,ptEmCfg->DEC_STEP1&0xFFF );
+	csp_epwm_set_inc1(ptEpwmBase,ptEmCfg->INC_STEP1&0xFFF );	
 	
 	return CSI_OK;
 }
@@ -333,63 +334,63 @@ csi_error_t csi_epwm_int_enable(csp_epwm_t *ptEpwmBase, csp_epwm_int_e eInt, boo
 /** \brief enable/disable epwm out trigger 
  * 
  *  \param[in] ptEpwmBase: pointer of epwm register structure
- *  \param[in] eCh: refer to csi_epwm_evtrg_config_t
- *  \param[in] byVal: refer to csp_epwm_trg_e
+ *  \param[in] eCfg: refer to csi_epwm_evtrg_config_t
+ *  \param[in] eTrg: refer to csi_epwm_trg_e
  *  \return error code \ref csi_error_t
  */
-csi_error_t csi_epwm_evtrg_enable(csp_epwm_t *ptEpwmBase, csi_epwm_evtrg_config_e byCh, csp_epwm_trg_e byVal)
+csi_error_t csi_epwm_evtrg_enable(csp_epwm_t *ptEpwmBase, csi_epwm_evtrg_config_e eCfg, csi_epwm_trg_e eTrg)
 {	uint32_t w_EXTRG0;uint32_t w_EXTRG1;
 	w_EXTRG0=csp_epwm_get_trg0(ptEpwmBase);
 	w_EXTRG1=csp_epwm_get_trg1(ptEpwmBase);
-	switch (byCh)
+	switch (eCfg)
 		{	
-			case (EVTRG_PWM0_START):	w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM0_START_MSK) |((byVal&0x03) << EPWM_TRG_PWM0_START_POS);			
+			case (EVTRG_PWM0_START):	w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM0_START_MSK) |((eTrg&0x03) << EPWM_TRG_PWM0_START_POS);			
 				break;
-			case (EVTRG_PWM0_STOP):		w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM0_STOP_MSK) |((byVal&0x03) << EPWM_TRG_PWM0_STOP_POS);		   
+			case (EVTRG_PWM0_STOP):		w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM0_STOP_MSK) |((eTrg&0x03) << EPWM_TRG_PWM0_STOP_POS);		   
 				break;
-			case (EVTRG_PWM0_PEND):		w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM0_PEND_MSK) |((byVal&0x03) << EPWM_TRG_PWM0_PEND_POS);			
+			case (EVTRG_PWM0_PEND):		w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM0_PEND_MSK) |((eTrg&0x03) << EPWM_TRG_PWM0_PEND_POS);			
 				break;
-			case (EVTRG_PWM0_CENTER):	w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM0_CENTER_MSK) |((byVal&0x03) << EPWM_TRG_PWM0_CENTER_POS);					
+			case (EVTRG_PWM0_CENTER):	w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM0_CENTER_MSK) |((eTrg&0x03) << EPWM_TRG_PWM0_CENTER_POS);					
 				break;
-            case (EVTRG_PWM1_START):	w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM1_START_MSK) |((byVal&0x03) << EPWM_TRG_PWM1_START_POS);					
+            case (EVTRG_PWM1_START):	w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM1_START_MSK) |((eTrg&0x03) << EPWM_TRG_PWM1_START_POS);					
 				break;
-			case (EVTRG_PWM1_STOP):		w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM1_STOP_MSK) |((byVal&0x03) << EPWM_TRG_PWM1_STOP_POS);		   
+			case (EVTRG_PWM1_STOP):		w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM1_STOP_MSK) |((eTrg&0x03) << EPWM_TRG_PWM1_STOP_POS);		   
 				break;
-			case (EVTRG_PWM1_PEND):		w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM1_PEND_MSK) |((byVal&0x03) << EPWM_TRG_PWM1_PEND_POS);			
+			case (EVTRG_PWM1_PEND):		w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM1_PEND_MSK) |((eTrg&0x03) << EPWM_TRG_PWM1_PEND_POS);			
 				break;
-			case (EVTRG_PWM1_CENTER):	w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM1_CENTER_MSK) |((byVal&0x03) << EPWM_TRG_PWM1_CENTER_POS);				
+			case (EVTRG_PWM1_CENTER):	w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM1_CENTER_MSK) |((eTrg&0x03) << EPWM_TRG_PWM1_CENTER_POS);				
 				break;	
-			case (EVTRG_PWM2_START):	w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM2_START_MSK) |((byVal&0x03) << EPWM_TRG_PWM2_START_POS);				
+			case (EVTRG_PWM2_START):	w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM2_START_MSK) |((eTrg&0x03) << EPWM_TRG_PWM2_START_POS);				
 				break;
-			case (EVTRG_PWM2_STOP):		w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM2_STOP_MSK) |((byVal&0x03) << EPWM_TRG_PWM2_STOP_POS);			   
+			case (EVTRG_PWM2_STOP):		w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM2_STOP_MSK) |((eTrg&0x03) << EPWM_TRG_PWM2_STOP_POS);			   
 				break;
-			case (EVTRG_PWM2_PEND):		w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM2_PEND_MSK) |((byVal&0x03) << EPWM_TRG_PWM2_PEND_POS);			
+			case (EVTRG_PWM2_PEND):		w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM2_PEND_MSK) |((eTrg&0x03) << EPWM_TRG_PWM2_PEND_POS);			
 				break;
-			case (EVTRG_PWM2_CENTER):	w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM2_CENTER_MSK) |((byVal&0x03) << EPWM_TRG_PWM2_CENTER_POS);				
+			case (EVTRG_PWM2_CENTER):	w_EXTRG0=(w_EXTRG0 &~EPWM_TRG_PWM2_CENTER_MSK) |((eTrg&0x03) << EPWM_TRG_PWM2_CENTER_POS);				
 				break;
-			case (EVTRG_PWM0_CMPAUM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM0_CMPAU_MSK) |((byVal&0x03) << EPWM_TRG_PWM0_CMPAU_POS);					
+			case (EVTRG_PWM0_CMPAUM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM0_CMPAU_MSK) |((eTrg&0x03) << EPWM_TRG_PWM0_CMPAU_POS);					
 				break;
-			case (EVTRG_PWM0_CMPADM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM0_CMPAD_MSK) |((byVal&0x03) << EPWM_TRG_PWM0_CMPAD_POS);			   
+			case (EVTRG_PWM0_CMPADM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM0_CMPAD_MSK) |((eTrg&0x03) << EPWM_TRG_PWM0_CMPAD_POS);			   
 				break;
-			case (EVTRG_PWM0_CMPBUM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM0_CMPBU_MSK) |((byVal&0x03) << EPWM_TRG_PWM0_CMPBU_POS);				
+			case (EVTRG_PWM0_CMPBUM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM0_CMPBU_MSK) |((eTrg&0x03) << EPWM_TRG_PWM0_CMPBU_POS);				
 				break;
-			case (EVTRG_PWM0_CMPBDM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM0_CMPBD_MSK) |((byVal&0x03) << EPWM_TRG_PWM0_CMPBD_POS);				
+			case (EVTRG_PWM0_CMPBDM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM0_CMPBD_MSK) |((eTrg&0x03) << EPWM_TRG_PWM0_CMPBD_POS);				
 				break;	
-			case (EVTRG_PWM1_CMPAUM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM1_CMPAU_MSK) |((byVal&0x03) << EPWM_TRG_PWM1_CMPAU_POS);			
+			case (EVTRG_PWM1_CMPAUM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM1_CMPAU_MSK) |((eTrg&0x03) << EPWM_TRG_PWM1_CMPAU_POS);			
 				break;
-			case (EVTRG_PWM1_CMPADM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM1_CMPAD_MSK) |((byVal&0x03) << EPWM_TRG_PWM1_CMPAD_POS);			   
+			case (EVTRG_PWM1_CMPADM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM1_CMPAD_MSK) |((eTrg&0x03) << EPWM_TRG_PWM1_CMPAD_POS);			   
 				break;
-			case (EVTRG_PWM1_CMPBUM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM1_CMPBU_MSK) |((byVal&0x03) << EPWM_TRG_PWM1_CMPBU_POS);				
+			case (EVTRG_PWM1_CMPBUM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM1_CMPBU_MSK) |((eTrg&0x03) << EPWM_TRG_PWM1_CMPBU_POS);				
 				break;
-			case (EVTRG_PWM1_CMPBDM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM1_CMPBD_MSK) |((byVal&0x03) << EPWM_TRG_PWM1_CMPBD_POS);				
+			case (EVTRG_PWM1_CMPBDM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM1_CMPBD_MSK) |((eTrg&0x03) << EPWM_TRG_PWM1_CMPBD_POS);				
 				break;
-			case (EVTRG_PWM2_CMPAUM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM2_CMPAU_MSK) |((byVal&0x03) << EPWM_TRG_PWM2_CMPAU_POS);				
+			case (EVTRG_PWM2_CMPAUM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM2_CMPAU_MSK) |((eTrg&0x03) << EPWM_TRG_PWM2_CMPAU_POS);				
 				break;
-			case (EVTRG_PWM2_CMPADM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM2_CMPAD_MSK) |((byVal&0x03) << EPWM_TRG_PWM2_CMPAD_POS);			   
+			case (EVTRG_PWM2_CMPADM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM2_CMPAD_MSK) |((eTrg&0x03) << EPWM_TRG_PWM2_CMPAD_POS);			   
 				break;
-			case (EVTRG_PWM2_CMPBUM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM2_CMPBU_MSK) |((byVal&0x03) << EPWM_TRG_PWM2_CMPBU_POS);				
+			case (EVTRG_PWM2_CMPBUM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM2_CMPBU_MSK) |((eTrg&0x03) << EPWM_TRG_PWM2_CMPBU_POS);				
 				break;
-			case (EVTRG_PWM2_CMPBDM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM2_CMPBD_MSK) |((byVal&0x03) << EPWM_TRG_PWM2_CMPBD_POS);				
+			case (EVTRG_PWM2_CMPBDM):	w_EXTRG1=(w_EXTRG1 &~EPWM_TRG_PWM2_CMPBD_MSK) |((eTrg&0x03) << EPWM_TRG_PWM2_CMPBD_POS);				
 				break;	
 			default:return CSI_ERROR;
 				break;

@@ -95,12 +95,6 @@ typedef struct
 
 #define EPWM_CMODE_POS	(3)
 #define EPWM_CMODE_MSK (0x3ul << EPWM_CMODE_POS)
-typedef enum{
-	EPWM_CMODE_UP = 0,
-	EPWM_CMODE_DOWN,
-	EPWM_CMODE_UP_DOWN,
-	EPWM_CMODE_DOWN_UP
-}csp_epwm_cmode_e;
 
 
 #define EPWM_DIVN_POS	(5)
@@ -124,10 +118,6 @@ typedef enum{                                //Divided Clock = PCLK / (2^DIVN)
 
 #define EPWM_OVFSTB_POS	(21)
 #define EPWM_OVFSTB_MSK	(0x1 << EPWM_OVFSTB_POS)
-typedef enum{
-	EPWM_OVFSTB_CONT = 0,
-	EPWM_OVFSTB_OT,
-}csp_epwm_opmd_e;
 
 #define EPWM_CLKEN_POS	(22)
 #define EPWM_CLKEN_MSK	(0x1 << EPWM_CLKEN_POS)
@@ -633,13 +623,6 @@ static inline void csp_epwm_set_slpcmbr2(csp_epwm_t *ptEpwmBase, uint16_t byVal)
 #define EPWM_Y_CENTERE_POS   (14)
 #define EPWM_Y_CENTERE_MSK   (0x3 << EPWM_Y_CENTERE_POS)
 
-typedef enum {
-	EPEM_NA = 0,
-	EPEM_LO,
-	EPEM_HI,
-	EPEM_TG	
-}csp_epwm_action_e;
-
 static inline void csp_epwm_set_wgcr0(csp_epwm_t *ptEpwmBase, uint32_t wVal)
 {
 	ptEpwmBase -> WGCR0 = wVal ;
@@ -666,20 +649,6 @@ static inline void csp_epwm_set_wgcr2(csp_epwm_t *ptEpwmBase, uint32_t wVal)
 #define DB_DTR_MSK	        (0x1FF << DB_DTR_POS)
 #define DB_DTF_POS	        (15)
 #define DB_DTF_MSK	        (0x1FF << DB_DTF_POS)
-typedef enum {
-	EPWM_DBOUT_DIS = 0,               //PX close; PY close
-	EPWM_DBOUT_COMPLEMENTARY,         //complementary
-	EPWM_DBOUT_INTERVAL               //Interval trigger output
-}csp_epwm_db_outsel_e;
-
-typedef enum {
-	EPWM_POL_DIS = 0,               //
-	EPWM_POL_REVERSE         	    //reverse
-}csp_epwm_db_polarity_e;
-typedef enum {
-	EPWM_INT_PX = 0,               //
-	EPWM_INT_PY         	       //
-}csp_epwm_db_srcsel_e;
 
 static inline void csp_epwm_set_outcr0(csp_epwm_t *ptEpwmBase, uint32_t wVal)
 {
@@ -706,27 +675,6 @@ static inline void csp_epwm_set_outcr2(csp_epwm_t *ptEpwmBase, uint32_t wVal)
 #define EPWM_CDIV_MSK	(0x7 << EPWM_CDIV_POS)
 #define EPWM_CDUTY_POS	(12)
 #define EPWM_CDUTY_MSK	(0x7 << EPWM_CDUTY_POS)
-typedef enum{
-	EPWM_CDUTY_DIS = 0,
-	EPWM_CDUTY_1_8,
-	EPWM_CDUTY_2_8,
-	EPWM_CDUTY_3_8,
-	EPWM_CDUTY_4_8,
-	EPWM_CDUTY_5_8,
-	EPWM_CDUTY_6_8,
-	EPWM_CDUTY_7_8
-}csp_epwm_duty_e;
-
-typedef enum{
-	EPWM_CDIV_P_8 = 0,
-	EPWM_CDIV_P_16,
-	EPWM_CDIV_P_24,
-	EPWM_CDIV_P_32,
-	EPWM_CDIV_P_40,
-	EPWM_CDIV_P_48,
-	EPWM_CDIV_P_56,
-	EPWM_CDIV_P_64
-}csp_epwm_cdiv_e;
 
 static inline void csp_epwm_set_cfcr0(csp_epwm_t *ptEpwmBase, uint32_t wVal)
 {
@@ -773,13 +721,6 @@ static inline void csp_epwm_set_cfcr2(csp_epwm_t *ptEpwmBase, uint32_t wVal)
 #define EPWM_SL_P2XS_MSK	(0x3 << EPWM_SL_P2XS_POS)
 #define EPWM_SL_P2YS_POS	(24)
 #define EPWM_SL_P2YS_MSK	(0x3 << EPWM_SL_P2YS_POS)
-
-typedef enum {	
-	EPWM_EM_OUT_L =0,
-	EPWM_EM_OUT_H,
-	EPWM_EM_OUT_HZ,
-	EPWM_EM_OUT_HOLD
-}csp_epwm_emout_e;
 
 static inline uint32_t csp_epwm_get_emr(csp_epwm_t *ptEpwmBase)
 {
@@ -837,11 +778,6 @@ static inline void csp_epwm_clr_slock(csp_epwm_t *ptEpwmBase)
 #define EPWM_SL_CNTR_INC_EN_MSK	(0x1 << EPWM_SL_CNTR_INC_EN_POS)
 #define EPWM_S_ONE_POS	        (24)
 #define EPWM_S_ONE_MSK	        (0x1 << EPWM_S_ONE_POS)
-
-typedef enum {	
-	EPWM_S_ONE_ONE =0,
-	EPWM_S_ONE_ALWAYS
-}csp_epwm_s_one_e;
 
 static inline uint32_t csp_epwm_get_slcon(csp_epwm_t *ptEpwmBase)
 {
@@ -935,14 +871,6 @@ static inline uint32_t csp_epwm_get_misr(csp_epwm_t *ptEpwmBase,csp_epwm_int_e e
 {
   return ptEpwmBase -> MISR & eInt ; 
 }
-
-//EXTRG0
-typedef enum {	
-	EPWM_TRG_DIS =0,
-	EPWM_TRG_ADC,
-	EPWM_TRG_STIMER,
-	EPWM_TRG_ADC_STIMER
-}csp_epwm_trg_e;
 
 #define EPWM_TRG_PWM0_START_POS	(0)
 #define EPWM_TRG_PWM0_START_MSK	(0x3 << EPWM_TRG_PWM0_START_POS)
