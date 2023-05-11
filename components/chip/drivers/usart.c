@@ -209,7 +209,7 @@ csi_error_t csi_usart_init(csp_usart_t *ptUsartBase, csi_usart_config_t *ptUsart
  */
 void csi_usart_int_enable(csp_usart_t *ptUsartBase, csi_usart_intsrc_e eIntSrc, bool bEnable)
 {
-	csp_usart_int_enable(ptUsartBase, eIntSrc, bEnable);
+	csp_usart_int_enable(ptUsartBase, (usart_int_e)eIntSrc, bEnable);
 	
 	if(bEnable)
 		csi_irq_enable(ptUsartBase);
@@ -343,7 +343,7 @@ int16_t csi_usart_send(csp_usart_t *ptUsartBase, const void *pData, uint16_t hwS
 			else
 			{
 				g_tUsartTran[byIdx].bySendStat = USART_STATE_SEND;				//set usart send status, sending
-				csp_usart_int_enable(ptUsartBase, USART_INTSRC_TXRIS, ENABLE);	//enable usart txfifo interrupt
+				csp_usart_int_enable(ptUsartBase, (usart_int_e)USART_INTSRC_TXRIS, ENABLE);	//enable usart txfifo interrupt
 			}
 			return CSI_OK;
 			

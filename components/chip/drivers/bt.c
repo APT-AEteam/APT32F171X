@@ -67,7 +67,7 @@ csi_error_t csi_bt_timer_init(csp_bt_t *ptBtBase, uint32_t wTimeOut)
  */ 
 void csi_bt_count_mode(csp_bt_t *ptBtBase, csi_bt_cntmode_e eCntMode)
 {
-	csp_bt_count_mode(ptBtBase, eCntMode);
+	csp_bt_count_mode(ptBtBase, (bt_opm_e)eCntMode);
 }
 
 /** \brief start bt
@@ -101,7 +101,7 @@ void csi_bt_stop(csp_bt_t *ptBtBase)
  */ 
 void csi_bt_int_enable(csp_bt_t *ptBtBase, csi_bt_intsrc_e eIntSrc, bool bEnable)
 {
-	csp_bt_int_enable(ptBtBase, eIntSrc, bEnable);	
+	csp_bt_int_enable(ptBtBase, (bt_int_e)eIntSrc, bEnable);	
 	
 	if (bEnable) {
 		csi_irq_enable((uint32_t *)ptBtBase);
@@ -377,7 +377,7 @@ csi_error_t csi_bt_set_sync(csp_bt_t *ptBtBase,csi_bt_trgin_e eTrgin, csi_bt_trg
  */
 void csi_bt_rearm_sync(csp_bt_t *ptBtBase,csi_bt_trgin_e eTrgin)
 {
-	csp_bt_rearm_sync(ptBtBase, eTrgin);
+	csp_bt_rearm_sync(ptBtBase, (bt_rearm_e)eTrgin);
 }
 /** \brief bt evtrg output config
  * 

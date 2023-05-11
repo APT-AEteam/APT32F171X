@@ -69,7 +69,7 @@ static void csi_cmp_irq_disable(uint8_t byIdx)
 */
 void csi_cmp_int_enable(csp_cmp_t *ptCmpBase, csi_cmp_intsrc_e eIntSrc,bool bEnable,uint8_t byIdx)
 {
-	csp_cmp_int_enable(ptCmpBase, eIntSrc,bEnable);
+	csp_cmp_int_enable(ptCmpBase, (cmp_int_e)eIntSrc,bEnable);
 	if (bEnable) 
 	{
 		csi_cmp_irq_enable(byIdx);
@@ -362,12 +362,12 @@ csi_error_t csi_cmp_wfcr_config(csp_cmp_t *ptCmpBase,csi_cmp_wfcr_config_t *ptCm
  */
 void csi_cmp_set_irq_mode(csp_cmp_t *ptCmpBase,csi_cmp_irq_mode_e eTrgEdge, uint8_t byIdx)
 {
-	if(byIdx == CMP_IDX0)        csp_cmp0_evtrg(ptCmpBase ,eTrgEdge);
-	else if(byIdx == CMP_IDX1)   csp_cmp1_evtrg(ptCmpBase ,eTrgEdge);
-	else if(byIdx == CMP_IDX2)   csp_cmp2_evtrg(ptCmpBase ,eTrgEdge);
-	else if(byIdx == CMP_IDX3)   csp_cmp3_evtrg(ptCmpBase ,eTrgEdge);
-	else if(byIdx == CMP_IDX4)   csp_cmp4_evtrg(ptCmpBase ,eTrgEdge);
-	else if(byIdx == CMP_IDX5)   csp_cmp5_evtrg(ptCmpBase ,eTrgEdge);		
+	if(byIdx == CMP_IDX0)        csp_cmp0_evtrg(ptCmpBase ,(cmp_eve_sel_e)eTrgEdge);
+	else if(byIdx == CMP_IDX1)   csp_cmp1_evtrg(ptCmpBase ,(cmp_eve_sel_e)eTrgEdge);
+	else if(byIdx == CMP_IDX2)   csp_cmp2_evtrg(ptCmpBase ,(cmp_eve_sel_e)eTrgEdge);
+	else if(byIdx == CMP_IDX3)   csp_cmp3_evtrg(ptCmpBase ,(cmp_eve_sel_e)eTrgEdge);
+	else if(byIdx == CMP_IDX4)   csp_cmp4_evtrg(ptCmpBase ,(cmp_eve_sel_e)eTrgEdge);
+	else if(byIdx == CMP_IDX5)   csp_cmp5_evtrg(ptCmpBase ,(cmp_eve_sel_e)eTrgEdge);		
 }
 /**
 *  \brief       cmp  sync nstep
@@ -392,7 +392,7 @@ void csi_cmp_sync_step(csp_cmp_t *ptCmpBase ,uint16_t hwNselMax,uint8_t byStepDi
  */
 void csi_cmp_set_sync(csp_cmp_t *ptCmpBase,csi_ostmd_e eOstMode, bool bEnableRearm,bool bEnableArearm)
 {
-	csp_cmp1_inpcr_ostmd(ptCmpBase ,eOstMode);
+	csp_cmp1_inpcr_ostmd(ptCmpBase ,(cmp1_ostmd_e)eOstMode);
 	csp_cmp1_inpcr_rearm(ptCmpBase,bEnableRearm);
 	csp_cmp1_inpcr_arearm(ptCmpBase,bEnableArearm);
 }
@@ -405,7 +405,7 @@ void csi_cmp_set_sync(csp_cmp_t *ptCmpBase,csi_ostmd_e eOstMode, bool bEnableRea
  */
 void  csi_cmp_trgcr_tc_tgr(csp_cmp_t *ptCmpBase ,csi_tc_tgr_e eTcTgr)
 {
-	csp_cmp_trgcr_tc_tgr(ptCmpBase ,eTcTgr);
+	csp_cmp_trgcr_tc_tgr(ptCmpBase ,(cmp_tc_tgr_e)eTcTgr);
 }
 
 /** \brief cmp tc cinx trgcr enable 
@@ -417,7 +417,7 @@ void  csi_cmp_trgcr_tc_tgr(csp_cmp_t *ptCmpBase ,csi_tc_tgr_e eTcTgr)
  */
 void  csi_cmp_trgcr_tc_cinx_enable(csp_cmp_t *ptCmpBase ,csi_tc_cinx_e eTcCinx,bool bEnable)
 {
-	csp_cmp_trgcr_tc_cinx_enable(ptCmpBase,eTcCinx,bEnable);
+	csp_cmp_trgcr_tc_cinx_enable(ptCmpBase,(cmp_tc_cinx_e)eTcCinx,bEnable);
 }
 
 /** \brief cmp ad trgcr enable 
@@ -429,7 +429,7 @@ void  csi_cmp_trgcr_tc_cinx_enable(csp_cmp_t *ptCmpBase ,csi_tc_cinx_e eTcCinx,b
  */
 void csi_cmp_trgcr_ad_enable(csp_cmp_t *ptCmpBase ,csi_ad_trgx_e eAdTrgx,bool bEnable)
 {
-	csp_cmp_trgcr_ad_trgx_enable(ptCmpBase,eAdTrgx,bEnable);
+	csp_cmp_trgcr_ad_trgx_enable(ptCmpBase,(cmp_ad_trgx_e)eAdTrgx,bEnable);
 }
 
 /** \brief cmp evtrg output config
@@ -498,7 +498,7 @@ uint8_t csi_cmp_get_out(csp_cmp_t *ptCmpBase,uint8_t byIdx)
  */
 void csi_cmp_int_clear(csp_cmp_t *ptCmpBase,csi_cmp_intsrc_e eIntMode)
 {
-	csp_cmp_int_clear(ptCmpBase,eIntMode);
+	csp_cmp_int_clear(ptCmpBase,(cmp_int_e)eIntMode);
 }
 
 /** \brief get cmp status

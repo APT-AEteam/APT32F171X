@@ -541,14 +541,14 @@ csi_error_t csi_pin_irq_mode(pin_name_e ePinName, csi_exi_grp_e eExiGrp, csi_gpi
 	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
 	ePinName = (pin_name_e)ptPinInfo[1];
 		
-	ret = gpio_intgroup_set(ptGpioBase,ePinName,eExiGrp);			//interrupt group
+	ret = gpio_intgroup_set(ptGpioBase,ePinName,(gpio_igrp_e)eExiGrp);			//interrupt group
 	if(ret < 0)
 		return CSI_ERROR;
 		
 	if(eTrgEdge >  GPIO_IRQ_BOTH_EDGE)
 		ret = CSI_ERROR;
 	else
-		exi_trg_edge_set(SYSCON,eExiGrp, eTrgEdge);					//interrupt edge
+		exi_trg_edge_set(SYSCON,(gpio_igrp_e)eExiGrp, (exi_trigger_e)eTrgEdge);					//interrupt edge
 	
 	csp_exi_set_port_irq(SYSCON,(0x01ul << eExiGrp), ENABLE);		//EXI INT enable
 	csp_exi_clr_port_irq(SYSCON,(0x01ul << eExiGrp));				//clear interrput status before enable irq 

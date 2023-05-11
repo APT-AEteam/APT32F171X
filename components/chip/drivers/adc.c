@@ -446,7 +446,7 @@ csi_error_t csi_adc_evtrg_enable(csp_adc_t *ptAdcBase, csi_adc_trgout_e eTrgOut,
  */
 void csi_adc_int_enable(csp_adc_t *ptAdcBase, csi_adc_intsrc_e eIntSrc, bool bEnable)
 {
-	csp_adc_int_enable(ptAdcBase, eIntSrc, bEnable);
+	csp_adc_int_enable(ptAdcBase, (adc_int_e)eIntSrc, bEnable);
 	
 	if(bEnable)
 		csi_irq_enable((uint32_t *)ptAdcBase);
@@ -465,7 +465,7 @@ void csi_adc_fvrout_enable(csp_adc_t *ptAdcBase, csi_adc_fvrsel_e eLvl, bool bEn
 	csi_clk_enable((uint32_t *)(ptAdcBase));     //sys adc clk
 	csp_adc_clk_en(ptAdcBase);                   //adc clk enable
 	csp_adc_en(ptAdcBase);                       //enable adc mode
-	csp_adc_set_fvrout_lvl(ptAdcBase, eLvl);
+	csp_adc_set_fvrout_lvl(ptAdcBase, (adc_fvrsel_e)eLvl);
 	csp_adc_fvrout_enable(ptAdcBase, bEnable);
 }
 /** \brief buffer output(1V0/TEMP) config
@@ -480,6 +480,6 @@ void csi_adc_bufout_enable(csp_adc_t *ptAdcBase, csi_adc_bufsel_e eBufSel, bool 
 	csi_clk_enable((uint32_t *)(ptAdcBase));     //sys adc clk
 	csp_adc_clk_en(ptAdcBase);                   //adc clk enable
 	csp_adc_en(ptAdcBase);                       //enable adc mode
-	csp_adc_bufsel_set(ptAdcBase, eBufSel);
+	csp_adc_bufsel_set(ptAdcBase, (adc_bufsel_e)eBufSel);
 	csp_adc_bufout_enable(ptAdcBase, bEnable);
 }
