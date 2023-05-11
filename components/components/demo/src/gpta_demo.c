@@ -136,7 +136,7 @@ int gpta_pwm_demo(void)
 	tPwmCfg.byWorkmod        = GPTA_WAVE;                        //WAVE  波形模式
 	tPwmCfg.byCountingMode   = GPTA_UPDNCNT;                     //CNYMD  //计数方向
 	tPwmCfg.byOneshotMode    = GPTA_OP_CONT;                     //OPM    //单次或连续(工作方式)
-	tPwmCfg.byStartSrc       = GPTA_SYNC_START;					 //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
+	tPwmCfg.byStartSrc       = GPTA_SYNC;					 //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
 	tPwmCfg.byPscld          = GPTA_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值		
 	tPwmCfg.byDutyCycle 	 = 25;								 //pwm ouput duty cycle//PWM初始值(X%)			
 	tPwmCfg.wFreq 			 = 20000;							 //pwm ouput frequency	
@@ -245,20 +245,20 @@ int gpta_pwm_demo(void)
 
 void load1(void)
 {   
-	csi_gpta_channel_aqload_config(GPTA0, GPTA_LD_IMM, GPTA_LDCMP_PRD ,GPTA_CHANNEL_1);
-	csi_gpta_channel_aqload_config(GPTA0, GPTA_LD_IMM, GPTA_LDCMP_PRD ,GPTA_CHANNEL_2);
+	csi_gpta_channel_aqload_config(GPTA0, GPTA_LD_IMM, GPTA_LDMD_PRD ,GPTA_CHANNEL_1);
+	csi_gpta_channel_aqload_config(GPTA0, GPTA_LD_IMM, GPTA_LDMD_PRD ,GPTA_CHANNEL_2);
 	
 	csi_gpta_pwmchannel_config_t  channel1;
-	channel1.byActionZro    =   LO;
-	channel1.byActionPrd    =   LO;
-	channel1.byActionC1u    =   LO;
-	channel1.byActionC1d    =   LO;
-	channel1.byActionC2u    =   LO;
-	channel1.byActionC2d    =   LO;
-	channel1.byActionT1u    =   LO;
-	channel1.byActionT1d    =   LO;
-	channel1.byActionT2u    =   LO;
-	channel1.byActionT2d    =   LO;
+	channel1.byActionZro    =   GPTA_LO;
+	channel1.byActionPrd    =   GPTA_LO;
+	channel1.byActionC1u    =   GPTA_LO;
+	channel1.byActionC1d    =   GPTA_LO;
+	channel1.byActionC2u    =   GPTA_LO;
+	channel1.byActionC2d    =   GPTA_LO;
+	channel1.byActionT1u    =   GPTA_LO;
+	channel1.byActionT1d    =   GPTA_LO;
+	channel1.byActionT2u    =   GPTA_LO;
+	channel1.byActionT2d    =   GPTA_LO;
 	channel1.byChoiceC1sel  =   GPTA_CMPA;
 	channel1.byChoiceC2sel  =   GPTA_CMPA;	
 	csi_gpta_channel_config(GPTA0, &channel1,  GPTA_CHANNEL_1);//channel

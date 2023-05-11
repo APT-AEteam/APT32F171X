@@ -173,16 +173,16 @@ void etcb_ept_config(void)
 	csi_ept_config_init(EPT0, &tPwmCfg);
 	
 	csi_ept_pwmchannel_config_t  channel;
-	channel.byActionZro    =   LO;
-	channel.byActionPrd    =   LO;
-	channel.byActionC1u    =   HI;
-	channel.byActionC1d    =   HI;
-	channel.byActionC2u    =   NA;
-	channel.byActionC2d    =   NA;
-	channel.byActionT1u    =   LO;
-	channel.byActionT1d    =   LO;
-	channel.byActionT2u    =   NA;
-	channel.byActionT2d    =   NA;
+	channel.byActionZro    =   EPT_LO;
+	channel.byActionPrd    =   EPT_LO;
+	channel.byActionC1u    =   EPT_HI;
+	channel.byActionC1d    =   EPT_HI;
+	channel.byActionC2u    =   EPT_NA;
+	channel.byActionC2d    =   EPT_NA;
+	channel.byActionT1u    =   EPT_LO;
+	channel.byActionT1d    =   EPT_LO;
+	channel.byActionT2u    =   EPT_NA;
+	channel.byActionT2d    =   EPT_NA;
 	channel.byChoiceC1sel  =   EPT_CMPA;
 	channel.byChoiceC2sel  =   EPT_CMPA;	
 	csi_ept_channel_config(EPT0, &channel,  EPT_CHANNEL_1);

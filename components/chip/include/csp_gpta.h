@@ -450,12 +450,6 @@ typedef enum{
 #define GPTA_FLTBLKINV_MSK	(0x1 << GPTA_FLTBLKINV_POS)
 #define GPTA_ALIGNMD_POS	(5)
 #define GPTA_ALIGNMD_MSK	(0x3 << GPTA_ALIGNMD_POS)
-typedef enum{
-	GPTA_ALIGN_PRD = 0,
-	GPTA_ALIGN_ZRO,
-	GPTA_ALIGN_ZRO_PRD,
-	GPTA_ALIGN_T1
-}csp_gpta_alignmd_e;
 
 #define GPTA_CROSSMD_POS	(7)
 #define GPTA_CROSSMD_MSK	(0x1 << GPTA_CROSSMD_POS)

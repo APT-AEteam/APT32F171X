@@ -207,11 +207,6 @@ typedef enum {
 
 #define EPT_PSCLD_POS	(16)
 #define EPT_PSCLD_MSK	(0x3 << EPT_PSCLD_POS)
-typedef enum{
-	EPT_LDPSCR_ZRO = 0,
-	EPT_LDPSCR_PRD,
-	EPT_LDPSCR_ZROPRD
-}csp_ept_ldpscr_e;
 
 #define EPT_MODE_POS	(18)
 #define EPT_MODE_MSK     (1ul << EPT_MODE_POS)
@@ -224,10 +219,6 @@ typedef enum{
 
 #define EPT_CAPMD_POS    (20)
 #define EPT_CAPMD_MSK	(0x1 << EPT_CAPMD_POS)
-typedef enum{
-	EPT_CAPMD_CONT = 0,
-	EPT_CAPMD_OT,
-}csp_ept_capmd_e;
 
 #define EPT_STOPWRAP_POS	(21)
 #define EPT_STOPWRAP_MSK	(0x3 << EPT_STOPWRAP_POS)
@@ -296,15 +287,7 @@ typedef enum{
 #define EPT_GLDEN_MSK	(0x1)
 #define EPT_GLDMD_POS	(1)
 #define EPT_GLDMD_MSK	(0xf << EPT_GLDMD_POS)
-typedef enum {
-	EPT_LDGLD_ZRO = 0,
-	EPT_LDGLD_PRD,
-	EPT_LDGLD_ZRO_PRD,
-	EPT_LDGLD_ZRO_LD_SYNC,
-	EPT_LDGLD_PRD_LD_SYNC,
-	EPT_LDGLD_ZRO_PRD_LD_SYNC,
-	EPT_LDGLD_SW = 0xf
-}csp_ept_ldgld_e;
+
 
 #define EPT_GLDCR_OSTMD_POS  (5)
 #define EPT_GLDCR_OSTMD_MSK	(0x1 << EPT_GLDCR_OSTMD_POS)
@@ -398,12 +381,6 @@ typedef enum {
 
 #define EPT_CMP_LDTIME_POS(n)	(4+ ((n)*3))
 #define EPT_CMP_LDTIME_MSK(n)	(0x7 << EPT_CMP_LDTIME_POS(n))
-typedef enum{
-	EPT_LDCMP_NEVER=0,
-	EPT_LDCMP_ZRO,
-	EPT_LDCMP_PRD,
-	EPT_LDCMP_LD_SYNC=4,	
-}csp_ept_ldamd_e;
 
 #define EPT_SHDWAFULL 	(0x1 <<20)
 #define EPT_SHDWBFULL 	(0x1 <<21)
@@ -417,12 +394,7 @@ typedef enum{
 #define EPT_AQCR3_SHDWEN_MSK	(0x1 << EPT_AQCR3_SHDWEN_POS)
 #define EPT_AQCR4_SHDWEN_POS	(9)
 #define EPT_AQCR4_SHDWEN_MSK	(0x1 << EPT_AQCR4_SHDWEN_POS)
-typedef enum{
-//	EPT_LD_IMM = 0,
-//	EPT_LD_SHDW 
-	EPT_LD_SHDW = 0,
-	EPT_LD_IMM
-}csp_ept_ld_e;
+
 #define EPT_LDAMD_POS		(2)
 #define EPT_LDAMD_MSK		(0x7 << EPT_LDAMD_POS)
 #define EPT_LDBMD_POS		(5)
@@ -454,22 +426,12 @@ typedef enum{
 #define EPT_ACT_T2U_MSK	(0x3 << EPT_ACT_T2U_POS)
 #define EPT_ACT_T2D_POS	(18)
 #define EPT_ACT_T2D_MSK	(0x3 << EPT_ACT_T2D_POS)
-typedef enum {
-	NA = 0,
-	LO,
-	HI,
-	TG	
-}csp_ept_action_e;
+
 #define EPT_C1SEL_POS	(20)
 #define EPT_C1SEL_MSK	(0x3<<EPT_C1SEL_POS)
 #define EPT_C2SEL_POS	(22)
 #define EPT_C2SEL_MSK	(0x3<<EPT_C2SEL_POS)
-typedef enum {
-	EPT_CMPA= 0,
-	EPT_CMPB,
-	EPT_CMPC,
-	EPT_CMPD
-}csp_ept_csrc_sel_e;
+
 
 ///AQTSCR
 #define EPT_T1SEL_POS	(0)
@@ -524,19 +486,6 @@ typedef enum {
 #define EPT_DBDTF_SHDWEN_MSK	(0x3 << EPT_DBDTF_SHDWEN_POS)
 #define EPT_DCKPSC_SHDWEN_POS	(9)
 #define EPT_DCKPSC_SHDWEN_MSK	(0x3 << EPT_DCKPSC_SHDWEN_POS)
-
-typedef enum{
-	EPT_LD_NEVER = 0,
-	EPT_LD_ZRO,
-	EPT_LD_PRD,
-	EPT_LD_ZRO_PRD	
-}csp_ept_lddb_e;
-
-typedef enum{
-	EPT_SHDW_IMMEDIATE =0,
-	EPT_SHDW_SHADOW      
-}csp_ept_shdw_e;
-
 
 //DBCR
 #define DB_CHA_OUTSEL_POS	(0)
@@ -600,18 +549,11 @@ typedef enum {
 	E_DBCHCIN_DR_DF
 }csp_ept_dbchc_insel_e;
 
-typedef enum {
-	E_CHOUTX_OUA_OUB = 0,
-	E_CHOUTX_OUA_OUA,
-	E_CHOUTX_OUB_OUB,
-	E_CHOUTX_OUB_OUA
-}csp_ept_dbchx_outsel_e;
-
 #define EPT_DCKSEL_POS		(24)
 #define EPT_DCKSEL_MSK		(0x1 << EPT_DCKSEL_POS)
 typedef enum {
-	EPT_DB_TCLK = 0,
-	EPT_DB_DPSC
+	EPT_DBCLK_TCLK = 0,
+	EPT_DBCLK_DPSC
 }csp_ept_dbclksrc_e;
 
 #define EPT_CHA_DEDB_POS	(25)
@@ -705,19 +647,6 @@ typedef enum {
 	ORL1,
 }csp_ept_ebi_e;
 
-#define ORLx_EBI0  1<<0
-#define ORLx_EBI1  1<<1
-#define	ORLx_EBI2  1<<2
-#define	ORLx_EBI3  1<<3
-#define	ORLx_CMP0  1<<4
-#define	ORLx_CMP1  1<<5
-#define	ORLx_CMP2  1<<6
-#define ORLx_CMP3  1<<7
-#define	ORLx_CMP4  1<<8
-#define ORLx_CMP5  1<<9
-
-
-
 #define EPT_EP_USE_EBI(m, n)     (((n)+1) << ((m)<<2))
 
 ///EMSRC2 config ORL0, ORL1 and input Filters
@@ -764,39 +693,15 @@ typedef enum {
 ///EMECR
 #define EPT_LCKMD_POS_EP(n)	((n) << 1)
 #define EPT_LCKMD_MSK_EP(n)	(0x3 << EPT_LCKMD_POS_EP(n))
-typedef enum{
-	EP_DIS = 0,
-	EP_SLCK,
-	EP_HLCK,
-	EP_DISABLE
-}csp_ept_ep_lckmd_e;
-
-typedef enum{
-             IMMEDIATE=0,
-			 SHADOW
-}csp_ept_Osrshdw_e;
 
 #define EPT_EMOSR_SHDWEN_POS (21)
 #define EPT_EMSOR_SHDWEN_MSK  (0x1 << EPT_EMOSR_SHDWEN_POS)
 
 #define EPT_OSRLDMD_POS      22                                            
 #define EPT_OSRLDMD_MSK     (0x3UL << EPT_OSRLDMD_POS)              
-typedef enum{
-	EPT_LDEMOSR_NEVER = 0,
-	EPT_LDEMOSR_ZRO,
-	EPT_LDEMOSR_PRD,
-	EPT_LDEMOSR_ZRO_PRD	
-}csp_ept_ldemosr_e;
 
 #define EPT_SLCK_CLRMD_POS	(24)
 #define EPT_SLCK_CLRMD_MSK	(0x3 << EPT_SLCK_CLRMD_POS)
-typedef enum{
-	
-	EPT_SLCLRMD_CLR_ZRO =0,
-	EPT_SLCLRMD_CLR_PRD,
-	EPT_SLCLRMD_CLR_ZRO_PRD,
-	EPT_SLCLRMD_CLR_SW 
-}csp_ept_slclrmd_e;
 
 #define EPT_EPASYNC_POS (26)
 #define EPT_EPASYNC_MSK (1ul << 26)
@@ -831,12 +736,6 @@ typedef enum{
 #define EPT_EMCHBY_O_MSK	(0x3 << EPT_EMCHBY_O_POS)
 #define EPT_EMCHCY_O_POS	(12)
 #define EPT_EMCHCY_O_MSK	(0x3 << EPT_EMCHCY_O_POS)
-typedef enum {
-	EM_OUT_HZ,
-	EM_OUT_H,
-	EM_OUT_L,
-	EM_OUT_NONE
-}csp_ept_emout_e;
 
 
 //EMSLSR, EMSLCLR, EMHLSR, EMHLCLRm EMRISR, EMMISR, EMIMCR, EMICR
@@ -861,12 +760,6 @@ typedef enum {
 #define EPT_FLTBLKINV_MSK	(0x1 << EPT_FLTBLKINV_POS)
 #define EPT_ALIGNMD_POS	(5)
 #define EPT_ALIGNMD_MSK	(0x3 << EPT_ALIGNMD_POS)
-typedef enum{
-	EPT_ALIGN_ZRO = 0,
-	EPT_ALIGN_PRD,
-	EPT_ALIGN_ZRO_PRD,
-	EPT_ALIGN_T1
-}csp_ept_alignmd_e;
 
 #define EPT_CROSSMD_POS	(7)
 #define EPT_CROSSMD_MSK	(0x1 << EPT_CROSSMD_POS)
@@ -1021,7 +914,7 @@ static inline void csp_ept_stop(csp_ept_t *ptEptBase)
 	ptEptBase->RSSR &= ~EPT_START ;
 } 
 
-static inline void csp_ept_dbg_enable(csp_ept_t *ptEptBase, uint8_t bEnable)
+static inline void csp_ept_dbg_enable(csp_ept_t *ptEptBase, bool bEnable)
 {
 	ptEptBase -> CEDR = (ptEptBase -> CEDR & (~EPT_DBGEN)) | ((bEnable&0x03) << EPT_DBGEN_POS);
 }
@@ -1029,18 +922,18 @@ static inline void csp_ept_set_clksrc(csp_ept_t *ptEptBase, uint8_t byVal)
 {
 	ptEptBase -> CEDR = (ptEptBase -> CEDR & (~EPT_CKSRC_MSK)) | (byVal << EPT_CKSRC_POS);
 }
-static inline void csp_ept_set_tinsel(csp_ept_t *ptEptBase, csp_ept_tin_e byVal)
+static inline void csp_ept_set_tinsel(csp_ept_t *ptEptBase, csp_ept_tin_e eVal)
 {
-	ptEptBase -> CEDR = (ptEptBase -> CEDR & (~EPT_TIN_MSK)) | (byVal << EPT_TIN_POS);
+	ptEptBase -> CEDR = (ptEptBase -> CEDR & (~EPT_TIN_MSK)) | (eVal << EPT_TIN_POS);
 }
 
 static inline bool csp_ept_get_cntdir(csp_ept_t *ptEptBase)
 {
 	return (bool) ((ptEptBase ->RSSR & EPT_CNTDIR_MSK) >> EPT_CNTDIR_POS);
 }
-static inline void csp_ept_set_psc(csp_ept_t *ptEptBase, uint16_t wVal)
+static inline void csp_ept_set_psc(csp_ept_t *ptEptBase, uint16_t hwVal)
 {
-	ptEptBase -> PSCR = wVal;
+	ptEptBase -> PSCR = hwVal;
 }
  static inline void csp_ept_set_start_mode(csp_ept_t *ptEptBase, csp_ept_startsrc_e eVal)
 {
@@ -1103,9 +996,9 @@ static inline void csp_ept_set_crrearm(csp_ept_t *ptEptBase)
 }
 
 
-static inline void csp_ept_set_prdld(csp_ept_t *ptEptBase,csp_ept_ldprdr_e bwVal)
+static inline void csp_ept_set_prdld(csp_ept_t *ptEptBase,csp_ept_ldprdr_e eVal)
 {
-    ptEptBase->CR =( ptEptBase->CR &~(EPT_PRDLD_MSK))|((bwVal&0x03)<<EPT_PRDLD_POS);
+    ptEptBase->CR =( ptEptBase->CR &~(EPT_PRDLD_MSK))|((eVal&0x03)<<EPT_PRDLD_POS);
 }
 
 static inline void csp_ept_set_pscr(csp_ept_t *ptEptBase, uint16_t hwPscr)
@@ -1113,96 +1006,83 @@ static inline void csp_ept_set_pscr(csp_ept_t *ptEptBase, uint16_t hwPscr)
 	ptEptBase->PSCR = hwPscr;
 }
 
-static inline void csp_ept_set_prdr(csp_ept_t *ptEptBase, uint16_t bwVal)
+static inline void csp_ept_set_prdr(csp_ept_t *ptEptBase, uint16_t hwVal)
 {
-	ptEptBase -> PRDR = bwVal;
+	ptEptBase -> PRDR = hwVal;
 }
 static inline uint16_t csp_ept_get_prdr(csp_ept_t *ptEptBase)
 {
 	return (ptEptBase -> PRDR);
 }
 
-static inline void csp_ept_set_cmpa(csp_ept_t *ptEptBase, uint16_t bwVal)
+static inline void csp_ept_set_cmpa(csp_ept_t *ptEptBase, uint16_t hwVal)
 {
-	ptEptBase -> CMPA = bwVal;
+	ptEptBase -> CMPA = hwVal;
 }
 static inline uint16_t csp_ept_get_cmpa(csp_ept_t *ptEptBase)
 {
 	return (ptEptBase -> CMPA);
 }
-static inline void csp_ept_set_cmpb(csp_ept_t *ptEptBase, uint16_t bwVal)
+static inline void csp_ept_set_cmpb(csp_ept_t *ptEptBase, uint16_t hwVal)
 {
-	ptEptBase -> CMPB = bwVal;
+	ptEptBase -> CMPB = hwVal;
 }
 static inline uint16_t csp_ept_get_cmpb(csp_ept_t *ptEptBase)
 {
 	return (ptEptBase -> CMPB);
 }
-static inline void csp_ept_set_cmpc(csp_ept_t *ptEptBase, uint16_t bwVal)
+static inline void csp_ept_set_cmpc(csp_ept_t *ptEptBase, uint16_t hwVal)
 {
-	ptEptBase -> CMPC = bwVal;
+	ptEptBase -> CMPC = hwVal;
 }
 static inline uint16_t csp_ept_get_cmpc(csp_ept_t *ptEptBase)
 {
 	return (ptEptBase -> CMPC);
 }
-static inline void csp_ept_set_cmpd(csp_ept_t *ptEptBase, uint16_t bwVal)
+static inline void csp_ept_set_cmpd(csp_ept_t *ptEptBase, uint16_t hwVal)
 {
-	ptEptBase -> CMPD = bwVal;
+	ptEptBase -> CMPD = hwVal;
 }
 static inline uint16_t csp_ept_get_cmpd(csp_ept_t *ptEptBase)
 {
 	return (ptEptBase -> CMPD);
 }
-static inline void csp_ept_set_aqcr1(csp_ept_t *ptEptBase, uint32_t bwVal)
+static inline void csp_ept_set_aqcr1(csp_ept_t *ptEptBase, uint32_t wVal)
 {
-	ptEptBase -> AQCR1 = bwVal;
+	ptEptBase -> AQCR1 = wVal;
 }
-static inline void csp_ept_set_aqcr2(csp_ept_t *ptEptBase, uint32_t bwVal)
+static inline void csp_ept_set_aqcr2(csp_ept_t *ptEptBase, uint32_t wVal)
 {
-	ptEptBase -> AQCR2 = bwVal;
+	ptEptBase -> AQCR2 = wVal;
 }
-static inline void csp_ept_set_aqcr3(csp_ept_t *ptEptBase, uint32_t bwVal)
+static inline void csp_ept_set_aqcr3(csp_ept_t *ptEptBase, uint32_t wVal)
 {
-	ptEptBase -> AQCR3 = bwVal;
+	ptEptBase -> AQCR3 = wVal;
 }
-static inline void csp_ept_set_aqcr4(csp_ept_t *ptEptBase, uint32_t bwVal)
+static inline void csp_ept_set_aqcr4(csp_ept_t *ptEptBase, uint32_t wVal)
 {
-	ptEptBase -> AQCR4 = bwVal;
+	ptEptBase -> AQCR4 = wVal;
 }
 
-//static inline void csp_ept_set_aqtscr(csp_ept_t *ptEptBase, csp_ept_t_e bwVal,csp_ept_ep_e bwEP)
-//{  
-//  
-//	if(bwVal==EPT_T1) ptEptBase -> AQTSCR =(ptEptBase -> AQTSCR &~(0x0f))|(((bwEP+1)&0x0f)<<EPT_T1SEL_POS);
-//	if(bwVal==EPT_T2) ptEptBase -> AQTSCR =(ptEptBase -> AQTSCR &~(0xf0))|(((bwEP+1)&0x0f)<<EPT_T2SEL_POS);	
-//}
-
-static inline csi_error_t csp_ept_set_aqtscr(csp_ept_t *ptEptBase, csp_ept_t_e bwVal,csp_ept_t1t2_sel_e bwT1T2Sel)
+static inline void csp_ept_set_aqtscr(csp_ept_t *ptEptBase, csp_ept_t_e eVal,csp_ept_t1t2_sel_e eT1T2Sel)
 {  
   
-	if(bwVal==EPT_T1) 
+	if(eVal==EPT_T1) 
 	{
-		if(bwT1T2Sel == EPT_T2_SYNC5)
-			return CSI_ERROR;
-		else
-			ptEptBase -> AQTSCR = (ptEptBase -> AQTSCR & ~(0x0f)) | ((bwT1T2Sel & 0x0f) << EPT_T1SEL_POS);
+		if(eT1T2Sel != EPT_T2_SYNC5)
+			ptEptBase -> AQTSCR = (ptEptBase -> AQTSCR & ~(0x0f)) | ((eT1T2Sel & 0x0f) << EPT_T1SEL_POS);
 	} 
 	
-	if(bwVal==EPT_T2) 
+	if(eVal==EPT_T2) 
 	{
-		if(bwT1T2Sel == EPT_T1_SYNC4)
-			return CSI_ERROR;
-		else
-			ptEptBase -> AQTSCR = (ptEptBase -> AQTSCR & ~(0xf0)) | ((bwT1T2Sel & 0x0f) << EPT_T2SEL_POS);	
+		if(eT1T2Sel != EPT_T1_SYNC4)
+			ptEptBase -> AQTSCR = (ptEptBase -> AQTSCR & ~(0xf0)) | ((eT1T2Sel & 0x0f) << EPT_T2SEL_POS);	
 	}	
-	
-	return CSI_OK;
 }
 
-static inline void csp_ept_set_dbldr(csp_ept_t *ptEptBase, uint32_t w_Val)
+static inline void csp_ept_set_dbldr(csp_ept_t *ptEptBase, uint32_t wVal)
 {
-  ptEptBase -> DBLDR = w_Val;
+  ptEptBase -> DBLDR = wVal;
 }
 
 static inline uint32_t csp_ept_get_dbldr(csp_ept_t *ptEptBase)
@@ -1210,9 +1090,9 @@ static inline uint32_t csp_ept_get_dbldr(csp_ept_t *ptEptBase)
  return ( ptEptBase -> DBLDR);
 }
 
-static inline void csp_ept_set_dbcr(csp_ept_t *ptEptBase, uint32_t w_VAL)
+static inline void csp_ept_set_dbcr(csp_ept_t *ptEptBase, uint32_t wVAL)
 {
-	ptEptBase -> DBCR = w_VAL;
+	ptEptBase -> DBCR = wVAL;
 }
 
 static inline uint32_t csp_ept_get_dbcr(csp_ept_t *ptEptBase)
@@ -1220,61 +1100,61 @@ static inline uint32_t csp_ept_get_dbcr(csp_ept_t *ptEptBase)
 	return ( ptEptBase -> DBCR);	
 }
 
-static inline void csp_ept_set_dbdtr(csp_ept_t *ptEptBase, uint16_t wVal)
+static inline void csp_ept_set_dbdtr(csp_ept_t *ptEptBase, uint16_t hwVal)
 {
-	ptEptBase ->DBDTR = wVal;
+	ptEptBase ->DBDTR = hwVal;
 }
-static inline void csp_ept_set_dbdtf(csp_ept_t *ptEptBase, uint16_t wVal)
+static inline void csp_ept_set_dbdtf(csp_ept_t *ptEptBase, uint16_t hwVal)
 {
-	ptEptBase ->DBDTF = wVal;
+	ptEptBase ->DBDTF = hwVal;
 }
-static inline void csp_ept_set_dpscr(csp_ept_t *ptEptBase, uint16_t wVal)
+static inline void csp_ept_set_dpscr(csp_ept_t *ptEptBase, uint16_t hwVal)
 {
-	ptEptBase ->DPSCR = wVal;
+	ptEptBase ->DPSCR = hwVal;
 }
 
-static inline void csp_ept_set_cpcr(csp_ept_t *ptEptBase, uint32_t byVal)
+static inline void csp_ept_set_cpcr(csp_ept_t *ptEptBase, uint32_t wVal)
 {
-	ptEptBase ->CPCR = byVal ;
+	ptEptBase ->CPCR = wVal ;
 }
 static inline uint32_t csp_ept_get_cpcr(csp_ept_t *ptEptBase)
 {
 	return ( ptEptBase ->CPCR );
 }
-static inline void csp_ept_set_src(csp_ept_t *ptEptBase,uint32_t byVal )
+static inline void csp_ept_set_src(csp_ept_t *ptEptBase,uint32_t wVal )
 {
 	ptEptBase -> REGPROT = EPT_REGPROT;
-	ptEptBase -> EMSRC = byVal;
+	ptEptBase -> EMSRC = wVal;
 }
 static inline uint32_t csp_ept_get_src(csp_ept_t *ptEptBase )
 {	
 	return ( ptEptBase -> EMSRC );
 }
 
-static inline void csp_ept_set_src2(csp_ept_t *ptEptBase,uint32_t byVal)
+static inline void csp_ept_set_src2(csp_ept_t *ptEptBase,uint32_t wVal)
 {
 	ptEptBase -> REGPROT = EPT_REGPROT;
-	ptEptBase -> EMSRC2  =byVal;
+	ptEptBase -> EMSRC2  =wVal;
 }
 static inline uint32_t csp_ept_get_src2(csp_ept_t *ptEptBase )
 {	
 	return ( ptEptBase -> EMSRC2 );
 }
 
-static inline void csp_ept_set_empol(csp_ept_t *ptEptBase, uint32_t byVal)
+static inline void csp_ept_set_empol(csp_ept_t *ptEptBase, uint32_t wVal)
 {
 	ptEptBase -> REGPROT = EPT_REGPROT;
-	ptEptBase -> EMPOL = byVal;
+	ptEptBase -> EMPOL = wVal;
 }
 static inline uint32_t csp_ept_get_empol(csp_ept_t *ptEptBase )
 {	
 	return ( ptEptBase -> EMPOL );
 }
 
-static inline void csp_ept_set_emecr(csp_ept_t *ptEptBase,uint32_t byVal)
+static inline void csp_ept_set_emecr(csp_ept_t *ptEptBase,uint32_t wVal)
 {
 	ptEptBase -> REGPROT = EPT_REGPROT;
-	ptEptBase -> EMECR = byVal;
+	ptEptBase -> EMECR = wVal;
 }
 
 static inline  uint32_t csp_ept_get_emecr(csp_ept_t *ptEptBase)				
@@ -1282,10 +1162,10 @@ static inline  uint32_t csp_ept_get_emecr(csp_ept_t *ptEptBase)
 	return (ptEptBase->EMECR);
 }
 
-static inline void csp_ept_set_emosr(csp_ept_t *ptEptBase,uint32_t byVal)
+static inline void csp_ept_set_emosr(csp_ept_t *ptEptBase,uint32_t wVal)
 {
 	ptEptBase -> REGPROT = EPT_REGPROT;
-	ptEptBase -> EMOSR = byVal;
+	ptEptBase -> EMOSR = wVal;
 }
 static inline  uint32_t csp_ept_get_emosr(csp_ept_t *ptEptBase)				
 {
@@ -1334,24 +1214,24 @@ static inline void csp_ept_clr_emint(csp_ept_t *ptEptBase, csp_ept_emint_e eInt)
 	ptEptBase -> EMICR = eInt;
 }
 
-static inline void csp_ept_set_evtrg(csp_ept_t *ptEptBase ,uint32_t byVal)
+static inline void csp_ept_set_evtrg(csp_ept_t *ptEptBase ,uint32_t wVal)
 {
-	ptEptBase -> EVTRG = byVal ;
+	ptEptBase -> EVTRG = wVal ;
 }
 
 
-static inline void csp_ept_set_evps(csp_ept_t *ptEptBase, uint32_t byPrd)
+static inline void csp_ept_set_evps(csp_ept_t *ptEptBase, uint32_t wVal)
 {
-	ptEptBase ->  EVPS = byPrd;
+	ptEptBase ->  EVPS = wVal;
 }
 
-static inline void csp_ept_set_trgftcr(csp_ept_t *ptEptBase, uint32_t byPrd)
+static inline void csp_ept_set_trgftcr(csp_ept_t *ptEptBase, uint32_t wVal)
 {
-	ptEptBase ->  TRGFTCR = byPrd;
+	ptEptBase ->  TRGFTCR = wVal;
 }
-static inline void csp_ept_set_trgftwr(csp_ept_t *ptEptBase, uint32_t byPrd)
+static inline void csp_ept_set_trgftwr(csp_ept_t *ptEptBase, uint32_t wVal)
 {
-	ptEptBase ->  TRGFTWR = byPrd;
+	ptEptBase ->  TRGFTWR = wVal;
 }
 
 static inline void csp_ept_set_trgprd(csp_ept_t *ptEptBase, uint8_t byCh,uint8_t byPrd)
@@ -1426,23 +1306,23 @@ static inline void csp_ept_trg_cntxinit(csp_ept_t *ptEptBase, uint8_t byCh, uint
 	ptEptBase -> EVCNTINIT = (ptEptBase -> EVCNTINIT & ~EPT_CNT_INIT_MSK_EV(byCh)) | EPT_CNT_INIT(byVal,byCh);
 }
 
-static inline void csp_ept_sync_config(csp_ept_t *ptEptBase, uint32_t byCh)
+static inline void csp_ept_sync_config(csp_ept_t *ptEptBase, uint32_t wVal)
 {   ptEptBase -> REGPROT = EPT_REGPROT;
-	ptEptBase -> SYNCR   =  byCh ;
+	ptEptBase -> SYNCR   =  wVal ;
 }
 
-static inline void csp_ept_set_gldcr(csp_ept_t *ptEptBase, uint32_t byCh)
+static inline void csp_ept_set_gldcr(csp_ept_t *ptEptBase, uint32_t wVal)
 {
-	ptEptBase -> GLDCR   =  byCh ;
+	ptEptBase -> GLDCR   =  wVal ;
 }
-static inline void csp_ept_set_gldcr2(csp_ept_t *ptEptBase, uint32_t byCh)
+static inline void csp_ept_set_gldcr2(csp_ept_t *ptEptBase, uint32_t wVal)
 {   ptEptBase -> REGPROT = EPT_REGPROT;
-	ptEptBase -> GLDCR2   |=  byCh ;
+	ptEptBase -> GLDCR2   |=  wVal ;
 }
 
-static inline void csp_ept_set_gldcfg(csp_ept_t *ptEptBase, uint32_t byCh)
+static inline void csp_ept_set_gldcfg(csp_ept_t *ptEptBase, uint32_t wVal)
 {
-	ptEptBase -> GLDCFG   =  byCh ;
+	ptEptBase -> GLDCFG   =  wVal ;
 }
 
 static inline void csp_ept_evtrg_soft(csp_ept_t *ptEptBase, uint8_t  byCh)
@@ -1489,9 +1369,9 @@ static inline bool csp_ept_get_rearm_st(csp_ept_t *ptEptBase, uint8_t byCh)
 }
 
 
-static inline void csp_ept_set_phsr(csp_ept_t *ptEptBase, uint16_t bwVal)
+static inline void csp_ept_set_phsr(csp_ept_t *ptEptBase, uint16_t hwVal)
 {
-	ptEptBase -> PHSR = bwVal;
+	ptEptBase -> PHSR = hwVal;
 }
 static inline uint16_t csp_ept_get_phsr(csp_ept_t *ptEptBase)
 {
@@ -1595,13 +1475,13 @@ static inline void csp_ept_eomf_hdlck_enable(csp_ept_t *ptEptBase, bool bEnable)
 	ptEptBase -> EMECR = (ptEptBase -> EMECR & ~(EPT_EOMFAULT_HLCK_MSK)) | (bEnable << EPT_EOMFAULT_HLCK_POS);
 }
 
-static inline void csp_ept_set_feglk(csp_ept_t *pteptBase, uint32_t byCh)
+static inline void csp_ept_set_feglk(csp_ept_t *pteptBase, uint32_t wVal)
 {
-	pteptBase -> REGLK = byCh;
+	pteptBase -> REGLK = wVal;
 }
-static inline void csp_ept_set_feglk2(csp_ept_t *pteptBase, uint32_t byCh)
+static inline void csp_ept_set_feglk2(csp_ept_t *pteptBase, uint32_t wVal)
 {
-	pteptBase -> REGLK2 = byCh;
+	pteptBase -> REGLK2 = wVal;
 }
 
 

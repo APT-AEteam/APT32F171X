@@ -216,6 +216,12 @@ typedef enum{
 	GPTA_FILT_SYNCIN5,			//filter input syncin5		
 }csi_gpta_filter_insrc_e;
 
+typedef enum{
+	GPTA_ALIGN_PRD = 0,
+	GPTA_ALIGN_ZRO,
+	GPTA_ALIGN_ZRO_PRD,
+	GPTA_ALIGN_T1
+}csi_gpta_alignmd_e;
 
 /**
  * \enum	csi_ept_trgout_e

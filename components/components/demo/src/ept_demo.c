@@ -6,7 +6,8 @@
  * <table>
  * <tr><th> Date  <th>Version  <th>Author  <th>Description
  * <tr><td> 2021-5-11  <td>V0.0 <td>ljy     <td>initial
- * <tr><td> 2023-3-21  <td>V0.1  <td>WCH     <td>initial
+ * <tr><td> 2023-3-21  <td>V0.1  <td>WCH     <td>modify
+ * <tr><td> 2023-5-11  <td>V0.2  <td>WCH     <td>modify
  * </table>
  * *********************************************************************
 */
@@ -58,7 +59,7 @@ int ept_capture_demo(void)
 	tPwmCfg.byWorkmod       = EPT_CAPTURE;                     //WAVE or CAPTURE    //计数或捕获	
 	tPwmCfg.byCountingMode  = EPT_UPCNT;                       //CNYMD  //计数方向
 	tPwmCfg.byOneshotMode   = EPT_OP_CONT;                     //OPM    //单次或连续(工作方式)
-	tPwmCfg.byStartSrc      = EPT_SYNC_START;				   //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
+	tPwmCfg.byStartSrc      = EPT_SYNC;				   //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
 	tPwmCfg.byPscld         = EPT_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值	
 	tPwmCfg.byCaptureCapmd  = EPT_CAPMD_CONT;                  //0:连续捕捉模式    1h：一次性捕捉模式
 	tPwmCfg.byCaptureStopWrap=4-1;                             //Capture模式下，捕获事件计数器周期设置值
@@ -67,10 +68,6 @@ int ept_capture_demo(void)
 	tPwmCfg.byCaptureLdcret  =0;                              
 	tPwmCfg.byCaptureLddret  =0;                              	
 	tPwmCfg.wInt 		     =EPT_INTSRC_CAPLD3;               //interrupt
-	
-	//if(tPwmCfg.byCgsrc==EPT_CGSRC_TIN){
-	//   tPwmCfg.byTinsel=EPT_TIN_BT0;
-	//}
 	
 	csi_ept_capture_init(EPT0, &tPwmCfg);
 //------------------------------------------------------------------------------------------------------------------------	
@@ -126,7 +123,7 @@ int ept_pwm_demo(void)
 	tPwmCfg.byWorkmod        = EPT_WAVE;                        //WAVE  波形模式
 	tPwmCfg.byCountingMode   = EPT_UPDNCNT;                     //CNYMD  //计数方向
 	tPwmCfg.byOneshotMode    = EPT_OP_CONT;                     //OPM    //单次或连续(工作方式)
-	tPwmCfg.byStartSrc       = EPT_SYNC_START;					//软件使能同步触发使能控制（RSSR中START控制位）//启动方式
+	tPwmCfg.byStartSrc       = EPT_SYNC;					//软件使能同步触发使能控制（RSSR中START控制位）//启动方式
 	tPwmCfg.byPscld          = EPT_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值		
 	tPwmCfg.byDutyCycle 	 = 50;								//pwm ouput duty cycle//PWM初始值			
 	tPwmCfg.wFreq 			 = 10000;							//pwm ouput frequency	
@@ -140,21 +137,21 @@ int ept_pwm_demo(void)
 //	csi_ept_set_sync (EPT0, EPT_TRG_SYNCEN3, EPT_TRG_CONTINU,EPT_AUTO_REARM_ZRO);
    
 //------------------------------------------------------------------------------------------------------------------------	
-//	csi_ept_channel_aqload_config(EPT0, EPT_LD_SHDW, EPT_LDCMP_PRD ,EPT_CHANNEL_1);//配置波形控制寄存器的载入模式：Immediate/Shadow  注意：在改变AQLDR寄存器时 会改变相应的AQCRx(内部访问地址变了)
-//	csi_ept_channel_aqload_config(EPT0, EPT_LD_SHDW, EPT_LDCMP_PRD ,EPT_CHANNEL_2);
-//	csi_ept_channel_aqload_config(EPT0, EPT_LD_SHDW, EPT_LDCMP_PRD ,EPT_CHANNEL_3);
+//	csi_ept_channel_aqload_config(EPT0, EPT_SHADOW, EPT_LDMD_PRD ,EPT_CHANNEL_1);//配置波形控制寄存器的载入模式：Immediate/Shadow  注意：在改变AQLDR寄存器时 会改变相应的AQCRx(内部访问地址变了)
+//	csi_ept_channel_aqload_config(EPT0, EPT_SHADOW, EPT_LDMD_PRD ,EPT_CHANNEL_2);
+//	csi_ept_channel_aqload_config(EPT0, EPT_SHADOW, EPT_LDMD_PRD ,EPT_CHANNEL_3);
 
 	csi_ept_pwmchannel_config_t  channel;
-	channel.byActionZro    =   LO;
-	channel.byActionPrd    =   NA;
-	channel.byActionC1u    =   HI;
-	channel.byActionC1d    =   LO;
-	channel.byActionC2u    =   NA;
-	channel.byActionC2d    =   NA;
-	channel.byActionT1u    =   LO;
-	channel.byActionT1d    =   LO;
-	channel.byActionT2u    =   NA;
-	channel.byActionT2d    =   NA;
+	channel.byActionZro    =   EPT_LO;
+	channel.byActionPrd    =   EPT_NA;
+	channel.byActionC1u    =   EPT_HI;
+	channel.byActionC1d    =   EPT_LO;
+	channel.byActionC2u    =   EPT_NA;
+	channel.byActionC2d    =   EPT_NA;
+	channel.byActionT1u    =   EPT_LO;
+	channel.byActionT1d    =   EPT_LO;
+	channel.byActionT2u    =   EPT_NA;
+	channel.byActionT2d    =   EPT_NA;
 	channel.byChoiceC1sel  =   EPT_CMPA;
 	channel.byChoiceC2sel  =   EPT_CMPA;	
 	csi_ept_channel_config(EPT0, &channel,  EPT_CHANNEL_1);//channel
@@ -232,28 +229,28 @@ int ept_pwm_dz_demo(void)
 	tPwmCfg.byWorkmod       = EPT_WAVE;                        //WAVE or CAPTURE    //计数或捕获	
 	tPwmCfg.byCountingMode  = EPT_UPDNCNT;                     //CNYMD  //计数方向
 	tPwmCfg.byOneshotMode   = EPT_OP_CONT;                     //OPM    //单次或连续(工作方式)
-	tPwmCfg.byStartSrc      = EPT_SYNC_START;				   //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
+	tPwmCfg.byStartSrc      = EPT_SYNC;				   //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
 	tPwmCfg.byPscld         = EPT_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值	
 	tPwmCfg.byDutyCycle 	= 50;							   //pwm ouput duty cycle//PWM初始值			
 	tPwmCfg.wFreq 			= 10000;						   //pwm ouput frequency			
 	tPwmCfg.wInt 			= EPT_INTSRC_TRGEV0;               //interrupt
 	csi_ept_wave_init(EPT0, &tPwmCfg);
 	
-//	csi_ept_set_evtrg(EPT0, EPT_TRG_OUT0, EPT_TRGSRC_PE1);    //EP1用trg0输出，
+//	csi_ept_set_evtrg(EPT0, EPT_TRGOUT0, EPT_TRGSRC_EP1);    //EP1用trg0输出，
 //	csi_ept_set_sync (EPT0, EPT_TRG_SYNCEN2, EPT_TRG_CONTINU,EPT_AUTO_REARM_ZRO);
 //	csi_ept_int_enable(EPT0, EPT_INTSRC_TRGEV0,true);
 //------------------------------------------------------------------------------------------------------------------------
 	csi_ept_pwmchannel_config_t  tEptchannelCfg;
-	tEptchannelCfg.byActionZro    =   LO;
-	tEptchannelCfg.byActionPrd    =   NA;
-	tEptchannelCfg.byActionC1u    =   HI;
-	tEptchannelCfg.byActionC1d    =   LO;
-	tEptchannelCfg.byActionC2u    =   NA;
-	tEptchannelCfg.byActionC2d    =   NA;
-	tEptchannelCfg.byActionT1u    =   LO;
-	tEptchannelCfg.byActionT1d    =   LO;
-	tEptchannelCfg.byActionT2u    =   NA;
-	tEptchannelCfg.byActionT2d    =   NA;
+	tEptchannelCfg.byActionZro    =   EPT_LO;
+	tEptchannelCfg.byActionPrd    =   EPT_NA;
+	tEptchannelCfg.byActionC1u    =   EPT_HI;
+	tEptchannelCfg.byActionC1d    =   EPT_LO;
+	tEptchannelCfg.byActionC2u    =   EPT_NA;
+	tEptchannelCfg.byActionC2d    =   EPT_NA;
+	tEptchannelCfg.byActionT1u    =   EPT_LO;
+	tEptchannelCfg.byActionT1d    =   EPT_LO;
+	tEptchannelCfg.byActionT2u    =   EPT_NA;
+	tEptchannelCfg.byActionT2d    =   EPT_NA;
 	tEptchannelCfg.byChoiceC1sel  =   EPT_CMPA;
 	tEptchannelCfg.byChoiceC2sel  =   EPT_CMPA;	
 	csi_ept_channel_config(EPT0, &tEptchannelCfg,  EPT_CHANNEL_1);//channel
@@ -273,15 +270,15 @@ int ept_pwm_dz_demo(void)
 	tEptDeadZoneTime.hwDpsc                 =  0;              //FDBCLK = FHCLK / (DPSC+1)
 	tEptDeadZoneTime.hwRisingEdgereGister   = 500;             //上升沿-ns
 	tEptDeadZoneTime.hwFallingEdgereGister  = 200;             //下降沿-ns
-	tEptDeadZoneTime.byChaDedb              = DB_AR_BF;        //不使用死区双沿
-	tEptDeadZoneTime.byChbDedb              = DB_AR_BF;
-	tEptDeadZoneTime.byChcDedb              = DB_AR_BF;
+	tEptDeadZoneTime.byChaDedb              = EPT_DB_AR_BF;        //不使用死区双沿
+	tEptDeadZoneTime.byChbDedb              = EPT_DB_AR_BF;
+	tEptDeadZoneTime.byChcDedb              = EPT_DB_AR_BF;
 	csi_ept_dz_config(EPT0,&tEptDeadZoneTime);
 	
-	tEptDeadZoneTime.byChxOuselS1S0      = E_DBOUT_AR_BF;      //使能通道A的上升沿延时，使能通道B的下降沿延时
-	tEptDeadZoneTime.byChxPolarityS3S2   = E_DB_POL_B;         //通道A和通道B延时输出电平是否反向
-	tEptDeadZoneTime.byChxInselS5S4      = E_DBCHAIN_AR_AF;    //PWMA作为上升沿和下降沿延时处理的输入信号
-	tEptDeadZoneTime.byChxOutSwapS8S7    = E_CHOUTX_OUA_OUB;   //OUTA=通道A输出，OUTB=通道B输出
+	tEptDeadZoneTime.byChxOuselS1S0      = EPT_DBOUT_AR_BF;      //使能通道A的上升沿延时，使能通道B的下降沿延时
+	tEptDeadZoneTime.byChxPolarityS3S2   = EPT_DB_POL_B;         //通道A和通道B延时输出电平是否反向
+	tEptDeadZoneTime.byChxInselS5S4      = EPT_DBCHAIN_AR_AF;    //PWMA作为上升沿和下降沿延时处理的输入信号
+	tEptDeadZoneTime.byChxOutSwapS8S7    = EPT_CHOUTX_OUA_OUB;   //OUTA=通道A输出，OUTB=通道B输出
     csi_ept_channelmode_config(EPT0,&tEptDeadZoneTime,EPT_CHANNEL_1);
 	csi_ept_channelmode_config(EPT0,&tEptDeadZoneTime,EPT_CHANNEL_2);
     csi_ept_channelmode_config(EPT0,&tEptDeadZoneTime,EPT_CHANNEL_3);
@@ -352,7 +349,7 @@ int ept_pwm_dz_em_demo(void)
 	tPwmCfg.byWorkmod       = EPT_WAVE;                        //WAVE or CAPTURE    //计数或捕获	
 	tPwmCfg.byCountingMode  = EPT_UPDNCNT;                     //CNYMD  //计数方向
 	tPwmCfg.byOneshotMode   = EPT_OP_CONT;                     //OPM    //单次或连续(工作方式)
-	tPwmCfg.byStartSrc      = EPT_SYNC_START;				   //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
+	tPwmCfg.byStartSrc      = EPT_SYNC;				   //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
 	tPwmCfg.byPscld         = EPT_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值	
 	tPwmCfg.byDutyCycle 	= 50;							   //pwm ouput duty cycle//PWM初始值(0~100)		
 	tPwmCfg.wFreq 			= 10000;						   //pwm ouput frequency			
@@ -362,16 +359,16 @@ int ept_pwm_dz_em_demo(void)
     csi_ept_int_enable(EPT0, EPT_INTSRC_CBD,true);
 //------------------------------------------------------------------------------------------------------------------------
 	csi_ept_pwmchannel_config_t  tEptchannelCfg;
-	tEptchannelCfg.byActionZro    =   LO;
-	tEptchannelCfg.byActionPrd    =   NA;
-	tEptchannelCfg.byActionC1u    =   HI;
-	tEptchannelCfg.byActionC1d    =   LO;
-	tEptchannelCfg.byActionC2u    =   NA;
-	tEptchannelCfg.byActionC2d    =   NA;
-	tEptchannelCfg.byActionT1u    =   LO;
-	tEptchannelCfg.byActionT1d    =   LO;
-	tEptchannelCfg.byActionT2u    =   NA;
-	tEptchannelCfg.byActionT2d    =   NA;
+	tEptchannelCfg.byActionZro    =   EPT_LO;
+	tEptchannelCfg.byActionPrd    =   EPT_NA;
+	tEptchannelCfg.byActionC1u    =   EPT_HI;
+	tEptchannelCfg.byActionC1d    =   EPT_LO;
+	tEptchannelCfg.byActionC2u    =   EPT_NA;
+	tEptchannelCfg.byActionC2d    =   EPT_NA;
+	tEptchannelCfg.byActionT1u    =   EPT_LO;
+	tEptchannelCfg.byActionT1d    =   EPT_LO;
+	tEptchannelCfg.byActionT2u    =   EPT_NA;
+	tEptchannelCfg.byActionT2d    =   EPT_NA;
 	tEptchannelCfg.byChoiceC1sel  =   EPT_CMPA;
 	tEptchannelCfg.byChoiceC2sel  =   EPT_CMPA;	
 	csi_ept_channel_config(EPT0, &tEptchannelCfg,  EPT_CHANNEL_1);//channel
@@ -391,87 +388,87 @@ int ept_pwm_dz_em_demo(void)
 	tEptDeadZoneTime.hwDpsc                 =  0;              //FDBCLK = FHCLK / (DPSC+1)
 	tEptDeadZoneTime.hwRisingEdgereGister   = 1000;             //上升沿-ns
 	tEptDeadZoneTime.hwFallingEdgereGister  = 1000;             //下降沿-ns
-	tEptDeadZoneTime.byChaDedb              = DB_AR_BF;        //不使用死区双沿
-	tEptDeadZoneTime.byChbDedb              = DB_AR_BF;
-	tEptDeadZoneTime.byChcDedb              = DB_AR_BF;
+	tEptDeadZoneTime.byChaDedb              = EPT_DB_AR_BF;        //不使用死区双沿
+	tEptDeadZoneTime.byChbDedb              = EPT_DB_AR_BF;
+	tEptDeadZoneTime.byChcDedb              = EPT_DB_AR_BF;
 	csi_ept_dz_config(EPT0,&tEptDeadZoneTime);
 	
-	tEptDeadZoneTime.byChxOuselS1S0      = E_DBOUT_AR_BF;      //使能通道A的上升沿延时，使能通道B的下降沿延时
-	tEptDeadZoneTime.byChxPolarityS3S2   = E_DB_POL_B;         //通道A和通道B延时输出电平是否反向
-	tEptDeadZoneTime.byChxInselS5S4      = E_DBCHAIN_AR_AF;    //PWMA作为上升沿和下降沿延时处理的输入信号
-	tEptDeadZoneTime.byChxOutSwapS8S7    = E_CHOUTX_OUA_OUB;   //OUTA=通道A输出，OUTB=通道B输出
+	tEptDeadZoneTime.byChxOuselS1S0      = EPT_DBOUT_AR_BF;      //使能通道A的上升沿延时，使能通道B的下降沿延时
+	tEptDeadZoneTime.byChxPolarityS3S2   = EPT_DB_POL_B;         //通道A和通道B延时输出电平是否反向
+	tEptDeadZoneTime.byChxInselS5S4      = EPT_DBCHAIN_AR_AF;    //PWMA作为上升沿和下降沿延时处理的输入信号
+	tEptDeadZoneTime.byChxOutSwapS8S7    = EPT_CHOUTX_OUA_OUB;   //OUTA=通道A输出，OUTB=通道B输出
     csi_ept_channelmode_config(EPT0,&tEptDeadZoneTime,EPT_CHANNEL_1);
 	csi_ept_channelmode_config(EPT0,&tEptDeadZoneTime,EPT_CHANNEL_2);
     csi_ept_channelmode_config(EPT0,&tEptDeadZoneTime,EPT_CHANNEL_3);	
 //------------------------------------------------------------------------------------------------------------------------	
     csi_ept_emergency_config_t   tEptEmergencyCfg;            //紧急状态输入
-    tEptEmergencyCfg.byEpxInt    = EBI0 ;                     //EPx选择外部IO端口（EBI0~EBI4）
-    tEptEmergencyCfg.byPolEbix   = EBI_POL_L;//EBI_POL_H;     //EBIx的输入有效极性选择控制
-	tEptEmergencyCfg.byEpx       = EP7;                       //使能EPx
-	tEptEmergencyCfg.byEpxLckmd  = EP_SLCK;                    //使能 锁
-	tEptEmergencyCfg.byOsrshdw   = SHADOW;       //锁止端口状态载入方式
-	if(tEptEmergencyCfg.byEpxLckmd==EP_SLCK)
+    tEptEmergencyCfg.byEpxInt    = EPT_EBI0 ;                     //EPx选择外部IO端口（EBI0~EBI4）
+    tEptEmergencyCfg.byPolEbix   = EPT_EBI_POL_L;         		//EBIx的输入有效极性选择控制
+	tEptEmergencyCfg.byEpx       = EPT_EP7;                       //使能EPx
+	tEptEmergencyCfg.byEpxLckmd  = EPT_EP_SLCK;                    //使能 锁
+	tEptEmergencyCfg.byOsrshdw   = EPT_OSR_SHADOW;       //锁止端口状态载入方式
+	if(tEptEmergencyCfg.byEpxLckmd==EPT_EP_SLCK)
 	{tEptEmergencyCfg.bySlclrmd=EPT_SLCLRMD_CLR_ZRO;           //软锁自动清除状态
 	}
-	if(tEptEmergencyCfg.byOsrshdw==SHADOW)
+	if(tEptEmergencyCfg.byOsrshdw==EPT_OSR_SHADOW)
     {  tEptEmergencyCfg.byOsrldmd= EPT_LDEMOSR_ZRO;
 	}
     csi_ept_emergency_config(EPT0,&tEptEmergencyCfg);         //配置EPx
 //	
-//	tEptEmergencyCfg.byEpxInt    = EBI1 ;                     //EPx选择外部IO端口（EBI0~EBI4）
-//    tEptEmergencyCfg.byPolEbix   = EBI_POL_L;//EBI_POL_H;     //EBIx的输入有效极性选择控制
-//	tEptEmergencyCfg.byEpx       = EP3;                       //使能EPx
-//	tEptEmergencyCfg.byEpxLckmd  = EP_DIS;                    //使能 锁
-//	tEptEmergencyCfg.byOsrshdw   = IMMEDIATE; //SHADOW;       //锁止端口状态载入方式
-//	if(tEptEmergencyCfg.byEpxLckmd==EP_SLCK)
+//	tEptEmergencyCfg.byEpxInt    = EPT_EBI1 ;                     //EPx选择外部IO端口（EBI0~EBI4）
+//    tEptEmergencyCfg.byPolEbix = EPT_EBI_POL_L;//EBI_POL_H;     //EBIx的输入有效极性选择控制
+//	tEptEmergencyCfg.byEpx       = EPT_EP3;                       //使能EPx
+//	tEptEmergencyCfg.byEpxLckmd  = EPT_EP_DIS;                    //使能 锁
+//	tEptEmergencyCfg.byOsrshdw   = EPT_OSR_IMMEDIATE; //EPT_OSR_SHADOW;       //锁止端口状态载入方式
+//	if(tEptEmergencyCfg.byEpxLckmd==EPT_EP_SLCK)
 //	{tEptEmergencyCfg.bySlclrmd=EPT_SLCLRMD_CLR_PRD;       //软锁自动清除状态
 //	}
-//	if(tEptEmergencyCfg.byOsrshdw==SHADOW)
+//	if(tEptEmergencyCfg.byOsrshdw==EPT_OSR_SHADOW)
 //    {  tEptEmergencyCfg.byOsrldmd= EPT_LDEMOSR_ZRO;
 //	}
 //    csi_ept_emergency_config(EPT0,&tEptEmergencyCfg);         //配置EPx
 //	
-//	tEptEmergencyCfg.byEpxInt    = EBI2 ;                     //EPx选择外部IO端口（EBI0~EBI4）
-//    tEptEmergencyCfg.byPolEbix   = EBI_POL_L;//EBI_POL_H;     //EBIx的输入有效极性选择控制
-//	tEptEmergencyCfg.byEpx       = EP4;                       //使能EPx
-//	tEptEmergencyCfg.byEpxLckmd  = EP_HLCK;                    //使能 锁
-//	tEptEmergencyCfg.byOsrshdw   = IMMEDIATE; //SHADOW;       //锁止端口状态载入方式
-//	if(tEptEmergencyCfg.byEpxLckmd==EP_SLCK)
+//	tEptEmergencyCfg.byEpxInt    = EPT_EBI2 ;                     //EPx选择外部IO端口（EBI0~EBI4）
+//    tEptEmergencyCfg.byPolEbix = EPT_EBI_POL_L;//EBI_POL_H;     //EBIx的输入有效极性选择控制
+//	tEptEmergencyCfg.byEpx       = EPT_EP4;                       //使能EPx
+//	tEptEmergencyCfg.byEpxLckmd  = EPT_EP_HLCK;                    //使能 锁
+//	tEptEmergencyCfg.byOsrshdw   = EPT_OSR_IMMEDIATE; //EPT_OSR_SHADOW;       //锁止端口状态载入方式
+//	if(tEptEmergencyCfg.byEpxLckmd==EPT_EP_SLCK)
 //	{tEptEmergencyCfg.bySlclrmd=EPT_SLCLRMD_CLR_PRD;          //软锁自动清除状态
 //	}
-//	if(tEptEmergencyCfg.byOsrshdw==SHADOW)
+//	if(tEptEmergencyCfg.byOsrshdw==EPT_OSR_SHADOW)
 //    {  tEptEmergencyCfg.byOsrldmd= EPT_LDEMOSR_ZRO;
 //	}
 //    csi_ept_emergency_config(EPT0,&tEptEmergencyCfg);         //配置EPx
 //	
-//	tEptEmergencyCfg.byEpxInt    = ORL0 ;                     //多路EP的逻辑OR
-//	tEptEmergencyCfg.byEpx       = EP6;                       //使能EPx	
-//	tEptEmergencyCfg.byEpxLckmd  = EP_SLCK;                   //使能软锁/硬锁
-//	tEptEmergencyCfg.byOsrshdw   = IMMEDIATE; //SHADOW;       //锁止端口状态载入方式
-//	if(tEptEmergencyCfg.byEpxLckmd==EP_SLCK)
+//	tEptEmergencyCfg.byEpxInt    = EPT_ORL0 ;                     //多路EP的逻辑OR
+//	tEptEmergencyCfg.byEpx       = EPT_EP6;                       //使能EPx	
+//	tEptEmergencyCfg.byEpxLckmd  = EPT_EP_SLCK;                   //使能软锁/硬锁
+//	tEptEmergencyCfg.byOsrshdw   = EPT_OSR_IMMEDIATE; //EPT_OSR_SHADOW;       //锁止端口状态载入方式
+//	if(tEptEmergencyCfg.byEpxLckmd==EPT_EP_SLCK)
 //	{tEptEmergencyCfg.bySlclrmd=EPT_SLCLRMD_CLR_PRD;          //软锁自动清除状态
 //	}
-//	if(tEptEmergencyCfg.byOsrshdw==SHADOW)
+//	if(tEptEmergencyCfg.byOsrshdw==EPT_OSR_SHADOW)
 //    {  tEptEmergencyCfg.byOsrldmd= EPT_LDEMOSR_ZRO;
 //	}	
-//	if(tEptEmergencyCfg.byEpxInt ==ORL0)
-//		{tEptEmergencyCfg.byOrl0 = ORLx_EBI2|ORLx_EBI3 ;
-//		 tEptEmergencyCfg.byFltpace0  = EPFLT0_DIS;            //EP0、EP1、EP2和EP3的数字去抖滤波检查周期数
+//	if(tEptEmergencyCfg.byEpxInt ==EPT_ORL0)
+//		{tEptEmergencyCfg.byOrl0 = EPT_ORLx_EBI2|EPT_ORLx_EBI3 ;
+//		 tEptEmergencyCfg.byFltpace0  = EPT_EPFLT0_DIS;            //EP0、EP1、EP2和EP3的数字去抖滤波检查周期数
 //	    }
-//	else if(tEptEmergencyCfg.byEpxInt ==ORL1)
-//		{tEptEmergencyCfg.byOrl1 = ORLx_EBI2|ORLx_EBI3 ; 
-//		 tEptEmergencyCfg.byFltpace1  = EPFLT1_2P;             //EP4、EP5、EP6和EP7的数字去抖滤波检查周期数
+//	else if(tEptEmergencyCfg.byEpxInt ==EPT_ORL1)
+//		{tEptEmergencyCfg.byOrl1 = EPT_ORLx_EBI2|EPT_ORLx_EBI3 ; 
+//		 tEptEmergencyCfg.byFltpace1  = EPT_EPFLT1_2P;             //EP4、EP5、EP6和EP7的数字去抖滤波检查周期数
 //		}
 //	csi_ept_emergency_config(EPT0,&tEptEmergencyCfg);         //配置EPx
 	
-	csi_ept_emergency_pinout(EPT0,EMCOAX,EM_OUT_L);           //紧急状态下输出状态设置（注意mos/igbt的驱动电平）
-	csi_ept_emergency_pinout(EPT0,EMCOBX,EM_OUT_L);
-	csi_ept_emergency_pinout(EPT0,EMCOCX,EM_OUT_L);
-	csi_ept_emergency_pinout(EPT0,EMCOAY,EM_OUT_L);
-	csi_ept_emergency_pinout(EPT0,EMCOBY,EM_OUT_L);
-	csi_ept_emergency_pinout(EPT0,EMCOCY,EM_OUT_L);           //EM_OUT_NONE//EM_OUT_HZ//
+	csi_ept_emergency_pinout(EPT0,EMCOAX,EPT_EM_OUT_L);           //紧急状态下输出状态设置（注意mos/igbt的驱动电平）
+	csi_ept_emergency_pinout(EPT0,EMCOBX,EPT_EM_OUT_L);
+	csi_ept_emergency_pinout(EPT0,EMCOCX,EPT_EM_OUT_L);
+	csi_ept_emergency_pinout(EPT0,EMCOAY,EPT_EM_OUT_L);
+	csi_ept_emergency_pinout(EPT0,EMCOBY,EPT_EM_OUT_L);
+	csi_ept_emergency_pinout(EPT0,EMCOCY,EPT_EM_OUT_L);           //EM_OUT_NONE//EM_OUT_HZ//
 	
-	csi_ept_emergency_int_enable(EPT0,EPT_INTSRC_EP7);        //紧急状态输入中断使能
+	csi_ept_emint_en(EPT0,EPT_INTSRC_EP7);        //紧急状态输入中断使能
 //------------------------------------------------------------------------------------------------------------------------	
 //  csi_ept_Global_load_control_config_t  Gldcfg;
 //	Gldcfg.bGlden        =  ENABLE;//DISABLE                //全局载入使能
@@ -481,20 +478,20 @@ int ept_pwm_dz_em_demo(void)
 //	Gldcfg.byGldcnt      =  0;							    //计数值
 //	csi_ept_gload_config(EPT0,&Gldcfg);
 	
-//	csi_ept_gldcfg(EPT0 ,byprdr ,ENABLE);                   //使能PRDR全局载入
-//	csi_ept_gldcfg(EPT0 ,bycmpa ,ENABLE);
-//	csi_ept_gldcfg(EPT0 ,bycmpb ,ENABLE);
-//	csi_ept_gldcfg(EPT0 ,bycmpc ,ENABLE);
-//	csi_ept_gldcfg(EPT0 ,bycmpd ,ENABLE);
-//	csi_ept_gldcfg(EPT0 ,bydbdtr ,ENABLE);
-//	csi_ept_gldcfg(EPT0 ,bydbdtf ,ENABLE);
-//	csi_ept_gldcfg(EPT0 ,bydbcr , ENABLE);
-//	csi_ept_gldcfg(EPT0 ,byaqcra ,ENABLE);
-//	csi_ept_gldcfg(EPT0 ,byaqcrb ,ENABLE);
-//	csi_ept_gldcfg(EPT0 ,byaqcrc ,ENABLE);
-//	csi_ept_gldcfg(EPT0 ,byaqcrd ,ENABLE);
-//	csi_ept_gldcfg(EPT0 ,byaqcsf ,ENABLE);
-//	csi_ept_gldcfg(EPT0 ,byemosr ,ENABLE);
+//	csi_ept_gldcfg(EPT0 ,EPT_GLO_PRDR ,ENABLE);                   //使能PRDR全局载入
+//	csi_ept_gldcfg(EPT0 ,EPT_GLO_CMPA ,ENABLE);
+//	csi_ept_gldcfg(EPT0 ,EPT_GLO_CMPB ,ENABLE);
+//	csi_ept_gldcfg(EPT0 ,EPT_GLO_CMPC ,ENABLE);
+//	csi_ept_gldcfg(EPT0 ,EPT_GLO_CMPD ,ENABLE);
+//	csi_ept_gldcfg(EPT0 ,EPT_GLO_DBDTR ,ENABLE);
+//	csi_ept_gldcfg(EPT0 ,EPT_GLO_DBDTF ,ENABLE);
+//	csi_ept_gldcfg(EPT0 ,EPT_GLO_DBCR , ENABLE);
+//	csi_ept_gldcfg(EPT0 ,EPT_GLO_AQCR1 ,ENABLE);
+//	csi_ept_gldcfg(EPT0 ,EPT_GLO_AQCR2 ,ENABLE);
+//	csi_ept_gldcfg(EPT0 ,EPT_GLO_AQCR3 ,ENABLE);
+//	csi_ept_gldcfg(EPT0 ,EPT_GLO_AQCR4 ,ENABLE);
+//	csi_ept_gldcfg(EPT0 ,EPT_GLO_AQCSF ,ENABLE);
+//	csi_ept_gldcfg(EPT0 ,EPT_GLO_EMOSR ,ENABLE);
 //------------------------------------------------------------------------------------------------------------------------
 //	csi_ept_set_sync (EPT0, EPT_TRG_SYNCEN3, EPT_TRG_CONTINU,EPT_AUTO_REARM_ZRO);	
 //	csi_ept_set_evtrg(EPT0, EPT_TRG_OUT0, EPT_TRGSRC_EP2);    //EPx用trg0输出，

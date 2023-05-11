@@ -133,3 +133,38 @@ void ifc_program_demo(void)
 	else
 		my_printf("program pass!\n");
 }
+
+/** \brief ifc interrupt handle function
+ * 
+ *  \param[in] none
+ *  \return none
+ */ 
+__attribute__((weak)) void ifc_irqhandler(void)
+{
+	uint32_t i;
+
+	if (csp_ifc_get_misr(IFC) == IFCINT_ERS_END)
+	{
+		csp_ifc_int_enable(IFC, IFCINT_ERS_END, DISABLE);
+		csp_ifc_clr_int(IFC, IFCINT_ERS_END);
+		///DFLASH step6
+		apt_ifc_step_async(IFC, PROGRAM, g_wPageStAddr);
+	}
+	if (csp_ifc_get_misr(IFC) == IFCINT_PGM_END)
+	{
+		csp_ifc_int_enable(IFC, IFCINT_PGM_END, DISABLE);
+		csp_ifc_clr_int(IFC, IFCINT_PGM_END);
+		///whole page check, only DFlash Write would use INT scheme
+		g_bFlashCheckPass = 1;
+		for (i=0; i<DFLASH_PAGE_SZ; i++)
+		{
+			if ((*(uint32_t *)(g_wPageStAddr+4*i)) !=  wBuffForCheck[i]) {
+				g_bFlashCheckPass = 0;
+				g_bFlashPgmDne = 1;
+				break;
+				
+			}
+		}
+		g_bFlashPgmDne = 1;
+	}
+}

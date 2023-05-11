@@ -80,7 +80,7 @@ void IFCIntHandler(void)
 {
 #if	IFC_INT_HANDLE_EN	
     // ISR content ...
-	ifc_irqhandler();
+	ifc_irqhandler();//this is a weak function defined in ifc_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -146,7 +146,7 @@ void EXI0IntHandler(void)
 {
 #if EXI0_INT_HANDLE_EN
 	// ISR content ...
-	gpio_irqhandler(0);
+	gpio_irqhandler(0);//this is a weak function defined in gpio_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -154,7 +154,7 @@ void EXI1IntHandler(void)
 {
 #if EXI1_INT_HANDLE_EN
     // ISR content ...
-	gpio_irqhandler(1);
+	gpio_irqhandler(1);//this is a weak function defined in gpio_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -162,7 +162,7 @@ void EXI2to3IntHandler(void)
 {
 #if EXI2_3_INT_HANDLE_EN
     // ISR content ...
-	gpio_irqhandler(2);
+	gpio_irqhandler(2);//this is a weak function defined in gpio_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -170,7 +170,7 @@ void EXI4to9IntHandler(void)
 {
 #if EXI4_9_INT_HANDLE_EN
     // ISR content ...
-	gpio_irqhandler(3);
+	gpio_irqhandler(3);//this is a weak function defined in gpio_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -178,7 +178,7 @@ void EXI10to15IntHandler(void)
 {
 #if EXI10_15_INT_HANDLE_EN
     // ISR content ...
-	gpio_irqhandler(4);
+	gpio_irqhandler(4);//this is a weak function defined in gpio_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -194,7 +194,7 @@ void USARTIntHandler(void)
 {
 #if USART0_INT_HANDLE_EN
 	// ISR content ...
-	usart_irqhandler(USART0,0);
+	usart_irqhandler(USART0,0);//this is a weak function defined in usart_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -218,7 +218,7 @@ void BT0IntHandler(void)
 {
 #if BT0_INT_HANDLE_EN
     // ISR content ...
-	bt_irqhandler(BT0);
+	bt_irqhandler(BT0);//this is a weak function defined in bt_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif	
 }
 
@@ -226,7 +226,7 @@ void BT1IntHandler(void)
 {
 #if BT1_INT_HANDLE_EN
     // ISR content ...
-	bt_irqhandler(BT1);	
+	bt_irqhandler(BT1);	//this is a weak function defined in bt_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -234,7 +234,7 @@ void BT2IntHandler(void)
 {
 #if BT2_INT_HANDLE_EN
     // ISR content ...
-	bt_irqhandler(BT2);	
+	bt_irqhandler(BT2);	//this is a weak function defined in bt_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -242,7 +242,7 @@ void BT3IntHandler(void)
 {
 #if BT3_INT_HANDLE_EN
     // ISR content ...
-	bt_irqhandler(BT3);
+	bt_irqhandler(BT3);//this is a weak function defined in bt_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif	
 }
 
@@ -250,7 +250,7 @@ void UARTIntHandler(void)
 {
 #if UART0_INT_HANDLE_EN
 	// ISR content ...
-	uart_irqhandler(UART0,0);
+	uart_irqhandler(UART0,0);//this is a weak function defined in uart_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 
@@ -298,7 +298,7 @@ void CMP5IntHandler(void)
 {
 #if CMP5_INT_HANDLE_EN
 	// ISR content ...
-	cmp_irqhandler(CMP);  //this is a weak function defined in adc_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
+	cmp_irqhandler(CMP);  //this is a weak function defined in cmp_demo.c, for better efficiency, we recommand user directly implement IRQ handler here without any function call.
 #endif
 }
 /*************************************************************/
