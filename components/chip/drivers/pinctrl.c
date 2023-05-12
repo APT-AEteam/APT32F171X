@@ -614,9 +614,9 @@ void csi_pin_irq_enable(pin_name_e ePinName, bool bEnable)
 	ePinName = (pin_name_e)ptPinInfo[1];
 	
 	if(bEnable)
-		csp_gpio_irq_en(ptGpioBase, ePinName);						//enable gpio interrupt 
+		csp_gpio_irq_en(ptGpioBase, (gpio_exi_e)ePinName);						//enable gpio interrupt 
 	else
-		csp_gpio_irq_dis(ptGpioBase, ePinName);
+		csp_gpio_irq_dis(ptGpioBase, (gpio_exi_e)ePinName);
 }
 /** \brief  gpio pin toggle
  * 
