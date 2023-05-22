@@ -35,7 +35,7 @@ void csi_clk_enable(void *pIpBase)
 //        if((uint32_t)pIpBase == ptMap->wRegBase) 
 //		{
 //            if((uint32_t)pIpBase != CORET_ADDR_BASE)
-//				soc_clk_enable((clk_module_e)ptMap->wModule);
+//				soc_clk_enable((csi_clk_module_e)ptMap->wModule);
 //			else
 //				SYSCON->GCER = (0x01ul << ptMap->wModule);
 //            break;
@@ -51,7 +51,7 @@ void csi_clk_enable(void *pIpBase)
         if((uint16_t)((wIpBase >> 16) | ((wIpBase &0xffff) >> 4)) == ptMap->hwRegBase) 
 		{
 			if(wIpBase != CORET_ADDR_BASE)
-				soc_clk_enable((clk_module_e)ptMap->byModule);
+				soc_clk_enable((csi_clk_module_e)ptMap->byModule);
 			else
 			{
 				if(ptMap->byModule != 0xff)
@@ -79,7 +79,7 @@ void csi_clk_disable(void *pIpBase)
 //        if((uint32_t)pIpBase == ptMap->wRegBase) 
 //		{
 //            if((uint32_t)pIpBase != CORET_ADDR_BASE)
-//				soc_clk_disable((clk_module_e)ptMap->wModule);
+//				soc_clk_disable((csi_clk_module_e)ptMap->wModule);
 //			else
 //				SYSCON->GCDR = (0x01ul << ptMap->wModule);
 //            break;
@@ -95,7 +95,7 @@ void csi_clk_disable(void *pIpBase)
         if((uint16_t)((wIpBase >> 16) | ((wIpBase &0xffff) >> 4)) == ptMap->hwRegBase) 
 		{
 			if(wIpBase != CORET_ADDR_BASE)
-				soc_clk_disable((clk_module_e)ptMap->byModule);
+				soc_clk_disable((csi_clk_module_e)ptMap->byModule);
 			else
 			{
 				if(ptMap->byModule != 0xff)
