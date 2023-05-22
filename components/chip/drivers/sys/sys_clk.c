@@ -138,11 +138,11 @@ csi_error_t csi_sysclk_config(csi_clk_config_t tClkCfg)
  *  \param[in] eCloDiv: clo divider 
  *  \return csi_error_t.
  */
-csi_error_t csi_clo_config(clo_src_e eCloSrc, clo_div_e eCloDiv)
+csi_error_t csi_clo_config(csi_clo_src_e eCloSrc, csi_clo_div_e eCloDiv)
 { 	
 	csi_error_t ret = CSI_OK;
-	csp_set_clo_src(SYSCON, eCloSrc);
-	csp_set_clo_div(SYSCON, eCloDiv);
+	csp_set_clo_src(SYSCON, (clo_src_e)eCloSrc);
+	csp_set_clo_div(SYSCON, (clo_div_e)eCloDiv);
 	return ret;
 }
 

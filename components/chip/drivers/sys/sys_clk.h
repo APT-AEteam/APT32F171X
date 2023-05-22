@@ -124,6 +124,24 @@ typedef enum {
 	CORET_SYS_CLK	= 11U
 } csi_clk_module_e;
 
+typedef enum{
+	CLO_ISCLK = 0,
+	CLO_IMCLK,
+	CLO_EMCLK = 3,
+	CLO_HFCLK,
+	CLO_PCLK = 7,
+	CLO_HCLK,
+	CLO_IWDTCLK,
+	CLO_SYSCLK = 0xd
+}csi_clo_src_e;
+
+typedef enum{
+	CLO_DIV1 = 1,
+	CLO_DIV2,	
+	CLO_DIV4,	
+	CLO_DIV8,	
+	CLO_DIV16	
+}csi_clo_div_e;
 
 //global variable: sysclkclk 
 extern uint32_t g_wSystemClk;
@@ -142,7 +160,7 @@ csi_error_t csi_sysclk_config(csi_clk_config_t tClkCfg);
  *  \param[in] eCloDiv: clo divider 
  *  \return csi_error_t.
  */
-csi_error_t csi_clo_config(clo_src_e eCloSrc, clo_div_e eCloDiv);
+csi_error_t csi_clo_config(csi_clo_src_e eCloSrc, csi_clo_div_e eCloDiv);
 
 /** 
   \brief to set clock status in PM mode 
