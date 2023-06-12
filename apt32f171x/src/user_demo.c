@@ -85,7 +85,8 @@ void user_demo(void)
 ///  GPTA相关的示例代码
 /// ***************************************************
 //  gpta_timer_demo();
-//	gpta_capture_demo();
+//	gpta_capture_sync_demo0();
+//	gpta_capture_sync_demo1();
 //	gpta_pwm_demo();
 //	gpta_soft_trgout_demo();
 //	gpta_pwm_syncin4_demo();
