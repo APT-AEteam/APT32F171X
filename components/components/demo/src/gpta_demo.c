@@ -45,7 +45,14 @@ int gpta_timer_demo(void)
  *          - CMPA捕获的是第一次周期值，CMPB捕获的是第二次周期值，CMPAA捕获的是第三次周期值,CMPBA捕获的是第四次周期值
  *  \param[in] none
  *  \return error code
- */
+ * 
+ ——          —————          —————           —————          —————
+    |          |        |          |        |           |         |         |        |
+	|          |        |          |        |           |         |         |        |
+    ——————        ——————         ——————          —————        ————
+   CMPA                CMPB                 CMPAA                CMPBA               CMPA   
+
+*/
 
 int gpta_capture_sync_demo0(void)
 {
@@ -117,7 +124,14 @@ int gpta_capture_sync_demo0(void)
  *          - CMPA捕获的是下降沿时间
  *  \param[in] none
  *  \return error code
- */
+ * 
+ ——          —————          —————           ———
+    |          |        |          |        |           |        
+	|          |        |          |        |           |        
+    ——————        ——————         ——————          
+   RESET       CMPA     RESET     CMPA      RESET       CMPA               
+
+*/
 int gpta_capture_sync_demo1(void)
 {
 	int iRet = 0;	
@@ -125,14 +139,14 @@ int gpta_capture_sync_demo1(void)
 
 
 	csi_pin_set_mux(PA01,PA01_INPUT);		
-	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA1 上拉
+	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
 	
-	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA1 下降沿产生中断 
+	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断 
 	csi_pin_irq_enable(PA01, ENABLE);	
 	csi_exi_set_evtrg(0, TRGSRC_EXI1, 1);		
 	
-	csi_pin_irq_mode(PA01, EXI_GRP16, GPIO_IRQ_RISING_EDGE);     //PA1 上升沿产生中断，选择中断组16
-	csi_pin_irq_enable(PA01, ENABLE);                            //PA1 中断使能                                    
+	csi_pin_irq_mode(PA01, EXI_GRP16, GPIO_IRQ_RISING_EDGE);     //PA01 上升沿产生中断，选择中断组16
+	csi_pin_irq_enable(PA01, ENABLE);                            //PA01 中断使能                                    
 	csi_exi_set_evtrg(5, TRGSRC_EXI16, 1);	 
 
 	csi_etb_config_t tEtbConfig;
