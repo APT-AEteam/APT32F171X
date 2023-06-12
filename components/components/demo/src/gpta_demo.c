@@ -46,11 +46,12 @@ int gpta_timer_demo(void)
  *  \param[in] none
  *  \return error code
  * 
- ——          —————          —————           —————          —————
-    |          |        |          |        |           |         |         |        |
-	|          |        |          |        |           |         |         |        |
-    ——————        ——————         ——————          —————        ————
-   CMPA                CMPB                 CMPAA                CMPBA               CMPA   
+ * 
+ PA01输入波形 ——          —————          —————           —————          —————
+				 |          |        |          |        |           |         |         |        |
+				 |          |        |          |        |           |         |         |        |
+				 ——————        ——————         ——————          —————        ————
+				 CMPA                CMPB                 CMPAA                CMPBA               CMPA   
 
 */
 
@@ -125,11 +126,12 @@ int gpta_capture_sync_demo0(void)
  *  \param[in] none
  *  \return error code
  * 
- ——          —————          —————           ———
-    |          |        |          |        |           |        
-	|          |        |          |        |           |        
-    ——————        ——————         ——————          
-   RESET       CMPA     RESET     CMPA      RESET       CMPA               
+ * 
+ PA01输入波形——          —————          —————           ———
+                |          |        |          |        |           |        
+	            |          |        |          |        |           |        
+                ——————        ——————         ——————          
+                RESET      CMPA     RESET     CMPA      RESET       CMPA               
 
 */
 int gpta_capture_sync_demo1(void)
