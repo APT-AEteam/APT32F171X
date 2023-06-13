@@ -10,6 +10,7 @@ homepage:
 type: sdk
 depends:
   - apt32f171x_evb: v1.2.3
+  - apt32f171x_gui: v1.0.0
   - apt_console: v1.0.1
 hw_info:
   cpu_id: ""
@@ -33,4 +34,5 @@ def_config:
 install: 
 depends_forward:
   - apt32f171x_evb: v1.2.3
+  - apt32f171x_gui: v1.0.0
   - apt_console: v1.0.1
