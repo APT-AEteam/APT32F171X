@@ -749,7 +749,7 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>TC2_CAP</sel>
+              <sel>TC2_CAP1</sel>
               <sel>TC0_IO1A</sel>
               <sel>UART_RX</sel>
               <sel>EBI2</sel>
