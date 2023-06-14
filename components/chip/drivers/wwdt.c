@@ -33,7 +33,7 @@ csi_error_t csi_wwdt_init(uint32_t wTimeOut)
    	csi_error_t ret = CSI_OK;
 	uint8_t byPdiv = 3;
 	uint8_t byCnt = 0xff;
-	uint32_t temp = (tClkConfig.wPclk >> 12) * wTimeOut/1000;
+	uint32_t temp = (g_tClkConfig.wPclk >> 12) * wTimeOut/1000;
 	
 	s_wWwdtTimeout = wTimeOut;
 	csi_clk_enable((uint32_t *)WWDT);	
@@ -74,7 +74,7 @@ csi_error_t csi_wwdt_init(uint32_t wTimeOut)
 csi_error_t csi_wwdt_set_window_time(uint32_t wTimeOut)
 {
 	uint8_t pdiv = csp_wwdt_get_psc(WWDT);
-	uint32_t wWnd = (tClkConfig.wPclk >> 12) * wTimeOut/1000/(1 << pdiv);
+	uint32_t wWnd = (g_tClkConfig.wPclk >> 12) * wTimeOut/1000/(1 << pdiv);
 	
 	if (wWnd > (csp_wwdt_get_cnt(WWDT) - 0x80))
 		return CSI_ERROR;

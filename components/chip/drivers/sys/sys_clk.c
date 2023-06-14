@@ -28,7 +28,7 @@ const uint32_t g_wHclkDiv[] = {
 static uint32_t apt_get_hclk(void)
 {
 	uint32_t tRslt;
-	tRslt = tClkConfig.wSclk;
+	tRslt = g_tClkConfig.wSclk;
 	return (tRslt);
 }
 
@@ -126,9 +126,9 @@ csi_error_t csi_sysclk_config(csi_clk_config_t tClkCfg)
 	
 	csp_set_pdiv(SYSCON, tClkCfg.ePdiv);
 	
-	//update wSclk and wPclk in tClkConfig
-	tClkConfig.wSclk = wTargetSclk;
-	tClkConfig.wPclk = tClkConfig.wSclk/(0x1<<tClkCfg.ePdiv);
+	//update wSclk and wPclk in g_tClkConfig
+	g_tClkConfig.wSclk = wTargetSclk;
+	g_tClkConfig.wPclk = g_tClkConfig.wSclk/(0x1<<tClkCfg.ePdiv);
 	return ret;
 }
 
@@ -175,7 +175,7 @@ void soc_clk_disable(csi_clk_module_e csi_clk_module_e)
 }
 
 /** \brief to calculate SCLK and PCLK frequence according to the current reg content
- *  tClkConfig.wSclk and tClkConfig.wPclk will be updated after excuting this function
+ *  g_tClkConfig.wSclk and g_tClkConfig.wPclk will be updated after excuting this function
  *  \param[in] none.
  *  \return csi_error_t.
  */
@@ -192,26 +192,26 @@ csi_error_t csi_calc_clk_freq(void)
 		switch(eClkSrc)
 		{ 	
 			case (SRC_ISOSC): 	
-				tClkConfig.wSclk = ISOSC_VALUE;
+				g_tClkConfig.wSclk = g_tClkConfig.wFreq;;
 				break;
 			case (SRC_EMOSC): 	
-				tClkConfig.wSclk = EMOSC_VALUE;//如果使用外部晶振，记得对EMOSC_VALUE进行赋值
+				g_tClkConfig.wSclk = g_tClkConfig.wFreq;	//如果使用外部晶振，记得对EMOSC_VALUE进行赋值
 				break;
 			case (SRC_IMOSC):	
 				wImoFreq = csp_get_imosc_fre(SYSCON);
 				switch (wImoFreq)
 				{
 					case (0): 
-						tClkConfig.wSclk = IMOSC_5M_VALUE;
+						g_tClkConfig.wSclk = IMOSC_5M_VALUE;
 						break;
 					case (1): 
-						tClkConfig.wSclk = IMOSC_4M_VALUE;
+						g_tClkConfig.wSclk = IMOSC_4M_VALUE;
 						break;
 					case (2): 
-						tClkConfig.wSclk = IMOSC_2M_VALUE;	
+						g_tClkConfig.wSclk = IMOSC_2M_VALUE;	
 						break;
 					case (3): 
-						tClkConfig.wSclk = IMOSC_131K_VALUE;	
+						g_tClkConfig.wSclk = IMOSC_131K_VALUE;	
 						break;
 					default: 
 						return CSI_ERROR;	
@@ -223,16 +223,16 @@ csi_error_t csi_calc_clk_freq(void)
 				switch (wHfoFreq)
 				{
 					case (0): 
-						tClkConfig.wSclk = HFOSC_48M_VALUE;
+						g_tClkConfig.wSclk = HFOSC_48M_VALUE;
 						break;
 					case (1): 
-						tClkConfig.wSclk = HFOSC_24M_VALUE;
+						g_tClkConfig.wSclk = HFOSC_24M_VALUE;
 						break;
 					case (2): 
-						tClkConfig.wSclk = HFOSC_12M_VALUE;	
+						g_tClkConfig.wSclk = HFOSC_12M_VALUE;	
 						break;
 					case (3): 
-						tClkConfig.wSclk = HFOSC_6M_VALUE;	
+						g_tClkConfig.wSclk = HFOSC_6M_VALUE;	
 						break;
 				default:  
 						return CSI_ERROR;	
@@ -245,7 +245,7 @@ csi_error_t csi_calc_clk_freq(void)
 		}
 		byHclkDiv = csp_get_hclk_div(SYSCON);
 
-		tClkConfig.wSclk = tClkConfig.wSclk/g_wHclkDiv[byHclkDiv];
+		g_tClkConfig.wSclk = g_tClkConfig.wSclk/g_wHclkDiv[byHclkDiv];
 	}
 	
 	//calculate pclk
@@ -255,32 +255,32 @@ csi_error_t csi_calc_clk_freq(void)
 		wPdiv = csp_get_pdiv(SYSCON);
 		
 		if(wPdiv == 0) 
-			tClkConfig.wPclk = wSclk;
+			g_tClkConfig.wPclk = wSclk;
 		else           
-			tClkConfig.wPclk = wSclk/(wPdiv<<1);
+			g_tClkConfig.wPclk = wSclk/(wPdiv<<1);
 	}
 	
 	return CSI_OK;
 }
 
 /** \brief to get SCLK frequence according to the current reg content
- *  tClkConfig.wSclk will be updated after excuting this function
+ *  g_tClkConfig.wSclk will be updated after excuting this function
  *  \param[in] none.
  *  \return csi_error_t.
  */ 
 uint32_t csi_get_sclk_freq(void)
 {		
-	return tClkConfig.wSclk;
+	return g_tClkConfig.wSclk;
 }
 
 /** \brief To get PCLK frequence according to the current reg content.
- *  tClkConfig.wPclk will be updated after excuting this function.
+ *  g_tClkConfig.wPclk will be updated after excuting this function.
  *  \param[in] none.
  *  \return csi_error_t.
  */ 
 uint32_t csi_get_pclk_freq(void)
 {
-	return tClkConfig.wPclk;
+	return g_tClkConfig.wPclk;
 }
 
 /** \brief To get CORET frequence.
@@ -292,12 +292,12 @@ uint32_t soc_get_coret_freq(void)
 {
 	switch ((CORET->CTRL & 0x4) >> 2)
 	{
-		case 0: return tClkConfig.wSclk/8;
+		case 0: return g_tClkConfig.wSclk/8;
 			break;
-		case 1: return tClkConfig.wSclk;
+		case 1: return g_tClkConfig.wSclk;
 			break;
 		default:
-			return tClkConfig.wSclk;
+			return g_tClkConfig.wSclk;
 			break;
 	}
 	
