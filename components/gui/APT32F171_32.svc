@@ -1806,6 +1806,440 @@
       <ChipPins>
         <label>I/O ports</label>
       </ChipPins>
+      <Category>
+        <label>EXI</label>
+        <Comment>GPIO中断配置,单个管脚不能用于多个GROUP</Comment>
+        <Device deviceId="EXI_GRP0">
+          <GenCodeFuncName>EXIGRP0InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP0</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PA00</value>
+            <Selections>
+              <sel>PA00</sel>
+              <sel>PA10</sel>
+              <sel>PB00</sel>
+              <sel>PC00</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP1">
+          <GenCodeFuncName>EXIGRP1InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP1</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PA01</value>
+            <Selections>
+              <sel>PA01</sel>
+              <sel>PA11</sel>
+              <sel>PB01</sel>
+              <sel>PC01</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP2">
+          <GenCodeFuncName>EXIGRP2InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP2</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PA02</value>
+            <Selections>
+              <sel>PA02</sel>
+              <sel>PA12</sel>
+              <sel>PB02</sel>
+              <sel>PC02</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP3">
+          <GenCodeFuncName>EXIGRP3InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP3</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PA03</value>
+            <Selections>
+              <sel>PA03</sel>
+              <sel>PA13</sel>
+              <sel>PB03</sel>
+              <sel>PC03</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP4">
+          <GenCodeFuncName>EXIGRP4InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP4</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PA04</value>
+            <Selections>
+              <sel>PA04</sel>
+              <sel>PA14</sel>
+              <sel>PB04</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP5">
+          <GenCodeFuncName>EXIGRP5InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP5</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PA05</value>
+            <Selections>
+              <sel>PA05</sel>
+              <sel>PA15</sel>
+              <sel>PB05</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP6">
+          <GenCodeFuncName>EXIGRP6InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP6</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PA06</value>
+            <Selections>
+              <sel>PA06</sel>
+              <sel>PB06</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP7">
+          <GenCodeFuncName>EXIGRP7InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP7</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PA07</value>
+            <Selections>
+              <sel>PA07</sel>
+              <sel>PB07</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP8">
+          <GenCodeFuncName>EXIGRP8InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP8</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PA08</value>
+            <Selections>
+              <sel>PA08</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP9">
+          <GenCodeFuncName>EXIGRP9InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP9</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PA09</value>
+            <Selections>
+              <sel>PA09</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP10">
+          <GenCodeFuncName>EXIGRP10InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP10</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PA010</value>
+            <Selections>
+              <sel>PA010</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP11">
+          <GenCodeFuncName>EXIGRP11InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP11</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PA011</value>
+            <Selections>
+              <sel>PA011</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP16">
+          <GenCodeFuncName>EXIGRP16InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP16</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PA00</value>
+            <Selections>
+              <sel>PA00</sel>
+              <sel>PA01</sel>
+              <sel>PA02</sel>
+              <sel>PA03</sel>
+              <sel>PA04</sel>
+              <sel>PA05</sel>
+              <sel>PA06</sel>
+              <sel>PA07</sel>
+              <sel>PB00</sel>
+              <sel>PB01</sel>
+              <sel>PB02</sel>
+              <sel>PB03</sel>
+              <sel>PC00</sel>
+              <sel>PC01</sel>
+              <sel>PC02</sel>
+              <sel>PC03</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP17">
+          <GenCodeFuncName>EXIGRP17InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP17</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PA00</value>
+            <Selections>
+              <sel>PA00</sel>
+              <sel>PA01</sel>
+              <sel>PA02</sel>
+              <sel>PA03</sel>
+              <sel>PA04</sel>
+              <sel>PA05</sel>
+              <sel>PA06</sel>
+              <sel>PA07</sel>
+              <sel>PB00</sel>
+              <sel>PB01</sel>
+              <sel>PB02</sel>
+              <sel>PB03</sel>
+              <sel>PC00</sel>
+              <sel>PC01</sel>
+              <sel>PC02</sel>
+              <sel>PC03</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP18">
+          <GenCodeFuncName>EXIGRP18InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP18</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PB00</value>
+            <Selections>
+              <sel>PB00</sel>
+              <sel>PB01</sel>
+              <sel>PB02</sel>
+              <sel>PB03</sel>
+              <sel>PC00</sel>
+              <sel>PC01</sel>
+              <sel>PC02</sel>
+              <sel>PC03</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EXI_GRP19">
+          <GenCodeFuncName>EXIGRP19InitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>GRP19</label>
+          <Property class="UIchoice">
+            <label>PinName</label>
+            <value>PB00</value>
+            <Selections>
+              <sel>PB00</sel>
+              <sel>PB01</sel>
+              <sel>PB02</sel>
+              <sel>PB03</sel>
+              <sel>PC00</sel>
+              <sel>PC01</sel>
+              <sel>PC02</sel>
+              <sel>PC03</sel>
+            </Selections>
+            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>IrqMode</label>
+            <value>GPIO_IRQ_RISING_EDGE</value>
+            <Selections>
+              <sel>GPIO_IRQ_RISING_EDGE</sel>
+              <sel>GPIO_IRQ_FALLING_EDGE</sel>
+              <sel>GPIO_IRQ_BOTH_EDGE</sel>
+            </Selections>
+            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
+          </Property>
+        </Device>
+      </Category>
     </ChipPropertiesView>
   </ChipConfig2>
 </com.csky.cds.peripheral>
