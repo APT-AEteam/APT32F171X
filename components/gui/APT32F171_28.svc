@@ -1624,7 +1624,6 @@
               <sel>PA00</sel>
               <sel>PA10</sel>
               <sel>PB00</sel>
-              <sel>PC00</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1650,7 +1649,6 @@
               <sel>PA01</sel>
               <sel>PA11</sel>
               <sel>PB01</sel>
-              <sel>PC01</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1676,7 +1674,6 @@
               <sel>PA02</sel>
               <sel>PA12</sel>
               <sel>PB02</sel>
-              <sel>PC02</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1702,7 +1699,6 @@
               <sel>PA03</sel>
               <sel>PA13</sel>
               <sel>PB03</sel>
-              <sel>PC03</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1927,10 +1923,6 @@
               <sel>PB01</sel>
               <sel>PB02</sel>
               <sel>PB03</sel>
-              <sel>PC00</sel>
-              <sel>PC01</sel>
-              <sel>PC02</sel>
-              <sel>PC03</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1965,10 +1957,6 @@
               <sel>PB01</sel>
               <sel>PB02</sel>
               <sel>PB03</sel>
-              <sel>PC00</sel>
-              <sel>PC01</sel>
-              <sel>PC02</sel>
-              <sel>PC03</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1995,10 +1983,6 @@
               <sel>PB01</sel>
               <sel>PB02</sel>
               <sel>PB03</sel>
-              <sel>PC00</sel>
-              <sel>PC01</sel>
-              <sel>PC02</sel>
-              <sel>PC03</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -2025,10 +2009,6 @@
               <sel>PB01</sel>
               <sel>PB02</sel>
               <sel>PB03</sel>
-              <sel>PC00</sel>
-              <sel>PC01</sel>
-              <sel>PC02</sel>
-              <sel>PC03</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>

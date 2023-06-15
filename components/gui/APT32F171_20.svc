@@ -1223,8 +1223,6 @@
             <Selections>
               <sel>PA00</sel>
               <sel>PA10</sel>
-              <sel>PB00</sel>
-              <sel>PC00</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1249,8 +1247,6 @@
             <Selections>
               <sel>PA01</sel>
               <sel>PA11</sel>
-              <sel>PB01</sel>
-              <sel>PC01</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1275,8 +1271,6 @@
             <Selections>
               <sel>PA02</sel>
               <sel>PA12</sel>
-              <sel>PB02</sel>
-              <sel>PC02</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1301,8 +1295,6 @@
             <Selections>
               <sel>PA03</sel>
               <sel>PA13</sel>
-              <sel>PB03</sel>
-              <sel>PC03</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1327,7 +1319,6 @@
             <Selections>
               <sel>PA04</sel>
               <sel>PA14</sel>
-              <sel>PB04</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1352,7 +1343,6 @@
             <Selections>
               <sel>PA05</sel>
               <sel>PA15</sel>
-              <sel>PB05</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1376,7 +1366,6 @@
             <value>PA06</value>
             <Selections>
               <sel>PA06</sel>
-              <sel>PB06</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1400,7 +1389,6 @@
             <value>PA07</value>
             <Selections>
               <sel>PA07</sel>
-              <sel>PB07</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1523,14 +1511,6 @@
               <sel>PA05</sel>
               <sel>PA06</sel>
               <sel>PA07</sel>
-              <sel>PB00</sel>
-              <sel>PB01</sel>
-              <sel>PB02</sel>
-              <sel>PB03</sel>
-              <sel>PC00</sel>
-              <sel>PC01</sel>
-              <sel>PC02</sel>
-              <sel>PC03</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1561,74 +1541,6 @@
               <sel>PA05</sel>
               <sel>PA06</sel>
               <sel>PA07</sel>
-              <sel>PB00</sel>
-              <sel>PB01</sel>
-              <sel>PB02</sel>
-              <sel>PB03</sel>
-              <sel>PC00</sel>
-              <sel>PC01</sel>
-              <sel>PC02</sel>
-              <sel>PC03</sel>
-            </Selections>
-            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
-          </Property>
-          <Property class="UIchoice">
-            <label>IrqMode</label>
-            <value>GPIO_IRQ_RISING_EDGE</value>
-            <Selections>
-              <sel>GPIO_IRQ_RISING_EDGE</sel>
-              <sel>GPIO_IRQ_FALLING_EDGE</sel>
-              <sel>GPIO_IRQ_BOTH_EDGE</sel>
-            </Selections>
-            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
-          </Property>
-        </Device>
-        <Device deviceId="EXI_GRP18">
-          <GenCodeFuncName>EXIGRP18InitFunc</GenCodeFuncName>
-          <UseOrNot>0</UseOrNot>
-          <label>GRP18</label>
-          <Property class="UIchoice">
-            <label>PinName</label>
-            <value>PB00</value>
-            <Selections>
-              <sel>PB00</sel>
-              <sel>PB01</sel>
-              <sel>PB02</sel>
-              <sel>PB03</sel>
-              <sel>PC00</sel>
-              <sel>PC01</sel>
-              <sel>PC02</sel>
-              <sel>PC03</sel>
-            </Selections>
-            <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
-          </Property>
-          <Property class="UIchoice">
-            <label>IrqMode</label>
-            <value>GPIO_IRQ_RISING_EDGE</value>
-            <Selections>
-              <sel>GPIO_IRQ_RISING_EDGE</sel>
-              <sel>GPIO_IRQ_FALLING_EDGE</sel>
-              <sel>GPIO_IRQ_BOTH_EDGE</sel>
-            </Selections>
-            <Comment>中断触发边沿模式,上升/下降/双边沿</Comment>
-          </Property>
-        </Device>
-        <Device deviceId="EXI_GRP19">
-          <GenCodeFuncName>EXIGRP19InitFunc</GenCodeFuncName>
-          <UseOrNot>0</UseOrNot>
-          <label>GRP19</label>
-          <Property class="UIchoice">
-            <label>PinName</label>
-            <value>PB00</value>
-            <Selections>
-              <sel>PB00</sel>
-              <sel>PB01</sel>
-              <sel>PB02</sel>
-              <sel>PB03</sel>
-              <sel>PC00</sel>
-              <sel>PC01</sel>
-              <sel>PC02</sel>
-              <sel>PC03</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>

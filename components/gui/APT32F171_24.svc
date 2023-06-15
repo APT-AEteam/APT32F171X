@@ -1425,7 +1425,6 @@
               <sel>PA00</sel>
               <sel>PA10</sel>
               <sel>PB00</sel>
-              <sel>PC00</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1451,7 +1450,6 @@
               <sel>PA01</sel>
               <sel>PA11</sel>
               <sel>PB01</sel>
-              <sel>PC01</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1472,12 +1470,9 @@
           <label>GRP2</label>
           <Property class="UIchoice">
             <label>PinName</label>
-            <value>PA02</value>
+            <value>PA12</value>
             <Selections>
-              <sel>PA02</sel>
               <sel>PA12</sel>
-              <sel>PB02</sel>
-              <sel>PC02</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1503,7 +1498,6 @@
               <sel>PA03</sel>
               <sel>PA13</sel>
               <sel>PB03</sel>
-              <sel>PC03</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1577,7 +1571,6 @@
             <value>PA06</value>
             <Selections>
               <sel>PA06</sel>
-              <sel>PB06</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1601,7 +1594,6 @@
             <value>PA07</value>
             <Selections>
               <sel>PA07</sel>
-              <sel>PB07</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1718,7 +1710,6 @@
             <Selections>
               <sel>PA00</sel>
               <sel>PA01</sel>
-              <sel>PA02</sel>
               <sel>PA03</sel>
               <sel>PA04</sel>
               <sel>PA05</sel>
@@ -1726,12 +1717,7 @@
               <sel>PA07</sel>
               <sel>PB00</sel>
               <sel>PB01</sel>
-              <sel>PB02</sel>
               <sel>PB03</sel>
-              <sel>PC00</sel>
-              <sel>PC01</sel>
-              <sel>PC02</sel>
-              <sel>PC03</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1756,7 +1742,6 @@
             <Selections>
               <sel>PA00</sel>
               <sel>PA01</sel>
-              <sel>PA02</sel>
               <sel>PA03</sel>
               <sel>PA04</sel>
               <sel>PA05</sel>
@@ -1764,12 +1749,7 @@
               <sel>PA07</sel>
               <sel>PB00</sel>
               <sel>PB01</sel>
-              <sel>PB02</sel>
               <sel>PB03</sel>
-              <sel>PC00</sel>
-              <sel>PC01</sel>
-              <sel>PC02</sel>
-              <sel>PC03</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1794,12 +1774,7 @@
             <Selections>
               <sel>PB00</sel>
               <sel>PB01</sel>
-              <sel>PB02</sel>
               <sel>PB03</sel>
-              <sel>PC00</sel>
-              <sel>PC01</sel>
-              <sel>PC02</sel>
-              <sel>PC03</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
@@ -1824,12 +1799,7 @@
             <Selections>
               <sel>PB00</sel>
               <sel>PB01</sel>
-              <sel>PB02</sel>
               <sel>PB03</sel>
-              <sel>PC00</sel>
-              <sel>PC01</sel>
-              <sel>PC02</sel>
-              <sel>PC03</sel>
             </Selections>
             <Comment>管脚名称,需在I/O Ports中配置该管脚为输入模式,以及需要的Pull Mode</Comment>
           </Property>
