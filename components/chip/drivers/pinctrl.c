@@ -493,7 +493,23 @@ csi_error_t csi_pin_output_mode(pin_name_e ePinName, csi_gpio_output_mode_e eOut
 	
 	return ret; 
 }
-
+/** \brief enable gpio pin input filtering
+ * 
+ *  \param[in] ePinName: gpio pin name, defined in soc.h.
+ *  \param[in] bEnable:  ENABLE/DISABLE
+ *  \return none
+ */ 
+void csi_pin_input_filter(pin_name_e ePinName, bool bEnable)
+{
+	csp_gpio_t *ptGpioBase = NULL;
+	unsigned int *ptPinInfo = NULL;
+	
+	ptPinInfo = apt_get_pin_name_addr(ePinName);
+	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
+	ePinName = (pin_name_e)ptPinInfo[1];	
+	
+	csp_gpio_flt_en(ptGpioBase, ePinName, bEnable);
+}
 /** \brief get gpio pin num
  * 
  *  \param[in] ePinName: gpio pin name, defined in soc.h.

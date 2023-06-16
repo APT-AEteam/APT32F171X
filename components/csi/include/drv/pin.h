@@ -126,6 +126,14 @@ csi_error_t csi_pin_input_mode(pin_name_e ePinName, csi_gpio_input_mode_e eInput
 csi_error_t csi_pin_output_mode(pin_name_e ePinName, csi_gpio_output_mode_e eOutMode);
 
 /** 
+  \brief 	   enable gpio pin input filtering
+  \param[in]   ePinName		gpio pin name, defined in soc.h.
+  \param[in]   bEnable		ENABLE/DISABLE
+  \return 	   none
+ */ 
+void csi_pin_input_filter(pin_name_e ePinName, bool bEnable);
+
+/** 
   \brief       get gpio pin num
   \param[in]   ePinName	 	gpio pin name, defined in soc.h.
   \return      pin num
