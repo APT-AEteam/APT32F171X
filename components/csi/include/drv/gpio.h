@@ -29,8 +29,8 @@ extern "C" {
  * \brief    GPIO speed define
  */
 typedef enum {
-    GPIO_SPEED_LV0 	= 0U,		//normal
-    GPIO_SPEED_LV1				//fast
+    GPIO_SPEED_NORMAL 	= 0U,		//normal
+    GPIO_SPEED_FAST					//fast
 } csi_gpio_speed_e;
 
 /**
@@ -38,8 +38,8 @@ typedef enum {
  * \brief    GPIO speed define
  */
 typedef enum {
-    GPIO_DRIVE_LV0 	= 0U,		//normal
-    GPIO_DRIVE_LV1				//strong
+    GPIO_DRIVE_NORMAL 	= 0U,		//normal
+    GPIO_DRIVE_STRONG				//strong
 } csi_gpio_drive_e;
 
 /**
