@@ -24,8 +24,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -76,8 +80,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -128,8 +136,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -179,8 +191,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -229,8 +245,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -279,8 +299,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -330,8 +354,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -381,8 +409,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -432,8 +464,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -485,8 +521,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -536,8 +576,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -589,8 +633,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -639,8 +687,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -691,8 +743,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -743,8 +799,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -795,8 +855,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -846,8 +910,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -899,8 +967,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -952,8 +1024,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -1003,8 +1079,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -1054,8 +1134,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -1104,8 +1188,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -1154,8 +1242,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -1204,8 +1296,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -1254,8 +1350,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -1303,8 +1403,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -1352,8 +1456,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -1401,8 +1509,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -1450,8 +1562,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -1500,8 +1616,12 @@
             <value>Undefined</value>
             <Selections>
               <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
+              <sel>GPIO_INPUT_CMOS</sel>
+              <sel>GPIO_INPUT_TTL1</sel>
+              <sel>GPIO_INPUT_TTL2</sel>
+              <sel>GPIO_INPUT_CMOS with Filter</sel>
+              <sel>GPIO_INPUT_TTL1 with Filter</sel>
+              <sel>GPIO_INPUT_TTL2 with Filter</sel>
               <sel>GPIO_OUTPUT_Push-Pull</sel>
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
@@ -1553,7 +1673,7 @@
           <label>System Clock</label>
           <Device deviceId="SystemClock">
             <GenCodeFuncName>SysClockInitFunc</GenCodeFuncName>
-            <UseOrNot>0</UseOrNot>
+            <UseOrNot>1</UseOrNot>
             <label>System Clock</label>
             <Property class="UIchoice">
               <label>Clock Source</label>
