@@ -245,6 +245,7 @@ void csi_sramcheck_rst(void)
 void csi_sramcheck_int(void)
 {
 	csp_sramcheck_int(SYSCON);
+	csp_syscon_int_enable(SYSCON, RAM_ERR_INT, ENABLE);	
 	csi_vic_enable_irq(SYSCON_IRQ_NUM);
 	csp_sramcheck_enable(SYSCON, ENABLE);
 }
