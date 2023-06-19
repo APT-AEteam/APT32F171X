@@ -95,7 +95,8 @@ extern int lin_send_demo(void);
 extern int lin_send_recv_demo(void);
 
 //ept demo
-extern int ept_capture_demo();
+extern int ept_capture_sync_demo0();
+extern int ept_capture_sync_demo1();
 extern int ept_pwm_demo();
 extern int ept_pwm_dz_demo();
 extern int ept_pwm_dz_em_demo();

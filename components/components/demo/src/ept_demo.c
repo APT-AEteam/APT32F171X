@@ -24,21 +24,28 @@
 /* Private variablesr------------------------------------------------------*/
 static uint32_t s_wEptCapBuf[4];
 
-/** \brief EPT捕获示例代码
- *   		- 捕获四次产生一次捕获中断
+/** \brief EPT捕获示例代码， 测量周期时间
+ *   		- 捕获4次产生一次捕获中断，CMPD捕获后，计数器进行重置
  *     		- 由PA01触发外部事件1，经过ETCB  触发sync2 捕获
  * 			- 信号由PA01的高低电平切换产生（一直高电平意味着没有触发）
+ *          - CMPA捕获的是第一次周期值，CMPB捕获的是第二次周期值，CMPC捕获的是第三次周期值,CMPD捕获的是第四次周期值
  *  \param[in] none
  *  \return error code
- */
-int ept_capture_demo(void)
+ * 
+ * 
+ PA01输入波形——          —————          —————           —————          —————
+				|          |        |          |        |           |         |         |        |
+				|          |        |          |        |           |         |         |        |
+				——————        ——————         ——————          —————        ————
+				CMPA                CMPB                 CMPC                CMPD               CMPA   
+*/
+int ept_capture_sync_demo0(void)
 {
 	int iRet = 0;
 	
-	
 	csi_pin_set_mux(PA01,PA01_INPUT);		
 	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
-	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_BOTH_EDGE);		//PA01 下降沿产生中断
+	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断
 	csi_pin_irq_enable(PA01, ENABLE);							//PA01 中断使能	
 	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI1, 1);             //IO边沿翻转一次 触发	
 //------------------------------------------------------------------------------------------------------------------------	
@@ -66,7 +73,7 @@ int ept_capture_demo(void)
 	tPwmCfg.byCaptureLdaret  =0;                               //CMPA捕捉载入后，计数器值计数状态控制位(1h：CMPA触发后，计数器值进行重置;0h：CMPA触发后，计数器值不进行重置)
 	tPwmCfg.byCaptureLdbret  =0;                              
 	tPwmCfg.byCaptureLdcret  =0;                              
-	tPwmCfg.byCaptureLddret  =0;                              	
+	tPwmCfg.byCaptureLddret  =1;                              	
 	tPwmCfg.wInt 		     =EPT_INTSRC_CAPLD3;               //interrupt
 	
 	csi_ept_capture_init(EPT0, &tPwmCfg);
@@ -89,6 +96,82 @@ int ept_capture_demo(void)
 		    mdelay(200);                        
 //		    csi_exi_soft_evtrg(EXI_TRGOUT1);
 //		    mdelay(200);
+	}			
+	return iRet;
+}
+
+/** \brief EPT捕获示例代码，测试低电平时间
+ *   		- 捕获1次产生一次捕获中断，CMPA捕获后，计数器进行重置
+ *     		- 由PA01下降沿产生外部事件0，经过ETCB  触发sync0，重置和启动计数器
+ *          - 由PA01外部扩展口，上升沿产生外部事件5，经过ETCB  触发sync2 捕获，上升沿捕获值存放在CMPA中
+ * 			- 信号由PA01的高低电平切换产生（一直高或低电平意味着没有触发）
+ *          - CMPA捕获的是下降沿时间
+ *  \param[in] none
+ *  \return error code
+ * 
+ * 
+ PA01输入波形——          —————          —————           ———
+                |          |        |          |        |           |        
+	            |          |        |          |        |           |        
+                ——————        ——————         ——————          
+                RESET      CMPA     RESET     CMPA      RESET       CMPA               
+
+*/
+int ept_capture_sync_demo1(void)
+{
+	int iRet = 0;	
+    volatile uint8_t ch;
+
+	csi_pin_set_mux(PA01,PA01_INPUT);		
+	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
+	
+	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断，选择中断组1
+	csi_exi_set_evtrg(EXI_TRGOUT0, TRGSRC_EXI1, 1);				//PA01 下降沿产生事件0
+	csi_pin_irq_mode(PA01,EXI_GRP16,GPIO_IRQ_RISING_EDGE);    	//PA01 上升沿产生中断，选择中断组16                                   
+	csi_exi_set_evtrg(EXI_TRGOUT5, TRGSRC_EXI16,1);	 			//PA01 上升沿产生事件5
+	
+	csi_pin_irq_enable(PA01, ENABLE);                           //PA01 中断使能 
+//------------------------------------------------------------------------------------------------------------------------	
+	csi_etb_config_t tEtbConfig;	
+	//ETB 参数配置结构体	
+	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
+	tEtbConfig.bySrcIp   = ETB_EXI_TRGOUT0 ;  	//...作为触发源
+	tEtbConfig.byDstIp   = ETB_EPT0_SYNCIN0;  //EPT0 同步输入0作为目标事件
+	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
+	csi_etb_init();
+	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功						//ch < 0,则获取通道号失败		
+	iRet = csi_etb_ch_config(ch, &tEtbConfig);			
+//------------------------------------------------------------------------------------------------------------------------		
+	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
+	tEtbConfig.bySrcIp   = ETB_EXI_TRGOUT5 ;  	//...作为触发源
+	tEtbConfig.byDstIp   = ETB_EPT0_SYNCIN2;  //GPTB0 同步输入2作为目标事件
+	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
+	csi_etb_init();
+	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功						//ch < 0,则获取通道号失败		
+	iRet = csi_etb_ch_config(ch, &tEtbConfig);	
+//------------------------------------------------------------------------------------------------------------------------	
+	csi_ept_captureconfig_t tPwmCfg;								  
+	tPwmCfg.byWorkmod         = EPT_CAPTURE;                     //WAVE or CAPTURE    //计数或捕获	
+	tPwmCfg.byCountingMode    = EPT_UPCNT;                       //CNYMD  //计数方向
+	tPwmCfg.byOneshotMode     = EPT_OP_CONT; 
+	tPwmCfg.byStartSrc        = EPT_SYNC;				    //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
+	tPwmCfg.byPscld           = EPT_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值	
+	tPwmCfg.byCaptureCapmd    = 0;                               //0:连续捕捉模式    1h：一次性捕捉模式
+	tPwmCfg.byCaptureStopWrap = 1-1;                              //Capture模式下，捕获事件计数器周期设置值
+	tPwmCfg.byCaptureLdaret   = 1;                                //CMPA捕捉载入后，计数器值计数状态控制位(1h：CMPA触发后，计数器值进行重置;0h：CMPA触发后，计数器值不进行重置)
+	tPwmCfg.byCaptureLdbret   = 0; 
+	tPwmCfg.byCaptureLdcret   = 0;  
+	tPwmCfg.byCaptureLddret   = 0;  
+	tPwmCfg.wInt 		      = EPT_INTSRC_CAPLD0;                   //interrupt//
+
+	csi_ept_capture_init(EPT0, &tPwmCfg);
+//------------------------------------------------------------------------------------------------------------------------
+	csi_ept_set_sync(EPT0, EPT_TRG_SYNCEN0, EPT_TRG_CONTINU, EPT_AUTO_REARM_ZRO);//使能SYNCIN0外部触发
+    csi_ept_set_sync(EPT0, EPT_TRG_SYNCEN2, EPT_TRG_CONTINU, EPT_AUTO_REARM_ZRO);//使能SYNCIN2外部触发
+	csi_ept_start(EPT0);//start  timer
+    while(1){
+		mdelay(200);                        
+		mdelay(200);
 	}			
 	return iRet;
 };
