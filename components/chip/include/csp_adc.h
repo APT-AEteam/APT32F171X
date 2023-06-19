@@ -525,6 +525,7 @@ static inline void csp_adc_trgsrc_sel(csp_adc_t *ptAdcBase,uint8_t bychnl,adc_tr
 static inline void csp_adc_set_seqx(csp_adc_t *ptAdcBase, uint8_t bySeqNum, adc_chnl_e eAdcChnl, 
 				adc_cnt_e eCvcnt,adc_avg_e eAvgSel, bool eAvgctrl, adc_trg_src_e eSrc)
 {
+	ptAdcBase->SEQ[bySeqNum] &=~(0x01<<7);
 	ptAdcBase->SEQ[bySeqNum] = eAdcChnl | (eCvcnt<<ADC12_CVCNT_P0S) | (eAvgSel <<ADC12_AVGSEL_POS) | 
 				(eAvgctrl<<ADC12_AVGEN_POS) | (eSrc << ADC12_TRG_POS);
 }
