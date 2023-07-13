@@ -8,6 +8,10 @@
  * </table>
  * *********************************************************************
 */
+
+#ifndef _CSP_LVD_H
+#define _CSP_LVD_H
+
 #include "csp_syscon.h"
 
 extern  void csp_lvd_int_config(csp_syscon_t *ptSysconBase, bool bEnable);
@@ -16,3 +20,4 @@ extern uint32_t csp_lvd_get_lvrlevel(csp_syscon_t *ptSysconBase);
 
 extern uint32_t csp_lvd_get_lvdlevel(csp_syscon_t *ptSysconBase);
 
+#endif

@@ -10,6 +10,9 @@
  * @model    irq
  ******************************************************************************/
 
+#ifndef _DRV_IRQ_H_
+#define _DRV_IRQ_H_
+
 #include <stdint.h>
 #include <drv/common.h>
 #include <soc.h>
@@ -151,3 +154,4 @@ void do_irq(uint32_t irq_num) __attribute__((isr));
 
 
 
+#endif

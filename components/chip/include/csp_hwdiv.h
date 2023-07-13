@@ -12,7 +12,8 @@
 #include <csi_core.h>
 #include <csp_common.h>
 
-
+#ifndef _CSP_HWDIV_H
+#define _CSP_HWDIV_H
 
 /// \struct csp_hwdiv_t
 /// \brief HWHIV reg description
@@ -31,4 +32,4 @@ typedef struct
  }csp_hwdiv_mode_e;
  
 
-
+#endif
