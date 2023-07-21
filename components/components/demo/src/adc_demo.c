@@ -25,9 +25,9 @@
 const csi_adc_seq_t tSeqCfg[] =
 {
 	//输入通道		//连续重复采样次数		//平均系数			//触发源选择
-	{ADCIN0,		ADC_CV_COUNT_16,			ADC_AVG_COF_16,		ADCSYNC_NONE},
-	{ADCIN1,		ADC_CV_COUNT_16,			ADC_AVG_COF_16,		ADCSYNC_NONE},
-	{ADCIN2,		ADC_CV_COUNT_16,			ADC_AVG_COF_16,		ADCSYNC_NONE},
+	{ADCIN_1_4VDD,		ADC_CV_COUNT_1,			ADC_AVG_COF_1,		ADCSYNC_NONE},
+	{ADCIN_VSS,		ADC_CV_COUNT_1,			ADC_AVG_COF_1,		ADCSYNC_NONE},
+	{ADCIN0,		ADC_CV_COUNT_1,			ADC_AVG_COF_1,		ADCSYNC_NONE},
 }; 
 
 //采样序列的通道数
@@ -57,7 +57,7 @@ int adc_samp_oneshot_demo(void)
 	//adc 参数配置初始化
 	tAdcConfig.byClkDiv = 0x02;							//ADC clk两分频：clk = pclk/2
 	tAdcConfig.bySampHold = 0x06;						//ADC 采样时间： time = 16 + 6 = 22(ADC clk周期)
-	tAdcConfig.byConvMode = ADC_CONV_ONESHOT;			//ADC 转换模式： 单次转换；
+	tAdcConfig.byConvMode = ADC_CONV_CONTINU;//ADC_CONV_ONESHOT;			//ADC 转换模式： 单次转换；
 	tAdcConfig.byVrefSrc = ADCVERF_VDD_VSS;				//ADC 参考电压： 系统VDD
 	tAdcConfig.wInt = ADC_INTSRC_NONE;					//ADC 中断配置： 无中断
 	tAdcConfig.ptSeqCfg = (csi_adc_seq_t *)tSeqCfg;		//ADC 采样序列： 具体参考结构体变量 tSeqCfg
@@ -159,7 +159,7 @@ __attribute__((weak)) void adc_irqhandler(csp_adc_t *ptAdcBase)
 	uint8_t i;
  	volatile uint16_t hwDataBuf[3];
 	
-	uint32_t wIntStat = csp_adc_get_sr(ptAdcBase) & csp_adc_get_imr(ptAdcBase);
+	uint32_t wIntStat = csp_adc_get_sr(ptAdcBase) & csp_adc_get_misr(ptAdcBase);
 	
 	for(i = 0; i < s_byChnlNum; i++)						
 	{

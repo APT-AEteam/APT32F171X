@@ -30,19 +30,19 @@
     __IOM  uint32_t  SHR;		//0x0018 Sample Hold Period Register
     __OM   uint32_t  CSR;       //0x001C Clear Status Register             
     __IM   uint32_t  SR;        //0x0020 Status Register                   
-    __OM   uint32_t  IER;       //0x0024 Interrupt Enable Register         
-    __OM   uint32_t  IDR;       //0x0028 Interrupt Disable Register        
-    __IM   uint32_t  IMR;       //0x002C Interrupt Enable Status Register           
+    __OM   uint32_t  IMCR;      //0x0024 Interrupt Enable Register         
+    __OM   uint32_t  RSVD1;     //0x0028 Interrupt Disable Register        
+    __IM   uint32_t  MISR;      //0x002C Interrupt Enable Status Register           
     __IOM  uint32_t  SEQ[16];   //0x0030 Conversion Mode Register 0~11     
     __IOM  uint32_t  PRI;       //0x0070 Conversion Priority Register      
     __IOM  uint32_t  TDL0;      //0x0074 Trigger Delay control Register    
     __IOM  uint32_t  TDL1;      //0x0078 Trigger Delay control Register    
     __IOM  uint32_t  SYNCR;     //0x007C Sync Control Register             
-    __IM   uint32_t  RSVD1[2];         
+    __IM   uint32_t  RSVD2[2];         
     __IOM  uint32_t  EVTRG;     //0x0088 Event Trigger Control  Register   
     __IOM  uint32_t  EVPS;      //0x008C Event Prescale Register           
     __IOM  uint32_t  EVSWF;     //0x0090 Event Softtrig Register           
-    __IOM  uint32_t  RSVD2[27];
+    __IOM  uint32_t  RSVD3[27];
     __IM   uint32_t  DR[16];    //0x0100 Convert Data Register             
     __IOM  uint32_t  CMP0;      //0x0140 Comparison Data Register          
     __IOM  uint32_t  CMP1;      //0x0144 Comparison Data Register          
@@ -234,9 +234,9 @@ typedef enum{
 }adc_trg_src_e;
 
 /******************************************************************************
-* CSR, SR, IER, IDR, IMR : ADC12 Status Registers and Interrupt Registers
+* CSR, SR, IMCR, MISR : ADC12 Status Registers and Interrupt Registers
 ******************************************************************************/
-/* SR, IER, IDR, IMR Registers only                                          */
+/* SR, IMCR, MISR Registers only                                          */
 #define ADC12_SEQ_POS		(16)
 #define ADC12_SEQ_MSK 		(0xffff << ADC12_SEQ_POS)
 #define ADC12_SEQ(val)   	(0x01ul << (val + ADC12_SEQ_POS))    
@@ -428,9 +428,8 @@ typedef enum{
 #define ADC_CR_MSK         (0x8000007Ful)            /**< CR   mask         */
 #define ADC_MR_MSK         (0x8FFFFC1Ful)            /**< MR   mask         */
 #define ADC_SR_MSK         (0x000003F7ul)            /**< SR   mask         */
-#define ADC_IER_MSK        (0x000000F7ul)            /**< IER  mask         */
-#define ADC_IDR_MSK        (0x000000F7ul)         	 /**< IDR  mask         */
-#define ADC_IMR_MSK        (0x000000F7ul)         	 /**< IMR  mask         */
+#define ADC_IMCR_MSK       (0x000000F7ul)            /**< IMCR  mask        */
+#define ADC_MISR_MSK       (0x000000F7ul)         	 /**< MISR  mask        */
 #define ADC_SEQx_MSK       (0x3F3F3F3Ful)            /**< SEQ0  mask        */
 #define ADC_DR_MSK         (0x00000FFFul)            /**< DR   mask         */
 #define ADC_CMP0_MSK       (0x00000FFFul)            /**< CMP0 mask         */
@@ -445,10 +444,9 @@ typedef enum{
 #define ADC_CR_RST          (0x80000040ul)            /**< CR   reset value  */
 #define ADC_MR_RST          (0x00000000ul)            /**< MR   reset value  */
 #define ADC_SR_RST          (0x00000000ul)            /**< SR   reset value  */
-#define ADC_IER_RST         (0x00000000ul)            /**< IER  reset value  */
-#define ADC_IDR_RST         (0x00000000ul)            /**< IDR  reset value  */
-#define ADC_IMR_RST         (0x00000000ul)            /**< IMR  reset value  */
-#define ADC_SEQx_RST        (0x00000000ul)            /**< SEQx  reset value */
+#define ADC_IMCR_RST        (0x00000000ul)            /**< IMCR reset value  */
+#define ADC_MISR_RST        (0x00000000ul)            /**< MISR reset value  */
+#define ADC_SEQx_RST        (0x00000000ul)            /**< SEQx reset value  */
 #define ADC_DR_RST          (0x00000000ul)            /**< DR   reset value  */
 #define ADC_CMP0_RST        (0x00000000ul)            /**< CMP0 reset value  */
 #define ADC_CMP1_RST        (0x00000000ul)            /**< CMP1 reset value  */
@@ -542,7 +540,7 @@ static inline void csp_adc_set_cmp1(csp_adc_t *ptAdcBase, uint32_t wCmpData, uin
 	ptAdcBase->MR = (ptAdcBase->MR & (~ADC12_NBRCMP1_MASK)) | ADC12_NBRCMP1(byCmpChnl);
 } 
 /*************************************************************************
- * @brief  adc sr imr csr handle
+ * @brief  adc sr imcr csr handle
 ****************************************************************************/
 static inline uint8_t csp_adc_get_seq_idx(csp_adc_t *ptAdcBase)
 {
@@ -556,16 +554,16 @@ static inline void csp_adc_clr_sr(csp_adc_t *ptAdcBase,adc_sr_e eAdcSr)
 {
 	ptAdcBase->CSR =  eAdcSr;
 }
-static inline uint32_t csp_adc_get_imr(csp_adc_t *ptAdcBase)
+static inline uint32_t csp_adc_get_misr(csp_adc_t *ptAdcBase)
 {
-	return (uint32_t)(ptAdcBase->IMR);
+	return (uint32_t)(ptAdcBase->MISR);
 }
 static inline void csp_adc_int_enable(csp_adc_t *ptAdcBase, adc_int_e eAdcInt, bool bEnable)
 {
 	if(bEnable)
-		ptAdcBase->IER |= eAdcInt; 
+		ptAdcBase->IMCR |= eAdcInt; 
 	else
-		ptAdcBase->IDR |= eAdcInt; 
+		ptAdcBase->IMCR  = ~eAdcInt; 
 }
 /*************************************************************************
  * @brief  adc cr control: start/stop/en/dis/swtrg
