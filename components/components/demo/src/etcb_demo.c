@@ -95,7 +95,7 @@ const csi_adc_seq_t SeqCfg1[] =
 int16_t hwAdc_Data[6] = {0};
 void apt_etcb_adc_irqhandler(csp_adc_t *ptAdcBase)
 {
-	uint32_t wIntStat = csp_adc_get_sr(ptAdcBase) & csp_adc_get_imr(ptAdcBase);
+	uint32_t wIntStat = csp_adc_get_isr(ptAdcBase);
 	
 	csi_pin_toggle(PA05);
 	
