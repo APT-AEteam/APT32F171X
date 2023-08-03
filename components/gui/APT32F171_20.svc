@@ -1025,259 +1025,245 @@
     <ChipPropertiesView>
       <Category>
         <label>System</label>
-        <Category>
+        <Device deviceId="SystemClock">
           <label>System Clock</label>
-          <Device deviceId="SystemClock">
-            <GenCodeFuncName>SysClockInitFunc</GenCodeFuncName>
-            <UseOrNot>0</UseOrNot>
-            <label>System Clock</label>
-            <Property class="UIchoice">
-              <label>Clock Source</label>
-              <value>IMOSC</value>
-              <Selections>
-                <sel notAvailable="SystemClockFreqHFOSC,SystemClockFreqText,SystemClockISOSCFreqText">IMOSC</sel>
-                <sel notAvailable="SystemClockFreqHFOSC,SystemClockFreqIMOSC,SystemClockISOSCFreqText">EMOSC</sel>
-                <sel notAvailable="SystemClockFreqIMOSC,SystemClockFreqText,SystemClockISOSCFreqText">HFOSC</sel>
-                <sel notAvailable="SystemClockFreqHFOSC,SystemClockFreqIMOSC,SystemClockFreqText">ISOSC</sel>
-              </Selections>
-              <Comment>系统时钟源</Comment>
-            </Property>
-            <Property class="UIchoice" property_class="SystemClockFreqIMOSC">
-              <label>Freq(IMOSC)</label>
-              <value>IMOSC_5M</value>
-              <Selections>
-                <sel>IMOSC_5M</sel>
-                <sel>IMOSC_4M</sel>
-                <sel>IMOSC_2M</sel>
-                <sel>IMOSC_131K</sel>
-              </Selections>
-              <Comment>时钟源频率</Comment>
-            </Property>
-            <Property class="UIchoice" property_class="SystemClockFreqHFOSC">
-              <label>Freq(HFOSC)</label>
-              <value>HFOSC_48M</value>
-              <Selections>
-                <sel>HFOSC_48M</sel>
-                <sel>HFOSC_24M</sel>
-                <sel>HFOSC_12M</sel>
-                <sel>HFOSC_6M</sel>
-              </Selections>
-              <Comment>时钟源频率</Comment>
-            </Property>
-            <Property class="Text" property_class="SystemClockFreqText">
-              <label>Freq</label>
-              <value>36000000</value>
-              <!-- <validReg>^([1-9]|[1-3][0-9]|[4][0-8])$</validReg> -->
-              <Comment>时钟源频率 频率范围:1~48M</Comment>
-            </Property>
-            <Property class="Text" property_class="SystemClockISOSCFreqText">
-              <label>Freq</label>
-              <value>27000</value>
-              <validReg>^(27000)$</validReg>
-              <Comment>固定频率27k</Comment>
-            </Property>
-            <Property class="UIchoice">
-              <label>SCLK DIV</label>
-              <value>SCLK_DIV1</value>
-              <Selections>
-                <sel>SCLK_DIV1</sel>
-                <sel>SCLK_DIV2</sel>
-                <sel>SCLK_DIV3</sel>
-                <sel>SCLK_DIV4</sel>
-                <sel>SCLK_DIV5</sel>
-                <sel>SCLK_DIV6</sel>
-                <sel>SCLK_DIV9</sel>
-                <sel>SCLK_DIV12</sel>
-                <sel>SCLK_DIV16</sel>
-                <sel>SCLK_DIV24</sel>
-                <sel>SCLK_DIV32</sel>
-                <sel>SCLK_DIV36</sel>
-                <sel>SCLK_DIV64</sel>
-                <sel>SCLK_DIV128</sel>
-                <sel>SCLK_DIV256</sel>
-              </Selections>
-              <Comment>系统时钟分频系数,SCLK = Freq/SCLK_DIV</Comment>
-            </Property>
-            <Property class="UIchoice">
-              <label>PCLK DIV</label>
-              <value>PCLK_DIV2</value>
-              <Selections>
-                <sel>PCLK_DIV1</sel>
-                <sel>PCLK_DIV2</sel>
-                <sel>PCLK_DIV4</sel>
-                <sel>PCLK_DIV8</sel>
-                <sel>PCLK_DIV16</sel>
-              </Selections>
-              <Comment>外设时钟分频系数,PCLK = SCLK/PCLK_DIV</Comment>
-            </Property>
-          </Device>
-        </Category>
-        <Category>
+          <GenCodeFuncName>SysClockInitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>System Clock</label>
+          <Property class="UIchoice">
+            <label>Clock Source</label>
+            <value>IMOSC</value>
+            <Selections>
+              <sel notAvailable="SystemClockFreqHFOSC,SystemClockFreqText,SystemClockISOSCFreqText">IMOSC</sel>
+              <sel notAvailable="SystemClockFreqHFOSC,SystemClockFreqIMOSC,SystemClockISOSCFreqText">EMOSC</sel>
+              <sel notAvailable="SystemClockFreqIMOSC,SystemClockFreqText,SystemClockISOSCFreqText">HFOSC</sel>
+              <sel notAvailable="SystemClockFreqHFOSC,SystemClockFreqIMOSC,SystemClockFreqText">ISOSC</sel>
+            </Selections>
+            <Comment>系统时钟源</Comment>
+          </Property>
+          <Property class="UIchoice" property_class="SystemClockFreqIMOSC">
+            <label>Freq(IMOSC)</label>
+            <value>IMOSC_5M</value>
+            <Selections>
+              <sel>IMOSC_5M</sel>
+              <sel>IMOSC_4M</sel>
+              <sel>IMOSC_2M</sel>
+              <sel>IMOSC_131K</sel>
+            </Selections>
+            <Comment>时钟源频率</Comment>
+          </Property>
+          <Property class="UIchoice" property_class="SystemClockFreqHFOSC">
+            <label>Freq(HFOSC)</label>
+            <value>HFOSC_48M</value>
+            <Selections>
+              <sel>HFOSC_48M</sel>
+              <sel>HFOSC_24M</sel>
+              <sel>HFOSC_12M</sel>
+              <sel>HFOSC_6M</sel>
+            </Selections>
+            <Comment>时钟源频率</Comment>
+          </Property>
+          <Property class="Text" property_class="SystemClockFreqText">
+            <label>Freq</label>
+            <value>36000000</value>
+            <!-- <validReg>^([1-9]|[1-3][0-9]|[4][0-8])$</validReg> -->
+            <Comment>时钟源频率 频率范围:1~48M</Comment>
+          </Property>
+          <Property class="Text" property_class="SystemClockISOSCFreqText">
+            <label>Freq</label>
+            <value>27000</value>
+            <validReg>^(27000)$</validReg>
+            <Comment>固定频率27k</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>SCLK DIV</label>
+            <value>SCLK_DIV1</value>
+            <Selections>
+              <sel>SCLK_DIV1</sel>
+              <sel>SCLK_DIV2</sel>
+              <sel>SCLK_DIV3</sel>
+              <sel>SCLK_DIV4</sel>
+              <sel>SCLK_DIV5</sel>
+              <sel>SCLK_DIV6</sel>
+              <sel>SCLK_DIV9</sel>
+              <sel>SCLK_DIV12</sel>
+              <sel>SCLK_DIV16</sel>
+              <sel>SCLK_DIV24</sel>
+              <sel>SCLK_DIV32</sel>
+              <sel>SCLK_DIV36</sel>
+              <sel>SCLK_DIV64</sel>
+              <sel>SCLK_DIV128</sel>
+              <sel>SCLK_DIV256</sel>
+            </Selections>
+            <Comment>系统时钟分频系数,SCLK = Freq/SCLK_DIV</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>PCLK DIV</label>
+            <value>PCLK_DIV2</value>
+            <Selections>
+              <sel>PCLK_DIV1</sel>
+              <sel>PCLK_DIV2</sel>
+              <sel>PCLK_DIV4</sel>
+              <sel>PCLK_DIV8</sel>
+              <sel>PCLK_DIV16</sel>
+            </Selections>
+            <Comment>外设时钟分频系数,PCLK = SCLK/PCLK_DIV</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="LVR">
           <label>LVD_R</label>
-          <Device deviceId="LVR">
-            <GenCodeFuncName>SysLVRInitFunc</GenCodeFuncName>
-            <UseOrNot>0</UseOrNot>
-            <label>LVD_R</label>
-            <Property class="UIchoice">
-              <label>Rst Level</label>
-              <value>LVR_19</value>
-              <Selections>
-                <sel>LVR_19</sel>
-                <sel>LVR_22</sel>
-                <sel>LVR_25</sel>
-                <sel>LVR_28</sel>
-                <sel>LVR_31</sel>
-                <sel>LVR_34</sel>
-                <sel>LVR_37</sel>
-                <sel>LVR_40</sel>
-              </Selections>
-              <Comment>低压复位触发电压,应低于低压检测中断触发电压</Comment>
-            </Property>
-            <Property class="UIchoice">
-              <label>Int Level</label>
-              <value>LVD_21(rising)</value>
-              <Selections>
-                <sel>LVD_21(rising)</sel>
-                <sel>LVD_21(falling)</sel>
-                <sel>LVD_21(both)</sel>
-                <sel>LVD_24(rising)</sel>
-                <sel>LVD_24(falling)</sel>
-                <sel>LVD_24(both)</sel>
-                <sel>LVD_27(rising)</sel>
-                <sel>LVD_27(falling)</sel>
-                <sel>LVD_27(both)</sel>
-                <sel>LVD_30(rising)</sel>
-                <sel>LVD_30(falling)</sel>
-                <sel>LVD_30(both)</sel>
-                <sel>LVD_33(rising)</sel>
-                <sel>LVD_33(falling)</sel>
-                <sel>LVD_33(both)</sel>
-                <sel>LVD_36(rising)</sel>
-                <sel>LVD_36(falling)</sel>
-                <sel>LVD_36(both)</sel>
-                <sel>LVD_39(rising)</sel>
-                <sel>LVD_39(falling)</sel>
-                <sel>LVD_39(both)</sel>
-                <sel>LVDIN_10(rising)</sel>
-                <sel>LVDIN_10(falling)</sel>
-                <sel>LVDIN_10(both)</sel>
-              </Selections>
-              <Comment>低压检测中断触发电压,应高于低压复位触发电压</Comment>
-            </Property>
-          </Device>
-        </Category>
-        <Category>
+          <GenCodeFuncName>SysLVRInitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>LVD_R</label>
+          <Property class="UIchoice">
+            <label>Rst Level</label>
+            <value>LVR_19</value>
+            <Selections>
+              <sel>LVR_19</sel>
+              <sel>LVR_22</sel>
+              <sel>LVR_25</sel>
+              <sel>LVR_28</sel>
+              <sel>LVR_31</sel>
+              <sel>LVR_34</sel>
+              <sel>LVR_37</sel>
+              <sel>LVR_40</sel>
+            </Selections>
+            <Comment>低压复位触发电压,应低于低压检测中断触发电压</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>Int Level</label>
+            <value>LVD_21(rising)</value>
+            <Selections>
+              <sel>LVD_21(rising)</sel>
+              <sel>LVD_21(falling)</sel>
+              <sel>LVD_21(both)</sel>
+              <sel>LVD_24(rising)</sel>
+              <sel>LVD_24(falling)</sel>
+              <sel>LVD_24(both)</sel>
+              <sel>LVD_27(rising)</sel>
+              <sel>LVD_27(falling)</sel>
+              <sel>LVD_27(both)</sel>
+              <sel>LVD_30(rising)</sel>
+              <sel>LVD_30(falling)</sel>
+              <sel>LVD_30(both)</sel>
+              <sel>LVD_33(rising)</sel>
+              <sel>LVD_33(falling)</sel>
+              <sel>LVD_33(both)</sel>
+              <sel>LVD_36(rising)</sel>
+              <sel>LVD_36(falling)</sel>
+              <sel>LVD_36(both)</sel>
+              <sel>LVD_39(rising)</sel>
+              <sel>LVD_39(falling)</sel>
+              <sel>LVD_39(both)</sel>
+              <sel>LVDIN_10(rising)</sel>
+              <sel>LVDIN_10(falling)</sel>
+              <sel>LVDIN_10(both)</sel>
+            </Selections>
+            <Comment>低压检测中断触发电压,应高于低压复位触发电压</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="SRAM Check">
           <label>SRAM Check</label>
-          <Device deviceId="SRAM Check">
-            <Comment>SRAM实时校验功能</Comment>
-            <GenCodeFuncName>SysSRAMCheckInitFunc</GenCodeFuncName>
-            <UseOrNot>0</UseOrNot>
-            <label>SRAM Check</label>
-            <Property class="Text">
-              <label>Fail Time</label>
-              <value>0xffff</value>
-              <validReg>^(0[xX])(0{3}[1-9a-fA-F]|0{2}[1-9a-fA-F][0-9a-fA-F]|0{1}[1-9a-fA-F][0-9a-fA-F]{2}|[1-9a-fA-F][0-9a-fA-F]{3})$</validReg>
-              <Comment>SRAM校验重试次数,范围:0x0001~0xffff之间的整数</Comment>
-            </Property>
-            <Property class="UIchoice">
-              <label>Fail Action</label>
-              <value>reset</value>
-              <Selections>
-                <sel>reset</sel>
-                <sel>interrupt</sel>
-              </Selections>
-              <Comment>SRAM校验失败后动作,复位/只产生中断</Comment>
-            </Property>
-          </Device>
-        </Category>
-        <Category>
+          <Comment>SRAM实时校验功能</Comment>
+          <GenCodeFuncName>SysSRAMCheckInitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>SRAM Check</label>
+          <Property class="Text">
+            <label>Fail Time</label>
+            <value>0xffff</value>
+            <validReg>^(0[xX])(0{3}[1-9a-fA-F]|0{2}[1-9a-fA-F][0-9a-fA-F]|0{1}[1-9a-fA-F][0-9a-fA-F]{2}|[1-9a-fA-F][0-9a-fA-F]{3})$</validReg>
+            <Comment>SRAM校验重试次数,范围:0x0001~0xffff之间的整数</Comment>
+          </Property>
+          <Property class="UIchoice">
+            <label>Fail Action</label>
+            <value>reset</value>
+            <Selections>
+              <sel>reset</sel>
+              <sel>interrupt</sel>
+            </Selections>
+            <Comment>SRAM校验失败后动作,复位/只产生中断</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="Flash check">
           <label>Flash Check</label>
-          <Device deviceId="Flash check">
-            <GenCodeFuncName>SysFlashCheckInitFunc</GenCodeFuncName>
-            <UseOrNot>0</UseOrNot>
-            <label>Flash Check</label>
-            <Property class="Text">
-              <label>Fail Time</label>
-              <value>0xffffff</value>
-              <validReg>^(0[xX])(0{5}[1-9a-fA-F]|0{4}[1-9a-fA-F][0-9a-fA-F]|0{3}[1-9a-fA-F][0-9a-fA-F]{2}|0{2}[1-9a-fA-F][0-9a-fA-F]{3}|0[1-9a-fA-F][0-9a-fA-F]{4}|[1-9a-fA-F][0-9a-fA-F]{5})$</validReg>
-              <Comment>FLASH校验重试次数,校验失败会产生复位,范围:0x000001~0xFFFFFF之间的整数</Comment>
-            </Property>
-          </Device>
-        </Category>
-        <Category>
+          <GenCodeFuncName>SysFlashCheckInitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>Flash Check</label>
+          <Property class="Text">
+            <label>Fail Time</label>
+            <value>0xffffff</value>
+            <validReg>^(0[xX])(0{5}[1-9a-fA-F]|0{4}[1-9a-fA-F][0-9a-fA-F]|0{3}[1-9a-fA-F][0-9a-fA-F]{2}|0{2}[1-9a-fA-F][0-9a-fA-F]{3}|0[1-9a-fA-F][0-9a-fA-F]{4}|[1-9a-fA-F][0-9a-fA-F]{5})$</validReg>
+            <Comment>FLASH校验重试次数,校验失败会产生复位,范围:0x000001~0xFFFFFF之间的整数</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="EM clock monitor">
           <label>EM Clock Monitor</label>
-          <Device deviceId="EM clock monitor">
-            <Comment>External Main OSC monitor</Comment>
-            <GenCodeFuncName>SysEMClockMonitorInitFunc</GenCodeFuncName>
-            <UseOrNot>0</UseOrNot>
-            <label>EM Clock Monitor</label>
-            <Property class="UIchoice">
-              <label>Fail Action</label>
-              <value>reset</value>
-              <Selections>
-                <sel>switch to IMOSC &amp; interrupt</sel>
-                <sel>reset</sel>
-              </Selections>
-              <Comment>EM Clock监控失败动作,复位/切换到IMOSC并产生中断</Comment>
-            </Property>
-          </Device>
-        </Category>
-        <Category>
+          <Comment>External Main OSC monitor</Comment>
+          <GenCodeFuncName>SysEMClockMonitorInitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>EM Clock Monitor</label>
+          <Property class="UIchoice">
+            <label>Fail Action</label>
+            <value>reset</value>
+            <Selections>
+              <sel>switch to IMOSC &amp; interrupt</sel>
+              <sel>reset</sel>
+            </Selections>
+            <Comment>EM Clock监控失败动作,复位/切换到IMOSC并产生中断</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="IWDT">
           <label>IWDT</label>
-          <Device deviceId="IWDT">
-            <Comment>Independent WatchDog Timer</Comment>
-            <GenCodeFuncName>SysIWDTInitFunc</GenCodeFuncName>
-            <UseOrNot>0</UseOrNot>
-            <label>IWDT</label>
-            <Property class="UIchoice">
-              <label>Mode</label>
-              <value>Normal</value>
-              <Selections>
-                <sel notAvailable="SystemIWDTIrq">Normal</sel>
-                <sel>Irq</sel>
-              </Selections>
-              <Comment>Normal:正常模式&#xD;Irq:中断模式</Comment>
-            </Property>
-            <Property class="UIchoice" property_class="SystemIWDTNormal">
-              <label>Time Out</label>
-              <value>IWDT_TO_128</value>
-              <Selections>
-                <sel>IWDT_TO_128</sel>
-                <sel>IWDT_TO_256</sel>
-                <sel>IWDT_TO_512</sel>
-                <sel>IWDT_TO_1024</sel>
-                <sel>IWDT_TO_2048</sel>
-                <sel>IWDT_TO_3072</sel>
-                <sel>IWDT_TO_4096</sel>
-                <sel>IWDT_TO_8192</sel>
-              </Selections>
-              <Comment>总溢出时间设置。当看门狗计数器计数溢出时,产生复位&#xD;IWDT_TO_128:128ms&#xD;IWDT_TO_256:256ms&#xD;IWDT_TO_512:512ms&#xD;IWDT_TO_1024:1.024s&#xD;IWDT_TO_2048:2.048s&#xD;IWDT_TO_3072:3.096s&#xD;IWDT_TO_4096:4.12s&#xD;IWDT_TO_8192:8.196s</Comment>
-            </Property>
-            <Property class="UIchoice" property_class="SystemIWDTIrq">
-              <label>Alarm Timer</label>
-              <value>IWDT_ALARMTO_1_8</value>
-              <Selections>
-                <sel>IWDT_ALARMTO_1_8</sel>
-                <sel>IWDT_ALARMTO_2_8</sel>
-                <sel>IWDT_ALARMTO_3_8</sel>
-                <sel>IWDT_ALARMTO_4_8</sel>
-                <sel>IWDT_ALARMTO_5_8</sel>
-                <sel>IWDT_ALARMTO_6_8</sel>
-                <sel>IWDT_ALARMTO_7_8</sel>
-              </Selections>
-              <Comment>看门狗报警中断的时间设置。当看门狗计数器计数到总溢出时间的一定比例时,产生报警中断&#xD;0h:1/8总溢出时间&#xD;1h:2/8总溢出时间&#xD;2h:3/8总溢出时间&#xD; 3h:4/8总溢出时间&#xD; 4h:5/8总溢出时间&#xD; 5h:6/8总溢出时间&#xD; 6h:7/8总溢出时间&#xD; 7h:7/8总溢出时间</Comment>
-            </Property>
-          </Device>
-        </Category>
-        <Category>
+          <Comment>Independent WatchDog Timer</Comment>
+          <GenCodeFuncName>SysIWDTInitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>IWDT</label>
+          <Property class="UIchoice">
+            <label>Mode</label>
+            <value>Normal</value>
+            <Selections>
+              <sel notAvailable="SystemIWDTIrq">Normal</sel>
+              <sel>Irq</sel>
+            </Selections>
+            <Comment>Normal:正常模式&#xD;Irq:中断模式</Comment>
+          </Property>
+          <Property class="UIchoice" property_class="SystemIWDTNormal">
+            <label>Time Out</label>
+            <value>IWDT_TO_128</value>
+            <Selections>
+              <sel>IWDT_TO_128</sel>
+              <sel>IWDT_TO_256</sel>
+              <sel>IWDT_TO_512</sel>
+              <sel>IWDT_TO_1024</sel>
+              <sel>IWDT_TO_2048</sel>
+              <sel>IWDT_TO_3072</sel>
+              <sel>IWDT_TO_4096</sel>
+              <sel>IWDT_TO_8192</sel>
+            </Selections>
+            <Comment>总溢出时间设置。当看门狗计数器计数溢出时,产生复位&#xD;IWDT_TO_128:128ms&#xD;IWDT_TO_256:256ms&#xD;IWDT_TO_512:512ms&#xD;IWDT_TO_1024:1.024s&#xD;IWDT_TO_2048:2.048s&#xD;IWDT_TO_3072:3.096s&#xD;IWDT_TO_4096:4.12s&#xD;IWDT_TO_8192:8.196s</Comment>
+          </Property>
+          <Property class="UIchoice" property_class="SystemIWDTIrq">
+            <label>Alarm Timer</label>
+            <value>IWDT_ALARMTO_1_8</value>
+            <Selections>
+              <sel>IWDT_ALARMTO_1_8</sel>
+              <sel>IWDT_ALARMTO_2_8</sel>
+              <sel>IWDT_ALARMTO_3_8</sel>
+              <sel>IWDT_ALARMTO_4_8</sel>
+              <sel>IWDT_ALARMTO_5_8</sel>
+              <sel>IWDT_ALARMTO_6_8</sel>
+              <sel>IWDT_ALARMTO_7_8</sel>
+            </Selections>
+            <Comment>看门狗报警中断的时间设置。当看门狗计数器计数到总溢出时间的一定比例时,产生报警中断&#xD;0h:1/8总溢出时间&#xD;1h:2/8总溢出时间&#xD;2h:3/8总溢出时间&#xD; 3h:4/8总溢出时间&#xD; 4h:5/8总溢出时间&#xD; 5h:6/8总溢出时间&#xD; 6h:7/8总溢出时间&#xD; 7h:7/8总溢出时间</Comment>
+          </Property>
+        </Device>
+        <Device deviceId="CoreTick">
           <label>CoreTick</label>
-          <Device deviceId="CoreTick">
-            <GenCodeFuncName>SysTickInitFunc</GenCodeFuncName>
-            <UseOrNot>0</UseOrNot>
-            <label>CoreTick</label>
-            <Comment>使能CORET定时器,CORET提供mdelay等函数,10ms进一次中断</Comment>
-          </Device>
-        </Category>
+          <GenCodeFuncName>SysTickInitFunc</GenCodeFuncName>
+          <UseOrNot>0</UseOrNot>
+          <label>CoreTick</label>
+          <Comment>使能CORET定时器,CORET提供mdelay等函数,10ms进一次中断</Comment>
+        </Device>
       </Category>
       <ChipPins>
         <label>I/O ports</label>
