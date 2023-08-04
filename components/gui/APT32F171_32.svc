@@ -1672,7 +1672,7 @@
         <Device deviceId="SystemClock">
           <label>System Clock</label>
           <GenCodeFuncName>SysClockInitFunc</GenCodeFuncName>
-          <UseOrNot>1</UseOrNot>
+          <UseOrNot>0</UseOrNot>
           <label>System Clock</label>
           <Property class="UIchoice">
             <label>Clock Source</label>
@@ -1708,13 +1708,13 @@
             <Comment>时钟源频率</Comment>
           </Property>
           <Property class="Text" property_class="SystemClockFreqText">
-            <label>Freq</label>
+            <label>Freq(EMOSC)</label>
             <value>36000000</value>
             <!-- <validReg>^([1-9]|[1-3][0-9]|[4][0-8])$</validReg> -->
             <Comment>时钟源频率 频率范围:1~48M</Comment>
           </Property>
           <Property class="Text" property_class="SystemClockISOSCFreqText">
-            <label>Freq</label>
+            <label>Freq(ISOSC)</label>
             <value>27000</value>
             <validReg>^(27000)$</validReg>
             <Comment>固定频率27k</Comment>
