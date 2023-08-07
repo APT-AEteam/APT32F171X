@@ -11,6 +11,7 @@ def_config:
   CONFIG_USER_PM: 1
   CONFIG_USE_TCx_EPWM: 0
   DBG_PRINT2PC: 1
+  USE_GUI: 1
 name: apt32f171x
 version: v1.2.3
 description: 我的第一个方案工程

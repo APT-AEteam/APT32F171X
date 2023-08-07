@@ -124,14 +124,17 @@
         <BeforeCompile>
           <RunUserProg>no</RunUserProg>
           <UserProgName/>
+          <IsBatchScript>no</IsBatchScript>
         </BeforeCompile>
         <BeforeMake>
           <RunUserProg>no</RunUserProg>
           <UserProgName/>
+          <IsBatchScript>no</IsBatchScript>
         </BeforeMake>
         <AfterMake>
           <RunUserProg>no</RunUserProg>
           <UserProgName/>
+          <IsBatchScript>no</IsBatchScript>
         </AfterMake>
         <Tools/>
       </User>
@@ -187,6 +190,7 @@
         <AfterResetFile/>
         <Dumpcore>no</Dumpcore>
         <DumpcoreText>$(ProjectPath)/$(ProjectName).cdkcore</DumpcoreText>
+        <SVCFile/>
         <ConfigICE>
           <IP>localhost</IP>
           <PORT>1025</PORT>
@@ -197,6 +201,7 @@
           <WaitReset>50</WaitReset>
           <DDC>yes</DDC>
           <TRST>no</TRST>
+          <PreReset>no</PreReset>
           <DebugPrint>no</DebugPrint>
           <Connect>Normal</Connect>
           <ResetType>Soft Reset</ResetType>
@@ -244,6 +249,8 @@
         <ResetAndRun>yes</ResetAndRun>
         <ResetType>Soft Reset</ResetType>
         <SoftResetVal>abcd1234</SoftResetVal>
+        <FlashIndex>no</FlashIndex>
+        <FlashIndexVal>0</FlashIndexVal>
         <External>no</External>
         <Command/>
         <Arguments/>
