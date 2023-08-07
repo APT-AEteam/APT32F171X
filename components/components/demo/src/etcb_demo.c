@@ -38,12 +38,13 @@ int etcb_one_trg_one_demo0(void)
 	volatile int32_t ch;
 	csi_etb_config_t tEtbConfig;				                //ETB 参数配置结构体		
 	
+	#if !defined(USE_GUI)
 	csi_pin_set_mux(PA01,PA01_INPUT);		
 	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
 	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断
 	csi_pin_irq_enable(PA01, ENABLE);							//PA01 中断使能	
 	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI1, 1);             //IO边沿翻转一次 触发
-	
+	#endif
 	csi_bt_start_sync(BT0, 10);
 	csi_bt_set_sync(BT0,BT_TRG_SYNCIN0, BT_TRG_ONCE, BT_AREARM_PEND);  
 	csi_bt_set_evtrg(BT0, BT_TRGOUT, BT_TRGSRC_PEND); 
@@ -120,6 +121,7 @@ void etcb_adc_config(void)
 {
 	csi_adc_config_t tAdcConfig;
 	
+	#if !defined(USE_GUI)	
 	//adc 输入管脚配置
 	csi_pin_set_mux(PA00, PA00_ADC_AIN0);				//ADC GPIO作为输入通道
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
@@ -128,7 +130,8 @@ void etcb_adc_config(void)
 	csi_pin_set_mux(PA06, PA06_ADC_AIN10);
 	csi_pin_set_mux(PA07, PA07_ADC_AIN11);
 	csi_pin_set_mux(PA08, PA08_ADC_AIN12);
-
+	#endif
+	
 	byAdcChnlNum = 6;                                           //通道数配置为6路                               
 	
 	//adc 参数配置初始化
@@ -154,12 +157,15 @@ void etcb_adc_config(void)
 void etcb_ept_config(void)
 {
 //------------------------------------------------------------------------------------------------------------------------	
+	
+	#if !defined(USE_GUI)
 	csi_pin_set_mux(PA05, PA05_EPT_CHCX);						
 	csi_pin_set_mux(PA06, PA06_EPT_CHCY);						
 	csi_pin_set_mux(PA07, PA07_EPT_CHBX);						
 	csi_pin_set_mux(PA08, PA08_EPT_CHBY);						
 	csi_pin_set_mux(PA09, PA09_EPT_CHAX);						
-    csi_pin_set_mux(PA010,PA010_EPT_CHAY);					    
+    csi_pin_set_mux(PA010,PA010_EPT_CHAY);		
+	#endif
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_ept_config_t tPwmCfg;								  
 	tPwmCfg.byWorkmod       = EPT_WAVE;                        //WAVE or CAPTURE    //计数或捕获	
@@ -242,10 +248,11 @@ void etcb_adc_config12(void)
 {
 	csi_adc_config_t tAdcConfig;
 	
+	#if !defined(USE_GUI)
 	//adc 输入管脚配置
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
 	csi_pin_set_mux(PA10, PA10_ADC_AIN2);
-
+	#endif
 	byAdcChnlNum = 2;                                
 	
 	//adc 参数配置初始化
@@ -275,7 +282,9 @@ int etcb_one_trg_more_demo(void)
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体		
 	
+	#if !defined(USE_GUI)
 	csi_pin_set_mux(PA05,PA05_OUTPUT);	
+	#endif
 	
 	etcb_ept_config();
 	etcb_adc_config12();
@@ -310,12 +319,13 @@ int etcb_mix_demo(void)
 	volatile int32_t ch;
 	csi_etb_config_t tEtbConfig;				                //ETB 参数配置结构体		
 
+	#if !defined(USE_GUI)
 	csi_pin_set_mux(PA01,PA01_INPUT);		
 	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
 	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断	
 	csi_pin_irq_enable(PA01, ENABLE);							//PA01 中断使能	
 	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI1, 1);
-	
+	#endif
 	csi_bt_start_sync(BT0, 200);
 	csi_bt_set_sync(BT0,BT_TRG_SYNCIN0, BT_TRG_ONCE, BT_AREARM_PEND);  
 	csi_bt_set_evtrg(BT0, BT_TRGOUT, BT_TRGSRC_PEND);  
