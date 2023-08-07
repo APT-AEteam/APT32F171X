@@ -34,10 +34,7 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>TC0_IO2A</sel>
-              <sel>EPWM1_X</sel>
               <sel>EPT_CHBX</sel>
-              <sel>EPWM0_X</sel>
               <sel>EPT_CHAX</sel>
               <sel>ADC_AIN0</sel>
               <sel>CPINN4</sel>
@@ -90,10 +87,7 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>TC0_IO2B</sel>
-              <sel>EPWM1_Y</sel>
               <sel>EPT_CHBY</sel>
-              <sel>EPWM0_Y</sel>
               <sel>EPT_CHAY</sel>
               <sel>ADC_AIN1</sel>
               <sel>CPINP7</sel>
@@ -148,7 +142,6 @@
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
               <sel>USART0_RX</sel>
               <sel>BT0_OUT</sel>
-              <sel>TC1_OUT</sel>
               <sel>EPT_CHD</sel>
               <sel>ADC_AIN8</sel>
               <sel>CPINP0</sel>
@@ -204,7 +197,6 @@
               <sel>SWCLK</sel>
               <sel>USART0_RX</sel>
               <sel>GPT_CHA</sel>
-              <sel>TC0_IO0A</sel>
               <sel>UART_RX</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
@@ -258,7 +250,6 @@
               <sel>SWDIO</sel>
               <sel>USART0_TX</sel>
               <sel>GPT_CHB</sel>
-              <sel>TC0_IO0B</sel>
               <sel>UART_TX</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
@@ -309,9 +300,7 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>EPWM2_X</sel>
               <sel>USART0_CK</sel>
-              <sel>EPWM0_Y</sel>
               <sel>EPT_CHCX</sel>
               <sel>ADC_AIN9</sel>
               <sel>CPINP1</sel>
@@ -364,9 +353,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>EPWM2_Y</sel>
-              <sel>TC1_OUT</sel>
-              <sel>EPWM0_X</sel>
               <sel>EPT_CHCY</sel>
               <sel>ADC_AIN10</sel>
               <sel>CPINP2</sel>
@@ -419,8 +405,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>EPWM1_X</sel>
-              <sel>TC2_CAP0</sel>
               <sel>EPT_CHBX</sel>
               <sel>CP4_OUT</sel>
               <sel>ADC_AIN11</sel>
@@ -474,7 +458,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>EPWM1_Y</sel>
               <sel>BT0_OUT</sel>
               <sel>EPT_CHBY</sel>
               <sel>CLO</sel>
@@ -531,7 +514,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>EPWM0_X</sel>
               <sel>BT1_OUT</sel>
               <sel>EPT_CHAX</sel>
               <sel>UART_TX</sel>
@@ -586,7 +568,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>EPWM0_Y</sel>
               <sel>USART0_TX</sel>
               <sel>EPT_CHAY</sel>
               <sel>UART_RX</sel>
@@ -643,9 +624,7 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>TC0_IO0B</sel>
               <sel>UART_RX</sel>
-              <sel>TC0_CLK0</sel>
               <sel>VREF_P</sel>
               <sel>OSC_XO</sel>
             </Selections>
@@ -697,9 +676,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>TC2_CAP0</sel>
-              <sel>TC0_IO0A</sel>
-              <sel>TC1_CAP</sel>
               <sel>EBI0</sel>
               <sel>CP0_OUT</sel>
               <sel>ADC_AIN2</sel>
@@ -753,8 +729,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>TC1_CAP</sel>
-              <sel>TC0_IO0B</sel>
               <sel>UART_TX</sel>
               <sel>EBI1</sel>
               <sel>CP1_OUT</sel>
@@ -809,8 +783,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>TC2_CAP1</sel>
-              <sel>TC0_IO1A</sel>
               <sel>UART_RX</sel>
               <sel>EBI2</sel>
               <sel>CP2_OUT</sel>
@@ -866,7 +838,6 @@
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
               <sel>GPT_CHA</sel>
-              <sel>TC0_IO1B</sel>
               <sel>CLO</sel>
               <sel>EPT_CHD</sel>
               <sel>ADC_AIN5</sel>
@@ -921,9 +892,7 @@
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
               <sel>GPT_CHB</sel>
-              <sel>TC0_IO2A</sel>
               <sel>CP3_OUT</sel>
-              <sel>EPWM0_X</sel>
               <sel>EPT_CHAX</sel>
               <sel>ADC_AIN6</sel>
               <sel>OPA0P</sel>
@@ -978,9 +947,6 @@
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
               <sel>USART0_TX</sel>
-              <sel>TC0_IO2B</sel>
-              <sel>EPWM_EP4</sel>
-              <sel>EPWM1_X</sel>
               <sel>EPT_CHBX</sel>
               <sel>ADC_AIN7</sel>
               <sel>OPA0N</sel>
