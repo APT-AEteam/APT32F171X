@@ -626,6 +626,7 @@
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
               <sel>UART_RX</sel>
               <sel>VREF_P</sel>
+              <sel>INTVREF</sel>
               <sel>OSC_XO</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
