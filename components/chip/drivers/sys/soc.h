@@ -306,6 +306,7 @@ typedef enum {
     PA011_UART_RX          	=  5U,
 	PA011_TC0_CLK0          =  6U,
     PA011_VREF_P	  	    =  7U,
+	PA011_INTVREF    	    =  7U,
 	PA011_OSC_XO			=  8U,
 	PA011_GROUP1         	=  9U,
 	
