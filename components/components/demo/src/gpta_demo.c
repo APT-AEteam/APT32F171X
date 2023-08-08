@@ -215,6 +215,7 @@ int gpta_pwm_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------	
+#if !defined(USE_GUI)
 	csi_pin_set_mux(PB00,   PB00_GPT_CHA);//20
 	csi_pin_set_mux(PB01,   PB01_GPT_CHB);//21
 	csi_pin_set_mux(PA13,   PA13_GPT_CHA);//29
@@ -224,6 +225,7 @@ int gpta_pwm_demo(void)
 
 //	csi_pin_set_mux(PA03,   PA03_GPT_CHA);//7   调试口  需修改
 //	csi_pin_set_mux(PA04,   PA04_GPT_CHB);//8
+#endif
 //------------------------------------------------------------------------------------------------------------------------	
 //    csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_COMPA);
 //	csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_COMPB);
@@ -421,8 +423,10 @@ int gpta_pwm_syncin4_demo(void)
 	int iRet = 0;	
 	volatile uint8_t ch;
 //------------------------------------------------------------------------------------------------------------------------	
+#if !defined(USE_GUI)
 	csi_pin_set_mux(PB00,   PB00_GPT_CHA);//20
 	csi_pin_set_mux(PB01,   PB01_GPT_CHB);//21
+#endif
 	
 	csi_bt_timer_init(BT0, 1000);		//初始化BT0, 定时10000us； BT定时，默认采用PEND中断
 	
@@ -496,8 +500,10 @@ int gpta_pwm_syncin0_demo(void)
 	int iRet = 0;	
 	volatile uint8_t ch;
 //------------------------------------------------------------------------------------------------------------------------	
+#if !defined(USE_GUI)
 	csi_pin_set_mux(PB00,   PB00_GPT_CHA);//20
 	csi_pin_set_mux(PB01,   PB01_GPT_CHB);//21
+#endif
 	
 	csi_bt_timer_init(BT0, 800);		//初始化BT0, 定时10000us； BT定时，默认采用PEND中断
 	
