@@ -229,7 +229,9 @@ csi_error_t csi_gpio_port_irq_mode(csp_gpio_t *ptGpioBase, uint32_t wPinMask, cs
 	if((byPortNum > 16) || (eTrgEdge >  GPIO_IRQ_BOTH_EDGE))
 		return CSI_ERROR;
 		
-		
+	csp_exi_port_clr_isr(SYSCON,wPinMask);							//clear interrput status before enable irq 
+	csp_exi_port_int_enable(SYSCON, wPinMask, ENABLE);				//EXI INT enable
+	
 	for(i = 0; i < byPortNum; i++)
 	{
 		if(wPinMask & 0x01)
@@ -239,8 +241,6 @@ csi_error_t csi_gpio_port_irq_mode(csp_gpio_t *ptGpioBase, uint32_t wPinMask, cs
 		}
 		wPinMask = (wPinMask >> 1);
 	}
-	csp_exi_port_clr_isr(SYSCON,wPinMask);							//clear interrput status before enable irq 
-	csp_exi_port_int_enable(SYSCON, wPinMask, ENABLE);				//EXI INT enable
 	
 	return CSI_OK;
 }
