@@ -115,8 +115,6 @@ int gpio_port_irq_demo(void)
 	csi_gpio_port_irq_mode(GPIOA0,wPinMask,GPIO_IRQ_FALLING_EDGE);	//下降沿
 	csi_gpio_port_vic_irq_enable(wPinMask, ENABLE);					//GPIOA端口对应VIC中断使能
 	
-	
-	
 #endif
 
 	return iRet;
