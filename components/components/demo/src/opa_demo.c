@@ -68,13 +68,15 @@ void opa_internal_gain_mode_test(void)
 {
 	csi_adc_config_t tAdcConfig;
 	csi_opa_config_t ptOpaConfig_t;
-
+	
+#if !defined(USE_GUI)	
 	csi_pin_set_mux(PA10,PA10_OPA1P); //PIN26 输入正端
 	csi_pin_set_mux(PA11,PA11_OPA1X); //PIN27 输出
 	csi_pin_set_mux(PA12,PA12_OPA1N); //PIN28 输入负端
 	csi_pin_set_mux(PA13,PA13_OPA0X); //PIN29 输出
 	csi_pin_set_mux(PA14,PA14_OPA0P); //PIN30 输入正端
 	csi_pin_set_mux(PA15,PA15_OPA0N); //PIN31 输入负端
+#endif	
 	
 	//adc 参数配置
 	tAdcConfig.byClkDiv = 0x02;							//ADC clk两分频：clk = pclk/2
@@ -164,15 +166,14 @@ void opa_external_gain_mode_test(void)
 	csi_adc_config_t tAdcConfig;
 	csi_opa_config_t ptOpaConfig_t;
 	
-
+#if !defined(USE_GUI)	
 	csi_pin_set_mux(PA10,PA10_OPA1P); //PIN26 输入正端
 	csi_pin_set_mux(PA11,PA11_OPA1X); //PIN27 输出
 	csi_pin_set_mux(PA12,PA12_OPA1N); //PIN28 输入负端
 	csi_pin_set_mux(PA13,PA13_OPA0X); //PIN29 输出
 	csi_pin_set_mux(PA14,PA14_OPA0P); //PIN30 输入正端
 	csi_pin_set_mux(PA15,PA15_OPA0N); //PIN31 输入负端
-	
-	
+#endif		
 	
 	//adc 参数配置
 	tAdcConfig.byClkDiv = 0x02;							//ADC clk两分频：clk = pclk/2
