@@ -13,7 +13,7 @@ def_config:
   DBG_PRINT2PC: 1
   USE_GUI: 1
 name: apt32f171x
-version: v1.2.3
+version: v1.3.3
 description: 我的第一个方案工程
 tag: ""
 keywords: 
@@ -22,8 +22,8 @@ author:
 license: ""
 type: solution
 depends:
-  - apt32f171x_demo: v1.2.3
-  - sdk_171x: v1.2.3
+  - apt32f171x_demo: v1.3.3
+  - sdk_171x: v1.3.3
 build_config:
   include:
     - include
@@ -40,5 +40,5 @@ source_file:
 install: 
 homepage: 
 depends_forward:
-  - apt32f171x_demo: v1.2.3
-  - sdk_171x: v1.2.3
+  - apt32f171x_demo: v1.3.3
+  - sdk_171x: v1.3.3

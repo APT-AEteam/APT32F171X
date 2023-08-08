@@ -3,6 +3,15 @@ cpu core头文件，csi api接口头文件。
 
 # Release Notes
 ======================================================
+Version: V1.3.3
+Release Date: 2023.8.8
+
+Release Notes
+1、更新csi_gpio_speed_e和csi_gpio_drive_e参数里的枚举定义名称
+2、添加csi_pin_input_filter接口函数
+======================================================
+
+======================================================
 Version: V1.2.3
 Release Date: 2023.5.12
 

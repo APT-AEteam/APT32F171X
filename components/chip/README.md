@@ -2,6 +2,18 @@
 
 # Release Notes
 ======================================================
+Version: V1.3.3
+Release Date: 2023.8.8
+
+Release Notes
+1、规范syc clk相关定义，添加clk clo输出csi枚举定义
+2、添加csi_pin_input_filter接口函数
+3、更新csi_sramcheck_int配置，解决RAM_ERR中断未使能BUG
+4、更新csi_gpio_port_irq_mode函数
+5、添加PA011_INTVREF引脚功能
+======================================================
+
+======================================================
 Version: V1.2.3
 Release Date: 2023.5.12
 
