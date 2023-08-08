@@ -566,10 +566,28 @@ csi_error_t csi_pin_irq_mode(pin_name_e ePinName, csi_exi_grp_e eExiGrp, csi_gpi
 	else
 		exi_trg_edge_set(SYSCON,(gpio_igrp_e)eExiGrp, (exi_trigger_e)eTrgEdge);					//interrupt edge
 	
-	csp_exi_set_port_irq(SYSCON,(0x01ul << eExiGrp), ENABLE);		//EXI INT enable
-	csp_exi_clr_port_irq(SYSCON,(0x01ul << eExiGrp));				//clear interrput status before enable irq 
+	csp_exi_port_clr_isr(SYSCON,(0x01ul << eExiGrp));					//clear exi interrput status before enable irq 
+	csp_exi_port_int_enable(SYSCON,(0x01ul << eExiGrp), ENABLE);		//EXI INT enable
+	
 	
 	return CSI_OK;
+}
+/** \brief pin irq enable
+ * 
+ *  \param[in] ePinName: pin mask,0x0001~0xffff
+ *  \param[in] bEnable: true or false
+ *  \return none
+ */ 
+void csi_pin_irq_enable(pin_name_e ePinName, bool bEnable)
+{
+	csp_gpio_t *ptGpioBase = NULL;
+	unsigned int *ptPinInfo = NULL;
+	
+	ptPinInfo = apt_get_pin_name_addr(ePinName);
+	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
+	ePinName = (pin_name_e)ptPinInfo[1];
+	
+	csp_gpio_int_enable(ptGpioBase, (gpio_int_e)ePinName, bEnable);
 }
 /** \brief pin vic irq enable
  * 
@@ -614,26 +632,7 @@ csi_error_t csi_pin_vic_irq_enable(csi_exi_grp_e eExiGrp, bool bEnable)
 		
 	return CSI_OK;
 }
-/** \brief pin irq enable
- * 
- *  \param[in] ePinName: pin mask,0x0001~0xffff
- *  \param[in] bEnable: true or false
- *  \return none
- */ 
-void csi_pin_irq_enable(pin_name_e ePinName, bool bEnable)
-{
-	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
-	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
-	ePinName = (pin_name_e)ptPinInfo[1];
-	
-	if(bEnable)
-		csp_gpio_irq_en(ptGpioBase, (gpio_exi_e)ePinName);						//enable gpio interrupt 
-	else
-		csp_gpio_irq_dis(ptGpioBase, (gpio_exi_e)ePinName);
-}
+
 /** \brief  gpio pin toggle
  * 
  *  \param[in] ePinName: gpio pin name

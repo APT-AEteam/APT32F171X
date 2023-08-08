@@ -322,6 +322,14 @@ csi_error_t csi_gpio_port_irq_mode(csp_gpio_t *ptGpioBase, uint32_t wPinMask, cs
 */
 void csi_gpio_port_irq_enable(csp_gpio_t *ptGpioBase, uint32_t wPinMask, bool bEnable);
 
+/** 
+  \brief 	   gpio port vic irq enable
+  \param[in]   wPinMask: pin mask,0x0001~0xffff
+  \param[in]   bEnable: true or false
+  \return 	   none
+ */ 
+void csi_gpio_port_vic_irq_enable(uint32_t wPinMask, bool bEnable);
+
 //csi_error_t csi_gpio_debonce(csi_gpio_t *gpio, uint32_t pin_mask, bool enable);
 /**
   \brief       Set one or zero to the selected pin mask

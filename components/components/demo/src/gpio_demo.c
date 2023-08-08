@@ -30,7 +30,8 @@
 #define		PINMASK_PB05		(0x01ul << 5)
 /* Private variablesr------------------------------------------------------*/
 
-/** \brief gpio port output demo 
+/** \brief GPIO PORT的输出demo，使用PORTA(GPIOA)的PA00和PA02，分别配置为推挽和开漏模式，
+ *         PA00和PA02依次输出高、低、高
  * 
  *  \param[in] none
  *  \return error code
@@ -38,16 +39,12 @@
 int gpio_port_ouput_demo(void)
 {
 	int iRet = 0;
+	
+#if !defined(USE_GUI)												//用户未选择图形化编程	
 	uint32_t wPinMask = PINMASK_PA00 | PINMASK_PA02;				//GPIOA0端口，PA00/PA02
-	
 	csi_gpio_port_dir(GPIOA0, wPinMask, GPIO_DIR_OUTPUT);			//GPIOA0 端口配置为输出
-	csi_gpio_port_set_high(GPIOA0, wPinMask);						//输出高
-	mdelay(100);
-	csi_gpio_port_set_low(GPIOA0, wPinMask);						//输出低
-	mdelay(100);
-	csi_gpio_port_set_high(GPIOA0, wPinMask);						//输出高
-	mdelay(100);
 	
+	//开漏
 	csi_gpio_port_output_mode(GPIOA0, wPinMask, GPIO_OPEN_DRAIN);	//GPIOA0 端口配置为开漏输出
 	csi_gpio_port_set_high(GPIOA0, wPinMask);						//输出高
 	mdelay(100);
@@ -56,6 +53,7 @@ int gpio_port_ouput_demo(void)
 	csi_gpio_port_set_high(GPIOA0, wPinMask);						//输出高
 	mdelay(100);
 	
+	//推挽
 	csi_gpio_port_output_mode(GPIOA0, wPinMask, GPIO_PUSH_PULL);	//GPIOA0 端口配置为推挽输出
 	csi_gpio_port_set_high(GPIOA0, wPinMask);						//输出高
 	mdelay(100);
@@ -63,13 +61,13 @@ int gpio_port_ouput_demo(void)
 	mdelay(100);
 	csi_gpio_port_set_high(GPIOA0, wPinMask);						//输出高
 	mdelay(100);
-	
-	my_printf("GPIO PINMASK: %d \n", wPinMask);
+#endif
 	
 	return iRet;
 }
 
-/** \brief gpio port output demo 
+/** \brief GPIO PORT的输入demo，使用PORTA(GPIOA)的PA00和PA02，配置为输入模式，IO再依次配置
+ *         为无上下拉、上拉、下拉
  * 
  *  \param[in] none
  *  \return error code
@@ -77,29 +75,29 @@ int gpio_port_ouput_demo(void)
 int gpio_port_input_demo(void)
 {
 	int iRet = 0;
-	uint32_t wStatus;
+
+#if !defined(USE_GUI)												//用户未选择图形化编程	
 	uint32_t wPinMask = PINMASK_PA00 | PINMASK_PA02;				//GPIOA0端口，PA00/PA02
-	
 	csi_gpio_port_dir(GPIOA0, wPinMask, GPIO_DIR_INPUT);			//GPIOA0 端口配置为输入
+	
+	//无上下拉
 	csi_gpio_port_pull_mode(GPIOA0, wPinMask, GPIO_PULLNONE);		//无上下拉
 	mdelay(100);
-	wStatus = csi_gpio_port_read(GPIOA0,wPinMask);
-	while(wStatus != 0);
 	
+	//上拉
 	csi_gpio_port_pull_mode(GPIOA0, wPinMask, GPIO_PULLUP);			//上拉
 	mdelay(100);
-	wStatus = csi_gpio_port_read(GPIOA0,wPinMask);
-	while(wStatus != wPinMask);
 	
+	//下拉
 	csi_gpio_port_pull_mode(GPIOA0, wPinMask, GPIO_PULLDOWN);		//下拉
 	mdelay(100);
-	wStatus = csi_gpio_port_read(GPIOA0,wPinMask);
-	while(wStatus != 0);
-	
+#endif
+
 	return iRet;
 }
 
- /** \brief gpio port interrupt
+ /** \brief GPIO PORT的中断demo，使用PORTA(GPIOA)的PA00、PA02和PA05,配置为下降沿中断，IO端口需
+  *         配置为输入模式，是否配置为上、下拉或者配置上下拉，应根据实际应用来选择
  * 
  *  \param[in] none
  *  \return error code
@@ -108,17 +106,25 @@ int gpio_port_input_demo(void)
 int gpio_port_irq_demo(void)
 {
 	int iRet = 0;
-	uint32_t wPinMask = PINMASK_PA00 | PINMASK_PA02 | PINMASK_PA05; //GPIOA0端口，PA00/PA02/PA05
 
+#if !defined(USE_GUI)												//用户未选择图形化编程	
+	uint32_t wPinMask = PINMASK_PA00 | PINMASK_PA02 | PINMASK_PA05; //GPIOA0端口，PA00/PA02/PA05
 	csi_gpio_port_dir(GPIOA0, wPinMask, GPIO_DIR_INPUT);			//端口配置为输入
 	csi_gpio_port_pull_mode(GPIOA0, wPinMask, GPIO_PULLUP);			//上拉
-	csi_gpio_port_irq_mode(GPIOA0,wPinMask,GPIO_IRQ_FALLING_EDGE);	//下降沿
 	csi_gpio_port_irq_enable(GPIOA0,wPinMask,ENABLE);				//使能GPIOA0端口对应外部中断
+	csi_gpio_port_irq_mode(GPIOA0,wPinMask,GPIO_IRQ_FALLING_EDGE);	//下降沿
+	csi_gpio_port_vic_irq_enable(wPinMask, ENABLE);					//GPIOA端口对应VIC中断使能
 	
+	
+	
+#endif
+
 	return iRet;
 }
 
-/** \brief gpio interrupt handle function
+/** \brief GPIO中断处理函数，GPIO产生中断时系统执行该函数，定义为弱属性，用户可参考此函数在实际
+ *         使用中重新定义该函数(正常属性)，在自己的中断函数里添加具体的处理；系统会优先调用非弱
+ *         属性的该函数。 	
  * 
  *  \param[in] byExiNum: exi interrupt vector num, 0~4
  *  \return none
@@ -126,7 +132,7 @@ int gpio_port_irq_demo(void)
 __attribute__((weak)) void gpio_irqhandler(uint8_t byExiNum)
 {
 	volatile uint32_t wExiSta; 
-	wExiSta = csp_exi_get_port_irq(SYSCON);
+	wExiSta = csp_exi_port_get_isr(SYSCON);
 	
     switch(byExiNum)
 	{
@@ -199,5 +205,5 @@ __attribute__((weak)) void gpio_irqhandler(uint8_t byExiNum)
 			break;
 		
 	}
-	csp_exi_clr_port_irq(SYSCON,wExiSta);		//clear interrput 
+	csp_exi_port_clr_isr(SYSCON,wExiSta);		//clear interrput 
 }

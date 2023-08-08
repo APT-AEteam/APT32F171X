@@ -19,7 +19,8 @@
 /* Private macro-----------------------------------------------------------*/
 /* Private variablesr------------------------------------------------------*/
 
-/** \brief bt timer：BT定时中断demo
+/** \brief BT 定时中断demo，定时5000us(5ms), 每5ms进一次BT定时中断，默认选择
+ *         配置的是PEND中断
  * 
  *  \param[in] none
  *  \return error code
@@ -49,8 +50,10 @@ int bt_pwm_demo(void)
 	int iRet = 0;
 	csi_bt_pwm_config_t tPwmCfg;							//BT PWM输出参数初始化配置结构体
 	
+#if !defined(USE_GUI)										//用户未选择图形化编程	
 	csi_pin_set_mux(PA02, PA02_BT0_OUT);					//PA02 作为BT0 PWM输出引脚
-	
+#endif
+
 	//init timer pwm para config
 	tPwmCfg.byIdleLevel = BT_PWM_IDLE_HIGH;					//PWM 输出空闲电平
 	tPwmCfg.byStartLevel= BT_PWM_START_HIGH;				//PWM 输出起始电平
@@ -79,7 +82,8 @@ int bt_pwm_demo(void)
 	
 	return iRet;
 }
-/** \brief bt sync start：EXI通过BT同步输入端口0触发BT启动 
+/** \brief EXI通过BT同步输入端口0触发BT启动；用PA07的下降沿通过ETCB触发BT0启动，不开启EXI(PA07)的VIC中断；
+ *         用户可以选择使能/禁止VIC中断(选择是否进入PA07中断) 
  *  
  *  \param[in] none
  *  \return error code
@@ -92,8 +96,8 @@ int bt_sync_start_demo(void)
 
 	csi_pin_set_mux(PA07, PA07_INPUT);									//PA07 配置为输入
 	csi_pin_pull_mode(PA07, GPIO_PULLUP);								//PA07 上拉
-	csi_pin_irq_mode(PA07, EXI_GRP7, GPIO_IRQ_FALLING_EDGE);			//PA07 下降沿产生中断，选择中断组7
 	csi_pin_irq_enable(PA07, ENABLE);									//PA07 中断使能	
+	csi_pin_irq_mode(PA07, EXI_GRP7, GPIO_IRQ_FALLING_EDGE);			//PA07 下降沿产生中断，选择中断组7
 	
 	csi_exi_set_evtrg(EXI_TRGOUT3, TRGSRC_EXI7, 3);						//EXI7 触发EXI_TRGOUT3
 	
@@ -115,7 +119,8 @@ int bt_sync_start_demo(void)
 	
 	return iRet;
 }
-/** \brief bt sync stop：EXI通过BT同步输入端口1触发BT停止
+/** \brief EXI通过BT同步输入端口1触发BT停止；用PB01的下降沿通过ETCB触发BT0启动，不开启EXI(PB01)的VIC中断；
+ *         用户可以选择使能/禁止VIC中断(选择是否进入PB01中断) 
  *  
  *  \param[in] none
  *  \return error code
@@ -151,7 +156,8 @@ int bt_sync_stop_demo(void)
 	return iRet;
 	
 }
-/** \brief bt sync count: EXI通过BT同步输入端口2触发BT计数值加1
+/** \brief EXI通过BT同步输入端口2触发BT计数值加1；用PB01的下降沿通过ETCB触发BT0启动，不开启EXI(PB01)的VIC中断；
+ *         用户可以选择使能/禁止VIC中断(选择是否进入PB01中断) 
  *  
  *  \param[in] none
  *  \return error code
@@ -188,7 +194,7 @@ int bt_sync_count_demo(void)
 }
 
 
-/** \brief  bt event trg count：BT0通过PEND事件产生触发输出到ETCB,通过BT1同步输入0触发BT1启动
+/** \brief  BT0通过PEND事件产生触发输出到ETCB，通过BT1同步输入0触发BT1启动,
  *  
  *  \param[in] none
  *  \return error code
@@ -224,7 +230,7 @@ int bt_trg_out_demo(void)
 	
 	return iRet;
 }
-/** \brief bt sync trg auto rearm for sync: bt用sync1事件自动REARM sync0
+/** \brief  BT用sync1事件自动REARM sync0
  *  
  *  \param[in] none
  *  \return error code
@@ -281,7 +287,7 @@ int bt_sync1_arearm_sync0_demo(void)
 	return iRet;
 }
 
-/** \brief bt sync trg auto rearm for sync: bt用sync0事件自动REARM sync1
+/** \brief BT用sync0事件自动REARM sync1
  *  
  *  \param[in] none
  *  \return error code
@@ -338,7 +344,9 @@ int bt_sync0_arearm_sync1_demo(void)
 	return iRet;
 }
 
-/** \brief bt interrupt handle function
+/** \brief BT中断处理函数，BT产生中断时系统执行该函数，定义为弱属性，用户可参考此函数在实际使
+ *         用中重新定义该函数(正常属性)，在自己的中断函数里添加具体的处理；系统会优先调用非弱
+ *         属性的该函数。
  * 
  *  \param[in] ptBtBase: pointer of bt register structure
  *  \return none

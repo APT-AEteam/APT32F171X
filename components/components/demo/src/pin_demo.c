@@ -21,7 +21,8 @@
 /* Private variablesr------------------------------------------------------*/
 
 
-/** \brief gpio pin output demo 
+/** \brief GPIO的PIN脚输出demo，PA05管脚为例，配置为开漏输出和推挽输出模式，PA05
+ *         依次输出高、低、高
  * 
  *  \param[in] none
  *  \return error code
@@ -29,15 +30,11 @@
 int pin_output_demo(void)
 {
 	int iRet = 0;
-	
+
+#if !defined(USE_GUI)							//用户未选择图形化编程	
 	csi_pin_set_mux(PA05,PA05_OUTPUT);			//PA05 配置为输出
-	csi_pin_set_high(PA05);						//PA05 输出高
-	mdelay(100);								//延时100ms
-	csi_pin_set_low(PA05);						//PA05 输出低
-	mdelay(100);
-	csi_pin_set_high(PA05);						//PA05 输出低
-	mdelay(100);
 	
+	//开漏
 	csi_pin_output_mode(PA05, GPIO_OPEN_DRAIN);	//PA05 配置为开漏输出
 	csi_pin_set_high(PA05);						
 	mdelay(100);
@@ -46,6 +43,7 @@ int pin_output_demo(void)
 	csi_pin_set_high(PA05);						
 	mdelay(100);
 	
+	//推挽
 	csi_pin_output_mode(PA05, GPIO_PUSH_PULL);	//PA05 配置为推挽输出
 	csi_pin_set_high(PA05);						
 	mdelay(100);
@@ -53,11 +51,13 @@ int pin_output_demo(void)
 	mdelay(100);
 	csi_pin_set_high(PA05);						
 	mdelay(100);
-	
+#endif
+
 	return iRet;
 }
 
-/** \brief gpio pin output demo 
+/** \brief GPIO的PIN脚输入demo，PA05管脚为例，配置为输入模式，依次配置无上下拉
+ *         上拉、下拉。
  * 
  *  \param[in] none
  *  \return error code
@@ -66,28 +66,25 @@ int pin_input_demo(void)
 {
 	int iRet = 0;
 	
-	uint32_t wStatus;
-	
+#if !defined(USE_GUI)							//用户未选择图形化编程	
 	csi_pin_set_mux(PA05,PA05_INPUT);			//PA05 配置为输入
+	
 	csi_pin_pull_mode(PA05,GPIO_PULLNONE);		//无上下拉
 	mdelay(100);
-	wStatus = csi_pin_read(PA05);				//PA05 输入状态读取(0/1 = 高/低)
-	while(wStatus != 0);
 	
 	csi_pin_pull_mode(PA05,GPIO_PULLUP);		//上拉
 	mdelay(100);
-	wStatus = csi_pin_read(PA05);
-	while(wStatus != (0x01 << 0x05));
 	
 	csi_pin_pull_mode(PA05,GPIO_PULLDOWN);		//下拉
 	mdelay(100);
-	wStatus = csi_pin_read(PA05);
-	while(wStatus != 0);
+#endif	
 	
 	return iRet;
 }
 
-/** \brief gpio pin output demo 
+/** \brief GPIO的PIN脚输入demo，PB01管脚为例,配置为双边沿中断模式，PB02需配置为输入模式，上下
+ *         拉配置的选择可根据实际使用场景来选择，中断处理函数和gpio_demo里的公用，可参阅gpio
+ *         demo的gpio_irqhandler函数
  * 
  *  \param[in] none
  *  \return error code
@@ -96,12 +93,13 @@ int pin_irq_demo(void)
 {
 	int iRet = 0;
 	
-//	csi_exi_flt_enable(EXI_FLT_CKDIV4, ENABLE);				//EXI 去抖滤波
+#if !defined(USE_GUI)											//用户未选择图形化编程		
 	csi_pin_set_mux(PB02, PB02_INPUT);							//PB02 配置为输入
 	csi_pin_pull_mode(PB02, GPIO_PULLUP);						//PB02 上拉
-	csi_pin_irq_mode(PB02, EXI_GRP2, GPIO_IRQ_FALLING_EDGE);	//PB02 下降沿产生中断，选择中断组2
 	csi_pin_irq_enable(PB02, ENABLE);							//PB02 中断使能	
+	csi_pin_irq_mode(PB02, EXI_GRP2, GPIO_IRQ_FALLING_EDGE);	//PB02 下降沿产生中断，选择中断组2
 	csi_pin_vic_irq_enable(EXI_GRP2, ENABLE);					//VIC中断使能，选择中断组2
+#endif
 	
 	return iRet;
 }
