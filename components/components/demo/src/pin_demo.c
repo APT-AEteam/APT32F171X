@@ -82,7 +82,7 @@ int pin_input_demo(void)
 	return iRet;
 }
 
-/** \brief GPIO的PIN脚输入demo，PB01管脚为例,配置为双边沿中断模式，PB02需配置为输入模式，上下
+/** \brief GPIO的PIN脚输入demo，PB01管脚为例,配置为双边沿中断模式，PA05需配置为输入模式，上下
  *         拉配置的选择可根据实际使用场景来选择，中断处理函数和gpio_demo里的公用，可参阅gpio
  *         demo的gpio_irqhandler函数
  * 
@@ -94,11 +94,11 @@ int pin_irq_demo(void)
 	int iRet = 0;
 	
 #if !defined(USE_GUI)											//用户未选择图形化编程		
-	csi_pin_set_mux(PB02, PB02_INPUT);							//PB02 配置为输入
-	csi_pin_pull_mode(PB02, GPIO_PULLUP);						//PB02 上拉
-	csi_pin_irq_enable(PB02, ENABLE);							//PB02 中断使能	
-	csi_pin_irq_mode(PB02, EXI_GRP2, GPIO_IRQ_FALLING_EDGE);	//PB02 下降沿产生中断，选择中断组2
-	csi_pin_vic_irq_enable(EXI_GRP2, ENABLE);					//VIC中断使能，选择中断组2
+	csi_pin_set_mux(PA05, PB02_INPUT);							//PA05 配置为输入
+	csi_pin_pull_mode(PA05, GPIO_PULLUP);						//PA05 上拉
+	csi_pin_irq_enable(PA05, ENABLE);							//PA05 中断使能	
+	csi_pin_irq_mode(PA05, EXI_GRP5, GPIO_IRQ_FALLING_EDGE);	//PA05 下降沿产生中断，选择中断组5
+	csi_pin_vic_irq_enable(EXI_GRP5, ENABLE);					//VIC中断使能，选择中断组5
 #endif
 	
 	return iRet;
