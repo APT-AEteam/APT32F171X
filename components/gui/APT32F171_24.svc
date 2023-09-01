@@ -6365,11 +6365,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -6412,10 +6407,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -6458,10 +6449,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -6504,10 +6491,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -6560,11 +6543,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -6607,10 +6585,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -6653,10 +6627,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -6699,10 +6669,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -6755,11 +6721,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -6802,10 +6763,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -6848,10 +6805,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -6894,10 +6847,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -6950,11 +6899,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -6996,10 +6940,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7052,11 +6992,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7098,10 +7033,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7154,11 +7085,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7200,10 +7126,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7256,11 +7178,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7302,10 +7219,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7358,11 +7271,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7404,10 +7312,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7460,11 +7364,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7506,10 +7405,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7562,11 +7457,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7608,10 +7498,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7664,11 +7550,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7710,10 +7591,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7766,11 +7643,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7812,10 +7684,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7868,11 +7736,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7914,10 +7777,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -7970,11 +7829,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8016,10 +7870,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8072,11 +7922,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8118,10 +7963,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8174,11 +8015,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8220,10 +8056,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8276,11 +8108,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8322,10 +8149,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8378,11 +8201,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8424,10 +8242,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8480,11 +8294,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8526,10 +8335,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8582,11 +8387,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8628,10 +8428,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8684,11 +8480,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8730,10 +8521,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8786,11 +8573,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8832,10 +8614,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8888,11 +8666,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8934,10 +8707,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -8990,11 +8759,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9036,10 +8800,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9092,11 +8852,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9138,10 +8893,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9194,11 +8945,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9240,10 +8986,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9296,11 +9038,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9342,10 +9079,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9398,11 +9131,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9444,10 +9172,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9500,11 +9224,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9546,10 +9265,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9602,11 +9317,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9648,10 +9358,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9704,11 +9410,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9750,10 +9451,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9806,11 +9503,6 @@
               <sel>ETB_CMP_TRGOUT13</sel>
               <sel>ETB_ADC_TRGOUT0</sel>
               <sel>ETB_ADC_TRGOUT1</sel>
-              <sel>ETB_TC1_TRG_PEND</sel>
-              <sel>ETB_TC1_TRG_MATCH</sel>
-              <sel>ETB_TC2_TRG_PEND</sel>
-              <sel>ETB_EPWM_TRG_ADC</sel>
-              <sel>ETB_EPWM_TRG_ST</sel>
             </Selections>
             <Comment>触发第一个事件源选择(事件源详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9852,10 +9544,6 @@
               <sel>ETB_CMP2_SYNCIN</sel>
               <sel>ETB_CMP3_SYNCIN</sel>
               <sel>ETB_CMP4_SYNCIN</sel>
-              <sel>ETB_EPWM_SYNCIN0</sel>
-              <sel>ETB_EPWM_SYNCIN1</sel>
-              <sel>ETB_EPWM_SYNCIN2</sel>
-              <sel>ETB_EPWM_SYNCIN3</sel>
             </Selections>
             <Comment>触发目标事件选择(目标事件详见ETCB章节事件对应表)</Comment>
           </Property>
@@ -9869,7 +9557,7 @@
             <Comment>触发类型选择,包含ETB_HARDWARE_TRG和ETB_SOFTWARE_TRG</Comment>
           </Property>
         </Device>
-      </Category>
+      </Category> 
       <Category>
         <label>EPT</label>
         <Device deviceId="EPT0">
