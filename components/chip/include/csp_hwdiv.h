@@ -18,18 +18,21 @@
 /// \struct csp_hwdiv_t
 /// \brief HWHIV reg description
 typedef struct
- {
-	 __IOM uint32_t	DIVIDEND;
-	 __IOM uint32_t	DIVISOR;
-	 __IM uint32_t	QUOTIENT;
-	 __IM uint32_t	REMAIN;
-	 __IOM uint32_t	CR;
- }csp_hwdiv_t;
+{
+	__IOM uint32_t	DIVIDEND;
+	__IOM uint32_t	DIVISOR;
+	__IM uint32_t	QUOTIENT;
+	__IM uint32_t	REMAIN;
+	__IOM uint32_t	CR;
+}csp_hwdiv_t;
  
- typedef enum{
+typedef enum{
 	SIGNED = 0,
 	UNSIGHED
- }csp_hwdiv_mode_e;
+}csp_hwdiv_mode_e;
  
-
+extern int hd_divsi3(int wDividend, int wDivisor);
+extern int hd_modsi3(int wDividend, int wDivisor);
+extern unsigned int hd_udivsi3(unsigned int wDividend, unsigned int wDivisor);
+extern unsigned int hd_umodsi3(unsigned int wDividend, unsigned int wDivisor);
 #endif
