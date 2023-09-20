@@ -134,6 +134,7 @@ static inline void csp_ifc_addr(csp_ifc_t *ptIfcBase, uint32_t wAddr)
 
 static inline void csp_ifc_int_enable(csp_ifc_t *ptIfcBase, ifc_int_e eInt, bool bEnable)
 {
+	ptIfcBase->ICR = eInt;
 	if (bEnable)
 		ptIfcBase->IMCR |= eInt;
 	else
