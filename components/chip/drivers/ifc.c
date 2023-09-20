@@ -472,6 +472,7 @@ csi_error_t csi_ifc_wr_useroption(csp_ifc_t *ptIfcBase, uint32_t wData)
     wPageStAddr = USEROPTION_ADDR & 0xFFFFFFC0;
     wOffsetAddr = USEROPTION_ADDR>>2 & 0x0000000F;
 	
+	csp_ifc_clk_enable(IFC, ENABLE);
 	///step1
 	apt_ifc_step_sync(ptIfcBase, PAGE_LAT_CLR_HIDM1, 0);
 	///step2
