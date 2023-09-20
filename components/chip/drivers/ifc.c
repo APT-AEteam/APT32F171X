@@ -498,18 +498,18 @@ csi_error_t csi_ifc_wr_useroption(csp_ifc_t *ptIfcBase, uint32_t wData)
 	apt_ifc_step_sync(ptIfcBase, USEROPTION_ERASE, 0);
 	///step6
 	apt_ifc_step_sync(ptIfcBase, USEROPTION_PGM, 0);
-	///whole page check
-	for (i=0; i<bPageSize; i++)
-	{
-			if (*(uint32_t *)(wPageStAddr+4*i) != wBuff[i]){
-				tRet = CSI_ERROR;
-				g_bFlashCheckPass = 0;
-				g_bFlashPgmDne = 1;
-				return tRet;
-			}
-	}
-	if (tRet != CSI_ERROR)
-		g_bFlashPgmDne = 1;
+	///check
 	
+	if (*(uint32_t *)USEROPTION_ADDR != wData) {
+		g_bFlashCheckPass = 0;
+		tRet = CSI_ERROR;
+
+	}
+	else {
+		g_bFlashCheckPass = 1;
+		tRet = CSI_OK;
+	}
+	
+	g_bFlashPgmDne = 1;	
 	return tRet;
 }
