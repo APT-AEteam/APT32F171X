@@ -85,9 +85,12 @@
    __IM  uint32_t  	MISR;       //0x00D4    Interrupt MISR
    __IOM uint32_t   IMCR;       //0x00D8    Interrupt IMCR
    __IOM uint32_t   ICR;        //0x00DC    Interrupt clear
-    __IOM uint32_t REGLK;           //0x00e0                                             
-    __IOM uint32_t REGLK2;          //0x00e4                                             
-    __IOM uint32_t REGPROT;         //0x00e8 
+   __IOM uint32_t	RSVD1;		//0x00e0	Reserved1                                          
+   __IOM uint32_t	RSVD2;		//0x00e4	Reserved2                                           
+   __IOM uint32_t   REGPROT;    //0x00e8 
+   __IOM uint32_t	RSVD3;		//0x00eC	Reserved3 
+   __IOM uint32_t	CXOSF; 		//0x00F0
+   __IOM uint32_t	CXCSF;      //0x00F4
 } csp_ept_t;
 
 
@@ -235,6 +238,13 @@ typedef enum{
 #define EPT_CMP_LDRST_POS(n) (23 + (n))
 #define EPT_CMP_LDRST_MSK(n) (0x1 << EPT_CMP_LDRST_POS(n))	
 
+#define EPT_CHPMD_POS		(27)
+#define EPT_CHPMD_MSK		(3 << EPT_CHPMD_POS)
+
+typedef enum{
+	EPT_CHPMODE_HIGH = 1,
+	EPT_CHPMODE_LOW,
+}ept_chpmd_e;
 
 
 ///SYNCR Regiser
@@ -469,13 +479,6 @@ typedef enum {
 
 #define EPT_AQCSF_LDTIME_POS (16)
 #define EPT_AQCSF_LDTIME_MSK (0x3 << EPT_AQCSF_LDTIME_POS)	
-//typedef enum{
-//	EPT_LDAQCR_ZRO = 0,
-//	EPT_LDAQCR_PRD,
-//	EPT_LDAQCR_ZROPRD
-//}csp_ept_ldaqcr_e;
-
-
 
 ///DBLDR
 #define EPT_DBCR_SHDWEN_POS	(0)
@@ -629,6 +632,21 @@ typedef enum{
 	EP6,
 	EP7,
 }csp_ept_ep_e;
+
+typedef enum{
+	EPT_HD_LK_EP0 = 0,
+	EPT_HD_LK_EP1,
+	EPT_HD_LK_EP2,
+	EPT_HD_LK_EP3,
+	EPT_HD_LK_EP4,
+	EPT_HD_LK_EP5,
+	EPT_HD_LK_EP6,
+	EPT_HD_LK_EP7,
+	EPT_HD_LK_CPU_FAULT,
+	EPT_HD_LK_MEM_FAULT,
+	EPT_HD_LK_EOM_FAULT,
+}csp_ept_hdlk_e;
+
 typedef enum {
 	EBI0 = 1,
 	EBI1,
@@ -710,6 +728,14 @@ typedef enum{
 	EPT_EMASYNC_DISABLE
 }csp_ept_emasync_e;
 
+#define EPT_HLCRV_POS	(27)
+#define EPT_HLCRV_MSK	(0x1 << EPT_HLCRV_POS)
+
+typedef enum{
+	EPT_HLCRV_MD_STOP = 0,
+	EPT_HLCRV_MD_CONT,
+}ept_hlcrvmd_e;
+
 #define EPT_CPUFAULT_HLCK_POS	(28)
 #define EPT_CPUFAULT_HLCK_MSK	(0x1 << EPT_CPUFAULT_HLCK_POS)
 #define EPT_MEMFAULT_HLCK_POS	(29)
@@ -736,7 +762,6 @@ typedef enum{
 #define EPT_EMCHBY_O_MSK	(0x3 << EPT_EMCHBY_O_POS)
 #define EPT_EMCHCY_O_POS	(12)
 #define EPT_EMCHCY_O_MSK	(0x3 << EPT_EMCHCY_O_POS)
-
 
 //EMSLSR, EMSLCLR, EMHLSR, EMHLCLRm EMRISR, EMMISR, EMIMCR, EMICR
 typedef enum {
@@ -831,61 +856,108 @@ typedef enum{
 ///EVSWF
 #define EPT_SWF_EV(n)	(0x1 << n)
 
+//CXOSF
+#define GPTB_OSTSFA		(1)
+#define GPTB_ACTA_POS	(1)
+#define GPTB_ACTA_MSK	(0x3 << GPTB_ACTA_POS)
+#define GPTB_OSTSFB		(0x1 << 4)
+#define GPTB_ACTB_POS	(5)
+#define GPTB_ACTB_MSK	(0x3 << GPTB_ACTB_POS)
+#define GPTB_AQCSF_LDMD_POS (16)
+#define GPTB_AQCSF_LDMD_MSK (0x3 << GPTB_AQCSF_LDMD_POS)
 
 /******************************************************************************
 /// Interrupt Related
 ******************************************************************************/
 typedef enum{
-	EPT_INT_TRGEV0 = 0x1,
-	EPT_INT_TRGEV1 = 0x2,
-	EPT_INT_TRGEV2 = 0x4,
-	EPT_INT_TRGEV3 = 0x8,
-	EPT_INT_CAPLD0 = 0x1 << 4,
-	EPT_INT_CAPLD1 = 0x1 << 5,
-	EPT_INT_CAPLD2 = 0x1 << 6,
-	EPT_INT_CAPLD3 = 0x1 << 7,
-	EPT_INT_CAU = 0x1 << 8,
-	EPT_INT_CAD = 0x1 << 9,
-	EPT_INT_CBU = 0x1 << 10,
-	EPT_INT_CBD = 0x1 << 11,
-	EPT_INT_CCU = 0x1 << 12,	
-	EPT_INT_CCD = 0x1 << 13,
-	EPT_INT_CDU = 0x1 << 14,
-	EPT_INT_CDD = 0x1 << 15,
-	EPT_INT_PEND = 0x1 << 16	
+	EPT_INT_TRGEV0 	= 0x1 << 0,
+	EPT_INT_TRGEV1 	= 0x1 << 1,
+	EPT_INT_TRGEV2 	= 0x2 << 2,
+	EPT_INT_TRGEV3 	= 0x2 << 3,
+	EPT_INT_CAPLD0 	= 0x1 << 4,
+	EPT_INT_CAPLD1 	= 0x1 << 5,
+	EPT_INT_CAPLD2 	= 0x1 << 6,
+	EPT_INT_CAPLD3 	= 0x1 << 7,
+	EPT_INT_CAU 	= 0x1 << 8,
+	EPT_INT_CAD 	= 0x1 << 9,
+	EPT_INT_CBU 	= 0x1 << 10,
+	EPT_INT_CBD 	= 0x1 << 11,
+	EPT_INT_CCU 	= 0x1 << 12,	
+	EPT_INT_CCD 	= 0x1 << 13,
+	EPT_INT_CDU 	= 0x1 << 14,
+	EPT_INT_CDD 	= 0x1 << 15,
+	EPT_INT_PEND 	= 0x1 << 16,
+	EPT_INT_PRMA 	= 0x1 << 17,
+	EPT_INT_ZRMA 	= 0x1 << 18,
+	EPT_INT_PROTA 	= 0x1 << 19,
+	EPT_INT_PROTB 	= 0x1 << 20,
+	EPT_INT_PROTC 	= 0x1 << 21,	
 }csp_ept_int_e;
 
 #define EPT_INT_EV(n)		(0x1 << n)
 #define EPT_INT_CAPLD(n)	(0x1 << (n+4))
 
-//REGLK 
-#define EPT_PRDR_POS	(0)
-#define EPT_PRDR_MSK   (0xf << EPT_PRDR_POS)
-#define EPT_CMPA_POS	(4)
-#define EPT_CMPA_MSK   (0xf << EPT_CMPA_POS)
-#define EPT_CMPB_POS	(8)
-#define EPT_CMPB_MSK   (0xf << EPT_CMPB_POS)
-#define EPT_GLD2_POS	(20)
-#define EPT_GLD2_MSK   (0xf << EPT_GLD2_POS)	
-#define EPT_RSSR_POS	(24)
-#define EPT_RSSR_MSK   (0xf << EPT_RSSR_POS)	
-
-//REGLK2 
-#define EPT_EMSLCLR_POS   (0)
-#define EPT_EMSLCLR_MSK   (0xf << EPT_EMSLCLR_POS)
-#define EPT_EMHLCLR_POS   (4)
-#define EPT_EMHLCLR_MSK   (0xf << EPT_EMHLCLR_POS)
-#define EPT_EMICR_POS	   (8)
-#define EPT_EMICR_MSK     (0xf << EPT_EMICR_POS)
-#define EPT_EMFRCR_POS	   (12)
-#define EPT_EMFRCR_MSK    (0xf << EPT_EMFRCR_POS)	
-#define EPT_AQOSF_POS	   (16)
-#define EPT_AQOSF_MSK     (0xf << EPT_AQOSF_POS)
-#define EPT_AQCSF_POS	   (20)
-#define EPT_AQCSF_MSK     (0xf << EPT_AQCSF_POS)
-
 ///REGPROT
 #define EPT_REGPROT			(0xa55a << 16 | 0xc73a)
+
+//CXOSF
+#define EPT_OSTSFAX		(1)
+#define EPT_ACTAX_POS	(1)
+#define EPT_ACTAX_MSK	(0x3 << EPT_ACTAX_POS)
+#define EPT_OSTSFAY		(0x1 << 4)
+#define EPT_ACTAY_POS	(5)
+#define EPT_ACTAY_MSK	(0x3 << EPT_ACTAY_POS)
+#define EPT_OSTSFBX		(0x1 << 8)
+#define EPT_ACTBX_POS	(9)
+#define EPT_ACTBX_MSK	(0x3 << EPT_ACTBX_POS)
+#define EPT_OSTSFBY		(0x1 << 12)
+#define EPT_ACTBY_POS	(13)
+#define EPT_ACTBY_MSK	(0x3 << EPT_ACTBY_POS)
+#define EPT_OSTSFCX		(0x1 << 16)
+#define EPT_ACTCX_POS	(17)
+#define EPT_ACTCX_MSK	(0x3 << EPT_ACTCX_POS)
+#define EPT_OSTSFCY		(0x1 << 20)
+#define EPT_ACTCY_POS	(21)
+#define EPT_ACTCY_MSK	(0x3 << EPT_ACTCY_POS)
+#define EPT_OSTSFD		(0x1 << 24)
+#define EPT_ACTD_POS	(25)
+#define EPT_ACTD_MSK	(0x3 << EPT_ACTD_POS)
+
+#define EPT_CXCSF_LDMD_POS (30)
+#define EPT_CXCSF_LDMD_MSK (0x3 << EPT_CXCSF_LDMD_POS)
+
+typedef enum{
+    EPT_CHANNEL_AX=0,
+	EPT_CHANNEL_AY,
+	EPT_CHANNEL_BX,
+	EPT_CHANNEL_BY,
+	EPT_CHANNEL_CX,
+	EPT_CHANNEL_CY,
+	EPT_CHANNEL_D,
+}ept_cxosf_channel_e;
+
+typedef enum {
+	EPT_ACT_NA = 0,
+	EPT_ACT_LO,
+	EPT_ACT_HI,
+	EPT_ACT_TG	
+}ept_action_e;
+
+///CXCSF
+#define EPT_CXCSF_CH_POS(ch)	(ch)
+#define EPT_CXCSF_CH_MSK(ch)	(1 << ch)
+
+typedef enum {
+	EPT_CXCSF_LD_MD_NOW=0,
+	EPT_CXCSF_LD_MD_ZRO,
+	EPT_CXCSF_LD_MD_PRD,
+	EPT_CXCSF_LD_MD_ZRO_PRD
+}ept_cxcsf_ldmd_e;
+
+typedef enum {
+	EPT_CXCSF_ACT_CLR_FORCE = 0,
+	EPT_CXCSF_ACT_FORCE,
+}ept_cxcsf_act_e;
 /*****************************************************************************
  * static inline functions
  ****************************************************************************/
@@ -1004,6 +1076,11 @@ static inline void csp_ept_set_prdld(csp_ept_t *ptEptBase,csp_ept_ldprdr_e eVal)
 static inline void csp_ept_set_pscr(csp_ept_t *ptEptBase, uint16_t hwPscr)
 {
 	ptEptBase->PSCR = hwPscr;
+}
+
+static inline void csp_ept_set_channel_polarity_mode(csp_ept_t *ptEptBase, ept_chpmd_e eChpmd) 
+{
+	ptEptBase->CR =( ptEptBase -> CR & ~(EPT_CHPMD_MSK)) | ((eChpmd & 0x03) << EPT_CHPMD_POS);
 }
 
 static inline void csp_ept_set_prdr(csp_ept_t *ptEptBase, uint16_t hwVal)
@@ -1157,6 +1234,12 @@ static inline void csp_ept_set_emecr(csp_ept_t *ptEptBase,uint32_t wVal)
 	ptEptBase -> EMECR = wVal;
 }
 
+static inline void csp_ept_set_hlcrv_mode(csp_ept_t *ptEptBase, ept_hlcrvmd_e eHlcrvmd)
+{
+	ptEptBase -> REGPROT = EPT_REGPROT;
+	ptEptBase -> EMECR = (ptEptBase -> EMECR & (~EPT_HLCRV_MSK)) | (eHlcrvmd << EPT_HLCRV_POS);
+}
+
 static inline  uint32_t csp_ept_get_emecr(csp_ept_t *ptEptBase)				
 {
 	return (ptEptBase->EMECR);
@@ -1187,9 +1270,9 @@ static inline uint16_t csp_ept_get_emHdlck(csp_ept_t *ptEptBase)
 	return (ptEptBase ->EMHLSR &0x7ff);
 }
 
-static inline void csp_ept_clr_emHdlck(csp_ept_t *ptEptBase, csp_ept_ep_e eEp)
+static inline void csp_ept_clr_emHdlck(csp_ept_t *ptEptBase, csp_ept_hdlk_e eHdlk)
 {
-	ptEptBase -> EMHLCLR = 0x01<< eEp;
+	ptEptBase -> EMHLCLR = 0x01<< eHdlk;
 }
 
 static inline void csp_ept_force_em(csp_ept_t *ptEptBase, csp_ept_ep_e eEp)
@@ -1475,17 +1558,53 @@ static inline void csp_ept_eomf_hdlck_enable(csp_ept_t *ptEptBase, bool bEnable)
 	ptEptBase -> EMECR = (ptEptBase -> EMECR & ~(EPT_EOMFAULT_HLCK_MSK)) | (bEnable << EPT_EOMFAULT_HLCK_POS);
 }
 
-static inline void csp_ept_set_feglk(csp_ept_t *pteptBase, uint32_t wVal)
+static inline void csp_ept_set_cxosf(csp_ept_t *ptEptBase, ept_cxosf_channel_e eChannel, ept_action_e eAction)
 {
-	pteptBase -> REGLK = wVal;
-}
-static inline void csp_ept_set_feglk2(csp_ept_t *pteptBase, uint32_t wVal)
-{
-	pteptBase -> REGLK2 = wVal;
+	if(eChannel == EPT_CHANNEL_AX)
+	{
+		ptEptBase -> CXOSF |= EPT_OSTSFAX;
+		ptEptBase -> CXOSF  = (ptEptBase -> CXOSF & ~(EPT_ACTAX_MSK)) | ((eAction & 0x03) << EPT_ACTAX_POS);
+	}
+	else if(eChannel == EPT_CHANNEL_AY)
+	{
+		ptEptBase -> CXOSF |= EPT_OSTSFAY;
+		ptEptBase -> CXOSF  = (ptEptBase -> CXOSF & ~(EPT_ACTAY_MSK)) | ((eAction & 0x03) << EPT_ACTAY_POS);
+	}
+	else if(eChannel == EPT_CHANNEL_BX)
+	{
+		ptEptBase -> CXOSF |= EPT_OSTSFBX;
+		ptEptBase -> CXOSF  = (ptEptBase -> CXOSF & ~(EPT_ACTBX_MSK)) | ((eAction & 0x03) << EPT_ACTBX_POS);
+	}
+	else if(eChannel == EPT_CHANNEL_BY)
+	{
+		ptEptBase -> CXOSF |= EPT_OSTSFBY;
+		ptEptBase -> CXOSF  = (ptEptBase -> CXOSF & ~(EPT_ACTBY_MSK)) | ((eAction & 0x03) << EPT_ACTBY_POS);
+	}
+	else if(eChannel == EPT_CHANNEL_CX)
+	{
+		ptEptBase -> CXOSF |= EPT_OSTSFCX;
+		ptEptBase -> CXOSF  = (ptEptBase -> CXOSF & ~(EPT_ACTCX_MSK)) | ((eAction & 0x03) << EPT_ACTCX_POS);
+	}
+	else if(eChannel == EPT_CHANNEL_CY)
+	{
+		ptEptBase -> CXOSF |= EPT_OSTSFCY;
+		ptEptBase -> CXOSF  = (ptEptBase -> CXOSF & ~(EPT_ACTCY_MSK)) | ((eAction & 0x03) << EPT_ACTCY_POS);
+	}
+	else if(eChannel == EPT_CHANNEL_D)
+	{
+		ptEptBase -> CXOSF |= EPT_OSTSFD;
+		ptEptBase -> CXOSF  = (ptEptBase -> CXOSF & ~(EPT_ACTD_MSK)) | ((eAction & 0x03) << EPT_ACTD_POS);
+	}
 }
 
+static inline void csp_ept_set_cxcsf_load_mode(csp_ept_t *ptEptBase, ept_cxcsf_ldmd_e eLoadMode)
+{
+	ptEptBase ->CXOSF = (ptEptBase -> CXOSF & ~(EPT_CXCSF_LDMD_MSK)) | ((eLoadMode & 0x03) << EPT_CXCSF_LDMD_POS);
+}
 
+static inline void csp_ept_set_cxcsf(csp_ept_t *ptEptBase, ept_cxosf_channel_e eChannel, ept_cxcsf_act_e Action)
+{
+	ptEptBase ->CXCSF = ((ptEptBase -> CXCSF & ~(EPT_CXCSF_CH_MSK(eChannel))) | (Action << EPT_CXCSF_CH_POS(eChannel)));
+}
 
 #endif   /* CSP_EPT_H */
-
-

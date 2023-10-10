@@ -33,7 +33,7 @@ csi_error_t csi_ept_config_init(csp_ept_t *ptEptBase, csi_ept_config_t *ptEptPwm
 	uint32_t wPrdrLoad; 
 	
 	if(ptEptPwmCfg->wFreq == 0 ){ptEptPwmCfg->wFreq =100;}
-		
+
 	csi_clk_enable((uint32_t *)ptEptBase);								// clk enable
 	csp_ept_clken(ptEptBase);
 	csp_ept_wr_key(ptEptBase);                                           //Unlocking
@@ -49,7 +49,7 @@ csi_error_t csi_ept_config_init(csp_ept_t *ptEptBase, csi_ept_config_t *ptEptPwm
 			if(wClkDiv == 0)wClkDiv = 1;	
 			wPrdrLoad  = (csi_get_pclk_freq()/ptEptPwmCfg->wFreq/wClkDiv);	    //prdr load value
 	}	
-			
+
 	wCrVal =ptEptPwmCfg->byCountingMode | (ptEptPwmCfg->byStartSrc<<EPT_STARTSRC_POS) |
 	        ptEptPwmCfg->byOneshotMode<<EPT_OPMD_POS | (ptEptPwmCfg->byWorkmod<<EPT_MODE_POS);
     
@@ -75,8 +75,7 @@ csi_error_t csi_ept_config_init(csp_ept_t *ptEptBase, csi_ept_config_t *ptEptPwm
 	csp_ept_set_cr(ptEptBase, wCrVal);									// set bt work mode
 	csp_ept_set_pscr(ptEptBase, (uint16_t)wClkDiv - 1);					// clk div
 	csp_ept_set_prdr(ptEptBase, (uint16_t)wPrdrLoad);				    // prdr load value
-			
-		
+
 	if(ptEptPwmCfg->byDutyCycle>=100){wCmpLoad=0;}
 	else if(ptEptPwmCfg->byDutyCycle==0){wCmpLoad=wPrdrLoad+1;}
 	else{wCmpLoad =wPrdrLoad-(wPrdrLoad * ptEptPwmCfg->byDutyCycle /100);}			
@@ -113,13 +112,9 @@ csi_error_t csi_ept_capture_init(csp_ept_t *ptEptBase, csi_ept_captureconfig_t *
 	csp_ept_clken(ptEptBase);
 	csp_ept_wr_key(ptEptBase);                                           //Unlocking
 	csp_ept_reset(ptEptBase);											 // reset 
-	
-			                                                             // clk div value
-//	if(wClkDiv == 0){wClkDiv = 1;}
-					
+
 	wCrVal =ptEptCapCfg->byCountingMode | (ptEptCapCfg->byStartSrc<<EPT_STARTSRC_POS) |
 	        ptEptCapCfg->byOneshotMode<<EPT_OPMD_POS | (ptEptCapCfg->byWorkmod<<EPT_MODE_POS);
-    
 	wCrVal=(wCrVal & ~(EPT_PSCLD_MSK))   |((ptEptCapCfg->byPscld&0x03)   <<EPT_PSCLD_POS);
 	
 	wCrVal=(wCrVal & ~(EPT_CAPMD_MSK))   |((ptEptCapCfg->byCaptureCapmd&0x03)   <<EPT_CAPMD_POS);
@@ -192,7 +187,7 @@ csi_error_t  csi_ept_wave_init(csp_ept_t *ptEptBase, csi_ept_pwmconfig_t *ptEptP
 	csp_ept_set_cr(ptEptBase, wCrVal);									// set bt work mode
 	csp_ept_set_pscr(ptEptBase, (uint16_t)wClkDiv - 1);					// clk div
 	csp_ept_set_prdr(ptEptBase, (uint16_t)wPrdrLoad);				    // prdr load value
-		
+
 	if(ptEptPwmCfg->byDutyCycle>=100){wCmpLoad=0;}
 	else if(ptEptPwmCfg->byDutyCycle==0){wCmpLoad=wPrdrLoad+1;}
 	else{wCmpLoad =wPrdrLoad-(wPrdrLoad * ptEptPwmCfg->byDutyCycle /100);}		
@@ -227,6 +222,18 @@ csi_error_t csi_ept_burst_enable(csp_ept_t *ptEptBase,uint8_t byCgsrc,uint8_t by
 	csp_ept_flt_init(ptEptBase,byCgflt,bEnable);
 	return CSI_OK;
 }
+
+/** \brief set ept channel polarity protect mode  
+ * 
+ *  \param[in] ptEptBase: pointer of ept register structure
+ *  \param[in] eChpmd: \ref to csi_ept_chpmd_e 
+ *  \return none
+ */
+void csi_ept_set_channel_polarity_mode(csp_ept_t *ptEptBase, csi_ept_chpmd_e eChpmd)
+{
+	csp_ept_set_channel_polarity_mode(ptEptBase,(ept_chpmd_e)eChpmd);	
+}
+
 /** \brief Channel configuration
  *  \param[in] ptEptBase: pointer of ept register structure
  *  \param[in] ptPwmCfg: refer to csi_ept_pwmchannel_config_t
@@ -278,16 +285,16 @@ csi_error_t csi_ept_channel_cmpload_config(csp_ept_t *ptEptBase, csi_ept_ldmd_e 
 	switch (eChannel)
 	{	
 		case (EPT_COMPA):ptEptBase -> CMPLDR = (ptEptBase -> CMPLDR &~(EPT_CMPA_LD_MSK) )    |  (eLdmd    << EPT_CMPA_LD_POS);
-		                     ptEptBase -> CMPLDR = (ptEptBase -> CMPLDR &~(EPT_CMPA_LDTIME_MSK) )|  (eShdwldmd <<EPT_CMPA_LDTIME_POS);
+						 ptEptBase -> CMPLDR = (ptEptBase -> CMPLDR &~(EPT_CMPA_LDTIME_MSK) )|  (eShdwldmd <<EPT_CMPA_LDTIME_POS);
 			break;
 		case (EPT_COMPB):ptEptBase -> CMPLDR = (ptEptBase -> CMPLDR &~(EPT_CMPB_LD_MSK) )    |  (eLdmd    << EPT_CMPB_LD_POS);
-		                     ptEptBase -> CMPLDR = (ptEptBase -> CMPLDR &~(EPT_CMPB_LDTIME_MSK) )|  (eShdwldmd << EPT_CMPB_LDTIME_POS);
+						 ptEptBase -> CMPLDR = (ptEptBase -> CMPLDR &~(EPT_CMPB_LDTIME_MSK) )|  (eShdwldmd << EPT_CMPB_LDTIME_POS);
 			break;
 		case (EPT_COMPC):ptEptBase -> CMPLDR = (ptEptBase -> CMPLDR &~(EPT_CMPC_LD_MSK) )    |  (eLdmd    << EPT_CMPC_LD_POS);
-		                     ptEptBase -> CMPLDR = (ptEptBase -> CMPLDR &~(EPT_CMPC_LDTIME_MSK) )|  (eShdwldmd << EPT_CMPC_LDTIME_POS);
+						 ptEptBase -> CMPLDR = (ptEptBase -> CMPLDR &~(EPT_CMPC_LDTIME_MSK) )|  (eShdwldmd << EPT_CMPC_LDTIME_POS);
             break;
 		case (EPT_COMPD):ptEptBase -> CMPLDR = (ptEptBase -> CMPLDR &~(EPT_CMPD_LD_MSK) )    |  (eLdmd    << EPT_CMPD_LD_POS);
-		                     ptEptBase -> CMPLDR = (ptEptBase -> CMPLDR &~(EPT_CMPD_LDTIME_MSK) )|  (eShdwldmd << EPT_CMPD_LDTIME_POS);
+						 ptEptBase -> CMPLDR = (ptEptBase -> CMPLDR &~(EPT_CMPD_LDTIME_MSK) )|  (eShdwldmd << EPT_CMPD_LDTIME_POS);
 		    break;
 		default:return CSI_ERROR;
 			break;
@@ -338,16 +345,16 @@ csi_error_t csi_ept_dbload_config(csp_ept_t *ptEptBase, csi_ept_dbldr_e eDbldr,c
 	switch (eDbldr)
 	{	
 		case (EPT_DBCR) :wVal=( wVal &~(0x01<<EPT_DBCR_SHDWEN_POS) )|(eDbldmd << EPT_DBCR_SHDWEN_POS);
-		             wVal=( wVal &~(0x03<<(EPT_DBCR_SHDWEN_POS+1)))|(eShdwdbldmd << (EPT_DBCR_SHDWEN_POS+1));
+						 wVal=( wVal &~(0x03<<(EPT_DBCR_SHDWEN_POS+1)))|(eShdwdbldmd << (EPT_DBCR_SHDWEN_POS+1));
 			break;
 		case (EPT_DBDTR):wVal=( wVal &~(0x01<<EPT_DBDTR_SHDWEN_POS) )|(eDbldmd << EPT_DBDTR_SHDWEN_POS);
-		             wVal=( wVal &~(0x03<<(EPT_DBDTR_SHDWEN_POS+1)))|(eShdwdbldmd << (EPT_DBDTR_SHDWEN_POS+1));
+						 wVal=( wVal &~(0x03<<(EPT_DBDTR_SHDWEN_POS+1)))|(eShdwdbldmd << (EPT_DBDTR_SHDWEN_POS+1));
 		    break;
 		case (EPT_DBDTF):wVal=( wVal &~(0x01<<EPT_DBDTF_SHDWEN_POS) )|(eDbldmd << EPT_DBDTF_SHDWEN_POS);
-		             wVal=( wVal &~(0x03<<(EPT_DBDTF_SHDWEN_POS+1)))|(eShdwdbldmd << (EPT_DBDTF_SHDWEN_POS+1));
+						 wVal=( wVal &~(0x03<<(EPT_DBDTF_SHDWEN_POS+1)))|(eShdwdbldmd << (EPT_DBDTF_SHDWEN_POS+1));
             break;
 		case (EPT_DCKPSC):wVal=( wVal &~(0x01<<EPT_DCKPSC_SHDWEN_POS))|(eDbldmd << EPT_DCKPSC_SHDWEN_POS);
-		              wVal=( wVal &~(0x03<<(EPT_DCKPSC_SHDWEN_POS+1)))|(eShdwdbldmd << (EPT_DCKPSC_SHDWEN_POS+1));
+						  wVal=( wVal &~(0x03<<(EPT_DCKPSC_SHDWEN_POS+1)))|(eShdwdbldmd << (EPT_DCKPSC_SHDWEN_POS+1));
 		    break;
 		default:return CSI_ERROR;
 			break;
@@ -789,12 +796,23 @@ uint8_t csi_ept_get_hdlck_st(csp_ept_t *ptEptBase)
 /** \brief clear harklock status
  * 
  *  \param[in] ptEptBase: pointer of ept register structure
- *  \param[in] eEp: external emergency input: csp_ept_ep_e  
+ *  \param[in] eHdlk: external emergency input: csi_ept_hdlk_e  
  *  \return none               
  */
-void csi_ept_clr_hdlck(csp_ept_t *ptEptBase, csi_ept_ep_e eEp)
+void csi_ept_clr_hdlck(csp_ept_t *ptEptBase, csi_ept_hdlk_e eHdlk)
 {
-	csp_ept_clr_emHdlck(ptEptBase, (csp_ept_ep_e)eEp);
+	csp_ept_clr_emHdlck(ptEptBase, (csp_ept_hdlk_e)eHdlk);
+}
+
+/** \brief set hard lock counter mode(stop counting or continue counting)
+ * 
+ *  \param[in] ptEptBase: pointer of ept register structure
+ *  \param[in] eHlcrvmd: \ref to csi_ept_hlcrvmd_e  
+ *  \return none               
+ */
+void csi_ept_set_hlcrv_mode(csp_ept_t *ptEptBase, csi_ept_hlcrvmd_e eHlcrvmd)
+{
+	csp_ept_set_hlcrv_mode(ptEptBase, (ept_hlcrvmd_e)eHlcrvmd);
 }
 
 /** \brief get softlock status
@@ -813,7 +831,7 @@ uint8_t csi_ept_get_sftlck_st(csp_ept_t *ptEptBase)
  *  \param[in] eEp: external emergency input: csp_ept_ep_e
  *  \return none
  */
-void csp_ept_clr_sftlck(csp_ept_t *ptEptBase, csi_ept_ep_e eEp)
+void csi_ept_clr_sftlck(csp_ept_t *ptEptBase, csi_ept_ep_e eEp)
 {	
 	csp_ept_clr_emSdlck(ptEptBase,  (csp_ept_ep_e)eEp);
 }
@@ -915,6 +933,39 @@ csi_error_t csi_ept_continuous_software_output(csp_ept_t *ptEptBase, csi_ept_cha
 	     break;
     }		
 	return CSI_OK;
+}
+
+/**
+  \brief   Onetime software waveform control 
+  \param   ptEptBase    pointer of ept register structure 
+  \param   eChannel	    \refer to csi_ept_cxosf_channel_e  		
+  \param   eAction 		\refer to csi_ept_action_e
+  \return  none
+*/
+void csi_ept_set_cxosf(csp_ept_t *ptEptBase, csi_ept_cxosf_channel_e eChannel, csi_ept_action_e eAction)
+{	
+	csp_ept_set_cxosf(ptEptBase, (ept_cxosf_channel_e)eChannel, (ept_action_e)eAction);
+}
+
+/** \brief  Continuous software waveform loading control
+ *  \param[in] ptEptBase: pointer of ept register structure
+ *  \param[in] eLoadMode:  \refer to csi_ept_cxcsf_ldmd_e
+ *  \return  none
+ */
+void csi_ept_set_cxcsf_loadmode(csp_ept_t *ptEptBase, csi_ept_cxcsf_ldmd_e eLoadMode)
+{
+	csp_ept_set_cxcsf_load_mode(ptEptBase, (ept_cxcsf_ldmd_e)eLoadMode);
+}
+
+/** \brief Continuous software waveform control
+ *  \param[in] ptEptBase: pointer of ept register structure
+ *  \param[in] byCh        \refer to csi_ept_cxosf_channel_e
+ *  \param[in] eAction:    \refer to  csi_ept_aqcsf_act_e
+ *  \return  none
+ */
+void csi_ept_set_cxcsf(csp_ept_t *ptEptBase, csi_ept_cxosf_channel_e eChannel, csi_ept_cxcsf_act_e eAction)
+{
+	csp_ept_set_cxcsf(ptEptBase, (ept_cxosf_channel_e)eChannel, (ept_cxcsf_act_e)eAction);
 }
 
 /** \brief ept  input  config 
@@ -1065,32 +1116,5 @@ csi_error_t csi_ept_set_evcntinit(csp_ept_t *ptEptBase, uint8_t byCntChx, uint8_
  
  return CSI_OK;
 }
-
-
-/** \brief  ept configuration Loading
- * 
- *  \param[in] ptEptBase: pointer of ept register structure
- *  \param[in] tCfg: refer to csi_ept_feglk_config_t
- *  \return none
- */
-//csi_error_t csi_ept_reglk_config(csp_ept_t *ptEptBase,csi_ept_feglk_config_t *Global)
-//{   uint32_t w_GLK;	
-//	w_GLK =0;
-//    w_GLK = (w_GLK & ~EPT_PRDR_MSK )| ((Global-> byPrdr & 0xF)<< EPT_PRDR_POS);
-//	w_GLK = (w_GLK & ~EPT_CMPA_MSK )| ((Global-> byCmpa & 0xF)<< EPT_CMPA_POS);
-//	w_GLK = (w_GLK & ~EPT_CMPB_MSK )| ((Global-> byCmpb & 0xF)<< EPT_CMPB_POS);
-//	w_GLK = (w_GLK & ~EPT_GLD2_MSK )| ((Global-> byGld2 & 0xF)<< EPT_GLD2_POS);
-//	w_GLK = (w_GLK & ~EPT_RSSR_MSK )| ((Global-> byRssr & 0xF)<< EPT_RSSR_POS);
-//	csp_ept_set_feglk(ptEptBase,w_GLK);
-//	w_GLK =0;
-//	w_GLK = (w_GLK & ~EPT_EMSLCLR_MSK )| ((Global-> byEmslclr & 0xF)<< EPT_EMSLCLR_POS);
-//	w_GLK = (w_GLK & ~EPT_EMHLCLR_MSK )| ((Global-> byEmhlclr & 0xF)<< EPT_EMHLCLR_POS);
-//	w_GLK = (w_GLK & ~EPT_EMICR_MSK )  | ((Global-> byEmicr   & 0xF)<< EPT_EMICR_POS);
-//	w_GLK = (w_GLK & ~EPT_EMFRCR_MSK ) | ((Global-> byEmfrcr  & 0xF)<< EPT_EMFRCR_POS);
-//	w_GLK = (w_GLK & ~EPT_AQOSF_MSK )  | ((Global-> byAqosf   & 0xF)<< EPT_AQOSF_POS);
-//	w_GLK = (w_GLK & ~EPT_AQCSF_MSK )  | ((Global-> byAqcsf   & 0xF)<< EPT_AQCSF_POS);
-//	csp_ept_set_feglk2(ptEptBase,w_GLK);	
-//	return CSI_OK;
-//}
 
 

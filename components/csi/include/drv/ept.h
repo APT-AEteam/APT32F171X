@@ -228,7 +228,8 @@ typedef enum {
 	EPT_GLO_AQCR3,
 	EPT_GLO_AQCR4,
 	EPT_GLO_AQCSF,
-	EPT_GLO_EMOSR
+	EPT_GLO_EMOSR,
+	EPT_GLO_CXCSF
 }csi_ept_Global_load_gldcfg_e;
 
 /// \struct csi_ept_filter_config_t
@@ -275,11 +276,38 @@ typedef enum{
 }csi_ept_opmd_e;
 
 typedef enum{
+	EPT_CHPMD_HIGH = 1,
+	EPT_CHPMD_LOW,
+}csi_ept_chpmd_e;
+
+typedef enum{
     EPT_CHANNEL_1=1,
 	EPT_CHANNEL_2,
 	EPT_CHANNEL_3,
 	EPT_CHANNEL_4
 }csi_ept_channel_e;
+
+typedef enum{
+    EPT_CXOSF_CHAX=0,
+	EPT_CXOSF_CHAY,
+	EPT_CXOSF_CHBX,
+	EPT_CXOSF_CHBY,
+	EPT_CXOSF_CHCX,
+	EPT_CXOSF_CHCY,
+	EPT_CXOSF_CHD,
+}csi_ept_cxosf_channel_e;
+
+typedef enum {
+	EPT_CXCSF_LDMD_NOW=0,
+	EPT_CXCSF_LDMD_ZRO,
+	EPT_CXCSF_LDMD_PRD,
+	EPT_CXCSF_LDMD_ZRO_PRD
+}csi_ept_cxcsf_ldmd_e;
+
+typedef enum {
+	EPT_CXCSF_CLR_FORCE = 0,
+	EPT_CXCSF_FORCE,
+}csi_ept_cxcsf_act_e;
 
 typedef enum{
     EPT_COMPA=1,
@@ -372,24 +400,29 @@ typedef enum {
 } csi_ept_event_t;
 
 typedef enum{
-	EPT_INTSRC_NONE   = 0x0,
-	EPT_INTSRC_TRGEV0 = 0x1,
-	EPT_INTSRC_TRGEV1 = 0x2,
-	EPT_INTSRC_TRGEV2 = 0x4,
-	EPT_INTSRC_TRGEV3 = 0x8,
-	EPT_INTSRC_CAPLD0 = 0x1 << 4,
-	EPT_INTSRC_CAPLD1 = 0x1 << 5,
-	EPT_INTSRC_CAPLD2 = 0x1 << 6,
-	EPT_INTSRC_CAPLD3 = 0x1 << 7,
-	EPT_INTSRC_CAU = 0x1 << 8,
-	EPT_INTSRC_CAD = 0x1 << 9,
-	EPT_INTSRC_CBU = 0x1 << 10,
-	EPT_INTSRC_CBD = 0x1 << 11,
-	EPT_INTSRC_CCU = 0x1 << 12,
-	EPT_INTSRC_CCD = 0x1 << 13,
-	EPT_INTSRC_CDU = 0x1 << 14,
-	EPT_INTSRC_CDD = 0x1 << 15,
-	EPT_INTSRC_PEND = 0x1 << 16	
+	EPT_INTSRC_NONE   	= 0x0,
+	EPT_INTSRC_TRGEV0 	= 0x1 << 0,
+	EPT_INTSRC_TRGEV1 	= 0x1 << 1,
+	EPT_INTSRC_TRGEV2 	= 0x1 << 2,
+	EPT_INTSRC_TRGEV3 	= 0x1 << 3,
+	EPT_INTSRC_CAPLD0 	= 0x1 << 4,
+	EPT_INTSRC_CAPLD1 	= 0x1 << 5,
+	EPT_INTSRC_CAPLD2 	= 0x1 << 6,
+	EPT_INTSRC_CAPLD3 	= 0x1 << 7,
+	EPT_INTSRC_CAU 		= 0x1 << 8,
+	EPT_INTSRC_CAD 		= 0x1 << 9,
+	EPT_INTSRC_CBU 		= 0x1 << 10,
+	EPT_INTSRC_CBD 		= 0x1 << 11,
+	EPT_INTSRC_CCU 		= 0x1 << 12,
+	EPT_INTSRC_CCD 		= 0x1 << 13,
+	EPT_INTSRC_CDU 		= 0x1 << 14,
+	EPT_INTSRC_CDD 		= 0x1 << 15,
+	EPT_INTSRC_PEND 	= 0x1 << 16,
+	EPT_INTSRC_PRMA 	= 0x1 << 17,
+	EPT_INTSRC_ZRMA 	= 0x1 << 18,
+	EPT_INTSRC_PROTA 	= 0x1 << 19,
+	EPT_INTSRC_PROTB 	= 0x1 << 20,
+	EPT_INTSRC_PROTC 	= 0x1 << 21,
 }csi_ept_intsrc_e;
 
 typedef enum{
@@ -500,16 +533,6 @@ typedef enum{
 	EPT_CNT3INIT,				//filter input syncin3	
 }csi_ept_cntinit_e;
 
-typedef enum{
-	EPT_EVTRG_Disable 	= 0,
-	EPT_EVTRG_Enable
-}csi_ept_evtrg_e;
-
-typedef enum{
-	EPT_EVTRG_trigger_Disable = 0,
-	EPT_Enable_trigger_start
-}csi_ept_evtrg_trigger_e;
-
 typedef enum {
 	EPT_SHADOW = 0,
 	EPT_IMMEDIATE
@@ -544,6 +567,20 @@ typedef enum{
 	EPT_EP6,
 	EPT_EP7,
 }csi_ept_ep_e;
+
+typedef enum{
+	EPT_HDLK_EP0 = 0,
+	EPT_HDLK_EP1,
+	EPT_HDLK_EP2,
+	EPT_HDLK_EP3,
+	EPT_HDLK_EP4,
+	EPT_HDLK_EP5,
+	EPT_HDLK_EP6,
+	EPT_HDLK_EP7,
+	EPT_HDLK_CPU_FAULT,
+	EPT_HDLK_MEM_FAULT,
+	EPT_HDLK_EOM_FAULT,
+}csi_ept_hdlk_e;
 
 typedef enum {
 	EPT_NA = 0,
@@ -657,12 +694,16 @@ typedef enum{
 }csi_ept_Osrshdw_e;
 
 typedef enum{
-	
 	EPT_SLCLRMD_CLR_ZRO =0,
 	EPT_SLCLRMD_CLR_PRD,
 	EPT_SLCLRMD_CLR_ZRO_PRD,
 	EPT_SLCLRMD_CLR_SW 
 }csi_ept_slclrmd_e;
+
+typedef enum{
+	EPT_HLCRV_MODE_STOP = 0,
+	EPT_HLCRV_MODE_CONT,
+}csi_ept_hlcrvmd_e;
 
 typedef enum{
 	EPT_LDEMOSR_NEVER = 0,
@@ -702,15 +743,6 @@ typedef enum {
 	EPT_LDGLD_SW = 0xf
 }csi_ept_ldgld_e;
 
-/** \brief ept interrupt handle weak function
- *   		- 
- *     		- 
- * 			- 
- *  \param[in] none
- *  \return    none
- */
-__attribute__((weak)) void ept_initen_irqhandler(csp_ept_t *ptEptBase);
-
 /** \brief Basic configuration
  * 
  *  \param[in] ptEptBase: pointer of ept register structure
@@ -736,6 +768,24 @@ csi_error_t csi_ept_capture_init(csp_ept_t *ptEptBase, csi_ept_captureconfig_t *
  *  \return error code \ref csi_error_t
  */
 csi_error_t  csi_ept_wave_init(csp_ept_t *ptEptBase, csi_ept_pwmconfig_t *pteptPwmCfg);
+
+/** \brief enable/disable ept burst 
+ * 
+ *  \param[in] ptEptBase: pointer of ept register structure
+ *  \param[in] byCgsrc:cgr src 
+ *  \param[in] byCgflt:cfg flt
+ *  \param[in] bEnable: ENABLE/DISABLE
+ *  \return error code \ref csi_error_t
+ */
+csi_error_t csi_ept_burst_enable(csp_ept_t *ptEptBase,uint8_t byCgsrc,uint8_t byCgflt, bool bEnable);
+
+/** \brief set ept channel polarity protect mode  
+ * 
+ *  \param[in] ptEptBase: pointer of ept register structure
+ *  \param[in] eChpmd: \ref to csi_ept_chpmd_e 
+ *  \return none
+ */
+void csi_ept_set_channel_polarity_mode(csp_ept_t *ptEptBase, csi_ept_chpmd_e eChpmd);
 
 /** \brief Channel configuration
  *  \param[in] ptEptBase: pointer of ept register structure
@@ -944,10 +994,18 @@ uint8_t csi_ept_get_hdlck_st(csp_ept_t *ptEptBase);
 /** \brief clear harklock status
  * 
  *  \param[in] ptEptBase: pointer of ept register structure
- *  \param[in] eEp: external emergency input: csp_ept_ep_e  
+ *  \param[in] eHdlk: external emergency input: csi_ept_hdlk_e  
  *  \return none               
  */
-void csi_ept_clr_hdlck(csp_ept_t *ptEptBase, csi_ept_ep_e eEp);
+void csi_ept_clr_hdlck(csp_ept_t *ptEptBase, csi_ept_hdlk_e eHdlk);
+
+/** \brief set hard lock counter mode(stop counting or continue counting)
+ * 
+ *  \param[in] ptEptBase: pointer of ept register structure
+ *  \param[in] eHlcrvmd: \ref to csi_ept_hlcrvmd_e  
+ *  \return none               
+ */
+void csi_ept_set_hlcrv_mode(csp_ept_t *ptEptBase, csi_ept_hlcrvmd_e eHlcrvmd);
 
 /** \brief get softlock status
  * 
@@ -962,7 +1020,7 @@ uint8_t csi_ept_get_sftlck_st(csp_ept_t *ptEptBase);
  *  \param[in] eEp: external emergency input: csp_ept_ep_e
  *  \return none
  */
-void csp_ept_clr_sftlck(csp_ept_t *ptEptBase, csi_ept_ep_e eEp);
+void csi_ept_clr_sftlck(csp_ept_t *ptEptBase, csi_ept_ep_e eEp);
 
 /** \brief enable/disable ept in debug mode
  * 
@@ -1018,6 +1076,29 @@ void csi_ept_aqcsfload_config(csp_ept_t *ptEptBase, csi_ept_aqosf_e bEnable);
  */
 csi_error_t csi_ept_continuous_software_output(csp_ept_t *ptEptBase, csi_ept_channel_e byCh, csi_ept_aqcsf_e bEnable);
 
+/**
+  \brief   Onetime software waveform control 
+  \param   ptEptBase    pointer of ept register structure 
+  \param   eChannel	    \refer to csi_ept_cxosf_channel_e  		
+  \param   eAction 		\refer to csi_ept_action_e
+  \return  none
+*/
+void csi_ept_set_cxosf(csp_ept_t *ptEptBase, csi_ept_cxosf_channel_e eChannel, csi_ept_action_e eAction);
+
+/** \brief  Continuous software waveform loading control
+ *  \param[in] ptEptBase: pointer of ept register structure
+ *  \param[in] eLoadMode:  \refer to csi_ept_cxcsf_ldmd_e
+ *  \return  none
+ */
+void csi_ept_set_cxcsf_loadmode(csp_ept_t *ptEptBase, csi_ept_cxcsf_ldmd_e eLoadMode);
+
+/** \brief Continuous software waveform control
+ *  \param[in] ptEptBase: pointer of ept register structure
+ *  \param[in] byCh        \refer to csi_ept_cxosf_channel_e
+ *  \param[in] eAction:    \refer to  csi_ept_aqcsf_act_e
+ *  \return  none
+ */
+void csi_ept_set_cxcsf(csp_ept_t *ptEptBase, csi_ept_cxosf_channel_e eChannel, csi_ept_cxcsf_act_e eAction);
 
 /** \brief ept  input  config 
  *
