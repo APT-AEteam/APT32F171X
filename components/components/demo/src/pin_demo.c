@@ -31,7 +31,7 @@ int pin_output_demo(void)
 {
 	int iRet = 0;
 
-#if !defined(USE_GUI)							//用户未选择图形化编程	
+#if (USE_GUI == 0)							//用户未选择图形化编程	
 	csi_pin_set_mux(PA05,PA05_OUTPUT);			//PA05 配置为输出
 	
 	//开漏
@@ -66,7 +66,7 @@ int pin_input_demo(void)
 {
 	int iRet = 0;
 	
-#if !defined(USE_GUI)							//用户未选择图形化编程	
+#if (USE_GUI == 0)							//用户未选择图形化编程	
 	csi_pin_set_mux(PA05,PA05_INPUT);			//PA05 配置为输入
 	
 	csi_pin_pull_mode(PA05,GPIO_PULLNONE);		//无上下拉
@@ -93,7 +93,7 @@ int pin_irq_demo(void)
 {
 	int iRet = 0;
 	
-#if !defined(USE_GUI)											//用户未选择图形化编程		
+#if (USE_GUI == 0)											//用户未选择图形化编程		
 	csi_pin_set_mux(PA05, PB02_INPUT);							//PA05 配置为输入
 	csi_pin_pull_mode(PA05, GPIO_PULLUP);						//PA05 上拉
 	csi_pin_irq_enable(PA05, ENABLE);							//PA05 中断使能	

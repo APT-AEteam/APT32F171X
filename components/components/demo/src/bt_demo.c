@@ -50,7 +50,7 @@ int bt_pwm_demo(void)
 	int iRet = 0;
 	csi_bt_pwm_config_t tPwmCfg;							//BT PWM输出参数初始化配置结构体
 	
-#if !defined(USE_GUI)										//用户未选择图形化编程	
+#if (USE_GUI == 0)										//用户未选择图形化编程	
 	csi_pin_set_mux(PA02, PA02_BT0_OUT);					//PA02 作为BT0 PWM输出引脚
 #endif
 

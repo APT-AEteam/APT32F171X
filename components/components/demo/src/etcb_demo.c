@@ -38,7 +38,7 @@ int etcb_one_trg_one_demo0(void)
 	volatile int32_t ch;
 	csi_etb_config_t tEtbConfig;				                //ETB 参数配置结构体		
 	
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	csi_pin_set_mux(PA01,PA01_INPUT);		
 	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
 	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断
@@ -121,7 +121,7 @@ void etcb_adc_config(void)
 {
 	csi_adc_config_t tAdcConfig;
 	
-	#if !defined(USE_GUI)	
+	#if (USE_GUI == 0)	
 	//adc 输入管脚配置
 	csi_pin_set_mux(PA00, PA00_ADC_AIN0);				//ADC GPIO作为输入通道
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
@@ -158,7 +158,7 @@ void etcb_ept_config(void)
 {
 //------------------------------------------------------------------------------------------------------------------------	
 	
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	csi_pin_set_mux(PA05, PA05_EPT_CHCX);						
 	csi_pin_set_mux(PA06, PA06_EPT_CHCY);						
 	csi_pin_set_mux(PA07, PA07_EPT_CHBX);						
@@ -248,7 +248,7 @@ void etcb_adc_config12(void)
 {
 	csi_adc_config_t tAdcConfig;
 	
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	//adc 输入管脚配置
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
 	csi_pin_set_mux(PA10, PA10_ADC_AIN2);
@@ -282,7 +282,7 @@ int etcb_one_trg_more_demo(void)
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体		
 	
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	csi_pin_set_mux(PA05,PA05_OUTPUT);	
 	#endif
 	
@@ -319,7 +319,7 @@ int etcb_mix_demo(void)
 	volatile int32_t ch;
 	csi_etb_config_t tEtbConfig;				                //ETB 参数配置结构体		
 
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	csi_pin_set_mux(PA01,PA01_INPUT);		
 	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
 	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断	

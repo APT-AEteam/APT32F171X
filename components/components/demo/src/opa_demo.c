@@ -69,7 +69,7 @@ void opa_internal_gain_mode_test(void)
 	csi_adc_config_t tAdcConfig;
 	csi_opa_config_t ptOpaConfig_t;
 	
-#if !defined(USE_GUI)	
+#if (USE_GUI == 0)	
 	csi_pin_set_mux(PA10,PA10_OPA1P); //PIN26 输入正端
 	csi_pin_set_mux(PA11,PA11_OPA1X); //PIN27 输出
 	csi_pin_set_mux(PA12,PA12_OPA1N); //PIN28 输入负端
@@ -166,7 +166,7 @@ void opa_external_gain_mode_test(void)
 	csi_adc_config_t tAdcConfig;
 	csi_opa_config_t ptOpaConfig_t;
 	
-#if !defined(USE_GUI)	
+#if (USE_GUI == 0)	
 	csi_pin_set_mux(PA10,PA10_OPA1P); //PIN26 输入正端
 	csi_pin_set_mux(PA11,PA11_OPA1X); //PIN27 输出
 	csi_pin_set_mux(PA12,PA12_OPA1N); //PIN28 输入负端

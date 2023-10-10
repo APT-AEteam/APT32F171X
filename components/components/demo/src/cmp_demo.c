@@ -31,7 +31,7 @@ int cmp_base_demo(void)
 	int iRet = 0;
 	csi_cmp_config_t tCmpCfg;
 
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PB02,PB02_CPINN0);	         
 	csi_pin_set_mux(PA02,PA02_CPINP0);		     
 	csi_pin_set_mux(PB03,PB03_CP0_OUT);	
@@ -67,7 +67,7 @@ int cmp_dfcr_demo(void)
 {
 	int iRet = 0;
 
-#if !defined(USE_GUI)	
+#if (USE_GUI == 0)	
 	csi_pin_set_mux(PB02,PB02_CPINN0);	
 	csi_pin_set_mux(PA02,PA02_CPINP0);
 	csi_pin_set_mux(PB06,PB06_CP1_OUT);	  
@@ -111,7 +111,7 @@ int cmp_wfcr_demo(void)
 	uint8_t ch;
 	int iRet = 0;
 
-#if !defined(USE_GUI)	
+#if (USE_GUI == 0)	
 	csi_pin_set_mux(PA01,PA01_OUTPUT);	 	 	
 	csi_pin_set_mux(PB02,PB02_CPINN0);	
 	csi_pin_set_mux(PA02,PA02_CPINP0);		
@@ -183,7 +183,7 @@ int cmp_trg_out_demo(void)
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体		
 	csi_cmp_config_t tCmpCfg;
 
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 //	csi_pin_set_mux(PB02,PB02_CPINN0);	         //3	
 	csi_pin_set_mux(PA02,PA02_CPINP0);		     //2
 	csi_pin_set_mux(PA08,PA08_CP5_OUT);	

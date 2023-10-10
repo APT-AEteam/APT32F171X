@@ -93,6 +93,9 @@ extern "C" {
 #define	CMP4_INT_HANDLE_EN				1		//CMP4
 #define	CMP5_INT_HANDLE_EN				1		//CMP5
 
+//csi GUI Handling Enable, 1/0(OPEN/CLOSE)
+//可视化编程，通过宏USE_GUI来实现功能选择
+#define USE_GUI							0		//USE GUI: 1, 使能;  0, 关闭
 
 #ifdef __cplusplus
 }

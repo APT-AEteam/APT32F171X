@@ -55,8 +55,7 @@ int ept_capture_sync_demo0(void)
 	tEtbConfig.byDstIp   = ETB_EPT0_SYNCIN2;   	//EPT0 同步输入2作为目标事件
 	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
 	csi_etb_init();
-	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功
-//	if(ch < 0)return -1;						//ch < 0,则获取通道号失败		
+	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功	
 	iRet = csi_etb_ch_config(ch, &tEtbConfig);		
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_ept_captureconfig_t tCapCfg;								  
@@ -168,7 +167,7 @@ int ept_pwm_demo(void)
 	int iRet = 0;
 	
 //------------------------------------------------------------------------------------------------------------------------	
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)	
 	csi_pin_set_mux(PA05, PA05_EPT_CHCX);						//PIN9
 	csi_pin_set_mux(PA06, PA06_EPT_CHCY);						//PIN10
 	csi_pin_set_mux(PA07, PA07_EPT_CHBX);						//PIN11
@@ -252,8 +251,8 @@ int ept_pwm_demo(void)
 int ept_pwm_dz_demo(void)
 {
 	int iRet = 0;	
-#if !defined(USE_GUI)	
 //------------------------------------------------------------------------------------------------------------------------	
+#if (USE_GUI == 0)		
 	csi_pin_set_mux(PA05, PA05_EPT_CHCX);						//PIN9
 	csi_pin_set_mux(PA06, PA06_EPT_CHCY);						//PIN10
 	csi_pin_set_mux(PA07, PA07_EPT_CHBX);						//PIN11
@@ -338,7 +337,7 @@ int ept_pwm_dz_demo(void)
 int ept_pwm_dz_em_demo(void)
 {	
 //------------------------------------------------------------------------------------------------------------------------	
-#if !defined(USE_GUI)	
+#if (USE_GUI == 0)	
 	csi_pin_set_mux(PA05, PA05_EPT_CHCX);						//PIN9
 	csi_pin_set_mux(PA06, PA06_EPT_CHCY);						//PIN10
 	csi_pin_set_mux(PA07, PA07_EPT_CHBX);						//PIN11
@@ -471,25 +470,25 @@ __attribute__((weak)) void ept_irqhandler(csp_ept_t *ptEptBase)
 		{
 			csp_ept_clr_emint(ptEptBase, EPT_INT_EP3);
 		}	
-		if((wEMMisr & EPT_INT_EP0) == EPT_INT_EP4)
+		if((wEMMisr & EPT_INT_EP4) == EPT_INT_EP4)
 		{
 			csp_ept_clr_emint(ptEptBase, EPT_INT_EP4);
 		}
-		if((wEMMisr & EPT_INT_EP1) == EPT_INT_EP5)
+		if((wEMMisr & EPT_INT_EP5) == EPT_INT_EP5)
 		{
 			csp_ept_clr_emint(ptEptBase, EPT_INT_EP5);
 		}
-		if((wEMMisr & EPT_INT_EP2) == EPT_INT_EP6)
+		if((wEMMisr & EPT_INT_EP6) == EPT_INT_EP6)
 		{
 			csp_ept_clr_emint(ptEptBase, EPT_INT_EP6);
 		}
-		if((wEMMisr & EPT_INT_EP3) == EPT_INT_EP7)
+		if((wEMMisr & EPT_INT_EP7) == EPT_INT_EP7)
 		{
 			csp_ept_clr_emint(ptEptBase, EPT_INT_EP7);
 		}
-		if(((csp_ept_get_emmisr(ptEptBase) & EPT_INT_CPUF)) == EPT_INT_CPUF)
+		if((wEMMisr & EPT_INT_CPUF) == EPT_INT_CPUF)
 		{
-			ptEptBase -> EMHLCLR |=  EPT_INT_CPUF;
+			csp_ept_clr_emHdlck(ptEptBase, EPT_HD_LK_CPU_FAULT);
 			csp_ept_clr_emint(ptEptBase,EPT_INT_CPUF);	
 		}
 	}

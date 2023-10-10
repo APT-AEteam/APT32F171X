@@ -215,7 +215,7 @@ int gpta_pwm_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------	
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PB00,   PB00_GPT_CHA);//20
 	csi_pin_set_mux(PB01,   PB01_GPT_CHB);//21
 	csi_pin_set_mux(PA13,   PA13_GPT_CHA);//29
@@ -423,7 +423,7 @@ int gpta_pwm_syncin4_demo(void)
 	int iRet = 0;	
 	volatile uint8_t ch;
 //------------------------------------------------------------------------------------------------------------------------	
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PB00,   PB00_GPT_CHA);//20
 	csi_pin_set_mux(PB01,   PB01_GPT_CHB);//21
 #endif
@@ -500,7 +500,7 @@ int gpta_pwm_syncin0_demo(void)
 	int iRet = 0;	
 	volatile uint8_t ch;
 //------------------------------------------------------------------------------------------------------------------------	
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PB00,   PB00_GPT_CHA);//20
 	csi_pin_set_mux(PB01,   PB01_GPT_CHB);//21
 #endif

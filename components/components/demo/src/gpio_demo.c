@@ -40,7 +40,7 @@ int gpio_port_ouput_demo(void)
 {
 	int iRet = 0;
 	
-#if !defined(USE_GUI)												//用户未选择图形化编程	
+#if (USE_GUI == 0)												//用户未选择图形化编程	
 	uint32_t wPinMask = PINMASK_PA00 | PINMASK_PA02;				//GPIOA0端口，PA00/PA02
 	csi_gpio_port_dir(GPIOA0, wPinMask, GPIO_DIR_OUTPUT);			//GPIOA0 端口配置为输出
 	
@@ -76,7 +76,7 @@ int gpio_port_input_demo(void)
 {
 	int iRet = 0;
 
-#if !defined(USE_GUI)												//用户未选择图形化编程	
+#if (USE_GUI == 0)												//用户未选择图形化编程	
 	uint32_t wPinMask = PINMASK_PA00 | PINMASK_PA02;				//GPIOA0端口，PA00/PA02
 	csi_gpio_port_dir(GPIOA0, wPinMask, GPIO_DIR_INPUT);			//GPIOA0 端口配置为输入
 	
@@ -107,7 +107,7 @@ int gpio_port_irq_demo(void)
 {
 	int iRet = 0;
 
-#if !defined(USE_GUI)												//用户未选择图形化编程	
+#if (USE_GUI == 0)												//用户未选择图形化编程	
 	uint32_t wPinMask = PINMASK_PA00 | PINMASK_PA02 | PINMASK_PA05; //GPIOA0端口，PA00/PA02/PA05
 	csi_gpio_port_dir(GPIOA0, wPinMask, GPIO_DIR_INPUT);			//端口配置为输入
 	csi_gpio_port_pull_mode(GPIOA0, wPinMask, GPIO_PULLUP);			//上拉
