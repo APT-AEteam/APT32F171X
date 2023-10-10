@@ -1,6 +1,6 @@
 ## 第一部分： 基础信息
 name: apt32f171x_evb
-version: v1.3.3
+version: v1.3.4
 description: apt32f171x board configuration
 type: board
 yoc_version: V7.2.2
@@ -123,8 +123,8 @@ export:
 keywords: 
 author: ""
 depends:
-  - apt32f171x_chip: v1.3.3
-  - apt_csi: v1.3.3
+  - apt32f171x_chip: v1.3.4
+  - apt_csi: v1.3.4
 defconfig: 
 source_file:
   - src/*.c
@@ -136,5 +136,5 @@ hidden:
 homepage: 
 soc_config: 
 depends_forward:
-  - apt32f171x_chip: v1.3.3
-  - apt_csi: v1.3.3
+  - apt32f171x_chip: v1.3.4
+  - apt_csi: v1.3.4

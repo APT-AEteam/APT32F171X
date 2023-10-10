@@ -1,5 +1,5 @@
 name: apt32f171x_gui
-version: v1.0.0
+version: v1.1.0
 description: gui.
 tag: 图像化编程
 keywords:
@@ -10,7 +10,7 @@ type: common
 yoc_version:
   - v7.2
   - v7.3
-depends:
+depends: 
 build_config:
   include:
     - include
@@ -36,4 +36,4 @@ field:
 suitableChip: 
 homepage: 
 soc_config: 
-depends_forward:
+depends_forward: 

@@ -11,7 +11,7 @@ yoc_version:
   - v7.2
   - v7.3
 depends:
-  - apt_csi: v1.3.3
+  - apt_csi: v1.3.4
 build_config:
   include:
     - include
@@ -39,4 +39,4 @@ suitableChip:
 homepage: 
 soc_config: 
 depends_forward:
-  - apt_csi: v1.3.3
+  - apt_csi: v1.3.4

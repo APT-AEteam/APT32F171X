@@ -2,6 +2,21 @@
 
 # Release Notes
 ======================================================
+Version: V1.3.4
+Release Date: 2023.10.10
+
+Release Notes
+1、添加ADC OFFSET校准静态库及校准函数adc0_offset_trim
+2、csi_ifc_wr_useroption()中增加ifc clock使能操作
+3、hwdiv增加接口,支持主动使用软件库做除法
+4、ept增加csi驱动接口：
+csi_ept_set_channel_polarity_mode
+csi_ept_set_hlcrv_mode
+csi_ept_set_cxosf
+csi_ept_set_cxcsf
+======================================================
+
+======================================================
 Version: V1.3.3
 Release Date: 2023.8.8
 
