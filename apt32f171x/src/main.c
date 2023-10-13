@@ -24,7 +24,7 @@ extern void __ChipInitHandler(void);
 int main()
 {	
 	
-#if 1//(USE_GUI == 0)
+#if (USE_GUI == 0)
 	//不使用图形化编程需调用system_init函数
     system_init();							//系统时钟、TICK等配置	
 #else
@@ -36,11 +36,11 @@ int main()
 
 	board_init();
 	
-//	csi_pin_set_mux(PC01, PC01_OUTPUT);		//PC01 output
-//	csi_pin_set_high(PC01);					//PC01 output high;
-//	
-//	my_printf("hello apt32f171!\n");
-	ept_pwm_demo();
+	csi_pin_set_mux(PC01, PC01_OUTPUT);		//PC01 output
+	csi_pin_set_high(PC01);					//PC01 output high;
+	
+	my_printf("hello apt32f171!\n");
+
 	user_demo();							//demo
 
 	while(1)
