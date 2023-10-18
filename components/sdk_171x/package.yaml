@@ -1,5 +1,5 @@
 name: sdk_171x
-version: v1.3.4
+version: v1.3.5
 description: sdk for apt32f171x
 tag: ""
 keywords: 
@@ -9,7 +9,7 @@ license: ""
 homepage: 
 type: sdk
 depends:
-  - apt32f171x_evb: v1.3.4
+  - apt32f171x_evb: v1.3.5
   - apt32f171x_gui: v1.1.0
   - apt_console: v1.0.1
 hw_info:
@@ -33,6 +33,6 @@ source_file:
 def_config: 
 install: 
 depends_forward:
-  - apt32f171x_evb: v1.3.4
+  - apt32f171x_evb: v1.3.5
   - apt32f171x_gui: v1.1.0
   - apt_console: v1.0.1
