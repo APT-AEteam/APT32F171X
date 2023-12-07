@@ -211,56 +211,58 @@ int uart_receive_demo(void)
  */
 void uart_irqhandler(csp_uart_t *ptUartBase,uint8_t byIdx)
 {
-	//此中断例程支持RXFIFO/RX/TXDONE/RXTO四种中断，基本满足UART的各种处理
-	switch(csp_uart_get_isr(ptUartBase) & 0x080242)							//获取RXFIFO/TXDONE/RXTO/RX 中断状态
+	uint32_t wIsr = csp_uart_get_isr(ptUartBase);
+	
+	//使用RXFIFO中断接收数据
+	if(wIsr & UART_RXFIFO_INT_S)
 	{
-		case UART_RXFIFO_INT_S:		
-			//使用RXFIFO中断接收数据
-			csp_uart_rto_en(ptUartBase);									//使能接收超时(若需要进字节接收超时中断，需使能)	
-			while(csp_uart_get_sr(ptUartBase) & UART_RNE)					//接收FIFO非空
-			{
-				s_byRecvBuf[s_byRecvLen] = csp_uart_get_data(ptUartBase);
-				s_byRecvLen ++;
-				if(s_byRecvLen > 31)										//接收完32个bytes，接收buf从头开始接收										
-				{
-					csi_uart_send(ptUartBase,(void *)s_byRecvBuf, s_byRecvLen);	//UART发送采用轮询方式，发送接收到的48bytes
-					s_byRecvLen = 0;
-				}
-			}
-			break;
-		case UART_RX_INT_S:
-			//使用RX中断接收数据			
-			//csp_uart_rto_en(ptUartBase);									//使能接收超时(若需要进字节接收超时中断，需使能)		
-			csp_uart_clr_isr(ptUartBase, UART_RX_INT_S);					//清除中断标志(状态)
+		csp_uart_rto_en(ptUartBase);									//使能接收超时(若需要进字节接收超时中断，需使能)	
+		while(csp_uart_get_sr(ptUartBase) & UART_RNE)					//接收FIFO非空
+		{
 			s_byRecvBuf[s_byRecvLen] = csp_uart_get_data(ptUartBase);
 			s_byRecvLen ++;
-			if(s_byRecvLen > 31)											//接收完32个bytes，接收buf从头开始接收	
+			if(s_byRecvLen > 31)										//接收完32个bytes，接收buf从头开始接收										
 			{
 				csi_uart_send(ptUartBase,(void *)s_byRecvBuf, s_byRecvLen);	//UART发送采用轮询方式，发送接收到的48bytes
 				s_byRecvLen = 0;
 			}
-			break;
-		case UART_TXDONE_INT_S:		
-			//使用TXDONE中断发送数据，下面处理支持csi_uart_send接口
-			//用户可按自己习惯方式处理中断发送（此时不支持csi_uart_send接口）
-			csp_uart_clr_isr(ptUartBase,UART_TXDONE_INT_S);					//清除中断状态
-			g_tUartTran[byIdx].hwTxSize --;
-			g_tUartTran[byIdx].pbyTxData ++;
-			
-			if(g_tUartTran[byIdx].hwTxSize == 0)		
-				g_tUartTran[byIdx].bySendStat = UART_STATE_DONE;			//发送完成
-			else
-				csp_uart_set_data(ptUartBase, *g_tUartTran[byIdx].pbyTxData);//发送数据
-				
-			break;
-		case UART_RXTO_INT_S:
-			//字节接收超时中断，可以作为一串字符是否结束的依据，若使用此功能，需在接收数据时使能接收超时
-			//用户添加自己的处理
-			csp_uart_clr_isr(ptUartBase, UART_RXTO_INT_S);					//清除中断状态							
-			csp_uart_rto_dis(ptUartBase);									//关闭接收超时	
-			break;
-		default:
-			break;
+		}
+	}
+	
+	//使用RX中断接收数据	
+	if(wIsr & UART_RX_INT_S)
+	{
+		//csp_uart_rto_en(ptUartBase);									//使能接收超时(若需要进字节接收超时中断，需使能)		
+		csp_uart_clr_isr(ptUartBase, UART_RX_INT_S);					//清除中断标志(状态)
+		s_byRecvBuf[s_byRecvLen] = csp_uart_get_data(ptUartBase);
+		s_byRecvLen ++;
+		if(s_byRecvLen > 31)											//接收完32个bytes，接收buf从头开始接收	
+		{
+			csi_uart_send(ptUartBase,(void *)s_byRecvBuf, s_byRecvLen);	//UART发送采用轮询方式，发送接收到的48bytes
+			s_byRecvLen = 0;
+		}
+	}
+	
+	//使用TXDONE中断发送数据，下面处理支持csi_uart_send接口	
+	if(wIsr & UART_TXDONE_INT_S)
+	{
+		//用户可按自己习惯方式处理中断发送（此时不支持csi_uart_send接口）
+		csp_uart_clr_isr(ptUartBase,UART_TXDONE_INT_S);					//清除中断状态
+		g_tUartTran[byIdx].hwTxSize --;
+		g_tUartTran[byIdx].pbyTxData ++;
+		
+		if(g_tUartTran[byIdx].hwTxSize == 0)		
+			g_tUartTran[byIdx].bySendStat = UART_STATE_DONE;			//发送完成
+		else
+			csp_uart_set_data(ptUartBase, *g_tUartTran[byIdx].pbyTxData);//发送数据
+	}
+	
+	//字节接收超时中断，可以作为一串字符是否结束的依据，若使用此功能，需在接收数据时使能接收超时
+	if(wIsr & UART_RXTO_INT_S)
+	{
+		//用户添加自己的处理
+		csp_uart_clr_isr(ptUartBase, UART_RXTO_INT_S);					//清除中断状态							
+		csp_uart_rto_dis(ptUartBase);									//关闭接收超时	
 	}
 }
 /** \brief 串口接收中断，RX使用接收中断，TX不使用中断

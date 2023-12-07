@@ -231,60 +231,119 @@ int usart_recv_demo(void)
  */
 void usart_irqhandler(csp_usart_t *ptUsartBase,uint8_t byIdx)
 {
+	uint16_t hwIsr = csp_usart_get_isr(ptUsartBase);
+	
 	//此中断例程支持RXFIFO/RX/TXDONE/RXTO四种中断
-	switch(csp_usart_get_isr(ptUsartBase) & 0x5101)								//获取rxfifo/tx/txfifo/rxtimeout中断状态
+	//使用接收FIFO中断接收数据
+	if(hwIsr & US_RXRIS_INT)
 	{
-		case US_RXRIS_INT:					
-			//使用接收FIFO中断接收数据
-			while(csp_usart_get_sr(ptUsartBase) & US_RNE)						//接收FIFO非空
-			{
-				s_byRecvBuf[s_byRecvLen] = csp_usart_get_data(ptUsartBase);
-				s_byRecvLen ++;
-				if(s_byRecvLen > 31)											//接收完32个bytes，接收buf从头开始接收										
-				{
-					csi_usart_send(ptUsartBase,(void *)s_byRecvBuf, s_byRecvLen);//UART发送采用轮询方式，发送接收到的32bytes
-					s_byRecvLen = 0;
-				}
-			}
-			break;
-		case US_RXRDY_INT:	
-			//使用RX接收中断接收数据
+		while(csp_usart_get_sr(ptUsartBase) & US_RNE)						//接收FIFO非空
+		{
 			s_byRecvBuf[s_byRecvLen] = csp_usart_get_data(ptUsartBase);
 			s_byRecvLen ++;
-			if(s_byRecvLen > 31)												//接收完32个bytes，接收buf从头开始接收										
+			if(s_byRecvLen > 31)											//接收完32个bytes，接收buf从头开始接收										
 			{
-				csi_usart_send(ptUsartBase,(void *)s_byRecvBuf, s_byRecvLen);	//UART发送采用轮询方式，发送接收到的32bytes
+				csi_usart_send(ptUsartBase,(void *)s_byRecvBuf, s_byRecvLen);//UART发送采用轮询方式，发送接收到的32bytes
 				s_byRecvLen = 0;
 			}
-			break;
-		case US_TXRIS_INT:					
-			//使用发送FIFO中断发送数据，下面处理支持csi_usart_send接口
-			//用户可按自己习惯方式处理中断发送（此时不支持csi_usart_send接口）
-			csp_usart_set_data(ptUsartBase, *g_tUsartTran[byIdx].pbyTxData);	//发送数据
-			g_tUsartTran[byIdx].hwTxSize --;
-			g_tUsartTran[byIdx].pbyTxData ++;
-			
-			if(g_tUsartTran[byIdx].hwTxSize == 0)
-			{	
-				csp_usart_int_enable(ptUsartBase, US_TXRIS_INT, DISABLE);		//关闭发送FIFO中断		
-				g_tUsartTran[byIdx].bySendStat = USART_STATE_DONE;				//发送完成
-			}
-			break;
-		case US_TIMEOUT_INT:				
-			//字节接收超时中断，可以作为一串字符是否结束的依据
-			//使用接收FIFO中断时，为了效率FIFO接收中断触发点初始化默认配置为FIFO的1/2(4个字节)，达不到4个字节时，不能触发FIFO接收中断
-			//使能接收超时中断可以接收到达不到触发FIFO中断的数据
-			while(csp_usart_get_sr(ptUsartBase) & US_RNE)						//接收FIFO非空
-			{
-				s_byRecvBuf[s_byRecvLen] = csp_usart_get_data(ptUsartBase);
-				s_byRecvLen ++;
-			}
-			csp_usart_clr_isr(ptUsartBase,US_TIMEOUT_INT);						//清除中断标志(状态)
-			csp_usart_cr_cmd(USART0, US_STTTO | US_FIFO_EN | US_RXFIFO_1_2);	//使能字节接收超时和FIFO配置
-			break;
-		default:
-			break;
+		}
 	}
+	
+	//使用RX接收中断接收数据
+	if(hwIsr & US_RXRDY_INT)
+	{
+		s_byRecvBuf[s_byRecvLen] = csp_usart_get_data(ptUsartBase);
+		s_byRecvLen ++;
+		if(s_byRecvLen > 31)												//接收完32个bytes，接收buf从头开始接收										
+		{
+			csi_usart_send(ptUsartBase,(void *)s_byRecvBuf, s_byRecvLen);	//UART发送采用轮询方式，发送接收到的32bytes
+			s_byRecvLen = 0;
+		}
+	}
+	
+	//使用发送FIFO中断发送数据，下面处理支持csi_usart_send接口
+	if(hwIsr & US_TXRIS_INT)
+	{
+		//用户可按自己习惯方式处理中断发送（此时不支持csi_usart_send接口）
+		csp_usart_set_data(ptUsartBase, *g_tUsartTran[byIdx].pbyTxData);	//发送数据
+		g_tUsartTran[byIdx].hwTxSize --;
+		g_tUsartTran[byIdx].pbyTxData ++;
+		
+		if(g_tUsartTran[byIdx].hwTxSize == 0)
+		{	
+			csp_usart_int_enable(ptUsartBase, US_TXRIS_INT, DISABLE);		//关闭发送FIFO中断		
+			g_tUsartTran[byIdx].bySendStat = USART_STATE_DONE;				//发送完成
+		}
+	}
+	
+	//字节接收超时中断，可以作为一串字符是否结束的依据
+	if(hwIsr & US_TIMEOUT_INT)
+	{
+		//使用接收FIFO中断时，为了效率FIFO接收中断触发点初始化默认配置为FIFO的1/2(4个字节)，达不到4个字节时，不能触发FIFO接收中断
+		//使能接收超时中断可以接收到达不到触发FIFO中断的数据
+		while(csp_usart_get_sr(ptUsartBase) & US_RNE)						//接收FIFO非空
+		{
+			s_byRecvBuf[s_byRecvLen] = csp_usart_get_data(ptUsartBase);
+			s_byRecvLen ++;
+		}
+		csp_usart_clr_isr(ptUsartBase,US_TIMEOUT_INT);						//清除中断标志(状态)
+		csp_usart_cr_cmd(USART0, US_STTTO | US_FIFO_EN | US_RXFIFO_1_2);	//使能字节接收超时和FIFO配置
+	}
+	
+//	//此中断例程支持RXFIFO/RX/TXDONE/RXTO四种中断
+//	switch(csp_usart_get_isr(ptUsartBase) & 0x5101)								//获取rxfifo/tx/txfifo/rxtimeout中断状态
+//	{
+//		case US_RXRIS_INT:					
+//			//使用接收FIFO中断接收数据
+//			while(csp_usart_get_sr(ptUsartBase) & US_RNE)						//接收FIFO非空
+//			{
+//				s_byRecvBuf[s_byRecvLen] = csp_usart_get_data(ptUsartBase);
+//				s_byRecvLen ++;
+//				if(s_byRecvLen > 31)											//接收完32个bytes，接收buf从头开始接收										
+//				{
+//					csi_usart_send(ptUsartBase,(void *)s_byRecvBuf, s_byRecvLen);//UART发送采用轮询方式，发送接收到的32bytes
+//					s_byRecvLen = 0;
+//				}
+//			}
+//			break;
+//		case US_RXRDY_INT:	
+//			//使用RX接收中断接收数据
+//			s_byRecvBuf[s_byRecvLen] = csp_usart_get_data(ptUsartBase);
+//			s_byRecvLen ++;
+//			if(s_byRecvLen > 31)												//接收完32个bytes，接收buf从头开始接收										
+//			{
+//				csi_usart_send(ptUsartBase,(void *)s_byRecvBuf, s_byRecvLen);	//UART发送采用轮询方式，发送接收到的32bytes
+//				s_byRecvLen = 0;
+//			}
+//			break;
+//		case US_TXRIS_INT:					
+//			//使用发送FIFO中断发送数据，下面处理支持csi_usart_send接口
+//			//用户可按自己习惯方式处理中断发送（此时不支持csi_usart_send接口）
+//			csp_usart_set_data(ptUsartBase, *g_tUsartTran[byIdx].pbyTxData);	//发送数据
+//			g_tUsartTran[byIdx].hwTxSize --;
+//			g_tUsartTran[byIdx].pbyTxData ++;
+//			
+//			if(g_tUsartTran[byIdx].hwTxSize == 0)
+//			{	
+//				csp_usart_int_enable(ptUsartBase, US_TXRIS_INT, DISABLE);		//关闭发送FIFO中断		
+//				g_tUsartTran[byIdx].bySendStat = USART_STATE_DONE;				//发送完成
+//			}
+//			break;
+//		case US_TIMEOUT_INT:				
+//			//字节接收超时中断，可以作为一串字符是否结束的依据
+//			//使用接收FIFO中断时，为了效率FIFO接收中断触发点初始化默认配置为FIFO的1/2(4个字节)，达不到4个字节时，不能触发FIFO接收中断
+//			//使能接收超时中断可以接收到达不到触发FIFO中断的数据
+//			while(csp_usart_get_sr(ptUsartBase) & US_RNE)						//接收FIFO非空
+//			{
+//				s_byRecvBuf[s_byRecvLen] = csp_usart_get_data(ptUsartBase);
+//				s_byRecvLen ++;
+//			}
+//			csp_usart_clr_isr(ptUsartBase,US_TIMEOUT_INT);						//清除中断标志(状态)
+//			csp_usart_cr_cmd(USART0, US_STTTO | US_FIFO_EN | US_RXFIFO_1_2);	//使能字节接收超时和FIFO配置
+//			break;
+//		default:
+//			break;
+//	}
 } 
 /** \brief USART接收中断，RX使用接收中断，TX不使用中断,接收在中断处理函数里处理
  * 
